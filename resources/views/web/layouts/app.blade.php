@@ -85,8 +85,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Send</button>
+            <button type="button" class="btn iya-btn-blue bg-dark" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn iya-btn-blue">Send</button>
             </div>
         </div>
         </div>
@@ -139,7 +139,7 @@
     <script>
         function uploadImage(id) {
             let formData = new FormData(document.getElementById('imageUploadForm'+id));
-            axios.post('{{ route("web.athletes.coach.uploadVedio") }}', formData, {
+            axios.post('{{ route("web.athletes.coach.uploadVideo") }}', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -155,8 +155,8 @@
                     console.error(response.data.success);
                     if(response.data.success == true){
                         document.getElementById('uploadStatus'+id).innerHTML = response.data.message;
-                        $("#uploadStatus"+id).addClass("vediosucces");
-                        $("#uploadStatus"+id).removeClass("vedioerror");
+                        $("#uploadStatus"+id).addClass("Videosucces");
+                        $("#uploadStatus"+id).removeClass("Videoerror");
                         document.getElementById('showanswerecount').innerHTML = '';
                         document.getElementById('showanswerecount').innerHTML += response.data.count;
                         if(response.data.count == '0'){
@@ -170,7 +170,7 @@
                             document.getElementById('compltedquestioncount').innerHTML += response.data.count;
                         }
                         $("#imageUploadForm"+id).addClass("d-none");
-                        $("#removevediobutton"+id).removeClass("d-none");
+                        $("#removeVideobutton"+id).removeClass("d-none");
                         $("#ansGiven"+id).removeClass("d-none");
                         document.getElementById('progress-bar-container'+ id).style.display = 'none';
                         if(response.data.count == 0){
@@ -183,8 +183,8 @@
                         }
                     }else{
                         document.getElementById('uploadStatus'+id).innerHTML = response.data.message;
-                        $("#uploadStatus"+id).addClass("vedioerror");
-                        $("#uploadStatus"+id).removeClass("vediosucces");
+                        $("#uploadStatus"+id).addClass("Videoerror");
+                        $("#uploadStatus"+id).removeClass("Videosucces");
                         if(response.data.count == '0'){
                             document.getElementById('compltedquestioncount').innerHTML = '';
                            document.getElementById('compltedquestioncount').innerHTML += '0';
@@ -211,8 +211,8 @@
                 .catch(function (error) {
                     console.error(error.response);
                     document.getElementById('uploadStatus'+id).innerHTML = error.response.data.message;
-                    $("#uploadStatus"+id).addClass("vedioerror");
-                    $("#uploadStatus"+id).removeClass("vediosucces");
+                    $("#uploadStatus"+id).addClass("Videoerror");
+                    $("#uploadStatus"+id).removeClass("Videosucces");
                     document.getElementById('showanswerecount').innerHTML = '';
                     document.getElementById('showanswerecount').innerHTML += error.response.data.count ;
                     document.getElementById('compltedquestioncount').innerHTML = '';
@@ -229,9 +229,9 @@
                 });
         }
 
-        function removeVedio(id) {
+        function removeVideo(id) {
             $.ajax({
-                url: '{{ route("web.athletes.coach.removeVedio") }}',
+                url: '{{ route("web.athletes.coach.removeVideo") }}',
                 type: 'GET',
                 data: {
                     id: id,
@@ -239,13 +239,13 @@
                 success: function (response) {
                     console.log(response);
                     $("#imageUploadForm"+id).removeClass("d-none");
-                    $("#removevediobutton"+id).addClass("d-none");
+                    $("#removeVideobutton"+id).addClass("d-none");
                     document.getElementById('showanswerecount').innerHTML = '';
                     document.getElementById('showanswerecount').innerHTML += response.count;
                     document.getElementById('compltedquestioncount').innerHTML = '';
                     document.getElementById('compltedquestioncount').innerHTML += response.count;
                     document.getElementById('uploadStatus'+id).innerHTML = response.message;
-                    $("#uploadStatus"+id).addClass("vediosucces");
+                    $("#uploadStatus"+id).addClass("Videosucces");
                     inputValue = $("#formFileLg"+id).val();
                     $("#ansGiven"+id).addClass("d-none");
                     document.getElementById('progress-bar-container'+ id).style.display = 'none';
@@ -267,7 +267,7 @@
 
         function loginUser(id) {
             $.ajax({
-                url: '{{ route("web.athletes.coach.removeVedio") }}',
+                url: '{{ route("web.athletes.coach.removeVideo") }}',
                 type: 'GET',
                 data: {
                     id: id,

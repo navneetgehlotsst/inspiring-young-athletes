@@ -16,7 +16,7 @@ return new class extends Migration
             $table->bigInteger('user_id');
             $table->bigInteger('question_id');
             $table->enum('user_queston_type', ['for_athletes', 'for_parents', 'for_athletes_coaches','for_friday_frenzy','for_coaches'])->default('for_athletes');
-            $table->string('answere_vedio', 255);
+            $table->string('answere_Video', 255);
             $table->timestamps();
             $table->softDeletes();
         });

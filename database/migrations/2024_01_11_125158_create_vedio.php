@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vedio', function (Blueprint $table) {
-            $table->id('vedio_id');
-            $table->string('vedio_titel', 255);
-            $table->string('vedio', 255);
-            $table->enum('vedio_type', ['0', '1'])->default(0)->comment('1 => paid', '0=>free');
-            $table->bigInteger('vedio_veiw_count');
-            $table->string('vedio_ext', 255);
-            $table->enum('vedio_status', ['0', '1'])->default(1)->comment('1 => Active', '0=>InActive');
+        Schema::create('Video', function (Blueprint $table) {
+            $table->id('Video_id');
+            $table->string('Video_titel', 255);
+            $table->string('Video', 255);
+            $table->enum('Video_type', ['0', '1'])->default(0)->comment('1 => paid', '0=>free');
+            $table->bigInteger('Video_veiw_count');
+            $table->string('Video_ext', 255);
+            $table->enum('Video_status', ['0', '1'])->default(1)->comment('1 => Active', '0=>InActive');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vedio');
+        Schema::dropIfExists('Video');
     }
 };

@@ -622,12 +622,12 @@ input[type="number"] {
 
 
 /* Navneet Css Start */
-.vediosucces{
+.Videosucces{
   font-weight: bold;
   color: #2E9E1C;
 }
 
-.vedioerror{
+.Videoerror{
   font-weight: bold;
   color: red;
 }
@@ -731,6 +731,16 @@ input[type="number"] {
 
 .customprogressbar{
   background-color: #2E9E1C !important;
+}
+.page-item.active .page-link {
+  z-index: 3;
+  color: #fff;
+  background-color: #1badc4;
+  border-color: #1badc4;
+}
+
+p.small.text-muted {
+  font-size: 18px;
 }
 
 

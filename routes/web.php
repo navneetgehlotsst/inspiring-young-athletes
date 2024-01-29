@@ -48,7 +48,7 @@ Route::name('web.')->controller(HomeController::class)->group(function () {
     Route::get('/contact-us', 'ContactUs')->name('contact-us');
     Route::get('/categories', 'AllCategories')->name('categories');
     Route::get('/videopublisher/{slug}', 'VideoPublisher')->name('video.publisher');
-    Route::get('/videopublisherlist/{id}', 'VideoPublisherList')->name('video.publisher.list');
+    Route::get('/videopublisherfilter/{id}', 'VideoPublisherList')->name('video.publisher.list');
     Route::get('/publisher-play-video/{id}', 'publisherPlayVideo')->name('publisher.play');
     Route::get('/video/{id}', 'Video')->name('video');
     Route::get('/coming-soon', 'ComingSoon')->name('coming-soon');
@@ -76,8 +76,8 @@ Route::group(['middleware' => 'auth'], function ()
     });
     Route::name('web.athletes.coach.')->prefix('athletes-coach')->controller(QuestionController::class)->group(function () {
         Route::get('/athelitics-coach-question', 'atheliticsCoachQuestion')->name('atheliticsCoachQuestion');
-        Route::post('/upload-vedio', 'uploadVedio')->name('uploadVedio');
-        Route::get('/remove-vedio', 'removeVedio')->name('removeVedio');
+        Route::post('/upload-Video', 'uploadVideo')->name('uploadVideo');
+        Route::get('/remove-Video', 'removeVideo')->name('removeVideo');
         Route::get('/saveanswere', 'SaveAnswere')->name('SaveAnswere');
     });
 
@@ -85,11 +85,11 @@ Route::group(['middleware' => 'auth'], function ()
         Route::get('/dashboard', 'Dashboard')->name('dashboard');
     });
 
-    Route::name('web.vedio.')->prefix('vedio')->controller(VideoConttroller::class)->group(function () {
+    Route::name('web.Video.')->prefix('Video')->controller(VideoConttroller::class)->group(function () {
         Route::get('/index', 'index')->name('index');
         Route::get('/add', 'add')->name('add');
         Route::post('/store', 'store')->name('store');
-        Route::get('/view-vedio/{id}', 'viewvedio')->name('viewvedio');
+        Route::get('/view-Video/{id}', 'viewVideo')->name('viewVideo');
     });
 });
 

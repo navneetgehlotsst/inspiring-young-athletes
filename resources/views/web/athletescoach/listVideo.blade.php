@@ -37,30 +37,30 @@
                 </div>
                 <div class="themeix-section-h">
                     <span class="heading-icon"><i class="far fa-play-circle"></i></span>
-                    <h3>Videos {{$vediocount}}</h3>
+                    <h3>Videos {{$Videocount}}</h3>
                 </div>
                 <div class="row g-4">
-                    @foreach ( $getvedio as $vedio )
+                    @foreach ( $getVideo as $Video )
                         @php
-                            $uplaoddate = date_format($vedio->created_at,"d/m/Y")
+                            $uplaoddate = date_format($Video->created_at,"d/m/Y")
                         @endphp   
                         <div class="col-lg-4">
                             <div class="card single-video p-3">
                                 <div class="video-img">
-                                    <a href="{{ route('web.vedio.viewvedio',$vedio->vedio_id) }}">
-                                        <img class="lazy" alt="Video" src="{{asset($vedio->thumbnails)}}" style="" />
+                                    <a href="{{ route('web.Video.viewVideo',$Video->Video_id) }}">
+                                        <img class="lazy" alt="Video" src="{{asset($Video->thumbnails)}}" style="" />
                                     </a>
                                     {{-- <span class="video-duration">5.28</span> --}}
                                 </div>
                                 <div class="video-content">
-                                    <h4><a class="video-title" href="{{ route('web.vedio.viewvedio',$vedio->vedio_id) }}">{{$vedio->vedio_title}}</a></h4>
+                                    <h4><a class="video-title" href="{{ route('web.Video.viewVideo',$Video->Video_id) }}">{{$Video->Video_title}}</a></h4>
                                     <h4><a class="video-title">{{$uplaoddate}}</a></h4>
                                     <div class="video-counter">
                                         <div class="video-viewers">
                                             <span class="fa fa-eye view-icon"></span>
-                                            <span>{{$vedio->vedio_veiw_count}}</span>
+                                            <span>{{$Video->Video_veiw_count}}</span>
                                         </div>
-                                            @if($vedio->vedio_status == 1)
+                                            @if($Video->Video_status == 1)
                                                 <div class="video-feedback py-1">
                                                     <span class="free-video-tag">Active</span>
                                                 </div>

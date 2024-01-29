@@ -47,7 +47,7 @@
 </section>
 <!-- Video Publisher Section End-->
 @php
-                $count = count($vedioList)
+                $count = count($VideoList)
             @endphp
 <!-- All Video Carousel Start-->
 <section class="video-carousel-area themeix-ptb">
@@ -58,37 +58,37 @@
         </div>
         <div class="row mt-5">
             @if($count != 0)
-                @foreach ($vedioList as $vedio)
+                @foreach ($VideoList as $Video)
                 @php
-                    $uplaoddate = date_format($vedio->created_at,"d/m/Y")
+                    $uplaoddate = date_format($Video->created_at,"d/m/Y")
                 @endphp
                     <div class="col-lg-4">
                         <div class="card single-video p-3">
                             <div class="video-img">
                                 @auth
-                                    <a href="{{ route('web.video',$vedio->vedio_id) }}">
-                                        <img class="lazy" alt="Video" src="{{asset($vedio->thumbnails)}}" style="" />
+                                    <a href="{{ route('web.video',$Video->Video_id) }}">
+                                        <img class="lazy" alt="Video" src="{{asset($Video->thumbnails)}}" style="" />
                                     </a>
                                 @else
                                     <a href="{{ route('web.login') }}" >
-                                        <img class="lazy" alt="Video" src="{{asset($vedio->thumbnails)}}" style="" />
+                                        <img class="lazy" alt="Video" src="{{asset($Video->thumbnails)}}" style="" />
                                     </a>
                                 @endauth
                                 {{-- <span class="video-duration">5.28</span> --}}
                             </div>
                             <div class="video-content">
                                 @auth
-                                    <h4><a class="video-title" href="{{ route('web.video',$vedio->vedio_id) }}">{{$vedio->vedio_title}}</a></h4>
+                                    <h4><a class="video-title" href="{{ route('web.video',$Video->Video_id) }}">{{$Video->Video_title}}</a></h4>
                                 @else
-                                    <h4><a class="video-title" href="{{ route('web.login') }}">{{$vedio->vedio_title}}</a></h4>
+                                    <h4><a class="video-title" href="{{ route('web.login') }}">{{$Video->Video_title}}</a></h4>
                                 @endauth
                                 <h4><a class="video-title">{{$uplaoddate}}</a></h4>
                                 <div class="video-counter">
                                     <div class="video-viewers">
                                         <span class="fa fa-eye view-icon"></span>
-                                        <span>{{$vedio->vedio_veiw_count}}</span>
+                                        <span>{{$Video->Video_veiw_count}}</span>
                                     </div>
-                                        @if($vedio->vedio_type == 0)
+                                        @if($Video->Video_type == 0)
                                             <div class="video-feedback py-1">
                                                 <span class="free-video-tag">Free</span>
                                             </div>
@@ -105,11 +105,14 @@
             @else
             <div class="card p-3 nodatafoundcard">
                 <div class="card-body">
-                    <!-- <img src="{{asset('web/assets/images/new-img/empty_item.svg')}}" alt="logo"> -->
+                  <img src="{{asset('web/assets/images/new-img/empty_item.svg')}}" alt="logo">
                   <h5 class="card-title text-center">No record Found</h5>
                 </div>
               </div>
             @endif
+        </div>
+        <div class="mt-3">
+            {{ $VideoList->links('pagination::bootstrap-5') }}
         </div>
     </div>
 </section>

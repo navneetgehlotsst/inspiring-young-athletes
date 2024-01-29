@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\{
     User,
-    Vedio
+    Video
 };
 
 use File;
@@ -34,14 +34,14 @@ class VideoConttroller extends Controller
     public function storeOld(Request $request){
         $validatedData = $request->validate([
             'title' => 'required',
-            'vedio' => 'required|file|mimes:mp4,mov,avi,wmv',
+            'Video' => 'required|file|mimes:mp4,mov,avi,wmv',
         ]);
 
         $UserDetail = Auth::user();
             $userID = $UserDetail->id;
 
-        $vedio = $request->file('vedio');
-            $vedioName = time() . '.' . $vedio->getClientOriginalExtension();
+        $Video = $request->file('Video');
+            $VideoName = time() . '.' . $Video->getClientOriginalExtension();
             $path = 'storage/user/'.$userID.'/video';
             $thumbpath = 'storage/user/'.$userID.'/thumbnails';
             if(!File::exists($path)) {
@@ -51,8 +51,8 @@ class VideoConttroller extends Controller
             if(!File::exists($thumbpath)) {
                 File::makeDirectory($thumbpath, $mode = 0777, true, true);
             }
-            $vedio->move(public_path($path), $vedioName);
-            $vedopath = $path.'/'.$vedioName;
+            $Video->move(public_path($path), $VideoName);
+            $vedopath = $path.'/'.$VideoName;
             $thumbnailPath = 'thumbnails/' . pathinfo($vedopath, PATHINFO_FILENAME) . '.jpg';
             $ffmpeg = FFMpeg\FFMpeg::create([
                 'ffmpeg.binaries'  => env('FFMPEG_PATH'),
@@ -65,24 +65,24 @@ class VideoConttroller extends Controller
             $frame_path = time().'.jpg';
             $filevideo->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(3))->save($thumbpath.'/'.$frame_path);
             $local_thumbnail_path = $thumbpath.'/'.$frame_path;
-            $dataVedio = [
+            $dataVideo = [
                 'user_id' => $userID,
-                'vedio' => $vedopath,
-                'vedio_from' => 'Vedio',
-                'vedio_title' => $request->title,
-                'vedio_ext' => $vedio->getClientOriginalExtension(),
+                'Video' => $vedopath,
+                'Video_from' => 'Video',
+                'Video_title' => $request->title,
+                'Video_ext' => $Video->getClientOriginalExtension(),
                 'thumbnails' => $local_thumbnail_path
             ];
-            $veid = Vedio::insertGetId($dataVedio);
+            $veid = Video::insertGetId($dataVideo);
 
         // ->route('admin.branch.list')
-        return redirect()->route('web.vedio.index')->with('success','Vedio Uploaded successfully.');
+        return redirect()->route('web.Video.index')->with('success','Video Uploaded successfully.');
     }
 
     public function store(Request $request){
         $validatedData = $request->validate([
             'title' => 'required',
-            'vedio' => 'required|file|mimes:mp4,mov,avi,wmv',
+            'Video' => 'required|file|mimes:mp4,mov,avi,wmv',
         ]);
 
         $UserDetail = Auth::user();
@@ -90,7 +90,7 @@ class VideoConttroller extends Controller
 
         //==================== Upload video to s3 ================//
 
-        $file = $request->file('vedio');
+        $file = $request->file('Video');
         $visibility = 'public';
         $filePath = 'uploads/user/'.$userID.'/video/' . $file->getClientOriginalName();
         Storage::disk('s3')->put($filePath, file_get_contents($file), $visibility);
@@ -99,7 +99,7 @@ class VideoConttroller extends Controller
 
         //===================== get thumbnail from video ===============//
 
-        $file       =  $request->file('vedio');
+        $file       =  $request->file('Video');
         $extention  =  $file->getClientOriginalExtension();
         $filename   =   time().$file->getClientOriginalName();
         $filename   =   $this->clean($filename);
@@ -135,42 +135,42 @@ class VideoConttroller extends Controller
         $dir = new Filesystem;
         $dir->cleanDirectory('uploads/thumbnail');
 
-        $dataVedio = [
+        $dataVideo = [
             'user_id' => $userID,
-            'vedio' => $video_path_url,
-            'vedio_from' => 'Vedio',
-            'vedio_title' => $request->title,
-            'vedio_ext' => $extention,
+            'Video' => $video_path_url,
+            'Video_from' => 'Video',
+            'Video_title' => $request->title,
+            'Video_ext' => $extention,
             'thumbnails' => $thumbnail_path_url
         ];
-        $veid = Vedio::insertGetId($dataVedio);
+        $veid = Video::insertGetId($dataVideo);
 
     // ->route('admin.branch.list')
-    return redirect()->route('web.vedio.index')->with('success','Vedio Uploaded successfully.');
+    return redirect()->route('web.Video.index')->with('success','Video Uploaded successfully.');
 }
 
     public function index(){
         if (Auth::check()){
             $UserDetail = Auth::user();
             $userID = $UserDetail->id;
-            //$getvedio = Vedio::where('user_id',$userID)->where('vedio_from','Vedio')->get();
-            $getvedio = Vedio::where('user_id',$userID)->get();
-            $vediocount = $getvedio->count();
+            //$getVideo = Video::where('user_id',$userID)->where('Video_from','Video')->get();
+            $getVideo = Video::where('user_id',$userID)->get();
+            $Videocount = $getVideo->count();
 
-            return view('web.athletescoach.listVideo',compact('userID','getvedio','vediocount'));
+            return view('web.athletescoach.listVideo',compact('userID','getVideo','Videocount'));
         }else{
             return redirect('')->route('web.login');
         }
     }
 
 
-    public function viewvedio($id){
+    public function viewVideo($id){
         if (Auth::check()){
-            $getvedio = Vedio::where('vedio_id',$id)->first();
+            $getVideo = Video::where('Video_id',$id)->first();
 
-            $popularVideos = Vedio::where('vedio_id','!=',$id)->where('user_id',$getvedio->user_id)->orderBy('vedio_veiw_count','DESC')->take(2)->get();
+            $popularVideos = Video::where('Video_id','!=',$id)->where('user_id',$getVideo->user_id)->orderBy('Video_veiw_count','DESC')->take(2)->get();
 
-            return view('web.athletescoach.publisher-play-video',compact('getvedio', 'popularVideos'));
+            return view('web.athletescoach.publisher-play-video',compact('getVideo', 'popularVideos'));
         }else{
             return redirect('')->route('web.login');
         }

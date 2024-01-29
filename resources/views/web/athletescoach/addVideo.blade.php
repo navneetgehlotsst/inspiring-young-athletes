@@ -38,7 +38,7 @@
                 </div>
                 <!-- Content Row -->
                 <div class="card shadow p-3">
-                    <form role="form" action="{{ route('web.vedio.store') }}" method="post" enctype="multipart/form-data">
+                    <form role="form" action="{{ route('web.Video.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <input type="text" name="title" class="form-control py-3 mb-4" placeholder="Video Title">
                         @error('title')
@@ -47,9 +47,9 @@
                         <div class="row">
                             <div class="col-lg-8">
                                 <div class="mb-4">
-                                    <input class="choose-btn-iyg" name="vedio" id="formFileLg" accept="video/mp4,video/x-m4v,video/*" type="file">
+                                    <input class="choose-btn-iyg" name="Video" id="formFileLg" accept="video/mp4,video/x-m4v,video/*" type="file">
                                 </div>
-                                @error('vedio')
+                                @error('Video')
                                     <div class="alert">{{ $message }}</div>
                                 @enderror
                             </div>

@@ -9,7 +9,7 @@ use App\Models\{
     User,
     Question,
     UserAnswere,
-    Vedio
+    Video
 };
 use Exception;
 use DB;
@@ -55,7 +55,7 @@ class QuestionController extends Controller
         }
     }
 
-    public function uploadVedio(Request $request)
+    public function uploadVideo(Request $request)
     {
         $UserDetail = Auth::user();
         $userID = $UserDetail->id;
@@ -63,12 +63,12 @@ class QuestionController extends Controller
         $questionid = $request->questionid;
         $questionTitel = Question::where('question_id',$questionid)->first();
         $validator = Validator::make($request->all(), [
-            'vedio' => 'required|file|mimes:mp4,mov,avi,wmv',
+            'Video' => 'required|file|mimes:mp4,mov,avi,wmv',
         ]);
 
         if($validator->fails()){
             $userAnwereCount = UserAnswere::where('user_id',$userID)->count();
-            return response()->json(['success' => false,'message' => 'Upload valid Vedio','count' => $userAnwereCount]);
+            return response()->json(['success' => false,'message' => 'Upload valid Video','count' => $userAnwereCount]);
         }
 
         $userAnwereCheck = UserAnswere::where('user_id',$userID)->where('question_id',$questionid)->first();
@@ -79,7 +79,7 @@ class QuestionController extends Controller
         }
 
 
-        $file = $request->file('vedio');
+        $file = $request->file('Video');
 
         //==================== Upload video to s3 ================//
         $visibility = 'public';
@@ -125,21 +125,21 @@ class QuestionController extends Controller
         $dir->cleanDirectory('uploads/thumbnail');
 
         // SAVE TO THE TABLES
-        $dataVedio = [
+        $dataVideo = [
             'user_id' => $userID,
-            'vedio' => $video_path_url,
-            'vedio_from' => 'QA',
-            'vedio_title' => $questionTitel->question,
-            'vedio_ext' => $extention,
+            'Video' => $video_path_url,
+            'Video_from' => 'QA',
+            'Video_title' => $questionTitel->question,
+            'Video_ext' => $extention,
             'thumbnails' => $thumbnail_path_url
         ];
-        $veid = Vedio::insertGetId($dataVedio);
+        $veid = Video::insertGetId($dataVideo);
 
 
 
         /*
-            $vedio = $request->file('vedio');
-            $vedioName = time() . '.' . $vedio->getClientOriginalExtension();
+            $Video = $request->file('Video');
+            $VideoName = time() . '.' . $Video->getClientOriginalExtension();
             $path = 'storage/user/'.$userID.'/video';
             $thumbpath = 'storage/user/'.$userID.'/thumbnails';
             if(!File::exists($path)) {
@@ -149,16 +149,16 @@ class QuestionController extends Controller
             if(!File::exists($thumbpath)) {
                 File::makeDirectory($thumbpath, $mode = 0777, true, true);
             }
-            $vedio->move(public_path($path), $vedioName);
+            $Video->move(public_path($path), $VideoName);
 
-            $fullPath = $path.'/'.$vedioName;
-            //Storage::put($fullPath, $vedioName);
-            //Storage::disk('s3')->put($fullPath, $vedioName);
+            $fullPath = $path.'/'.$VideoName;
+            //Storage::put($fullPath, $VideoName);
+            //Storage::disk('s3')->put($fullPath, $VideoName);
 
-            $s3Path = $request->file('vedio')->store(path:'uploads',options:'s3');
+            $s3Path = $request->file('Video')->store(path:'uploads',options:'s3');
             Storage::disk('s3')->setVisibility($s3Path, visibility:'public');
 
-            $vedopath = $path.'/'.$vedioName;
+            $vedopath = $path.'/'.$VideoName;
             $thumbnailPath = 'thumbnails/' . pathinfo($vedopath, PATHINFO_FILENAME) . '.jpg';
             $ffmpeg = FFMpeg\FFMpeg::create([
                 'ffmpeg.binaries'  => env('FFMPEG_PATH'),
@@ -172,22 +172,22 @@ class QuestionController extends Controller
             $filevideo->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(3))->save($thumbpath.'/'.$frame_path);
             $local_thumbnail_path = $thumbpath.'/'.$frame_path;
 
-            $dataVedio = [
+            $dataVideo = [
                 'user_id' => $userID,
-                'vedio' => $vedopath,
-                'vedio_from' => 'QA',
-                'vedio_title' => $questionTitel->question,
-                'vedio_ext' => $vedio->getClientOriginalExtension(),
+                'Video' => $vedopath,
+                'Video_from' => 'QA',
+                'Video_title' => $questionTitel->question,
+                'Video_ext' => $Video->getClientOriginalExtension(),
                 'thumbnails' => $local_thumbnail_path
             ];
-            $veid = Vedio::insertGetId($dataVedio);
+            $veid = Video::insertGetId($dataVideo);
         */
 
         $datauser = [
             'user_id' => $userID,
             'question_id' => $questionid,
             'user_queston_type' => $questiontype,
-            'answere_vedio' => $veid,
+            'answere_Video' => $veid,
         ];
         $id = UserAnswere::insertGetId($datauser);
 
@@ -197,22 +197,22 @@ class QuestionController extends Controller
     }
 
 
-    public function removeVedio(Request $request){
+    public function removeVideo(Request $request){
         $UserDetail = Auth::user();
         $userID = $UserDetail->id;
         $questionId = $request->id;
         $UserAnswere = UserAnswere::where('user_id', $userID)->where('question_id', $questionId)->first();
-        $Vedio = Vedio::where('vedio_id', $UserAnswere->answere_vedio)->first();
-        $vedioPath = public_path($Vedio->vedio);
-        $thumbnailsPath = public_path($Vedio->thumbnails);
-        if (file_exists($vedioPath)) {
-            unlink($vedioPath);
+        $Video = Video::where('Video_id', $UserAnswere->answere_Video)->first();
+        $VideoPath = public_path($Video->Video);
+        $thumbnailsPath = public_path($Video->thumbnails);
+        if (file_exists($VideoPath)) {
+            unlink($VideoPath);
         }
 
         if (file_exists($thumbnailsPath)) {
             unlink($thumbnailsPath);
         }
-        Vedio::where('vedio_id', $UserAnswere->answere_vedio)->delete();
+        Video::where('Video_id', $UserAnswere->answere_Video)->delete();
         UserAnswere::where('user_id', $userID)->where('question_id', $questionId)->delete();
         $userAnwereCount = UserAnswere::where('user_id',$userID)->count();
 

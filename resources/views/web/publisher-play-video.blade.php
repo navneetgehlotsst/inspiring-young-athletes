@@ -10,9 +10,9 @@
                 <div class="video-post-wrapper">
                     <div class="single-video full-video-view">
                         <div class="video-img feature-post-img">
-                           <video class="w-100" height="500" controls poster="{{asset($getvedio->thumbnails)}}">
-                                <source src="{{asset($getvedio->vedio)}}" type="video/mp4/mov/avi/wmv">
-                                <source src="{{asset($getvedio->vedio)}}" type="video/ogg">
+                           <video class="w-100" height="500" controls poster="{{asset($getVideo->thumbnails)}}">
+                                <source src="{{asset($getVideo->Video)}}" type="video/mp4/mov/avi/wmv">
+                                <source src="{{asset($getVideo->Video)}}" type="video/ogg">
                                  Your browser does not support the video tag.
                             </video>
                         </div>
@@ -30,11 +30,11 @@
                                     </div>
                                 </span>
                                 <div class="video-post-info">
-                                    <h4><a href="#">{{$getvedio->vedio_title}}</a></h4>
+                                    <h4><a href="#">{{$getVideo->Video_title}}</a></h4>
                                     <div class="video-post-date pt-2">
                                         <span class="h5"><i class="fas fa-calendar-alt"></i></span>
                                         @php
-                                            $uplaoddate = date_format($getvedio->created_at,"d/m/Y")
+                                            $uplaoddate = date_format($getVideo->created_at,"d/m/Y")
                                         @endphp
                                         <p class="h5">{{$uplaoddate}}</p>
                                     </div>
@@ -76,13 +76,13 @@
                             <div class="slider-part-two col-md-12">
                                 <div class="single-video">
                                     <div class="video-img feature-post-img">
-                                        <a href="{{ route('web.video',$video->vedio_id) }}">
+                                        <a href="{{ route('web.video',$video->Video_id) }}">
                                             <img class="lazy" alt="Video" src="{{asset($video->thumbnails)}}" style="" />
                                         </a>
                                         <!-- <span class="video-duration">10.52</span> -->
                                     </div>
                                     <div class="video-content">
-                                        <h4><a class="video-title" href="{{ route('web.video',$video->vedio_id) }}">{{$video->vedio_title}}</a></h4>
+                                        <h4><a class="video-title" href="{{ route('web.video',$video->Video_id) }}">{{$video->Video_title}}</a></h4>
                                     </div>
                                 </div>
                             </div>
@@ -104,27 +104,27 @@
             <h3>All Videos</h3>
         </div>
         <div class="row g-4">
-            @foreach ($vedioList as $vedio)
+            @foreach ($VideoList as $Video)
             @php
-                $uplaoddate = date_format($vedio->created_at,"d/m/Y")
+                $uplaoddate = date_format($Video->created_at,"d/m/Y")
             @endphp
                 <div class="col-lg-3">
                     <div class="card single-video p-3">
                         <div class="video-img">
-                            <a href="{{ route('web.video',$vedio->vedio_id) }}">
-                                <img class="lazy" alt="Video" src="{{asset($vedio->thumbnails)}}" style="" />
+                            <a href="{{ route('web.video',$Video->Video_id) }}">
+                                <img class="lazy" alt="Video" src="{{asset($Video->thumbnails)}}" style="" />
                             </a>
                             {{-- <span class="video-duration">5.28</span> --}}
                         </div>
                         <div class="video-content">
-                            <h4><a class="video-title" href="{{ route('web.video',$vedio->vedio_id) }}">{{$vedio->vedio_title}}</a></h4>
+                            <h4><a class="video-title" href="{{ route('web.video',$Video->Video_id) }}">{{$Video->Video_title}}</a></h4>
                             <h4><a class="video-title">{{$uplaoddate}}</a></h4>
                             <div class="video-counter">
                                 <div class="video-viewers">
                                     <span class="fa fa-eye view-icon"></span>
-                                    <span>{{$vedio->vedio_veiw_count}}</span>
+                                    <span>{{$Video->Video_veiw_count}}</span>
                                 </div>
-                                    @if($vedio->vedio_type == 0)
+                                    @if($Video->Video_type == 0)
                                         <div class="video-feedback py-1">
                                             <span class="free-video-tag">Free</span>
                                         </div>

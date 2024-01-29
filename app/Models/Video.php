@@ -5,22 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Vedio extends Model
+class Video extends Model
 {
     use HasFactory;
 
 
-    protected $table = 'vedio';
+    protected $table = 'video';
 
     protected $fillable = [
-        'vedio_id',
+        'video_id',
         'user_id',
-        'vedio_title',
-        'vedio',
-        'vedio_type',
-        'vedio_veiw_count',
-        'vedio_ext',
-        'vedio_status',
+        'video_title',
+        'video',
+        'video_type',
+        'video_veiw_count',
+        'video_ext',
+        'video_status',
         'thumbnails',
     ];
 }

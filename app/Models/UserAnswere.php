@@ -17,6 +17,6 @@ class UserAnswere extends Model
         'user_id',
         'question_id',
         'user_queston_type',
-        'answere_vedio',
+        'answere_Video',
     ];
 }

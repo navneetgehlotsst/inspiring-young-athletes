@@ -23,7 +23,7 @@
         toastr.error('{{ session('error') }}');
     </script>
 @endif
-<!-- Video Publisher Section Start-->
+<!-- video Publisher Section Start-->
 <section class="publisher-section themeix-ptb-2">
     <div class="container">
         <div class="row">
@@ -69,10 +69,10 @@
                                                 <div class="mb-4">
                                                     <input type="hidden" name="questiontype" value="{{$questionList->question_type}}">
                                                     <input type="hidden" name="questionid" value="{{$questionList->question_id}}">
-                                                    <input class="choose-btn-iyg" name="Video" id="formFileLg{{$questionList->question_id}}" type="file" accept="video/mp4,video/x-m4v,video/*" onchange="uploadImage({{$questionList->question_id}})" />
+                                                    <input class="choose-btn-iyg" name="video" id="formFileLg{{$questionList->question_id}}" type="file" accept="video/mp4,video/x-m4v,video/*" onchange="uploadImage({{$questionList->question_id}})" />
                                                 </div>
                                             </form>
-                                            <button type="button" id="removeVideobutton{{$questionList->question_id}}" class="btn btn-danger @if(in_array($questionList->question_id, $userAns))  @else d-none @endif" onclick="removeVideo({{$questionList->question_id}})">Remove</button>
+                                            <button type="button" id="removevideobutton{{$questionList->question_id}}" class="btn btn-danger @if(in_array($questionList->question_id, $userAns))  @else d-none @endif" onclick="removevideo({{$questionList->question_id}})">Remove</button>
                                             <div id="uploadStatus{{$questionList->question_id}}"></div>
                                             <div id="progress-bar-container{{$questionList->question_id}}" style="display: none;">
                                                 {{-- <div id="progress-bar{{$questionList->question_id}}"></div> --}}
@@ -102,7 +102,7 @@
         </div>
     </div>
 </section>
-<!-- Video Publisher Section End-->
+<!-- video Publisher Section End-->
 <!-- Start Call To Action Area -->
 <div class="call-to-action-area py-5">
     <div class="container">

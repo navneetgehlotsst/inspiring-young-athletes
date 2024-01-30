@@ -34,13 +34,13 @@ class VideoConttroller extends Controller
     public function storeOld(Request $request){
         $validatedData = $request->validate([
             'title' => 'required',
-            'Video' => 'required|file|mimes:mp4,mov,avi,wmv',
+            'video' => 'required|file|mimes:mp4,mov,avi,wmv',
         ]);
 
         $UserDetail = Auth::user();
             $userID = $UserDetail->id;
 
-        $Video = $request->file('Video');
+        $Video = $request->file('video');
             $VideoName = time() . '.' . $Video->getClientOriginalExtension();
             $path = 'storage/user/'.$userID.'/video';
             $thumbpath = 'storage/user/'.$userID.'/thumbnails';
@@ -67,16 +67,16 @@ class VideoConttroller extends Controller
             $local_thumbnail_path = $thumbpath.'/'.$frame_path;
             $dataVideo = [
                 'user_id' => $userID,
-                'Video' => $vedopath,
-                'Video_from' => 'Video',
-                'Video_title' => $request->title,
-                'Video_ext' => $Video->getClientOriginalExtension(),
+                'video' => $vedopath,
+                'video_from' => 'video',
+                'video_title' => $request->title,
+                'video_ext' => $Video->getClientOriginalExtension(),
                 'thumbnails' => $local_thumbnail_path
             ];
             $veid = Video::insertGetId($dataVideo);
 
         // ->route('admin.branch.list')
-        return redirect()->route('web.Video.index')->with('success','Video Uploaded successfully.');
+        return redirect()->route('web.video.index')->with('success','Video Uploaded successfully.');
     }
 
     public function store(Request $request){
@@ -90,7 +90,7 @@ class VideoConttroller extends Controller
 
         //==================== Upload video to s3 ================//
 
-        $file = $request->file('Video');
+        $file = $request->file('vsideo');
         $visibility = 'public';
         $filePath = 'uploads/user/'.$userID.'/video/' . $file->getClientOriginalName();
         Storage::disk('s3')->put($filePath, file_get_contents($file), $visibility);
@@ -137,16 +137,16 @@ class VideoConttroller extends Controller
 
         $dataVideo = [
             'user_id' => $userID,
-            'Video' => $video_path_url,
-            'Video_from' => 'Video',
-            'Video_title' => $request->title,
-            'Video_ext' => $extention,
+            'video' => $video_path_url,
+            'video_from' => 'Video',
+            'video_title' => $request->title,
+            'video_ext' => $extention,
             'thumbnails' => $thumbnail_path_url
         ];
         $veid = Video::insertGetId($dataVideo);
 
     // ->route('admin.branch.list')
-    return redirect()->route('web.Video.index')->with('success','Video Uploaded successfully.');
+    return redirect()->route('web.video.index')->with('success','Video Uploaded successfully.');
 }
 
     public function index(){
@@ -157,7 +157,7 @@ class VideoConttroller extends Controller
             $getVideo = Video::where('user_id',$userID)->get();
             $Videocount = $getVideo->count();
 
-            return view('web.athletescoach.listVideo',compact('userID','getVideo','Videocount'));
+            return view('web.athletescoach.listvideo',compact('userID','getVideo','Videocount'));
         }else{
             return redirect('')->route('web.login');
         }

@@ -22,5 +22,6 @@ class Video extends Model
         'video_ext',
         'video_status',
         'thumbnails',
+        'video_from'
     ];
 }

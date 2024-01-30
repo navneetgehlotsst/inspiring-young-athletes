@@ -47,20 +47,20 @@
                         <div class="col-lg-4">
                             <div class="card single-video p-3">
                                 <div class="video-img">
-                                    <a href="{{ route('web.Video.viewVideo',$Video->Video_id) }}">
+                                    <a href="{{ route('web.Video.viewVideo',$Video->video_id) }}">
                                         <img class="lazy" alt="Video" src="{{asset($Video->thumbnails)}}" style="" />
                                     </a>
                                     {{-- <span class="video-duration">5.28</span> --}}
                                 </div>
                                 <div class="video-content">
-                                    <h4><a class="video-title" href="{{ route('web.Video.viewVideo',$Video->Video_id) }}">{{$Video->Video_title}}</a></h4>
+                                    <h4><a class="video-title" href="{{ route('web.Video.viewVideo',$Video->video_id) }}">{{$Video->video_title}}</a></h4>
                                     <h4><a class="video-title">{{$uplaoddate}}</a></h4>
                                     <div class="video-counter">
                                         <div class="video-viewers">
                                             <span class="fa fa-eye view-icon"></span>
-                                            <span>{{$Video->Video_veiw_count}}</span>
+                                            <span>{{$Video->video_veiw_count}}</span>
                                         </div>
-                                            @if($Video->Video_status == 1)
+                                            @if($Video->video_status == 1)
                                                 <div class="video-feedback py-1">
                                                     <span class="free-video-tag">Active</span>
                                                 </div>

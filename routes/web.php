@@ -18,6 +18,10 @@ use App\Http\Controllers\Website\User\{
     UserRegisterController,
 };
 
+use App\Http\Controllers\Admin\{
+    AuthController,
+};
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -111,4 +115,10 @@ Route::group(['middleware' => 'auth'], function ()
         Route::get('/logout', 'logout')->name('logout');
         Route::get('/verificationsucces', 'verificationSuccess')->name('verificationSuccess');
     });
+});
+
+
+//Admin Login
+Route::name('admin.')->prefix('admin')->controller(AuthController::class)->group(function () {
+    Route::get('/login', 'Login')->name('login');
 });

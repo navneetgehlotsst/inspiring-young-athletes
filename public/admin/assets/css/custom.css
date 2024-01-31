@@ -8,3 +8,25 @@ a {
     background-color: #1badc4;
     border-color: #1badc4;
 }
+
+.btn-primary:hover {
+    color: #fff !important;
+    background-color: #1badc4 !important;
+    border-color: #1badc4 !important;
+}
+
+.alert {
+    color: #721c24;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    text-align: left;
+}
+
+
+a:hover {
+    color: #1badc4;
+}

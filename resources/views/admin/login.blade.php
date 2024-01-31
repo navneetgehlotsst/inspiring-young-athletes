@@ -1,7 +1,11 @@
 @extends('admin.layouts.authapp')
 @section('content')
 
-
+@if(session('error'))
+    <script>
+        toastr.error('{{ session('error') }}');
+    </script>
+@endif
 <!-- Content -->
 
   <div class="container-xxl">
@@ -18,21 +22,25 @@
             </div>
             <!-- /Logo -->
 
-            <form id="formAuthentication" class="mb-3" action="index.html">
+            <form id="formAuthentication" class="mb-3" action="{{ route('admin.loginpost') }}" method="post">
+                @csrf
               <div class="mb-3">
-                <label for="email" class="form-label">Email or Username</label>
+                <label for="email" class="form-label">Email</label>
                 <input
                   type="text"
                   class="form-control"
                   id="email"
-                  name="email-username"
-                  placeholder="Enter your email or username"
+                  name="email"
+                  placeholder="Enter your email"
                   autofocus />
               </div>
+                @error('email')
+                    <div class="alert">{{ $message }}</div>
+                @enderror
               <div class="mb-3 form-password-toggle">
                 <div class="d-flex justify-content-between">
                   <label class="form-label" for="password">Password</label>
-                  <a href="auth-forgot-password-basic.html">
+                  <a href="{{ route('admin.forgotpassword') }}">
                     <small>Forgot Password?</small>
                   </a>
                 </div>
@@ -47,6 +55,9 @@
                   <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                 </div>
               </div>
+                @error('password')
+                    <div class="alert">{{ $message }}</div>
+                @enderror
               <div class="mb-3">
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" id="remember-me" />

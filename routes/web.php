@@ -121,4 +121,11 @@ Route::group(['middleware' => 'auth'], function ()
 //Admin Login
 Route::name('admin.')->prefix('admin')->controller(AuthController::class)->group(function () {
     Route::get('/login', 'Login')->name('login');
+    Route::post('/loginpost', 'LoginPost')->name('loginpost');
+    Route::get('/forgotpassword', 'forgotpassword')->name('forgotpassword');
+
+    Route::group(['middleware'=>'admin'],function(){
+        Route::get('logout','logout')->name('logout');
+        Route::get('dashboard','dashboard')->name('dashboard');
+    });
 });

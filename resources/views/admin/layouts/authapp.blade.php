@@ -17,16 +17,38 @@
     <link rel="stylesheet" href="{{asset('admin/assets/css/custom.css')}}">
     <link rel="stylesheet" href="{{asset('admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}">
     <link rel="stylesheet" href="{{asset('admin/assets/vendor/css/pages/page-auth.css')}}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css">
+    <script src="{{asset('admin/assets/vendor/libs/jquery/jquery.js')}}"></script>
     <script src="{{asset('admin/assets/vendor/js/helpers.js')}}"></script>
     <script src="{{asset('admin/assets/js/config.js')}}"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js"></script>
+    <script>
+      //toster
+      $(document).ready(function() {
+      toastr.options = {
+          'closeButton': true,
+          'debug': false,
+          'newestOnTop': false,
+          'progressBar': false,
+          'positionClass': 'toast-top-right',
+          'preventDuplicates': false,
+          'showDuration': '1000',
+          'hideDuration': '1000',
+          'timeOut': '5000',
+          'extendedTimeOut': '1000',
+          'showEasing': 'swing',
+          'hideEasing': 'linear',
+          'showMethod': 'fadeIn',
+          'hideMethod': 'fadeOut',
+      }
+      });
+  </script>
 </head>
 
 <body>
     
 
     @yield('content')
-    <script src="{{asset('admin/assets/vendor/libs/jquery/jquery.js')}}"></script>
     <script src="{{asset('admin/assets/vendor/libs/popper/popper.js')}}"></script>
     <script src="{{asset('admin/assets/vendor/js/bootstrap.js')}}"></script>
     <script src="{{asset('admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>

@@ -49,7 +49,7 @@ class HomeController extends Controller
         $getcategory = Category::where('category_status','1')->get();
         return view('web.categories',compact('getcategory'));
     }
-    // All Category
+    // Video By Pubisher
     public function VideoPublisher($slug){
         // Default values
         $search = isset($_GET['search']) ? $_GET['search'] : "";
@@ -71,7 +71,14 @@ class HomeController extends Controller
         return view('web.videopublisher',compact('getcategory','categoryFirst','athleticCoaches','search','categorys','videoCount','trendingVideo'));
     }
 
-    // Video List
+    // All Video List
+    public function VideoPublisherAll(){
+        $VideoList = Video::where('Video_status','1')->paginate(10);
+
+        return view('web.videolist',compact('VideoList'));
+    }
+
+    // Video list
     public function VideoPublisherList($id){
         $userdetail = User::where('id',$id)->withCount('videos')->first();
         $categoryFirst = Category::where('category_id',$userdetail->id)->first();

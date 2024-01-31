@@ -4,29 +4,61 @@
  <!-- Video Publisher Section Start-->
  <section class="publisher-view py-4">
     <div class="container">
-        <div class="row">
-            @php
-                $datetime = $userdetail->created_at;
-                $dateTimestring = new DateTime($datetime);
-                $year = $dateTimestring->format("Y");
-            @endphp
-            <div class="col-lg-6 align-self-center">
-                <div class="d-flex">
-                    <div class="publisher-img">
-                        @if( $userdetail->profile =="")
-                            <img class="img-account-profile rounded-circle mb-2 imgprofileupdate" src="{{asset('web/assets/images/new-img/dummyuser.png')}}" alt="">
-                        @else
-                            <img class="img-account-profile rounded-circle mb-2 imgprofileupdate" src="{{asset($userdetail->profile)}}" alt="">
-                        @endif
+        @if(!empty($userdetail))
+            <div class="row">
+                @php
+                    $datetime = $userdetail->created_at;
+                    $dateTimestring = new DateTime($datetime);
+                    $year = $dateTimestring->format("Y");
+                @endphp
+                <div class="col-lg-6 align-self-center">
+                    <div class="d-flex">
+                        <div class="publisher-img">
+                            @if( $userdetail->profile =="")
+                                <img class="img-account-profile rounded-circle mb-2 imgprofileupdate" src="{{asset('web/assets/images/new-img/dummyuser.png')}}" alt="">
+                            @else
+                                <img class="img-account-profile rounded-circle mb-2 imgprofileupdate" src="{{asset($userdetail->profile)}}" alt="">
+                            @endif
+                        </div>
+                        <div class="publisher-details mt-2 ps-4">
+                            <h4 class="text-white">{{$userdetail->name}} ({{$categoryFirst->category_name}})</h4>
+                            <p class="mb-1 text-white"><i class="far fa-play-circle text-white me-2"></i> {{$userdetail->videos_count}} videos</p>
+                            <p class="mb-0 text-white"><i class="far fa-calendar-alt text-white me-2"></i> joined {{$year}}</p>
+                        </div>
                     </div>
-                    <div class="publisher-details mt-2 ps-4">
-                        <h4 class="text-white">{{$userdetail->name}} ({{$categoryFirst->category_name}})</h4>
-                        <p class="mb-1 text-white"><i class="far fa-play-circle text-white me-2"></i> {{$userdetail->videos_count}} videos</p>
-                        <p class="mb-0 text-white"><i class="far fa-calendar-alt text-white me-2"></i> joined {{$year}}</p>
+                </div>
+                <div class="col-lg-4 align-self-center text-lg-end">
+                    <div class="mt-2">
+                        <a href="#" class="my-2 my-lg-0 me-3 text-white btn btn-primary"><i class="fab fa-facebook text-white"></i></a>
+                        <a href="#" class="my-2 my-lg-0 me-3 text-white btn btn-success"><i class="fab fa-instagram text-white"></i></a>
+                        <a href="#" class="my-2 my-lg-0 me-3 text-white btn btn-danger"><i class="fab fa-youtube text-white"></i></a>
+                        <a href="#" class="my-2 my-lg-0 me-3 text-white btn btn-info"><i class="fas fa-envelope text-white"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 text-end d-none d-lg-block align-self-center">
+                    <div class="position-relative">
+                        <div class="publisher-role text-center">
+                            <img src="{{asset('web/assets/images/new-img/coach.svg')}}" alt="Icon" class="img-fluid w-75">
+                            <p class="text-white h5 pt-3">{{$userdetail->roles}}</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 align-self-center text-lg-end">
+        @else
+        <div class="row">
+            <div class="col-lg-6 align-self-center">
+                <div class="d-flex">
+                    <div class="publisher-img">
+                        <img class="img-account-profile rounded-circle mb-2 imgprofileupdate" src="{{asset('web/assets/images/new-img/dummyuser.png')}}" alt="">
+                    </div>
+                    <div class="publisher-details mt-2 ps-4">
+                        <h4 class="text-white">All Video</h4>
+                        {{-- <p class="mb-1 text-white"><i class="far fa-play-circle text-white me-2"></i> {{$userdetail->videos_count}} videos</p> --}}
+                        {{-- <p class="mb-0 text-white"><i class="far fa-calendar-alt text-white me-2"></i> joined {{$year}}</p> --}}
+                    </div>
+                </div>
+            </div>
+            {{-- <div class="col-lg-4 align-self-center text-lg-end">
                 <div class="mt-2">
                     <a href="#" class="my-2 my-lg-0 me-3 text-white btn btn-primary"><i class="fab fa-facebook text-white"></i></a>
                     <a href="#" class="my-2 my-lg-0 me-3 text-white btn btn-success"><i class="fab fa-instagram text-white"></i></a>
@@ -41,14 +73,15 @@
                         <p class="text-white h5 pt-3">{{$userdetail->roles}}</p>
                     </div>
                 </div>
-            </div>
-        </div>
+            </div> --}}
+        </div>    
+        @endif
     </div>
 </section>
 <!-- Video Publisher Section End-->
 @php
-                $count = count($VideoList)
-            @endphp
+    $count = count($VideoList)
+@endphp
 <!-- All Video Carousel Start-->
 <section class="video-carousel-area themeix-ptb">
     <div class="container">

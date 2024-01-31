@@ -16,7 +16,7 @@
                             <li class="text-white"><i class="far fa-check-circle text-white me-2"></i> Insider tips on what top coaches really look for in young talent.</li>
                             <li class="text-white"><i class="far fa-check-circle text-white me-2"></i> Answers to the burning questions every up-and-comer has</li>
                         </ul>
-                        <a href="{{ route('web.categories') }}" class="btn iya-btn-white">Watch Limited Free Videos</a>
+                        <a href="{{ route('web.video.publisher.all') }}" class="btn iya-btn-white">Watch Limited Free Videos</a>
                         <p class="py-3">Want to see more? Subscribe here for only <span class="fw-bold">$4.60/Month</span> and unlock the most powerful tool in Youth Sport.</p>
                     </div>
                 </div>

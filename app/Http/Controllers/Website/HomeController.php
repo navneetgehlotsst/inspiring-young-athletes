@@ -79,12 +79,19 @@ class HomeController extends Controller
     }
 
     // Video list
-    public function VideoPublisherList($id){
+    public function VideoPublisherList($id , Request $request){
+        $url = URL::current();
+        $shareComponent = \Share::page($url,'Your share text comes here',)
+        ->facebook()
+        ->twitter()
+        ->linkedin()
+        ->telegram()
+        ->whatsapp();
         $userdetail = User::where('id',$id)->withCount('videos')->first();
         $categoryFirst = Category::where('category_id',$userdetail->id)->first();
         $VideoList = Video::where('user_id',$userdetail->id)->where('Video_status','1')->paginate(10);
 
-        return view('web.videolist',compact('userdetail','categoryFirst','VideoList'));
+        return view('web.videolist',compact('userdetail','categoryFirst','VideoList','shareComponent','url'));
     }
 
     // Video

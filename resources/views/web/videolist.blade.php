@@ -1,6 +1,56 @@
 @extends('web.layouts.app')
 @section('content')
+<style>
+    div#social-links {
+        margin: 0 auto;
+        max-width: 500px;
+    }
+    div#social-links ul li {
+        display: inline-block;
+    }          
+    div#social-links ul li a {
+        padding: 4px;
+        margin: 1px;
+        font-size: 30px;
+    }
+    .social-button .fa-facebook-square{
+        color: #fff;
+        background: #0d6efd;
+        padding: 10px;
+        font-size: 18px;
+        border-radius: 0.25rem;
+    }
+    .social-button .fa-twitter{
+        color: #fff;
+        background: #00a2f3;
+        padding: 10px;
+        font-size: 18px;
+        border-radius: 0.25rem;
+    }
+    .social-button .fa-linkedin{
+        color: #fff;
+        background: #00a2f3;
+        padding: 10px;
+        font-size: 18px;
+        border-radius: 0.25rem;
+    }
 
+    .social-button .fa-telegram{
+        color: #fff;
+        background: #00a2f3;
+        padding: 10px;
+        font-size: 18px;
+        border-radius: 0.25rem;
+    }
+
+    .social-button .fa-whatsapp{
+        color: #fff;
+        background: #2ab13f;
+        padding: 10px;
+        font-size: 18px;
+        border-radius: 0.25rem;
+    }
+</style>
  <!-- Video Publisher Section Start-->
  <section class="publisher-view py-4">
     <div class="container">
@@ -29,10 +79,7 @@
                 </div>
                 <div class="col-lg-4 align-self-center text-lg-end">
                     <div class="mt-2">
-                        <a href="#" class="my-2 my-lg-0 me-3 text-white btn btn-primary"><i class="fab fa-facebook text-white"></i></a>
-                        <a href="#" class="my-2 my-lg-0 me-3 text-white btn btn-success"><i class="fab fa-instagram text-white"></i></a>
-                        <a href="#" class="my-2 my-lg-0 me-3 text-white btn btn-danger"><i class="fab fa-youtube text-white"></i></a>
-                        <a href="#" class="my-2 my-lg-0 me-3 text-white btn btn-info"><i class="fas fa-envelope text-white"></i></a>
+                        {!! $shareComponent !!}
                     </div>
                 </div>
                 <div class="col-lg-2 text-end d-none d-lg-block align-self-center">

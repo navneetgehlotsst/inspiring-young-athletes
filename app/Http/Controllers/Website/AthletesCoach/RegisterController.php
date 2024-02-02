@@ -12,6 +12,7 @@ use Exception;
 use DB;
 use Mail;
 use File;
+use URL;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{
     Auth,
@@ -20,9 +21,15 @@ use Illuminate\Support\Facades\{
     Storage
 };
 use App\Mail\VerifyUserEmail;
+use App\Mail\RefralEmail;
 
 class RegisterController extends Controller
 {
+    public function random_strings($length_of_string) 
+    { 
+        $str_result = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz'; 
+        return substr(str_shuffle($str_result), 0, $length_of_string); 
+    }
     // Register
     public function Register(){
         $getcategory = Category::where('category_status','1')->get();
@@ -43,7 +50,16 @@ class RegisterController extends Controller
         ]);
 
         // $id = User::insertGetId($datauser);
-
+        $code = $request->code;
+        if(!empty($code)){
+            $checkreffralcode = User::where('referral_token',$code)->first();
+            if(empty($checkreffralcode)){
+                return redirect()->back()->withInput()->with('error', 'Enter Valid Referral Code.');
+            }
+            $referral_by = $checkreffralcode->id;
+        }else{
+            $referral_by = "0";
+        }
         $Useremail = $request->email;
         $code = 1234; //rand(1000,9999);
         $date = date('Y-m-d H:i:s');
@@ -59,7 +75,8 @@ class RegisterController extends Controller
             'roles' => $request->role,
             'category' => $request->category,
             'otp' => $code,
-            'futureDate' => $futureDate
+            'futureDate' => $futureDate,
+            'referral_by' => $referral_by,
         ];
 
 
@@ -78,6 +95,7 @@ class RegisterController extends Controller
     }
 
     public function verifyOtp(Request $request){
+            $refral_token = $this->random_strings('10');
             $user = Session::get('user');
             $email = $user['email'];
             $otp = $request->otp1.$request->otp2.$request->otp3.$request->otp4;
@@ -94,6 +112,8 @@ class RegisterController extends Controller
                         'roles' => $user['roles'],
                         'category' => $user['category'],
                         'email_verified_at' => $date,
+                        'referral_token' => $refral_token,
+                        'referral_by' => $user['referral_by'],
                     ];
                     $id = User::insertGetId($datauser);
                     session()->forget('user');
@@ -227,6 +247,30 @@ class RegisterController extends Controller
         Auth::logout();
         return redirect()->route('web.login')
             ->with('success', 'Logout Successfully.');
+    }
+
+    public function referralAndEarn(){
+        if (Auth::check()){
+            $baseUrl = url('/');
+            $UserDetail = Auth::user();
+            $userID = $UserDetail->id;
+            $userreferral_token = $UserDetail->referral_token;
+            $url = $baseUrl.'/athletes-coach/register?ref='.$userreferral_token;
+            return view('web.athletescoach.referralandearn',compact('userID','url'));
+        }else{
+            return redirect('')->route('web.login');
+        }
+    }
+
+    public function referralAndEarnSend(Request $request){
+        $UserDetail = Auth::user();
+        $senderemail = $UserDetail->email; 
+        $url = $request->url;
+        $code = $request->code;
+        $referralEmail = $request->referralEmail;
+
+        $mail = Mail::to($referralEmail)->send(new RefralEmail($referralEmail, $code,$senderemail,$url));
+        return redirect()->back()->with('success', 'Referral Send Successfully.');
     }
 
 

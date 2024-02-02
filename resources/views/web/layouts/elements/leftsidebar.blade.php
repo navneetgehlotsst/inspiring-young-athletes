@@ -46,6 +46,7 @@
                             </ul>
                         </li>
                         <li class="nav-item"><a class="nav-link px-2" href="#"><i class="fas fa-coins me-2"></i> Revenue History</a></li>
+                        <li class="nav-item"><a class="nav-link px-2" href="{{ route('web.athletes.coach.referralAndEarn') }}"><i class="fas fa-coins me-2"></i> Referral and Earn</a></li>
                         <li class="nav-item"><a href="{{ route('web.athletes.coach.ChangePassword') }}" class="nav-link px-2 {{ request()->is('athletes-coach/changepassword') ? 'active' : '' }}" href="#"><i class="fas fa-coins me-2"></i> Change Password</a></li>
                     </ul>
                 </div>

@@ -12,6 +12,29 @@
         text-align: left;
     }
 </style>
+@if(session('error'))
+    <script>
+        $(document).ready(function() {
+			toastr.options = {
+				'closeButton': true,
+				'debug': false,
+				'newestOnTop': false,
+				'progressBar': false,
+				'positionClass': 'toast-top-right',
+				'preventDuplicates': false,
+				'showDuration': '1000',
+				'hideDuration': '1000',
+				'timeOut': '5000',
+				'extendedTimeOut': '1000',
+				'showEasing': 'swing',
+				'hideEasing': 'linear',
+				'showMethod': 'fadeIn',
+				'hideMethod': 'fadeOut',
+			}
+		});
+        toastr.error('{{ session('error') }}');
+    </script>
+@endif
 <!-- Video Publisher Section Start-->
 <section class="publisher-section themeix-ptb-2">
     <div class="container">
@@ -74,6 +97,7 @@
                         @error('password')
                             <div class="alert">{{ $message }}</div>
                         @enderror
+                        <input type="text" name="code" id="code" value="{{ old('code') }}" class="form-control py-3 mb-4 @error('code') is-invalid @enderror" placeholder="Referral Code(Optional)">
                         <button type="submit" class="btn btn-primary py-3 w-100 fw-bold login-btn">Sign up</button>
                         <p class="pt-4 text-center">Don’t have an account ? <a href="{{ route('web.login') }}" class="primary-color fw-bold">Login</a></p>
                     </form>

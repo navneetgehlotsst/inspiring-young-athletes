@@ -26,7 +26,9 @@ class User extends Authenticatable
         'user_status',
         'quetion_status',
         'profile',
-        'phone'
+        'phone',
+        'referral_token',
+        'referral_by'
     ];
 
     /**

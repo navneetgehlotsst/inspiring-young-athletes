@@ -78,6 +78,8 @@ Route::group(['middleware' => 'auth'], function ()
         Route::post('/profileupdate', 'profileupdate')->name('profileupdate');
         Route::get('/changepassword', 'ChangePassword')->name('ChangePassword');
         Route::post('/passwordupdate', 'passwordupdate')->name('passwordupdate');
+        Route::get('/referralandearn', 'referralAndEarn')->name('referralAndEarn');
+        Route::post('/referralandearnsend', 'referralAndEarnSend')->name('referralAndEarnSend');
     });
     Route::name('web.athletes.coach.')->prefix('athletes-coach')->controller(QuestionController::class)->group(function () {
         Route::get('/athelitics-coach-question', 'atheliticsCoachQuestion')->name('atheliticsCoachQuestion');

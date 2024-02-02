@@ -242,9 +242,9 @@
                                                         <h2
                                                             style="font-family: Whitney, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;font-weight: 500;font-size: 20px;color: #4F545C;letter-spacing: 0.27px;">
                                                             Hey {{$email}},</h2>
-                                                        <p>Wowwee! Thanks for registering an account!
-                                                        <p>Before we get started, we'll need to verify your email.</p>
-                                                        <p> Your email verification 4 digits code is : <span style="background:lightgray;padding:5px;color:black;font-weight: bold;">{{$code}}</span></p>
+                                                            <p>Reffral send by : {{$senderemail}}</p>
+                                                            <p>Register link for your panel :- {{$url}}</p>
+                                                        <p> Your Reffral Code : <span style="background:lightgray;padding:5px;color:black;font-weight: bold;">{{$code}}</span></p>
 
                                                     </div>
                                                 </td>

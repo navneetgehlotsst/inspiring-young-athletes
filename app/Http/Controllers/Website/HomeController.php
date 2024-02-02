@@ -138,8 +138,10 @@ class HomeController extends Controller
             $VideoList = Video::where('user_id',$userdetail->id)->where('Video_id','!=',$id)->where('Video_status','1')->take(8)->get();
 
             $popularVideos = Video::where('Video_id','!=',$id)->where('user_id',$getVideo->user_id)->orderBy('Video_veiw_count','DESC')->take(2)->get();
+            
+            $trendingVideo = User::with('TopVideoList')->get();
 
-            return view('web.publisher-play-video',compact('getVideo','userdetail','VideoList','vidoecount', 'popularVideos'));
+            return view('web.publisher-play-video',compact('getVideo','userdetail','VideoList','vidoecount', 'popularVideos','trendingVideo'));
         }else{
             return Redirect::route('web.login')->withError('Please login to view videos.');
         }

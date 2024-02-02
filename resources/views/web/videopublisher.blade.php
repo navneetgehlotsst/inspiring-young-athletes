@@ -150,6 +150,7 @@
                 </div>
                 <div class="video-carousel owl-carousel">
                     @foreach ($trendingVideo as $userdataVideo)
+                    
                         @foreach ($userdataVideo->TopVideoList as $Video )
                         @php
                             $uplaoddate = date_format($Video->created_at,"d/m/Y")
@@ -157,27 +158,27 @@
                         <div class="single-video">
                             <div class="video-img">
                                 @auth
-                                    <a href="{{ route('web.video',$Video->Video_id) }}">
-                                        <img class="lazy" alt="Video" src="{{asset($Video->thumbnails)}}" style="" />
+                                    <a href="{{ route('web.video',$Video['video_id']) }}">
+                                        <img class="lazy" alt="Video" src="{{asset($Video['thumbnails'])}}" style="" />
                                     </a>
                                 @else
                                     <a href="{{ route('web.login') }}" >
-                                        <img class="lazy" alt="Video" src="{{asset($Video->thumbnails)}}" style="" />
+                                        <img class="lazy" alt="Video" src="{{asset($Video['thumbnails'])}}" style="" />
                                     </a>
                                 @endauth
                                 {{-- <span class="video-duration">5.28</span> --}}
                             </div>
                             <div class="video-content">
                                 @auth
-                                        <h4><a class="video-title" href="{{ route('web.video',$Video->Video_id) }}">{{$Video->Video_title}}</a></h4>
+                                        <h4><a class="video-title" href="{{ route('web.video',$Video['video_id']) }}">{{$Video['Video_title']}}</a></h4>
                                     @else
-                                        <h4><a class="video-title" href="{{ route('web.login') }}">{{$Video->Video_title}}</a></h4>
+                                        <h4><a class="video-title" href="{{ route('web.login') }}">{{$Video['Video_title']}}</a></h4>
                                     @endauth
                                     <h4><a class="video-title">{{$uplaoddate}}</a></h4>
                                     <div class="video-counter">
                                         <div class="video-viewers">
                                             <span class="fa fa-eye view-icon"></span>
-                                            <span>{{$Video->Video_veiw_count}}</span>
+                                            <span>{{$Video['Video_veiw_count']}}</span>
                                         </div>
                                             @if($Video->Video_type == 0)
                                                 <div class="video-feedback py-1">

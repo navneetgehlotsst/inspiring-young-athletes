@@ -115,10 +115,13 @@ class HomeController extends Controller
             if(empty($getVideo)){
                 return Redirect::back()->withError('Video not found!');
             }
-            if($userRole == 'Athletes' || $userRole == 'Coach' ){
-                return Redirect::back()->withError('Video not found!');
-            }
+            // if($userRole == 'Athletes' || $userRole == 'Coach' ){
+            //     return Redirect::back()->withError('you cant see this video');
+            // }
             if($userId != $getVideo->user_id ){
+                if($userRole == 'Athletes' || $userRole == 'Coach' ){
+                    return Redirect::back()->withError('you cant see this video');
+                }
                 $checkvideoHistory = VideoHistory::where('video_id',$id)->where('user_id',$userId)->first();
                 if(empty($checkvideoHistory)){
                     $Viewvidiocount = Video::where('Video_id',$id)->increment('Video_veiw_count');
@@ -129,6 +132,7 @@ class HomeController extends Controller
                     $id = VideoHistory::insertGetId($datavideoHistory);
                 }
             }
+            
             if(!empty($Viewvidiocount)){
                 $vidoecount = $Viewvidiocount;
             }else{
@@ -190,6 +194,25 @@ class HomeController extends Controller
                     return redirect()->back()->with('error', 'Invalid credentials..!');
                 }
             }
+        }
+    }
+
+    // forgot password
+    public function forgotPassword(){
+        $getcategory = Category::where('category_status','1')->get();
+        return view('web.forgotpassword',compact('getcategory'));
+    }
+
+    // forgot password Post
+    public function forgotPasswordPost(Request $request){
+        $validatedData = $request->validate([
+            'email' => 'required|email',
+        ]);
+        $userCheck = User::where('email',$request->email)->first();
+        if(empty($userCheck)){
+            return redirect()->back()->with('error', 'Invalid email..!');
+        }else{
+            echo "hello"; die;
         }
     }
 

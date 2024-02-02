@@ -51,6 +51,29 @@
         border-radius: 0.25rem;
     }
 </style>
+@if(session('error'))
+    <script>
+        $(document).ready(function() {
+			toastr.options = {
+				'closeButton': true,
+				'debug': false,
+				'newestOnTop': false,
+				'progressBar': false,
+				'positionClass': 'toast-top-right',
+				'preventDuplicates': false,
+				'showDuration': '1000',
+				'hideDuration': '1000',
+				'timeOut': '5000',
+				'extendedTimeOut': '1000',
+				'showEasing': 'swing',
+				'hideEasing': 'linear',
+				'showMethod': 'fadeIn',
+				'hideMethod': 'fadeOut',
+			}
+		});
+        toastr.error('{{ session('error') }}');
+    </script>
+@endif
  <!-- Video Publisher Section Start-->
  <section class="publisher-view py-4">
     <div class="container">

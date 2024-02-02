@@ -61,6 +61,8 @@ Route::name('web.')->controller(HomeController::class)->group(function () {
     Route::get('/coming-soon', 'ComingSoon')->name('coming-soon');
     Route::get('/login', 'Login')->name('login');
     Route::post('/loginpost', 'LoginPost')->name('login.post');
+    Route::get('/forgotpassword', 'forgotPassword')->name('forgotpassword');
+    Route::post('/forgotpasswordpost', 'forgotPasswordPost')->name('forgotpassword.post');
 });
 
 Route::name('web.athletes.coach.')->prefix('athletes-coach')->controller(RegisterController::class)->group(function () {
@@ -80,7 +82,7 @@ Route::group(['middleware' => 'auth'], function ()
         Route::post('/profileupdate', 'profileupdate')->name('profileupdate');
         Route::get('/changepassword', 'ChangePassword')->name('ChangePassword');
         Route::post('/passwordupdate', 'passwordupdate')->name('passwordupdate');
-        Route::get('/referralandearn', 'referralAndEarn')->name('referralAndEarn');
+        Route::get('/refer-and-earn', 'referralAndEarn')->name('referralAndEarn');
         Route::post('/referralandearnsend', 'referralAndEarnSend')->name('referralAndEarnSend');
     });
     Route::name('web.athletes.coach.')->prefix('athletes-coach')->controller(QuestionController::class)->group(function () {

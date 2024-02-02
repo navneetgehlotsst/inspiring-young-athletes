@@ -76,13 +76,13 @@ class VideoConttroller extends Controller
             $veid = Video::insertGetId($dataVideo);
 
         // ->route('admin.branch.list')
-        return redirect()->route('web.video.index')->with('success','Video Uploaded successfully.');
+        return redirect()->route('web.Video.index')->with('success','Video Uploaded successfully.');
     }
 
     public function store(Request $request){
         $validatedData = $request->validate([
             'title' => 'required',
-            'Video' => 'required|file|mimes:mp4,mov,avi,wmv',
+            'video' => 'required|file|mimes:mp4,mov,avi,wmv',
         ]);
 
         $UserDetail = Auth::user();
@@ -90,7 +90,7 @@ class VideoConttroller extends Controller
 
         //==================== Upload video to s3 ================//
 
-        $file = $request->file('vsideo');
+        $file = $request->file('video');
         $visibility = 'public';
         $filePath = 'uploads/user/'.$userID.'/video/' . $file->getClientOriginalName();
         Storage::disk('s3')->put($filePath, file_get_contents($file), $visibility);
@@ -99,7 +99,7 @@ class VideoConttroller extends Controller
 
         //===================== get thumbnail from video ===============//
 
-        $file       =  $request->file('Video');
+        $file       =  $request->file('video');
         $extention  =  $file->getClientOriginalExtension();
         $filename   =   time().$file->getClientOriginalName();
         $filename   =   $this->clean($filename);
@@ -138,7 +138,7 @@ class VideoConttroller extends Controller
         $dataVideo = [
             'user_id' => $userID,
             'video' => $video_path_url,
-            'video_from' => 'Video',
+            'video_from' => 'video',
             'video_title' => $request->title,
             'video_ext' => $extention,
             'thumbnails' => $thumbnail_path_url
@@ -146,7 +146,7 @@ class VideoConttroller extends Controller
         $veid = Video::insertGetId($dataVideo);
 
     // ->route('admin.branch.list')
-    return redirect()->route('web.video.index')->with('success','Video Uploaded successfully.');
+    return redirect()->route('web.Video.index')->with('success','Video Uploaded successfully.');
 }
 
     public function index(){

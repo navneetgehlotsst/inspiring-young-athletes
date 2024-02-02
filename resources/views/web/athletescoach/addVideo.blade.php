@@ -47,7 +47,7 @@
                         <div class="row">
                             <div class="col-lg-8">
                                 <div class="mb-4">
-                                    <input class="choose-btn-iyg" name="Video" id="formFileLg" accept="video/mp4,video/x-m4v,video/*" type="file">
+                                    <input class="choose-btn-iyg" name="video" id="formFileLg" accept="video/mp4,video/x-m4v,video/*" type="file">
                                 </div>
                                 @error('Video')
                                     <div class="alert">{{ $message }}</div>

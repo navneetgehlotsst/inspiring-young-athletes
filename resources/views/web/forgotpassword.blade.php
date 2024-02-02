@@ -40,39 +40,27 @@
 <section class="publisher-section themeix-ptb-2">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 m-auto align-self-center">
+            <div class="col-lg-6 align-self-center">
+                <h2 class="text-white">Top Popular Video Publisher</h2>
+                <p class="lh-lg text-white py-3">
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Praesentium corrupti veniam consequuntur nihil ad? Voluptates aliquid cupiditate numquam dolore, earum quidem non. Provident illum cumque rem quo deleniti! Qui,
+                    adipisci!
+                </p>
+            </div>
+            <div class="col-lg-6 align-self-center">
                 <div class="from-box p-5">
                     <div class="pb-3 text-center">
-                        <h2 class="fw-bold">Login to your Account</h2>
+                        <h2 class="fw-bold">Forgot Password</h2>
                         <p class="fw-bold pt-3">Enter to continue and explore within your grasp</p>
                     </div>
-                    <form role="form" action="{{ route('web.login.post') }}" method="post">
+                    <form role="form" action="{{ route('web.forgotpassword.post') }}" method="post">
                         @csrf
-                        <input type="email" name="email" class="form-control py-3 mb-4" id="email" value="{{ old('email') }}" placeholder="Enter your email">
+                        <input type="email" name="email" class="form-control py-3 mb-4" value="{{ old('email') }}" placeholder="Enter email" />
                         @error('email')
                             <div class="alert">{{ $message }}</div>
                         @enderror
-                        <input name="password" name="password" type="password" class="form-control py-3 mb-4" id="password" placeholder="Password">
-                        <div class="input-group-append position-relative">
-                            <span onclick="password_show_hide();">
-                              <i class="fas fa-eye" id="show_eye"></i>
-                              <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
-                            </span>
-                        </div>
-                        @error('password')
-                            <div class="alert">{{ $message }}</div>
-                        @enderror
-                        <div class="row my-4">
-                            <div class="col-md-6">
-                                <div class="form-check form-switch ps-0">
-                                    <input type="checkbox" checked="">
-                                    <label class="form-check-label" for="flexSwitchCheckChecked">Remember Me</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6 text-end fw-bold"> <a href="" class="secondary-color">Forgot Password ?</a></div>
-                        </div>
-                        <button type="submit" class="btn btn-primary py-3 w-100 fw-bold login-btn">Login to Continue</button>
-                        <p class="pt-4 text-center">Don’t have an account ? <a href="{{ route('web.user.register') }}" class="primary-color fw-bold">Sign up For Users</a> | <a href="{{ route('web.athletes.coach.register') }}" class="primary-color fw-bold">Sign up for Athletes & Coach</a></p>
+                        <button type="submit" class="btn btn-primary py-3 w-100 fw-bold login-btn">Request password reset</button>
+                        <p class="pt-4 text-center">Back to ? <a href="{{ route('web.user.register') }}" class="primary-color fw-bold">Sign up For Users</a> | <a href="{{ route('web.athletes.coach.register') }}" class="primary-color fw-bold">Sign up for Athletes & Coach</a></p>
                     </form>
                 </div>
             </div>

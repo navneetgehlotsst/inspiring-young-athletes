@@ -104,8 +104,8 @@
                                     <ul class="nav themeix-nav">
                                         <li><a href="{{ route('web.index') }}">Home</a></li>
                                         <li><a href="{{ route('web.about') }}">About Us</a></li>
-                                        <li><a href="{{ route('web.coming-soon') }}">Athletes</a></li>
-                                        <li><a href="{{ route('web.coming-soon') }}">Coach</a></li>
+                                        <li><a href="{{ route('web.athletes') }}">Athletes</a></li>
+                                        <li><a href="{{ route('web.coach') }}">Coach</a></li>
                                         <li class="mega-menu remove-border active"><a href="{{ route('web.categories') }}">Categories</a><span class="arrow"></span>
                                             <ul>
                                                 @php 

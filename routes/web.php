@@ -51,6 +51,8 @@ Route::name('web.')->controller(HomeController::class)->group(function () {
     Route::get('/about', 'About')->name('about');
     Route::get('/contact-us', 'ContactUs')->name('contact-us');
     Route::get('/categories', 'AllCategories')->name('categories');
+    Route::get('/athletes', 'Allathletes')->name('athletes');
+    Route::get('/coach', 'Allcoach')->name('coach');
     Route::get('/videopublisher/{slug}', 'VideoPublisher')->name('video.publisher');
     Route::get('/videopublisherlist/{id}', 'VideoPublisherList')->name('video.publisher.list');
     Route::get('/videopublisherall', 'VideoPublisherAll')->name('video.publisher.all');

@@ -29,7 +29,7 @@ class HomeController extends Controller
     public function Index(){
         $getcategory = Category::where('category_status','1')->take(12)->get();
         //count query pending show data in veiw
-        $athleticCoaches = User::where('roles', '!=', 'User')->withCount('videos')->take(9)->get();
+        $athleticCoaches = User::where('roles', '!=', 'User')->where('roles', '!=', 'Admin')->withCount('videos')->take(9)->get();
         return view('web.home',compact('getcategory','athleticCoaches'));
     }
     // About page
@@ -48,6 +48,17 @@ class HomeController extends Controller
     public function AllCategories(){
         $getcategory = Category::where('category_status','1')->get();
         return view('web.categories',compact('getcategory'));
+    }
+    // All Athletes
+    public function Allathletes(){
+        $athleticCoaches = User::where('roles', '=', 'Athletes')->withCount('videos')->get();
+        return view('web.athletes',compact('athleticCoaches'));
+    }
+
+    // All Coach
+    public function Allcoach(){
+        $athleticCoaches = User::where('roles', '=', 'Coach')->withCount('videos')->get();
+        return view('web.coach',compact('athleticCoaches'));
     }
     // Video By Pubisher
     public function VideoPublisher($slug){

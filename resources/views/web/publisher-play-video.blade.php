@@ -10,7 +10,7 @@
                 <div class="video-post-wrapper">
                     <div class="single-video full-video-view">
                         <div class="video-img feature-post-img">
-                           <video class="w-100" height="500" controls poster="{{asset($getVideo->thumbnails)}}">
+                           <video class="w-100" height="500" playsinline controls poster="{{asset($getVideo->thumbnails)}}">
                                 <source src="{{asset($getVideo->video)}}" type="video/mp4/mov/avi/wmv">
                                 <source src="{{asset($getVideo->video)}}" type="video/ogg">
                                  Your browser does not support the video tag.
@@ -43,7 +43,7 @@
                         </div>
                         <div class="video-post-counter text-end">
                             <div class="video-post-viewers">
-                                <p class="h5"><span class="fa fa-eye view-icon"></span>{{$vidoecount}} views</p>
+                                <p class="h5"><span class="fa fa-eye view-icon"></span>{{$getVideo->video_veiw_count}} views</p>
                             </div>
                             {{-- <div class="video-like">
                                 <div class="share-options">
@@ -69,9 +69,9 @@
                 </div>
                 <div class="single-feature row g-3">
                     @if(!empty($popularVideos))
-                            
+
                         @foreach($popularVideos as $video)
-                       
+
                             @php
                                 $uplaoddate = date_format($video->created_at,"d/m/Y")
                             @endphp
@@ -109,7 +109,7 @@
                 </div>
                 <div class="video-carousel owl-carousel">
                     @foreach ($trendingVideo as $userdataVideo)
-                    
+
                         @foreach ($userdataVideo->TopVideoList as $Video )
                         @php
                             $uplaoddate = date_format($Video->created_at,"d/m/Y")
@@ -129,15 +129,15 @@
                             </div>
                             <div class="video-content">
                                 @auth
-                                        <h4><a class="video-title" href="{{ route('web.video',$Video['video_id']) }}">{{$Video['Video_title']}}</a></h4>
+                                        <h4><a class="video-title" href="{{ route('web.video',$Video['video_id']) }}">{{$Video['video_title']}}</a></h4>
                                     @else
-                                        <h4><a class="video-title" href="{{ route('web.login') }}">{{$Video['Video_title']}}</a></h4>
+                                        <h4><a class="video-title" href="{{ route('web.login') }}">{{$Video['video_title']}}</a></h4>
                                     @endauth
                                     <h4><a class="video-title">{{$uplaoddate}}</a></h4>
                                     <div class="video-counter">
                                         <div class="video-viewers">
                                             <span class="fa fa-eye view-icon"></span>
-                                            <span>{{$Video['Video_veiw_count']}}</span>
+                                            <span>{{$Video['video_veiw_count']}}</span>
                                         </div>
                                             @if($Video->Video_type == 0)
                                                 <div class="video-feedback py-1">

@@ -10,9 +10,10 @@
                 <div class="video-post-wrapper">
                     <div class="single-video full-video-view">
                         <div class="video-img feature-post-img">
-                           <video class="w-100" height="500" playsinline controls poster="{{asset($getVideo->thumbnails)}}">
-                                <source src="{{asset($getVideo->video)}}" type="video/mp4/mov/avi/wmv">
-                                <source src="{{asset($getVideo->video)}}" type="video/ogg">
+                           <video id="main-video" class="w-100" height="500" playsinline controls poster="{{asset($getVideo->thumbnails)}}">
+                                <!-- <source src="{{asset($getVideo->video)}}" type="video/mp4/mov/avi/wmv">
+                                <source src="{{asset($getVideo->video)}}" type="video/ogg"> -->
+                                <source src="{{asset($getVideo->video)}}">
                                  Your browser does not support the video tag.
                             </video>
                         </div>
@@ -131,7 +132,7 @@
                                 @auth
                                         <h4><a class="video-title" href="{{ route('web.video',$Video['video_id']) }}">{{$Video['video_title']}}</a></h4>
                                     @else
-                                        <h4><a class="video-title" href="{{ route('web.login') }}">{{$Video['video_title']}}</a></h4>
+                                        <h4><a class="video-title" href="{{ route('web.login') }}">{{$Video['cideo_title']}}</a></h4>
                                     @endauth
                                     <h4><a class="video-title">{{$uplaoddate}}</a></h4>
                                     <div class="video-counter">
@@ -183,4 +184,13 @@
 
 @endsection
 @section('script')
+<!-- START: Mobile Autoplay Video -->
+<script>
+    /* for (video of document.getElementsByTagName("video")) {
+        video.setAttribute("playsinline", "");
+        video.setAttribute("muted", "");
+        video.play();
+    } */
+</script>
+<!-- END: Mobile Autoplay Video -->
 @endsection

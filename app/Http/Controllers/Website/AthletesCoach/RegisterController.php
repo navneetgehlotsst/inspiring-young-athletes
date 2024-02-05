@@ -176,20 +176,18 @@ class RegisterController extends Controller
         $UserDetail = Auth::user();
         $userID = $UserDetail->id;
 
-        $validatedData = $request->validate([
-            'email' => 'required|email',
-            'name' => 'required',
-            'phone' => 'required|numeric|digits_between:8,10',
-            'category' => 'required',
-        ]);
 
         $updateUserData = [
             'name' => $input['name'],
             'email' => $input['email'],
             'category' => $input['category'],
             'phone' => $input['number'],
+            'linkedin' => $input['linkedin'],
+            'tiktok' => $input['tiktok'],
+            'instagram' => $input['instagram'],
+            'facebook' => $input['facebook'],
         ];
-
+        
         if($request->has('profileimg')){
             $profileimg = $request->file('profileimg');
             $profileimgName = time() . '.' . $profileimg->getClientOriginalExtension();

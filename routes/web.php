@@ -53,6 +53,10 @@ Route::name('web.')->controller(HomeController::class)->group(function () {
     Route::get('/categories', 'AllCategories')->name('categories');
     Route::get('/athletes', 'Allathletes')->name('athletes');
     Route::get('/coach', 'Allcoach')->name('coach');
+    Route::get('/friday-frenzy', 'fridayFrenzy')->name('friday.frenzy');
+    Route::get('/question', 'Question')->name('question');
+    Route::get('/question-video/{id}', 'QuestionVideo')->name('question.video');
+    Route::get('/new-video', 'NewVideo')->name('new.video');
     Route::get('/videopublisher/{slug}', 'VideoPublisher')->name('video.publisher');
     Route::get('/videopublisherlist/{id}', 'VideoPublisherList')->name('video.publisher.list');
     Route::get('/videopublisherall', 'VideoPublisherAll')->name('video.publisher.all');

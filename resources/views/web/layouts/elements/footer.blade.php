@@ -21,12 +21,12 @@
                             </div>
                             <div class="footer-list">
                                 <ul>
-                                    <li><a href="#">About Us</a></li>
+                                    <li><a href="{{ route('web.about') }}">About Us</a></li>
                                     <li><a href="#">Athletes</a></li>
                                     <li><a href="#">Coach</a></li>
                                     <li><a href="#">Categories</a></li>
                                     <li><a href="#">Parent</a></li>
-                                    <li><a href="contact-us.html">Contact</a></li>
+                                    <li><a href="{{ route('web.contact-us') }}">Contact</a></li>
                                 </ul>
                             </div>
                         </div>

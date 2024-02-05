@@ -28,7 +28,11 @@ class User extends Authenticatable
         'profile',
         'phone',
         'referral_token',
-        'referral_by'
+        'referral_by',
+        'linkdin',
+        'tiktok',
+        'instagram',
+        'facebook'
     ];
 
     /**

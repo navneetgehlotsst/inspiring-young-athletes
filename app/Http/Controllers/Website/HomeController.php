@@ -20,7 +20,9 @@ use App\Models\{
     Role,
     User,
     Video,
-    VideoHistory
+    VideoHistory,
+    UserAnswere,
+    Question
 };
 
 class HomeController extends Controller
@@ -104,6 +106,23 @@ class HomeController extends Controller
         return view('web.coach',compact('athleticCoaches','getcategory','search','categorys','videoCount'));
     }
 
+
+    public function fridayFrenzy(){
+        $VideoList = UserAnswere::where('question_id','45')->join('video', 'user_queston.answere_video', '=', 'video.video_id')->paginate(10);
+        return view('web.videolist',compact('VideoList'));
+    }
+
+    public function Question(){
+        $QuestionList = Question::where('question_status','1')->paginate(10);
+        return view('web.question',compact('QuestionList'));
+    }
+
+
+    public function QuestionVideo($id){
+        $VideoList = UserAnswere::where('question_id',$id)->join('video', 'user_queston.answere_video', '=', 'video.video_id')->paginate(10);
+        return view('web.videolist',compact('VideoList'));
+    }
+
     // Video By Pubisher
     public function VideoPublisher($slug){
         // Default values
@@ -139,6 +158,14 @@ class HomeController extends Controller
     // All Video List
     public function VideoPublisherAll(){
         $VideoList = Video::where('Video_status','1')->paginate(10);
+
+        return view('web.videolist',compact('VideoList'));
+    }
+
+    // All NewVideo
+    public function NewVideo(){
+        $lastFiveDays = Carbon::now()->subDays(5);
+        $VideoList = Video::whereDate('created_at', '>=', $lastFiveDays)->paginate(10);
 
         return view('web.videolist',compact('VideoList'));
     }

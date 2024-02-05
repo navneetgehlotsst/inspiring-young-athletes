@@ -100,9 +100,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 align-self-center text-lg-end">
+                {{-- <div class="col-lg-4 align-self-center text-lg-end">
                     <div class="mt-2">
                         {!! $shareComponent !!}
+                    </div>
+                </div> --}}
+                <div class="col-lg-4 align-self-center text-lg-end">
+                    <div class="mt-2">
+                        <a href="{{ $userdetail->facebook }}" class="my-2 my-lg-0 me-3 text-white btn btn-primary"><i class="fab fa-facebook text-white"></i></a>
+                        <a href="{{ $userdetail->instagram }}" class="my-2 my-lg-0 me-3 text-white btn btn-primary"><i class="fab fa-instagram text-white"></i></a>
+                        <a href="{{ $userdetail->tiktok }}" class="my-2 my-lg-0 me-3 text-white btn btn-primary"><i class="fab fa-tiktok"></i></a>
+                        <a href="{{ $userdetail->linkedin }}" class="my-2 my-lg-0 me-3 text-white btn btn-primary"><i class="fab fa-linkedin"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-2 text-end d-none d-lg-block align-self-center">
@@ -122,7 +130,7 @@
                         <img class="img-account-profile rounded-circle mb-2 imgprofileupdate" src="{{asset('web/assets/images/new-img/dummyuser.png')}}" alt="">
                     </div>
                     <div class="publisher-details mt-2 ps-4">
-                        <h4 class="text-white">All Video</h4>
+                        <h4 class="text-white">Video</h4>
                         {{-- <p class="mb-1 text-white"><i class="far fa-play-circle text-white me-2"></i> {{$userdetail->videos_count}} videos</p> --}}
                         {{-- <p class="mb-0 text-white"><i class="far fa-calendar-alt text-white me-2"></i> joined {{$year}}</p> --}}
                     </div>
@@ -157,7 +165,7 @@
     <div class="container">
         <div class="themeix-section-h">
             <span class="heading-icon"><i class="far fa-play-circle"></i></span>
-            <h3>All Videos</h3>
+            <h3>Videos</h3>
         </div>
         <div class="row mt-5">
             @if($count != 0)
@@ -206,12 +214,18 @@
                     </div>
                 @endforeach
             @else
-            <div class="card p-3 nodatafoundcard">
-                <div class="card-body">
-                  <img src="{{asset('web/assets/images/new-img/empty_item.svg')}}" alt="logo">
-                  <h5 class="card-title text-center">No record Found</h5>
+                <div class="col-lg-12">
+                    <div class="publisher-box p-3">
+                        <div class="text-center">
+                            <div class="">
+                                <img class="mb-2" width="200" src="{{asset('web/assets/images/new-img/empty_item.svg')}}" alt="">
+                            </div>
+                            <div class="publisher-details mt-2 ps-3">
+                                <h4>NO Video Found</h4>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             @endif
         </div>
         <div class="mt-3">

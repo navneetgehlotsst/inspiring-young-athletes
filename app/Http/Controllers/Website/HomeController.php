@@ -51,15 +51,59 @@ class HomeController extends Controller
     }
     // All Athletes
     public function Allathletes(){
-        $athleticCoaches = User::where('roles', '=', 'Athletes')->withCount('videos')->get();
-        return view('web.athletes',compact('athleticCoaches'));
+        // Default values
+        $search = isset($_GET['search']) ? $_GET['search'] : "";
+        $categorys = isset($_GET['categorys']) ? $_GET['categorys'] : "";
+
+
+        // Fetch categories
+        $getcategory = Category::where('category_status', '1')->get();
+
+        $athleticCoaches = User::where('roles', 'Athletes')
+        ->withCount('videos');
+    
+        if (!empty($search)) {
+            $athleticCoaches->where('name', 'like', '%' . $search . '%');
+        }
+        
+        if (!empty($categorys)) {
+            $athleticCoaches->where('category', $categorys);
+        }
+        
+        $athleticCoaches = $athleticCoaches->paginate(10);
+        
+        $videoCount = $athleticCoaches->total();
+    
+        return view('web.athletes',compact('athleticCoaches','getcategory','search','categorys','videoCount'));
     }
 
     // All Coach
     public function Allcoach(){
-        $athleticCoaches = User::where('roles', '=', 'Coach')->withCount('videos')->get();
-        return view('web.coach',compact('athleticCoaches'));
+        // Default values
+        $search = isset($_GET['search']) ? $_GET['search'] : "";
+        $categorys = isset($_GET['categorys']) ? $_GET['categorys'] : "";
+
+
+        // Fetch categories
+        $getcategory = Category::where('category_status', '1')->get();
+
+        $athleticCoaches = User::where('roles', 'Coach')
+        ->withCount('videos');
+    
+        if (!empty($search)) {
+            $athleticCoaches->where('name', 'like', '%' . $search . '%');
+        }
+        
+        if (!empty($categorys)) {
+            $athleticCoaches->where('category', $categorys);
+        }
+        
+        $athleticCoaches = $athleticCoaches->paginate(10);
+        
+        $videoCount = $athleticCoaches->total();
+        return view('web.coach',compact('athleticCoaches','getcategory','search','categorys','videoCount'));
     }
+
     // Video By Pubisher
     public function VideoPublisher($slug){
         // Default values
@@ -68,17 +112,27 @@ class HomeController extends Controller
 
         // Fetch categories
         $getcategory = Category::where('category_status', '1')->get();
-
+        $athleticCoaches = User::where('roles','!=', 'Admin')
+        ->where('roles','!=','User')
+        ->withCount('videos');
+    
+        if (!empty($search)) {
+            $athleticCoaches->where('name', 'like', '%' . $search . '%');
+        }
+        
+        if (!empty($categorys)) {
+            $athleticCoaches->where('category', $categorys);
+        }
+        $athleticCoaches = $athleticCoaches->paginate(10);
+        $videoCount = $athleticCoaches->total();
         // Fetch category based on slug or category ID
         $categoryFirst = Category::where('category_slug', $slug)->orWhere('category_id', $categorys)->first();
-        if(!empty($_GET)){
-            $athleticCoaches = User::where('category', $categorys)->where('name', 'like', '%' .$search. '%')->withCount('videos')->paginate(10);
+        if(!empty($categorys)){
             $trendingVideo = User::where('category', $categorys)->with('TopVideoList')->get();
         }else{
-            $athleticCoaches = User::where('category', $categoryFirst->category_id)->withCount('videos')->paginate(10);
             $trendingVideo = User::where('category', $categoryFirst->category_id)->with('TopVideoList')->get();
         }
-        $videoCount = count($athleticCoaches);
+        
         return view('web.videopublisher',compact('getcategory','categoryFirst','athleticCoaches','search','categorys','videoCount','trendingVideo'));
     }
 

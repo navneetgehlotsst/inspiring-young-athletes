@@ -14,7 +14,37 @@
 <!-- Categories Section Start-->
 <section class="categories-section pt-5 pb-5">
     <div class="container">
+        <div class="row py-4 g-3">
+            <div class="col-lg-12 align-self-center">
+                <form role="form" action="{{ route('web.athletes') }}" method="get">
+                    <div class="row g-3">
+                        <div class="col-lg-5">
+                            <div class="input-group position-relative">
+                                <input class="form-control iya-input border" type="text" name="search" value="{{$search}}" placeholder="Search by name">
+                                <span class="input-group-append">
+                                    <button class="btn btn-outline-secondary bg-white border-0" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <select class="form-select iya-input" name="categorys" aria-label="Default select example">
+                                <option value="">Select Categories</option>
+                                @foreach ($getcategory as $category)
+                                    <option value="{{$category->category_id}}" @if(!empty($categorys))@if($categorys == $category->category_id) selected @endif @endif>{{$category->category_name}}</option>
+                                @endforeach
+                              </select>
+                        </div>
+                        <div class="col-lg-2">
+                            <button type="submit" class="btn iya-btn-blue w-100">Apply Now</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
         <div class="row g-3">
+            @if ($videoCount != '0')
             @foreach ( $athleticCoaches as $athleticCoachprofile )
             @php
                 $datetime = $athleticCoachprofile->created_at;
@@ -45,7 +75,23 @@
                 </div>
             </div>
             @endforeach
-
+            @else
+            <div class="col-lg-12">
+                <div class="publisher-box p-3">
+                    <div class="text-center">
+                        <div class="">
+                            <img class="mb-2" width="200" src="{{asset('web/assets/images/new-img/empty_item.svg')}}" alt="">
+                        </div>
+                        <div class="publisher-details mt-2 ps-3">
+                            <h4>NO Video Found</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
+        </div>
+        <div class="mt-3">
+            {{ $athleticCoaches->links('pagination::bootstrap-5') }}
         </div>
     </div>
 </section>

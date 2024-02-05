@@ -62,7 +62,7 @@
                         </div>
                         <div class="col-lg-5">
                             <select class="form-select iya-input" name="categorys" aria-label="Default select example">
-                                <option selected>Select Categories</option>
+                                <option value="">Select Categories</option>
                                 @foreach ($getcategory as $category)
                                     <option value="{{$category->category_id}}" @if(!empty($categorys))@if($categorys == $category->category_id) selected @endif @endif>{{$category->category_name}}</option>
                                 @endforeach

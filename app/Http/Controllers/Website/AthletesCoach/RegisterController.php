@@ -139,8 +139,17 @@ class RegisterController extends Controller
                                 ReferralHistory::where('id', $checkreffralcode->id)->update($updateUserData);
                         }else{
                             $datauser = [
-                                'referral_by' => $UserDetail->id,
-                                'referral_to' => $referralEmail,
+                                'referral_by' => $user['referral_by'],
+                                'referral_to' => $user['email'],
+                                'status' => 'accepted',
+                            ];
+                            $id = ReferralHistory::insertGetId($datauser);
+                        }
+                    }else{
+                        if($user['referral_by'] != "0"){
+                            $datauser = [
+                                'referral_by' => $user['referral_by'],
+                                'referral_to' => $user['email'],
                                 'status' => 'accepted',
                             ];
                             $id = ReferralHistory::insertGetId($datauser);

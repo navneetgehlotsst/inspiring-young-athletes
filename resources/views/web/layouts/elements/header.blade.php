@@ -119,9 +119,9 @@
                                                 @endforeach
                                             </ul>
                                         </li>
-                                        <li><a href="{{ route('web.friday.frenzy') }}">Friday Frenzy</a></li>
-                                        <li><a href="{{ route('web.question') }}">Question</a></li>
-                                        <li><a href="{{ route('web.new.video') }}">New Video</a></li>
+                                        <li><a href="{{ route('web.friday.frenzy') }}">Game Day Prep</a></li>
+                                        <li><a href="{{ route('web.question') }}">Athlete/Coach Questions</a></li>
+                                        <li><a href="{{ route('web.new.video') }}">New Videos</a></li>
                                     </ul>
                                 </div>
                             </div>

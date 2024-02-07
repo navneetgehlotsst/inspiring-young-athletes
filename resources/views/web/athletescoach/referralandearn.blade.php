@@ -43,18 +43,52 @@
                             <div class="mb-4 mt-1">
                                 <h5>Invite your friends</h5>
                                 <div class="d-flex flex-wrap flex-lg-nowrap gap-3 align-items-end">
-                                <div class="w-75">
-                                    <label class="form-label mb-0" for="referralEmail">Enter friend’s email address and invite them</label>
-                                    <input type="hidden" name="url" value="{{$url}}">
-                                    <input type="hidden" name="code" value="{{auth()->user()->referral_token}}">
-                                    <input type="email" id="referralEmail" name="referralEmail" class="form-control w-100" placeholder="Email address" required>
+                                    <div class="w-75">
+                                        <label class="form-label mb-0" for="referralEmail">Enter friend’s email address and invite them</label>
+                                        <input type="hidden" name="url" value="{{$url}}">
+                                        <input type="hidden" name="code" value="{{auth()->user()->referral_token}}">
+                                        <input type="email" id="referralEmail" name="referralEmail" class="form-control w-100" placeholder="Email address" required>
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="btn iya-btn-blue">Submit</button>
+                                    </div>
                                 </div>
-                                <div>
-                                    <button type="submit" class="btn iya-btn-blue">Submit</button>
-                                </div>
+                                <hr>
+                                <div class="d-flex flex-wrap flex-lg-nowrap gap-3 align-items-end">
+                                    <div class="w-75">
+                                        <label class="form-label mb-0" for="referralEmail">Copy referral code to share with your friend’s</label>
+                                        <input type="text" id="codeCopy" class="form-control w-100" placeholder="Email address" value="{{auth()->user()->referral_token}}" readonly>
+                                    </div>
+                                    <div>
+                                        <button type="button" onclick="myFunction()" class="btn iya-btn-blue">Copy code</button>
+                                    </div>
                                 </div>
                             </div>
                         </form>
+                    </div>
+                </div>
+
+                <div class="card shadow p-3 mt-2">
+                    <div class="card-body">
+                        <div class="mb-4 mt-1">
+                            <h5>Invite History</h5>
+                            <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Referred To</th>
+                                    <th scope="col">Status</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ( $getrefhistory as $getref )
+                                        <tr>
+                                            <td>{{$getref->referral_to}}</td>
+                                            <td class="text-capitalize">{{$getref->status}}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                              </table>
+                        </div>
                     </div>
                 </div>
 
@@ -63,7 +97,25 @@
     </div>
 </section>
 
+<script>
+    function myFunction() {
+      // Get the text field
+      var copyText = document.getElementById("codeCopy");
+    
+      // Select the text field
+      copyText.select();
+      copyText.setSelectionRange(0, 99999); // For mobile devices
+    
+      // Copy the text inside the text field
+      navigator.clipboard.writeText(copyText.value);
+      
+      // Alert the copied text
+      alert("You have copied code sharing with friend’s: " + copyText.value);
+    }
+    </script>
+
 @endsection 
 @section('script')
+
 @endsection
     

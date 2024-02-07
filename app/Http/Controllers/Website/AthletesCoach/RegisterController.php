@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\{
     Category,
     Role,
-    User
+    User,
+    ReferralHistory
 };
 use Exception;
 use DB;
@@ -31,10 +32,19 @@ class RegisterController extends Controller
         return substr(str_shuffle($str_result), 0, $length_of_string); 
     }
     // Register
-    public function Register(){
+    public function Register(Request $request){
+        if(!empty($request->ref)){  
+            $ref = $request->ref;
+            $getRefByDetail = ReferralHistory::where('referralhistory.id', $ref)
+            ->join('users', 'referralhistory.referral_by', '=', 'users.id')
+            ->select('referralhistory.referral_to','referralhistory.id', 'users.referral_token')
+            ->first();
+        }else{
+            $getRefByDetail = "";
+        }
         $getcategory = Category::where('category_status','1')->get();
         $getrole = Role::latest()->take(2)->get();
-        return view('web.athletescoach.register',compact('getcategory','getrole'));
+        return view('web.athletescoach.register',compact('getcategory','getrole','getRefByDetail'));
     }
 
     // Register Post
@@ -77,6 +87,7 @@ class RegisterController extends Controller
             'otp' => $code,
             'futureDate' => $futureDate,
             'referral_by' => $referral_by,
+            'referral_history' =>$request->refid,
         ];
 
 
@@ -114,8 +125,27 @@ class RegisterController extends Controller
                         'email_verified_at' => $date,
                         'referral_token' => $refral_token,
                         'referral_by' => $user['referral_by'],
+                        
                     ];
+                    $userref = $user['referral_history'];
                     $id = User::insertGetId($datauser);
+                    if($userref != 0){
+                        
+                        $checkreffralcode = ReferralHistory::where('referral_to',$user['email'])->where('referral_by',$user['referral_by'])->first();
+                        if($checkreffralcode){
+                                $updateUserData = [
+                                    'status' => 'accepted',
+                                ];
+                                ReferralHistory::where('id', $checkreffralcode->id)->update($updateUserData);
+                        }else{
+                            $datauser = [
+                                'referral_by' => $UserDetail->id,
+                                'referral_to' => $referralEmail,
+                                'status' => 'accepted',
+                            ];
+                            $id = ReferralHistory::insertGetId($datauser);
+                        }
+                    }
                     session()->forget('user');
                     $credentials = [
                         'email' => $user['email'],
@@ -253,19 +283,28 @@ class RegisterController extends Controller
             $UserDetail = Auth::user();
             $userID = $UserDetail->id;
             $userreferral_token = $UserDetail->referral_token;
+            $getrefhistory = ReferralHistory::where('referral_by',$userID)->get();
             $url = $baseUrl.'/athletes-coach/register?ref='.$userreferral_token;
-            return view('web.athletescoach.referralandearn',compact('userID','url'));
+            return view('web.athletescoach.referralandearn',compact('userID','url','getrefhistory'));
         }else{
             return redirect('')->route('web.login');
         }
     }
 
     public function referralAndEarnSend(Request $request){
+        $baseUrl = url('/');
         $UserDetail = Auth::user();
         $senderemail = $UserDetail->email; 
-        $url = $request->url;
+        $posturl = $request->url;
         $code = $request->code;
         $referralEmail = $request->referralEmail;
+
+        $datauser = [
+            'referral_by' => $UserDetail->id,
+            'referral_to' => $referralEmail,
+        ];
+        $id = ReferralHistory::insertGetId($datauser);
+        $url = $baseUrl.'/athletes-coach/register?ref='.$id;
 
         $mail = Mail::to($referralEmail)->send(new RefralEmail($referralEmail, $code,$senderemail,$url));
         return redirect()->back()->with('success', 'Referral Send Successfully.');

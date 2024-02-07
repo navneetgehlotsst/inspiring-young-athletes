@@ -57,10 +57,8 @@
                                 <div class="d-flex flex-wrap flex-lg-nowrap gap-3 align-items-end">
                                     <div class="w-75">
                                         <label class="form-label mb-0" for="referralEmail">Copy referral code to share with your friend’s</label>
-                                        <input type="text" id="codeCopy" class="form-control w-100" placeholder="Email address" value="{{auth()->user()->referral_token}}" readonly>
-                                    </div>
-                                    <div>
-                                        <button type="button" onclick="myFunction()" class="btn iya-btn-blue">Copy code</button>
+                                        <input type="text" id="codeCopy" class="form-control w-100" onclick="myFunction()" placeholder="Email address" value="{{auth()->user()->referral_token}}" readonly>
+                                        <div class="d-none" id="displayMessage" style="color: #40ed4e;">You have copied code sharing with friend’s</div>
                                     </div>
                                 </div>
                             </div>
@@ -110,7 +108,9 @@
       navigator.clipboard.writeText(copyText.value);
       
       // Alert the copied text
-      alert("You have copied code sharing with friend’s: " + copyText.value);
+      //alert("You have copied code sharing with friend’s: " + copyText.value);
+      $('#displayMessage').removeClass('d-none');
+
     }
     </script>
 

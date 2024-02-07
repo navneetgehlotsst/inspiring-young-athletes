@@ -17,43 +17,28 @@
                             <li class="text-white"><i class="far fa-check-circle text-white me-2"></i> Answers to the burning questions every up-and-comer has</li>
                         </ul>
                         <a href="{{ route('web.video.publisher.all') }}" class="btn iya-btn-white">Watch Limited Free Videos</a>
-                        <p class="py-3">Want to see more? Subscribe here for only <span class="fw-bold">$4.60/Month</span> and unlock the most powerful tool in Youth Sport.</p>
+                        <p class="py-3">Want to see more? Subscribe here for only <span class="fw-bold">US$3.95/Month</span> and unlock the most powerful tool in Youth Sport.</p>
                     </div>
                 </div>
                 <div class="col-lg-4 align-self-center text-center">
                     <div class="banner-slide-carousel owl-carousel">
                         <div>
-                            <img src="{{asset('web/assets/images/quotes/Kids slide 1.jpg')}}" alt="Quotes" class="img-fluid">
+                            <img src="{{asset('web/assets/images/quotes/Kidspic1.jpg')}}" alt="Quotes" class="img-fluid">
                         </div>
                         <div>
-                            <img src="{{asset('web/assets/images/quotes/Kids slide 2.png')}}" alt="Quotes" class="img-fluid">
+                            <img src="{{asset('web/assets/images/quotes/Kidspic2.jpg')}}" alt="Quotes" class="img-fluid">
                         </div>
                         <div>
-                            <img src="{{asset('web/assets/images/quotes/Kids slide 3.png')}}" alt="Quotes" class="img-fluid">
+                            <img src="{{asset('web/assets/images/quotes/Kidspic3.jpg')}}" alt="Quotes" class="img-fluid">
                         </div>
                         <div>
-                            <img src="{{asset('web/assets/images/quotes/Kids slide 4.png')}}" alt="Quotes" class="img-fluid">
+                            <img src="{{asset('web/assets/images/quotes/Kidspic4.jpg')}}" alt="Quotes" class="img-fluid">
                         </div>
                         <div>
-                            <img src="{{asset('web/assets/images/quotes/Kids slide 5.png')}}" alt="Quotes" class="img-fluid">
+                            <img src="{{asset('web/assets/images/quotes/Kidspic5.jpg')}}" alt="Quotes" class="img-fluid">
                         </div>
                         <div>
-                            <img src="{{asset('web/assets/images/quotes/Kids-slide-6.png')}}" alt="Quotes" class="img-fluid">
-                        </div>
-                        <div>
-                            <img src="{{asset('web/assets/images/quotes/Kids-slide-7.png')}}" alt="Quotes" class="img-fluid">
-                        </div>
-                        <div>
-                            <img src="{{asset('web/assets/images/quotes/Kids-slide-8.png')}}" alt="Quotes" class="img-fluid">
-                        </div>
-                        <div>
-                            <img src="{{asset('web/assets/images/quotes/Kids slide 9.jpg')}}" alt="Quotes" class="img-fluid">
-                        </div>
-                        <div>
-                            <img src="{{asset('web/assets/images/quotes/Kids-slide-10.png')}}" alt="Quotes" class="img-fluid">
-                        </div>
-                        <div>
-                            <img src="{{asset('web/assets/images/quotes/Kids-slide-11.png')}}" alt="Quotes" class="img-fluid">
+                            <img src="{{asset('web/assets/images/quotes/Kidspic6.jpg')}}" alt="Quotes" class="img-fluid">
                         </div>
                     </div>
                 </div>
@@ -138,7 +123,7 @@
                     <div class="row g-3">
                         <div class="col-lg-9 m-auto">
                             <div class="pricing-plan-box bg-blue border-blue py-3 px-4">
-                                <h3 class="fw-bold text-left text-white">Why Subscribe for only <span class="pricing-amount text-white">$ 4.50</span><span class="fw-bold"> / per month?</span></h3>
+                                <h3 class="fw-bold text-left text-white">Why Subscribe for only <span class="pricing-amount text-white">US$ 3.95</span><span class="fw-bold"> / per month?</span></h3>
                                 <!-- <p class="text-left text-white mb-0"><span class="fw-bold">Why Subscribe for only </span><span class="pricing-amount text-white">$ 4.50</span><span class="fw-bold"> / per month?</span></p> -->
                                 <hr class="text-white">
                                 <ul class="top-list-icon text-left">

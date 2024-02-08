@@ -188,6 +188,7 @@ return [
         // 'Example' => App\Facades\Example::class,
         // 'FFMpeg' => ProtoneMedia\LaravelFFMpeg\Support\FFMpeg::class
         'Share' => Jorenvh\Share\ShareFacade::class,
+        'Helper'    => App\Helpers\Helper::class,
     ])->toArray(),
 
 ];

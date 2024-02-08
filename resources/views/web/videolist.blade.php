@@ -196,18 +196,35 @@
                                 <h4><a class="video-title">{{$uplaoddate}}</a></h4>
                                 <div class="video-counter">
                                     <div class="video-viewers">
+                                        @php
+                                            if (Auth::check()){ 
+                                            $watch = Helper::userview($Video->video_id,Auth::user()->id); 
+                                                
+                                            }
+                                        @endphp
                                         <span class="fa fa-eye view-icon"></span>
                                         <span>{{$Video->video_veiw_count}}</span>
                                     </div>
-                                        @if($Video->Video_type == 0)
-                                            <div class="video-feedback py-1">
-                                                <span class="free-video-tag">Free</span>
-                                            </div>
-                                        @else
-                                            <div class="video-feedback py-1">
-                                                <span class="paid-video-tag">Paid</span>
-                                            </div>
-                                        @endif
+                                    
+                                    @if($Video->Video_type == 0)
+                                        <div class="video-feedback py-1">
+                                            <span class="free-video-tag">Free</span>
+                                            @if(!empty($watch))
+                                                <span class="free-video-tag">Watched</span>
+                                            @else
+                                                
+                                            @endif
+                                        </div>
+                                    @else
+                                        <div class="video-feedback py-1">
+                                            <span class="paid-video-tag">Paid</span>
+                                            @if(!empty($watch))
+                                                <span class="free-video-tag">Watched</span>
+                                            @else
+                                                
+                                            @endif
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>

@@ -42,8 +42,19 @@
                                 </div>
                             </div>
                         </div>
+                        @php
+                            if (Auth::check()){ 
+                            $watch = Helper::userview($getVideo->video_id,Auth::user()->id); 
+                                
+                            }
+                        @endphp
                         <div class="video-post-counter text-end">
                             <div class="video-post-viewers">
+                                @if(!empty($watch))
+                                    <span class="free-video-tag">Watched</span>
+                                @else
+                                    
+                                @endif
                                 <p class="h5"><span class="fa fa-eye view-icon"></span>{{$getVideo->video_veiw_count}} views</p>
                             </div>
                             {{-- <div class="video-like">
@@ -76,6 +87,12 @@
                             @php
                                 $uplaoddate = date_format($video->created_at,"d/m/Y")
                             @endphp
+                            @php
+                                if (Auth::check()){ 
+                                $watch = Helper::userview($video->video_id,Auth::user()->id); 
+                                    
+                                }
+                            @endphp
                             <div class="slider-part-two col-md-12">
                                 <div class="single-video">
                                     <div class="video-img feature-post-img">
@@ -87,6 +104,11 @@
                                     <div class="video-content">
                                         <h4><a class="video-title" href="{{ route('web.video',$video->video_id) }}">{{$video->video_title}}</a></h4>
                                     </div>
+                                    @if(!empty($watch))
+                                        <span class="free-video-tag">Watched</span>
+                                    @else
+                                        
+                                    @endif
                                 </div>
                             </div>
                         @endforeach
@@ -140,13 +162,29 @@
                                             <span class="fa fa-eye view-icon"></span>
                                             <span>{{$Video['video_veiw_count']}}</span>
                                         </div>
+                                        @php
+                                            if (Auth::check()){ 
+                                            $watch = Helper::userview($Video->video_id,Auth::user()->id); 
+                                                
+                                            }
+                                        @endphp
                                             @if($Video->Video_type == 0)
                                                 <div class="video-feedback py-1">
                                                     <span class="free-video-tag">Free</span>
+                                                    @if(!empty($watch))
+                                                        <span class="free-video-tag">Watched</span>
+                                                    @else
+                                                        
+                                                    @endif
                                                 </div>
                                             @else
                                                 <div class="video-feedback py-1">
                                                     <span class="paid-video-tag">Paid</span>
+                                                    @if(!empty($watch))
+                                                        <span class="free-video-tag">Watched</span>
+                                                    @else
+                                                        
+                                                    @endif
                                                 </div>
                                             @endif
                                     </div>

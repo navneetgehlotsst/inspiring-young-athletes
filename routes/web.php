@@ -67,6 +67,8 @@ Route::name('web.')->controller(HomeController::class)->group(function () {
     Route::post('/loginpost', 'LoginPost')->name('login.post');
     Route::get('/forgotpassword', 'forgotPassword')->name('forgotpassword');
     Route::post('/forgotpasswordpost', 'forgotPasswordPost')->name('forgotpassword.post');
+    Route::get('reset-password/{token}', 'showResetPasswordForm')->name('reset.password.get');
+    Route::post('submitResetPasswordForm', 'submitResetPasswordForm')->name('submitResetPasswordForm');
 });
 
 Route::name('web.athletes.coach.')->prefix('athletes-coach')->controller(RegisterController::class)->group(function () {

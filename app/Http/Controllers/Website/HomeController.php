@@ -24,7 +24,7 @@ use App\Models\{
     UserAnswere,
     Question
 };
-
+use App\Mail\ForgotPasswordMail;
 class HomeController extends Controller
 {
     // Home page
@@ -293,8 +293,57 @@ class HomeController extends Controller
         if(empty($userCheck)){
             return redirect()->back()->with('error', 'Invalid email..!');
         }else{
-            echo "hello"; die;
+            $token = Str::random(64);
+            DB::table('password_reset_tokens')->insert(['email' => $request->email, 'token' => $token, 'created_at' => Carbon::now() ]);
+
+        try
+        {
+            Mail::send('web.email.forgetPassword', ['token' => $token], function ($message) use ($request)
+            {
+                $message->to($request->email);
+                $message->subject('Reset Password');
+            });
+            return redirect('/login')
+                ->with('success1', 'We have e-mailed your password reset link!');
         }
+        catch(\Exception $e)
+        {
+            dd($e);
+            return redirect()->back()
+                ->with('error', 'email not sent');
+        }
+        }
+    }
+
+    public function showResetPasswordForm($token)
+    {
+        return view('web.setpassword', ['token' => $token]);
+    }
+
+    public function submitResetPasswordForm(Request $request)
+    {
+
+        $request->validate(['password' => 'required|confirmed', 'password_confirmation' => 'required']);
+
+        $updatePassword = DB::table('password_reset_tokens')->where(['token' => $request
+            ->token])
+            ->first();
+
+        if (!$updatePassword)
+        {
+            return redirect()->back()
+                ->with('error', 'Invalid token!');
+        }
+
+        $user = User::where('email', $updatePassword->email)
+            ->update(['password' => Hash::make($request->password) ]);
+        DB::table('password_reset_tokens')
+            ->where(['email' => $updatePassword
+            ->email])
+            ->delete();
+
+        return redirect('/login')
+            ->with('success', 'Your password has been changed!');
     }
 
 }

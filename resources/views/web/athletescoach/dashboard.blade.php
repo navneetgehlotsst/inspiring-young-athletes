@@ -58,7 +58,7 @@
                                     <div class="col mr-2">
                                         <div class="text-xs text-dark mb-2 h6">
                                             Unique Views </div>
-                                        <div class="mb-0 h3">3,897</div>
+                                        <div class="mb-0 h3">{{$UniqueViews}}</div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-chart-bar text-success h1 text-green"></i>

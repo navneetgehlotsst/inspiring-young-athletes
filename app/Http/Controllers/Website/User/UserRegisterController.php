@@ -144,50 +144,6 @@ class UserRegisterController extends Controller
         }
     }
 
-    public function profileupdate(Request $request){
-        $input = $request->all();
-        $UserDetail = Auth::user();
-        $userID = $UserDetail->id;
-
-        $updateUserData = [
-            'name' => $input['name'],
-            'email' => $input['email'],
-            'category' => $input['category'],
-            'phone' => $input['number'],
-        ];
-
-        if($request->has('profileimg')){
-            $profileimg = $request->file('profileimg');
-            $profileimgName = time() . '.' . $profileimg->getClientOriginalExtension();
-            $path = 'storage/user/'.$userID.'/profile';
-            if(!File::exists($path)) {
-                File::makeDirectory($path, $mode = 0777, true, true);
-            }
-            $profileimg->move(public_path($path), $profileimgName);
-            $profileimgNamepath = $path.'/'.$profileimgName;
-            $updateUserData['profile'] = $profileimgNamepath;
-            if(!empty($UserDetail->profile)){
-                $imagePath = public_path($UserDetail->profile);
-                if (file_exists($imagePath)) {
-                    unlink($imagePath);
-                }
-            }
-        }
-        User::where('id', $userID)->update($updateUserData);
-
-        return redirect()->back()->with('success', 'Profile Update Successfully.');
-    }
-
-    public function ChangePassword(){
-        if (Auth::check()){
-            $UserDetail = Auth::user();
-            $userID = $UserDetail->id;
-            return view('web.athletescoach.changepassword',compact('userID'));
-        }else{
-            return redirect('')->route('web.login');
-        }
-    }
-
     public function passwordupdate(Request $request){
         //Validation
         $request->validate([
@@ -206,6 +162,34 @@ class UserRegisterController extends Controller
         ]);
         return back()->with("success", "Password changed successfully!");
 
+    }
+
+
+    public function edit_profile(){
+        if (Auth::check()){
+            $UserDetail = Auth::user();
+            $userID = $UserDetail->id;
+            return view('web.profile',compact('userID','UserDetail'));
+        }else{
+            return redirect('')->route('web.login');
+        }
+    }
+
+    public function profileupdate(Request $request){
+        $input = $request->all();
+        $UserDetail = Auth::user();
+        $userID = $UserDetail->id;
+
+
+        $updateUserData = [
+            'name' => $input['name'],
+            'email' => $input['email'],
+            'phone' => $input['phone'],
+        ];
+        
+        User::where('id', $userID)->update($updateUserData);
+
+        return redirect()->back()->with('success', 'Profile Update Successfully.');
     }
 
     public function logout(){

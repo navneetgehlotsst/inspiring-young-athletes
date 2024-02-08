@@ -125,6 +125,9 @@ Route::group(['middleware' => 'auth'], function ()
 {
     Route::name('web.user.')->prefix('user')->controller(UserRegisterController::class)->group(function () {
         Route::get('/logout', 'logout')->name('logout');
+        Route::get('/profile', 'edit_profile')->name('profile');
+        Route::post('/profileupdate', 'profileupdate')->name('profileupdate');
+        Route::post('/passwordupdate', 'passwordupdate')->name('passwordupdate');
         Route::get('/verificationsucces', 'verificationSuccess')->name('verificationSuccess');
     });
 });

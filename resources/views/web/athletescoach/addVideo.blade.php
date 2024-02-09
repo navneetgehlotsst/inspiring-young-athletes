@@ -40,7 +40,7 @@
                 <div class="card shadow p-3">
                     <form role="form" action="{{ route('web.Video.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
-                        <input type="text" name="title" class="form-control py-3 mb-4" placeholder="Video Title">
+                        <input type="text" name="title" class="form-control py-3 mb-4" value="{{ old('title') }}" placeholder="Video Title">
                         @error('title')
                             <div class="alert">{{ $message }}</div>
                         @enderror
@@ -49,12 +49,12 @@
                                 <div class="mb-4">
                                     <input class="choose-btn-iyg" name="video" id="formFileLg" accept="video/mp4,video/x-m4v,video/*" type="file">
                                 </div>
-                                @error('Video')
+                                @error('video')
                                     <div class="alert">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="col-lg-4">
-                                <button type="submit" class="btn btn-primary py-3 w-100 fw-bold login-btn">Video Upload & Save</button>
+                                <button type="submit" class="btn btn-primary py-3 w-100 fw-bold login-btn">Add Video</button>
                             </div>
                         </div>
                     </form>

@@ -743,4 +743,21 @@ p.small.text-muted {
   font-size: 18px;
 }
 
+@media (min-width: 1001px) and (max-width: 1399px) {
+  
+  .main-menu .themeix-nav > li > a {
+    display: inline-block;
+    padding: 20px 10px;
+    font-weight: 700;
+}
+
+.header-section ul li {
+  text-transform: uppercase;
+  position: relative;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.9px;
+}
+}
+
 

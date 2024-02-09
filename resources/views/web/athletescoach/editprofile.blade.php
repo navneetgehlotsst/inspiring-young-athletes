@@ -70,7 +70,7 @@
                                             </div>
                                             <div class="col-lg-12">
                                                 <label for="name" class="form-label">Number:</label>
-                                                <input type="number" class="form-control py-3 mb-4 disabled" placeholder="Enter Number" name="number" value="{{ auth()->user()->phone }}" required>
+                                                <input type="number" class="form-control py-3 mb-4 disabled" placeholder="Enter phone number" name="number" value="{{ auth()->user()->phone }}" required>
                                             </div>
                                             <div class="col-lg-12">
                                                 <label for="name" class="form-label">Category:</label>

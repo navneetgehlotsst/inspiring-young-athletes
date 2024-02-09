@@ -22,9 +22,12 @@ use App\Models\{
     Video,
     VideoHistory,
     UserAnswere,
-    Question
+    Question,
+    Plan,
+    Subscriptions
 };
 use App\Mail\ForgotPasswordMail;
+use Laravel\Cashier\Cashier;
 class HomeController extends Controller
 {
     // Home page
@@ -32,7 +35,14 @@ class HomeController extends Controller
         $getcategory = Category::where('category_status','1')->take(12)->get();
         //count query pending show data in veiw
         $athleticCoaches = User::where('roles', '!=', 'User')->where('roles', '!=', 'Admin')->withCount('videos')->take(9)->get();
-        return view('web.home',compact('getcategory','athleticCoaches'));
+        if (Auth::check()){
+            $UserDetail = Auth::user();
+            $userID = $UserDetail->id;
+            $checkSubscriptions = Subscriptions::where('user_id',$userID)->first();
+        }else{
+            $checkSubscriptions = "";
+        }
+        return view('web.home',compact('getcategory','athleticCoaches','checkSubscriptions'));
     }
     // About page
     public function About(){
@@ -113,8 +123,9 @@ class HomeController extends Controller
     }
 
     public function Question(){
-        $QuestionList = Question::where('question_status','1')->paginate(10);
-        return view('web.question',compact('QuestionList'));
+        $AthletesList = Question::where('question_status','1')->where('question_type','!=','for_coaches')->get();
+        $CoachList = Question::where('question_status','1')->where('question_type','for_coaches')->get();
+        return view('web.question',compact('AthletesList','CoachList'));
     }
 
 
@@ -128,29 +139,19 @@ class HomeController extends Controller
         // Default values
         $search = isset($_GET['search']) ? $_GET['search'] : "";
         $categorys = isset($_GET['categorys']) ? $_GET['categorys'] : "";
-
+        $categoryFirst = Category::where('category_slug', $slug)->orWhere('category_id', $categorys)->first();
         // Fetch categories
         $getcategory = Category::where('category_status', '1')->get();
         $athleticCoaches = User::where('roles','!=', 'Admin')
         ->where('roles','!=','User')
         ->withCount('videos');
-    
         if (!empty($search)) {
             $athleticCoaches->where('name', 'like', '%' . $search . '%');
         }
-        
-        if (!empty($categorys)) {
-            $athleticCoaches->where('category', $categorys);
-        }
+        $athleticCoaches->where('category', $categoryFirst->category_id);
         $athleticCoaches = $athleticCoaches->paginate(10);
         $videoCount = $athleticCoaches->total();
-        // Fetch category based on slug or category ID
-        $categoryFirst = Category::where('category_slug', $slug)->orWhere('category_id', $categorys)->first();
-        if(!empty($categorys)){
-            $trendingVideo = User::where('category', $categorys)->with('TopVideoList')->get();
-        }else{
-            $trendingVideo = User::where('category', $categoryFirst->category_id)->with('TopVideoList')->get();
-        }
+        $trendingVideo = User::where('category', $categoryFirst->category_id)->with('TopVideoList')->get();
         
         return view('web.videopublisher',compact('getcategory','categoryFirst','athleticCoaches','search','categorys','videoCount','trendingVideo'));
     }
@@ -256,6 +257,12 @@ class HomeController extends Controller
                 if (Auth::attempt($credentials))
                 {
                     $user = Auth::user();
+                    if(empty($user->stripe_id)){
+                        $stripeCustomer = $user->createAsStripeCustomer();
+                        $user = User::find($user->id);
+                        $user->stripe_id = $stripeCustomer->id;
+                        $user->save();
+                    }
                     if($user->roles == 'User'){
                         if(!empty($url)){
                             $url = Session::get('url');
@@ -304,7 +311,7 @@ class HomeController extends Controller
                 $message->subject('Reset Password');
             });
             return redirect('/login')
-                ->with('success1', 'We have e-mailed your password reset link!');
+                ->with('success', 'We have e-mailed your password reset link!');
         }
         catch(\Exception $e)
         {
@@ -344,6 +351,34 @@ class HomeController extends Controller
 
         return redirect('/login')
             ->with('success', 'Your password has been changed!');
+    }
+
+    public function joinNow(){
+        if (Auth::check()){
+            $UserDetail = Auth::user();
+            $userID = $UserDetail->id;
+            if($UserDetail->roles == "User"){
+                $planGet = Plan::where('status','1')->first();
+                $PlanId = $planGet->id;
+                $intent = $UserDetail->createSetupIntent();
+                $inttentId = $intent->client_secret;
+                return view('web.subscription',compact('PlanId','inttentId'));
+            }else{
+                return redirect()->back()->with('error', 'Athletics And Coach Cant buy this subscription');
+            }
+        }else{
+            return redirect()->route('web.login');
+        }
+    }
+
+    public function subscription(Request $request)
+    {   
+        $plan = Plan::find($request->plan);
+  
+        $subscription = $request->user()->newSubscription($request->plan, $plan->plan)
+                        ->create($request->token);
+  
+        return redirect()->route('web.index')->with('success', 'Subcription Create Succusfully');
     }
 
 }

@@ -11,8 +11,11 @@
         min-height: 30px;
         text-align: center;
     }
+    .accordion-button:not(.collapsed)::after {
+        display: none;
+    }
 </style>
-<!-- Video Publisher Section Start-->
+{{-- <!-- Video Publisher Section Start-->
 <section class="publisher-section themeix-ptb-2">
     <div class="container">
         <div class="website-title-white text-center">
@@ -20,31 +23,73 @@
             <div class="border-box m-auto"></div>
         </div>
     </div>
-</section>
+</section> --}}
 <!-- Video Publisher Section End-->
-<!-- Categories Section Start-->
-<section class="categories-section pt-5 pb-5">
+<section class="publisher-section themeix-ptb-2">
     <div class="container">
-        <div class="position-relative">
-            @php $i = 1; @endphp
-            @foreach($QuestionList as $questionList)
-            <div class="d-flex align-items-baseline py-2">
-            <p class="mb-0 pointes-box">{{$i++}}.</p>
-            <h4 class="h6 question-icon ps-2 py-2"><a href="{{ route('web.question.video',$questionList->question_id) }}">{{$questionList->question}}</a></h4>
-            </div>
-            @endforeach
-        </div>
-        <div class="row g-3 mt-4">
-            <div class="mt-3">
-                {{ $QuestionList->links('pagination::bootstrap-5') }}
+        <div class="row">
+            <div class="col-lg-10 m-auto">
+                <div class="text-center">
+                    <h2 class="text-white fw-bold">Questions And Answer</h2>
+                    <p class="text-white">Answer any 8 of our pre-determined questions as an athlete or coach to activate your account online</p>
+                </div>
+                <ul class="nav nav-pills justify-content-center mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item questions-answer-tap" role="presentation">
+                      <button class="btn tab-btn-white active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-athletes" type="button" role="tab" aria-controls="pills-athletes" aria-selected="true">Athletes</button>
+                    </li>
+                    <li class="nav-item questions-answer-tap" role="presentation">
+                      <button class="btn tab-btn-white" id="pills-coachs-tab" data-bs-toggle="pill" data-bs-target="#pills-coachs" type="button" role="tab" aria-controls="pills-coachs" aria-selected="false">Coachs</button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade active show" id="pills-athletes" role="tabpanel" aria-labelledby="pills-home-tab">
+                        <!--Athletes Questions Start-->
+                        <div class="from-box p-3 p-lg-5">
+                            <div class="questions-answer-section">
+                                <div class="accordion" id="accordionAthletesQuestions">
+                                    @php $athi = 1; @endphp
+                                    @foreach($AthletesList as $athletesList)
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingParents1">
+                                            <button class="accordion-button" type="button">
+                                                <a href="{{ route('web.question.video',$athletesList->question_id) }}" class="h6"><strong>{{$athi++}}. </strong>{{$athletesList->question}}</a>    
+                                            </button>
+                                        </h2>
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        <!--Athletes Questions End-->
+                    </div>
+                    <div class="tab-pane fade" id="pills-coachs" role="tabpanel" aria-labelledby="pills-coachs-tab">
+                        <!--Parents Questions Start-->
+                        <div class="from-box p-3 p-lg-5 mt-3">
+                            <div class="questions-answer-section">
+                                <div class="accordion" id="accordionParents">
+                                    @php $chi = 1; @endphp
+                                    @foreach($CoachList as $coachlist)
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingParents1">
+                                            <button class="accordion-button" type="button">
+                                                <a href="{{ route('web.question.video',$coachlist->question_id) }}" class="h6"><strong>{{$chi++}}. </strong>{{$coachlist->question}}</a>    
+                                            </button>
+                                        </h2>
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        <!--Parents Questions End-->
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </section>
-<!-- Categories Section End-->
 
 <!-- Start Call To Action Area -->
-<div class="call-to-action-area py-5 mt-0 mt-lg-5 ">
+<div class="call-to-action-area py-5 mt-0 mt-lg-0">
     <div class="container">
         <div class="row py-5">
             <div class="col-md-12">

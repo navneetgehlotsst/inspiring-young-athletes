@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\{
     Storage
 };
 use App\Mail\VerifyUserEmail;
+use Laravel\Cashier\Cashier;
 
 class UserRegisterController extends Controller
 {
@@ -89,7 +90,11 @@ class UserRegisterController extends Controller
                         'roles' => 'User',
                         'email_verified_at' => $date,
                     ];
-                    $id = User::insertGetId($datauser);
+                    $user = User::create($datauser);
+                    $stripeCustomer = $user->createAsStripeCustomer();
+                    $user = User::find($user->id);
+                    $user->stripe_id = $stripeCustomer->id;
+                    $user->save();
                     session()->forget('user');
                     $credentials = [
                         'email' => $user['email'],

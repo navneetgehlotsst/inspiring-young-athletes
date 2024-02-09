@@ -1,6 +1,51 @@
 @extends('web.layouts.app') 
 @section('content')
-    
+@if(session('error'))
+<script>
+    $(document).ready(function() {
+  toastr.options = {
+    'closeButton': true,
+    'debug': true,
+    'newestOnTop': true,
+    'progressBar': true,
+    'positionClass': 'toast-top-right',
+    'preventDuplicates': false,
+    'showDuration': '1000',
+    'hideDuration': '1000',
+    'timeOut': '5000',
+    'extendedTimeOut': '1000',
+    'showEasing': 'swing',
+    'hideEasing': 'linear',
+    'showMethod': 'fadeIn',
+    'hideMethod': 'fadeOut',
+  }
+});
+    toastr.error('{{ session('error') }}');
+</script>
+@endif
+@if(session('success'))
+    <script>
+        $(document).ready(function() {
+			toastr.options = {
+				'closeButton': true,
+				'debug': false,
+				'newestOnTop': false,
+				'progressBar': false,
+				'positionClass': 'toast-top-right',
+				'preventDuplicates': false,
+				'showDuration': '1000',
+				'hideDuration': '1000',
+				'timeOut': '5000',
+				'extendedTimeOut': '1000',
+				'showEasing': 'swing',
+				'hideEasing': 'linear',
+				'showMethod': 'fadeIn',
+				'hideMethod': 'fadeOut',
+			}
+		});
+        toastr.success('{{ session('success') }}');
+    </script>
+@endif
     <!-- Hero Slider Area Start-->
     <section class="hero-banner-bg">
         <div class="container">
@@ -46,74 +91,73 @@
         </div>
     </section>
     <!-- Hero Slider Area End-->
+     <!-- Video Publisher Section Start-->
+     <section class="themeix-ptb-2">
+      <div class="container">
+          <div class="website-title-white text-center pb-5">
+              <h2 class="">Trending Videos Publisher</h2>
+              <div class="border-box m-auto"></div>
+          </div>
+          <div class="row g-3">
+              @foreach ( $athleticCoaches as $athleticCoachprofile )
+              @php
+                  $datetime = $athleticCoachprofile->created_at;
+                  $dateTimestring = new DateTime($datetime);
+                  $year = $dateTimestring->format("Y");
+                  $videoCount = $athleticCoachprofile->videos_count;
+              @endphp
+              <div class="col-lg-4">
+                  <div class="publisher-box p-3">
+                      <div class="d-flex position-relative">
+                          <div class="publisher-img">
+                              @if( $athleticCoachprofile->profile =="")
+                                  <img class="img-account-profile rounded-circle mb-2 imgprofileupdate" src="{{asset('web/assets/images/new-img/dummyuser.png')}}" alt="">
+                              @else
+                                  <img class="img-account-profile rounded-circle mb-2 imgprofileupdate" src="{{asset($athleticCoachprofile->profile)}}" alt="">
+                              @endif
+                          </div>
+                          <div class="publisher-details mt-2 ps-3">
+                              <h4>{{$athleticCoachprofile->name}}</h4>
+                              <p class="mb-1"><i class="far fa-play-circle text-danger me-2"></i> {{$videoCount}} videos</p>
+                              <p class="mb-0"><i class="far fa-calendar-alt text-break me-2"></i> joined {{$year}}</p>
+                          </div>
+                          <div class="view-btn-box">
+                              <a href="{{ route('web.video.publisher.list',$athleticCoachprofile->id) }}" class="text-white">View <img src="{{asset('web/assets/images/new-img/view-icon.svg')}}"
+                                      alt="arrow icon"></a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              @endforeach
+
+          </div>
+      </div>
+    </section>
     <!-- Categories Section Start-->
-    <section class="categories-section py-5 pb-5">
+    <section class="publisher-section categories-section py-5 pb-5">
         <div class="container">
             <div class="website-title text-center pb-5">
-                <h2>Popular Video Categories</h2>
+                <h2 class="text-white">Popular Video Categories</h2>
                 <div class="border-box m-auto"></div>
             </div>
             <div class="row g-3 mt-4">
                 @foreach ($getcategory as $category)
                 <div class="col-lg-2 col-6 mb-3">
                     <a href="{{ route('web.video.publisher',$category->category_slug) }}">
-                        <div class="categorie-box text-center">
-                            <img src="{{asset('storage')}}/{{$category->category_image}}" alt="{{$category->category_name}}">
-                            <p class="my-3">{{$category->category_name}}</p>
+                        <div class="categorie-box text-center bg-white py-4 mx-3 rounded ">
+                            <img class="" src="{{asset('storage')}}/{{$category->category_image}}" alt="{{$category->category_name}}">
+                            <p class="mb-0">{{$category->category_name}}</p>
                         </div>
                     </a>
                 </div>
                 @endforeach
             </div>
             <div class="text-center my-3">
-                <a href="{{ route('web.categories') }}" class="btn iya-btn-blue">View All Categories</a>
+                <a href="{{ route('web.categories') }}" class="btn iya-btn-white">View All Categories</a>
             </div>
         </div>
     </section>
     <!-- Categories Section End-->
-
-    <!-- Video Publisher Section Start-->
-    <section class="publisher-section themeix-ptb-2">
-        <div class="container">
-            <div class="website-title-white text-center pb-5">
-                <h2 class="text-white">Top Popular Video Publisher</h2>
-                <div class="border-box m-auto"></div>
-            </div>
-            <div class="row g-3">
-                @foreach ( $athleticCoaches as $athleticCoachprofile )
-                @php
-                    $datetime = $athleticCoachprofile->created_at;
-                    $dateTimestring = new DateTime($datetime);
-                    $year = $dateTimestring->format("Y");
-                    $videoCount = $athleticCoachprofile->videos_count;
-                @endphp
-                <div class="col-lg-4">
-                    <div class="publisher-box p-3">
-                        <div class="d-flex position-relative">
-                            <div class="publisher-img">
-                                @if( $athleticCoachprofile->profile =="")
-                                    <img class="img-account-profile rounded-circle mb-2 imgprofileupdate" src="{{asset('web/assets/images/new-img/dummyuser.png')}}" alt="">
-                                @else
-                                    <img class="img-account-profile rounded-circle mb-2 imgprofileupdate" src="{{asset($athleticCoachprofile->profile)}}" alt="">
-                                @endif
-                            </div>
-                            <div class="publisher-details mt-2 ps-3">
-                                <h4>{{$athleticCoachprofile->name}}</h4>
-                                <p class="mb-1"><i class="far fa-play-circle text-danger me-2"></i> {{$videoCount}} videos</p>
-                                <p class="mb-0"><i class="far fa-calendar-alt text-break me-2"></i> joined {{$year}}</p>
-                            </div>
-                            <div class="view-btn-box">
-                                <a href="{{ route('web.video.publisher.list',$athleticCoachprofile->id) }}" class="text-white">View <img src="{{asset('web/assets/images/new-img/view-icon.svg')}}"
-                                        alt="arrow icon"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-
-            </div>
-        </div>
-    </section>
     <!-- Video Publisher Section End-->
     <!-- Pricing Plan Section Start-->
     <section class="categories-section pt-5 my-5 pb-5">
@@ -135,7 +179,9 @@
                                     <li class="text-white"><i class="far fa-check-circle me-2 text-white"></i><span class="fw-bold">Goal Setting and Planning :</span> Pros guide in setting realistic goals and crafting a strategic plan.</li>
                                 </ul>
                                 <div class="mt-3 text-left">
-                                    <a href="#" class="btn iya-btn-white text-blue">Join Now</a>
+                                    @if(empty($checkSubscriptions))
+                                    <a href="{{ route('web.joinnow') }}" class="btn iya-btn-white text-blue">Join Now</a>
+                                    @endif
                                 </div>
                             </div>
                         </div>

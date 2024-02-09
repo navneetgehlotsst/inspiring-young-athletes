@@ -58,7 +58,11 @@
                     <form role="form" action="{{ route('web.athletes.coach.register.post') }}" method="post" id="coachAtheliticsRegister">
                         @csrf
                         <input type="hidden" name="refid" value="@if(empty($getRefByDetail)) 0 @else {{$getRefByDetail->id}} @endif">
+                        @if(empty($getRefByDetail))
+                        <input type="text" name="email" id="email" value="{{ old('email') }}" class="form-control py-3 mb-4 @error('email') is-invalid @enderror" placeholder="Enter your email">
+                        @else
                         <input type="text" name="email" id="email" value="@if(empty($getRefByDetail)){{ old('email') }} @else {{$getRefByDetail->referral_to}} @endif" class="form-control py-3 mb-4 @error('email') is-invalid @enderror" placeholder="Enter your email">
+                        @endif
                         @error('email')
                             <div class="alert">{{ $message }}</div>
                         @enderror
@@ -98,7 +102,11 @@
                         @error('password')
                             <div class="alert">{{ $message }}</div>
                         @enderror
+                        @if(empty($getRefByDetail))
+                        <input type="text" name="code" id="code" value="{{ old('code') }}" class="form-control py-3 mb-4 @error('code') is-invalid @enderror" placeholder="Referral Code(Optional)">
+                        @else
                         <input type="text" name="code" id="code" value="@if(empty($getRefByDetail)){{ old('code') }} @else {{$getRefByDetail->referral_token}} @endif" class="form-control py-3 mb-4 @error('code') is-invalid @enderror" placeholder="Referral Code(Optional)">
+                        @endif
                         <button type="submit" class="btn btn-primary py-3 w-100 fw-bold login-btn">Sign up</button>
                         <p class="pt-4 text-center">Don’t have an account ? <a href="{{ route('web.login') }}" class="primary-color fw-bold">Login</a></p>
                     </form>

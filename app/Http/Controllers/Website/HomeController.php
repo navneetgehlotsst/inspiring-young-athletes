@@ -202,7 +202,7 @@ class HomeController extends Controller
             // }
             if($userId != $getVideo->user_id ){
                 if($userRole == 'Athletes' || $userRole == 'Coach' ){
-                    return Redirect::back()->withError('you cant see this video');
+                    return Redirect::back()->withError("You have log in with Athleat/Coach so you can't see the video");
                 }
                 $checkvideoHistory = VideoHistory::where('video_id',$id)->where('user_id',$userId)->first();
                 if(empty($checkvideoHistory)){

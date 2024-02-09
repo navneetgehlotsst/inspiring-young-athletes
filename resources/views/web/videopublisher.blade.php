@@ -170,15 +170,15 @@
                             </div>
                             <div class="video-content">
                                 @auth
-                                        <h4><a class="video-title" href="{{ route('web.video',$Video['video_id']) }}">{{$Video['Video_title']}}</a></h4>
+                                        <h4><a class="video-title" href="{{ route('web.video',$Video['video_id']) }}">{{$Video['video_title']}}</a></h4>
                                     @else
-                                        <h4><a class="video-title" href="{{ route('web.login') }}">{{$Video['Video_title']}}</a></h4>
+                                        <h4><a class="video-title" href="{{ route('web.login') }}">{{$Video['video_title']}}</a></h4>
                                     @endauth
                                     <h4><a class="video-title">{{$uplaoddate}}</a></h4>
                                     <div class="video-counter">
                                         <div class="video-viewers">
                                             <span class="fa fa-eye view-icon"></span>
-                                            <span>{{$Video['Video_veiw_count']}}</span>
+                                            <span>{{$Video['video_veiw_count']}}</span>
                                         </div>
                                             @if($Video->Video_type == 0)
                                                 <div class="video-feedback py-1">

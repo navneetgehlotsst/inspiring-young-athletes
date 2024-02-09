@@ -316,7 +316,7 @@ class RegisterController extends Controller
         $url = $baseUrl.'/athletes-coach/register?ref='.$id;
 
         $mail = Mail::to($referralEmail)->send(new RefralEmail($referralEmail, $code,$senderemail,$url));
-        return redirect()->back()->with('success', 'Referral Send Successfully.');
+        return redirect()->back()->with('success', 'Referal email sent successfully.');
     }
 
 

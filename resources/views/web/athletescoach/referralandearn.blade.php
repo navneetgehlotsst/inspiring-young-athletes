@@ -70,22 +70,26 @@
                     <div class="card-body">
                         <div class="mb-4 mt-1">
                             <h5>Invite History</h5>
-                            <table class="table">
-                                <thead>
-                                  <tr>
-                                    <th scope="col">Referred To</th>
-                                    <th scope="col">Status</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ( $getrefhistory as $getref )
-                                        <tr>
-                                            <td>{{$getref->referral_to}}</td>
-                                            <td class="text-capitalize">{{$getref->status}}</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                              </table>
+                            @if(!empty($getrefhistory))
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Referred To</th>
+                                        <th scope="col">Status</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ( $getrefhistory as $getref )
+                                            <tr>
+                                                <td>{{$getref->referral_to}}</td>
+                                                <td class="text-capitalize">{{$getref->status}}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            @else
+                                <p>No Invite history yet</p>
+                            @endif
                         </div>
                     </div>
                 </div>

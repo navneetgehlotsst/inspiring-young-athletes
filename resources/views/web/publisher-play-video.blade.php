@@ -102,7 +102,11 @@
                                         <!-- <span class="video-duration">10.52</span> -->
                                     </div>
                                     <div class="video-content">
-                                        <h4><a class="video-title" href="{{ route('web.video',$video->video_id) }}">{{$video->video_title}}</a></h4>
+                                        @auth
+                                        <h4><a class="video-title" href="{{ route('web.video',$video->video_id) }}">{{$vide->video_title}}</a></h4>
+                                        @else
+                                            <h4><a class="video-title" href="{{ route('web.login') }}">{{$vide->video_title}}</a></h4>
+                                        @endauth
                                     </div>
                                     @if(!empty($watch))
                                         <span class="free-video-tag">Watched</span>
@@ -151,10 +155,10 @@
                                 {{-- <span class="video-duration">5.28</span> --}}
                             </div>
                             <div class="video-content">
-                                @auth
+                                    @auth
                                         <h4><a class="video-title" href="{{ route('web.video',$Video['video_id']) }}">{{$Video['video_title']}}</a></h4>
                                     @else
-                                        <h4><a class="video-title" href="{{ route('web.login') }}">{{$Video['cideo_title']}}</a></h4>
+                                        <h4><a class="video-title" href="{{ route('web.login') }}">{{$Video['video_title']}}</a></h4>
                                     @endauth
                                     <h4><a class="video-title">{{$uplaoddate}}</a></h4>
                                     <div class="video-counter">

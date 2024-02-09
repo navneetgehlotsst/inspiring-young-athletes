@@ -36,6 +36,29 @@
         toastr.error('{{ session('error') }}');
     </script>
 @endif
+@if(session('success'))
+    <script>
+        $(document).ready(function() {
+			toastr.options = {
+				'closeButton': true,
+				'debug': false,
+				'newestOnTop': false,
+				'progressBar': false,
+				'positionClass': 'toast-top-right',
+				'preventDuplicates': false,
+				'showDuration': '1000',
+				'hideDuration': '1000',
+				'timeOut': '5000',
+				'extendedTimeOut': '1000',
+				'showEasing': 'swing',
+				'hideEasing': 'linear',
+				'showMethod': 'fadeIn',
+				'hideMethod': 'fadeOut',
+			}
+		});
+        toastr.success('{{ session('success') }}');
+    </script>
+@endif
 <!-- Video Publisher Section Start-->
 <section class="publisher-section themeix-ptb-2">
     <div class="container">
@@ -49,10 +72,19 @@
                         @csrf
                         <label for="email">Email</label>
                         <input type="text" name="email" id="email" value="{{$UserDetail->email}}" class="form-control py-3 mb-4 " placeholder="Enter your email">
+                        @error('email')
+                            <div class="alert">{{ $message }}</div>
+                        @enderror
                         <label for="email">Name</label>
                         <input type="text" name="name" id="name" value="{{$UserDetail->name}}" class="form-control py-3 mb-4" placeholder="Full Name" />
+                        @error('name')
+                            <div class="alert">{{ $message }}</div>
+                        @enderror
                         <label for="email">Phone</label>
                         <input type="number" name="phone" id="phone" value="{{$UserDetail->phone}}" class="form-control py-3 mb-4" placeholder="Mobile Number" />
+                        @error('phone')
+                            <div class="alert">{{ $message }}</div>
+                        @enderror
                         <button type="submit" class="btn btn-primary py-3 w-100 fw-bold login-btn">Update Profile</button>
                     </form>
                 </div>
@@ -73,6 +105,9 @@
                               <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
                             </span>
                         </div>
+                        @error('password')
+                            <div class="alert">{{ $message }}</div>
+                        @enderror
                         <label for="email">Confirmation Password</label>
                         <input name="password_confirmation" type="password" value="" class="form-control py-3 mb-4" id="password" placeholder="Confirm Password" required="true" aria-label="password" aria-describedby="basic-addon1">
                         <div class="input-group-append position-relative">
@@ -81,6 +116,9 @@
                               <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
                             </span>
                         </div>
+                        @error('password_confirmation')
+                            <div class="alert">{{ $message }}</div>
+                        @enderror
                         <button type="submit" class="btn btn-primary py-3 w-100 fw-bold login-btn">Update Password</button>
                     </form>
                 </div>

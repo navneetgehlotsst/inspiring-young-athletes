@@ -151,19 +151,18 @@ class UserRegisterController extends Controller
 
     public function passwordupdate(Request $request){
         //Validation
-        $request->validate([
-            'old_password' => 'required',
-            'new_password' => 'required|confirmed',
+        $validatedData = $request->validate([
+            'password' => 'required|confirmed',
         ]);
 
          #Match The Old Password
-         if (!Hash::check($request->old_password, auth()->user()->password)) {
-            return back()->with("error", "Old Password Doesn't match!");
-        }
+        //  if (!Hash::check($request->old_password, auth()->user()->password)) {
+        //     return back()->with("error", "Old Password Doesn't match!");
+        // }
 
          #Update the new Password
          User::whereId(auth()->user()->id)->update([
-            "password" => Hash::make($request->new_password),
+            "password" => Hash::make($request->password),
         ]);
         return back()->with("success", "Password changed successfully!");
 
@@ -184,6 +183,12 @@ class UserRegisterController extends Controller
         $input = $request->all();
         $UserDetail = Auth::user();
         $userID = $UserDetail->id;
+
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+        ]);
 
 
         $updateUserData = [

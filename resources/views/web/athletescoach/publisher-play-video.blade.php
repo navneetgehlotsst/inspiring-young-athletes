@@ -14,8 +14,8 @@
                                     <div class="single-video full-video-view">
                                         <div class="video-img feature-post-img">
                                            <video class="w-100" height="500" controls poster="{{asset($getVideo->thumbnails)}}">
-                                                <source src="{{asset($getVideo->Video)}}" type="video/mp4/mov/avi/wmv">
-                                                <source src="{{asset($getVideo->Video)}}" type="video/ogg">
+                                                <source src="{{asset($getVideo->video)}}" type="video/mp4/mov/avi/wmv">
+                                                <source src="{{asset($getVideo->video)}}" type="video/ogg">
                                                  Your browser does not support the video tag.
                                             </video>
                                         </div>
@@ -24,6 +24,7 @@
                                         <div class="video-post-title">
                                             <div class="d-flex d-lg-block">
                                                 <div class="video-post-info">
+                                                    <h4><a href="#">{{$getVideo->video_title}}</a></h4>
                                                     <div class="video-post-date pt-2">
                                                         <span class="h5"><i class="fas fa-calendar-alt"></i></span>
                                                         @php
@@ -36,7 +37,7 @@
                                         </div>
                                         <div class="video-post-counter text-end">
                                             <div class="video-post-viewers">
-                                                <p class="h5"><span class="fa fa-eye view-icon"></span>{{$getVideo->Video_veiw_count}} views</p>
+                                                <p class="h5"><span class="fa fa-eye view-icon"></span>{{$getVideo->video_veiw_count}} views</p>
                                             </div>
                                             {{-- <div class="video-like">
                                                 <div class="share-options">

@@ -44,12 +44,12 @@
                                 <div class="card mb-4 mb-xl-0">
                                     <div class="card-body text-center">
                                         @if(empty(auth()->user()->profile))
-                                            <img class="img-account-profile rounded-circle mb-2 imgprofileupdate" src="{{asset('web/assets/images/new-img/dummyuser.png')}}" alt="">
+                                            <img class="img-account-profile rounded-circle mb-2 imgprofileupdate" id="image-preview" src="{{asset('web/assets/images/new-img/dummyuser.png')}}" alt="">
                                         @else
-                                        <img class="img-account-profile rounded-circle mb-2 imgprofileupdate" src="{{asset(auth()->user()->profile)}}" alt="">
+                                        <img class="img-account-profile rounded-circle mb-2 imgprofileupdate" id="image-preview" src="{{asset(auth()->user()->profile)}}" alt="">
                                         @endif
                                         <div class="mb-4">
-                                            <input class="edit-btn-iyg py-2" onchange="uploadprofileImage()" name="profileimg" type="file">
+                                            <input class="edit-btn-iyg py-2" id="file-input" name="profileimg" type="file">
                                         </div>
                                         
                                     </div>

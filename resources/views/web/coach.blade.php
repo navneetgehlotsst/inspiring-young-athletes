@@ -16,7 +16,7 @@
     <div class="container">
         <div class="row py-4 g-3">
             <div class="col-lg-12 align-self-center">
-                <form role="form" action="{{ route('web.athletes') }}" method="get">
+                <form role="form" action="{{ route('web.coach') }}" method="get">
                     <div class="row g-3">
                         <div class="col-lg-5">
                             <div class="input-group position-relative">

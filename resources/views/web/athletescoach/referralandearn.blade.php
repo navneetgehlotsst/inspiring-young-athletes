@@ -70,7 +70,7 @@
                     <div class="card-body">
                         <div class="mb-4 mt-1">
                             <h5>Invite History</h5>
-                            @if(!empty($getrefhistory))
+                            @if(count($getrefhistory) != '0')
                                 <table class="table">
                                     <thead>
                                     <tr>

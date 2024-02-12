@@ -24,7 +24,30 @@
     </script>
 @endif
 
+<style>
+    .profile-img-position {
+        position: absolute;
+        opacity: 0;
+        top: 90px;
+        right: -40px;
+    }
 
+    .camera-img{
+        border-radius: 20px;
+        background: #1badc4;
+        padding: 5px;
+        width: 30px;
+        height: 30px;
+        padding: 5px;
+        position: relative;
+        top: -40px;
+        right: -40px;
+    }
+    .edit-profile-box{
+        height: 160px;
+    }
+    
+</style>
 
 <section class="dashboard-section">
     <div class="container">
@@ -42,16 +65,20 @@
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="card mb-4 mb-xl-0">
-                                    <div class="card-body text-center">
-                                        @if(empty(auth()->user()->profile))
-                                            <img class="img-account-profile rounded-circle mb-2 imgprofileupdate" id="image-preview" src="{{asset('web/assets/images/new-img/dummyuser.png')}}" alt="">
-                                        @else
-                                        <img class="img-account-profile rounded-circle mb-2 imgprofileupdate" id="image-preview" src="{{asset(auth()->user()->profile)}}" alt="">
-                                        @endif
-                                        <div class="mb-4">
-                                            <input class="edit-btn-iyg py-2" id="file-input" accept="image/png, image/gif, image/jpeg" name="profileimg" type="file">
+                                    <div class="card-body text-center edit-profile-box">
+                                        <div class="position-relative">
+                                            @if(empty(auth()->user()->profile))
+                                                <img class="img-account-profile rounded-circle mb-2 imgprofileupdate" id="image-preview" src="{{asset('web/assets/images/new-img/dummyuser.png')}}" alt="">
+                                            @else
+                                            <img class="img-account-profile rounded-circle mb-2 imgprofileupdate" id="image-preview" src="{{asset(auth()->user()->profile)}}" alt="">
+                                            @endif
+                                            <div class="camera-img m-auto">
+                                                <img src="{{asset('web/assets/images/new-img/camera.png')}}" width="30px" class="camera-images">
+                                            </div>
                                         </div>
-                                        
+                                        <div class="mb-4">
+                                            <input class="edit-btn-iyg py-2 profile-img-position" id="file-input" accept="image/png, image/gif, image/jpeg" name="profileimg" type="file">
+                                        </div> 
                                     </div>
                                 </div>
                             </div>

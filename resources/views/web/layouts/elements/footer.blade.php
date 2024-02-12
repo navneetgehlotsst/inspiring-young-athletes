@@ -22,10 +22,10 @@
                             <div class="footer-list">
                                 <ul>
                                     <li><a href="{{ route('web.about') }}">About Us</a></li>
-                                    <li><a href="#">Athletes</a></li>
-                                    <li><a href="#">Coach</a></li>
-                                    <li><a href="#">Categories</a></li>
-                                    <li><a href="#">Parent</a></li>
+                                    <li><a href="{{ route('web.athletes') }}">Athletes</a></li>
+                                    <li><a href="{{ route('web.coach') }}">Coach</a></li>
+                                    <li><a href="{{ route('web.categories') }}">Categories</a></li>
+                                    <li><a href="{{ route('web.coming-soon') }}">Parent</a></li>
                                     <li><a href="{{ route('web.contact-us') }}">Contact</a></li>
                                 </ul>
                             </div>

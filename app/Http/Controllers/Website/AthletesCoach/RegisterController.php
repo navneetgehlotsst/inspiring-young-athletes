@@ -101,8 +101,12 @@ class RegisterController extends Controller
 
     public function verification_otp(){
         $user = Session::get('user');
-        $email = $user['email'];
-        return view('web.athletescoach.otp-verified-athletes-and-coach',compact('email','user'));
+        if(!empty($user)){
+            $email = $user['email'];
+            return view('web.athletescoach.otp-verified-athletes-and-coach',compact('email','user'));
+        }else{
+            return redirect()->route('web.index');
+        }
     }
 
     public function verifyOtp(Request $request){
@@ -172,25 +176,31 @@ class RegisterController extends Controller
 
     public function reSendOtp(Request $request){
         $user = Session::get('user');
-        $email = $user['email'];
-        $code = 1234; //rand(1000,9999);
-        $date = date('Y-m-d H:i:s');
-        $currentDate = strtotime($date);
-        $futureDate = $currentDate+(60*5);
-        $datauser = [
-            'name' => $user['name'],
-            'email' => $user['email'],
-            'password' => $user['password'],
-            'temppassword' => $user['temppassword'],
-            'phone' => $user['phone'],
-            'roles' => $user['roles'],
-            'category' => $user['category'],
-            'otp' => $code,
-            'futureDate' => $futureDate
-        ];
-        Mail::to($email)->send(new VerifyUserEmail($datauser, $code));
-        $request->session()->put('user', $datauser);
-        return redirect()->back()->with('success', 'OTP sent again on your mail.');
+        if(!empty($user)){
+            $email = $user['email'];
+            $code = 1234; //rand(1000,9999);
+            $date = date('Y-m-d H:i:s');
+            $currentDate = strtotime($date);
+            $futureDate = $currentDate+(60*5);
+            $datauser = [
+                'name' => $user['name'],
+                'email' => $user['email'],
+                'password' => $user['password'],
+                'temppassword' => $user['temppassword'],
+                'phone' => $user['phone'],
+                'roles' => $user['roles'],
+                'category' => $user['category'],
+                'otp' => $code,
+                'futureDate' => $futureDate,
+                'referral_by' => $user['referral_by'],
+                'referral_history' => $user['referral_history'],
+            ];
+            Mail::to($email)->send(new VerifyUserEmail($datauser, $code));
+            $request->session()->put('user', $datauser);
+            return redirect()->back()->with('success', 'OTP sent again on your mail.');
+        }else{
+            return redirect()->route('web.index');
+        }
 
     }
 

@@ -46,7 +46,7 @@
                         <button class="btn tab-btn-white" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-coaches" type="button" role="tab" aria-controls="pills-coaches" aria-selected="false">Coaches</button>
                     </li>
                     <li class="nav-item questions-answer-tap" role="presentation">
-                        <button class="btn tab-btn-white" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-frenzy" type="button" role="tab" aria-controls="pills-frenzy" aria-selected="false">Friday Frenzy</button>
+                        <button class="btn tab-btn-white" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-frenzy" type="button" role="tab" aria-controls="pills-frenzy" aria-selected="false">Game Day Prep</button>
                     </li>
                 </ul>
                 <div class="tab-content" id="pills-tabContent">

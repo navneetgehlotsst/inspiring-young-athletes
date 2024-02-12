@@ -95,7 +95,7 @@
      <section class="themeix-ptb-2">
       <div class="container">
           <div class="website-title-white text-center pb-5">
-              <h2 class="">Trending Videos Publisher</h2>
+              <h2 class="">Trending Videos</h2>
               <div class="border-box m-auto"></div>
           </div>
           <div class="row g-3">

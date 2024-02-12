@@ -139,6 +139,7 @@
     <script>
         function uploadImage(id) {
             let formData = new FormData(document.getElementById('imageUploadForm'+id));
+            document.getElementById('formFileLg'+id).disabled = true;
             axios.post('{{ route("web.athletes.coach.uploadVideo") }}', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',

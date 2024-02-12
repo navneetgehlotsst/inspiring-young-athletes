@@ -49,7 +49,7 @@
                                         <img class="img-account-profile rounded-circle mb-2 imgprofileupdate" id="image-preview" src="{{asset(auth()->user()->profile)}}" alt="">
                                         @endif
                                         <div class="mb-4">
-                                            <input class="edit-btn-iyg py-2" id="file-input" name="profileimg" type="file">
+                                            <input class="edit-btn-iyg py-2" id="file-input" accept="image/png, image/gif, image/jpeg" name="profileimg" type="file">
                                         </div>
                                         
                                     </div>

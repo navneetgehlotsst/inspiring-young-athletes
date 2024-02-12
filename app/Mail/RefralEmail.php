@@ -33,7 +33,7 @@ class RefralEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('web.email.reffral-user')->with([
+        return $this->subject('Referal Email')->view('web.email.reffral-user')->with([
             'email' => $this->user,
             'code' => $this->code,
             'senderemail' => $this->senderemail,

@@ -78,7 +78,7 @@
                                                 {{-- <div id="progress-bar{{$questionList->question_id}}"></div> --}}
                                                 {{-- <progress id="progress-bar{{$questionList->question_id}}" value="0" max="100"></progress> --}}
                                                 <div class="progress">
-                                                    <div class="progress-bar customprogressbar" id="progress-bar{{$questionList->question_id}}" role="progressbar" value="0" max="100">0%</div>
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" id="progress-bar{{$questionList->question_id}}" role="progressbar" value="0" max="100">0%</div>
                                                 </div>
                                                 {{-- <div id="progress-text{{$questionList->question_id}}">0%</div> --}}
                                             </div>

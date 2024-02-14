@@ -24,7 +24,8 @@ use App\Models\{
     UserAnswere,
     Question,
     Plan,
-    Subscriptions
+    Subscriptions,
+    Transaction,
 };
 use App\Mail\ForgotPasswordMail;
 use Laravel\Cashier\Cashier;
@@ -181,7 +182,7 @@ class HomeController extends Controller
         ->telegram()
         ->whatsapp();
         $userdetail = User::where('id',$id)->withCount('videos')->first();
-        $categoryFirst = Category::where('category_id',$userdetail->id)->first();
+        $categoryFirst = Category::where('category_id',$userdetail->category)->first();
         $VideoList = Video::where('user_id',$userdetail->id)->where('Video_status','1')->paginate(10);
 
         return view('web.videolist',compact('userdetail','categoryFirst','VideoList','shareComponent','url'));
@@ -312,7 +313,7 @@ class HomeController extends Controller
                 $message->subject('Reset Password');
             });
             return redirect('/login')
-                ->with('success', 'We have e-mailed your password reset link!');
+                ->with('success', 'We have sent a link to reset your password on your email!');
         }
         catch(\Exception $e)
         {
@@ -325,13 +326,25 @@ class HomeController extends Controller
 
     public function showResetPasswordForm($token)
     {
-        return view('web.setpassword', ['token' => $token]);
+        try {
+            $updatePassword = DB::table('password_reset_tokens')->where(['token' => $token])->first();
+
+            if (empty($updatePassword))
+            {
+                return redirect('/login')->with('error', 'Token Expired!');
+            }
+            return view('web.setpassword', ['token' => $token]);
+        } catch (\Throwable $th) {
+            //throw $th;
+            dd($th);
+        }
+        
     }
 
     public function submitResetPasswordForm(Request $request)
     {
 
-        $request->validate(['password' => 'required|confirmed', 'password_confirmation' => 'required']);
+        $request->validate(['new_password' => 'required|confirmed',]);
 
         $updatePassword = DB::table('password_reset_tokens')->where(['token' => $request
             ->token])
@@ -344,7 +357,7 @@ class HomeController extends Controller
         }
 
         $user = User::where('email', $updatePassword->email)
-            ->update(['password' => Hash::make($request->password) ]);
+            ->update(['password' => Hash::make($request->new_password) ]);
         DB::table('password_reset_tokens')
             ->where(['email' => $updatePassword
             ->email])
@@ -374,12 +387,39 @@ class HomeController extends Controller
 
     public function subscription(Request $request)
     {   
-        $plan = Plan::find($request->plan);
-  
-        $subscription = $request->user()->newSubscription($request->plan, $plan->plan)
-                        ->create($request->token);
-  
-        return redirect()->route('web.index')->with('success', 'Subcription Create Succusfully');
+        try {
+            if (Auth::check()) {
+                $user = Auth::user();
+                $plan = Plan::find($request->plan);
+        
+                if (!$plan) {
+                    return redirect()->route('web.index')->with('error', 'Invalid Plan');
+                }
+        
+                $subscription = $user->newSubscription($request->plan, $plan->plan)->create($request->token);
+                $transactionData = [
+                    'user_id' => $user->id,
+                    'amount' => $plan->price,
+                    'transaction_id' => $subscription->stripe_id,
+                    'transaction_type' => 'subscription',
+                    'status' => $subscription->stripe_status,
+                ];
+        
+                // Use a transaction to ensure data consistency
+                $transaction = Transaction::create($transactionData);
+        
+                if ($subscription->stripe_status == 'active') {
+                    return redirect()->route('web.athletes.coach.MySubcription')->with('success', 'Subscription Created Successfully');
+                } else {
+                    return redirect()->route('web.index')->with('error', 'Subscription Not Created Successfully');
+                }
+            } else {
+                return redirect()->route('web.login');
+            }
+        } catch (\Throwable $th) {
+            return back()->with('error',$th->getMessage());
+        }
+        
     }
 
 }

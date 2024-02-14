@@ -5,20 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class VideoHistory extends Model
+class Transaction extends Model
 {
     use HasFactory;
 
 
-    protected $table = 'video_history';
+    protected $table = 'transaction';
 
     protected $fillable = [
         'user_id',
-        'video_id',
+        'amount',
+        'transaction_id',
+        'status',
+        'transaction_type',
     ];
-
-    public function video()
-    {
-        return $this->belongsTo(Video::class);
-    }
 }

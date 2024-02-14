@@ -38,7 +38,7 @@
                 </div>
                 <!-- Content Row -->
                 <div class="card shadow p-3">
-                    <form role="form" action="{{ route('web.Video.store') }}" method="post" enctype="multipart/form-data">
+                    <form id="videoUpload" role="form" action="{{ route('web.Video.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <input type="text" name="title" class="form-control py-3 mb-4" value="{{ old('title') }}" placeholder="Video Title">
                         @error('title')

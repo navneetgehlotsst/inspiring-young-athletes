@@ -24,4 +24,10 @@ class Video extends Model
         'thumbnails',
         'video_from'
     ];
+
+
+    public function videoHistory()
+    {
+        return $this->hasMany(VideoHistory::class,'video_id','video_id');
+    }
 }

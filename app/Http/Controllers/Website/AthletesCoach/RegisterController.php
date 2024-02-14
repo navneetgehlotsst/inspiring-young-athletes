@@ -7,7 +7,10 @@ use App\Models\{
     Category,
     Role,
     User,
-    ReferralHistory
+    ReferralHistory,
+    Subscriptions,
+    SubscriptionsItem,
+    Plan
 };
 use Exception;
 use DB;
@@ -23,6 +26,10 @@ use Illuminate\Support\Facades\{
 };
 use App\Mail\VerifyUserEmail;
 use App\Mail\RefralEmail;
+use Laravel\Cashier\Subscription;
+use Laravel\Cashier\SubscriptionItem;
+use Laravel\Cashier\Cashier;
+use Laravel\Cashier\PaymentMethod;
 
 class RegisterController extends Controller
 {
@@ -222,21 +229,23 @@ class RegisterController extends Controller
 
     public function profileupdate(Request $request){
         $input = $request->all();
-        $UserDetail = Auth::user();
-        $userID = $UserDetail->id;
-
+        $userDetail = Auth::user();
+        $userID = $userDetail->id;
 
         $updateUserData = [
             'name' => $input['name'],
             'email' => $input['email'],
-            'category' => $input['category'],
             'phone' => $input['number'],
-            'linkedin' => $input['linkedin'],
-            'tiktok' => $input['tiktok'],
-            'instagram' => $input['instagram'],
-            'facebook' => $input['facebook'],
         ];
-        
+
+        if(auth()->user()->roles != "User"){
+            $updateUserData['category'] = $input['category'];
+            $updateUserData['linkedin'] = $input['linkedin'];
+            $updateUserData['tiktok'] = $input['tiktok'];
+            $updateUserData['instagram'] = $input['instagram'];
+            $updateUserData['facebook'] = $input['facebook'];
+        }
+
         if($request->has('profileimg')){
             $profileimg = $request->file('profileimg');
             $profileimgName = time() . '.' . $profileimg->getClientOriginalExtension();
@@ -247,16 +256,18 @@ class RegisterController extends Controller
             $profileimg->move(public_path($path), $profileimgName);
             $profileimgNamepath = $path.'/'.$profileimgName;
             $updateUserData['profile'] = $profileimgNamepath;
-            if(!empty($UserDetail->profile)){
-                $imagePath = public_path($UserDetail->profile);
+            if(!empty($userDetail->profile)){
+                $imagePath = public_path($userDetail->profile);
                 if (file_exists($imagePath)) {
                     unlink($imagePath);
                 }
             }
         }
+
         User::where('id', $userID)->update($updateUserData);
 
         return redirect()->back()->with('success', 'Profile Update Successfully.');
+
     }
 
     public function ChangePassword(){
@@ -285,7 +296,7 @@ class RegisterController extends Controller
          User::whereId(auth()->user()->id)->update([
             "password" => Hash::make($request->new_password),
         ]);
-        return back()->with("success", "Password changed successfully!");
+        return back()->with("success", "Your password has updated successfully.Please log in!");
 
     }
 
@@ -327,6 +338,49 @@ class RegisterController extends Controller
 
         $mail = Mail::to($referralEmail)->send(new RefralEmail($referralEmail, $code,$senderemail,$url));
         return redirect()->back()->with('success', 'Referal email sent successfully.');
+    }
+
+    public function MySubcription(){
+        if (Auth::check()){
+            $result = Subscriptions::where('user_id',Auth::user()->id)
+                  ->join('subscription_items', 'subscriptions.id', '=', 'subscription_items.subscription_id')
+                  ->first();
+            $resulplan = Plan::where('status','1')->first();
+            return view('web.athletescoach.my-subcription', compact('resulplan','result'));
+        }else{
+            return redirect('')->route('web.login');
+        }
+    }
+
+    public function cancel_subcription(){
+        $user = Auth::user();
+        $subscription = Subscription::query()->active()->where('user_id',$user->id)->first();
+        if($subscription){ 
+            $subid = $subscription->name??'';
+            $sub = $subscription->cancel();
+            return redirect()->back()->with('success', 'Membership Cancel Successfully');
+        }else{
+            return back()->withInput()->withError('error','Subscription Not Valid');   
+        }
+    }
+
+
+    public function resume_subcription(){
+        $user = Auth::user();
+        $subscription = Subscription::query()->active()->where('user_id',$user->id)->first();
+        
+        if($subscription){    
+            $subid = $subscription->name ?? '';
+            $sub = $subscription->resume();
+            return redirect()->back()->with('success', 'Membership Resume Successfully');
+        }else{
+            
+             return back()->withInput()->withError('error','Subscription Not Valid');
+                 //return redirect()->back()->with('status', 'Subscription Not Valid');   
+        }
+
+       
+
     }
 
 

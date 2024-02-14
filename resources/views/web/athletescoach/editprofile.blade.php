@@ -99,6 +99,7 @@
                                                 <label for="name" class="form-label">Number:</label>
                                                 <input type="number" class="form-control py-3 mb-4 disabled" placeholder="Enter phone number" name="number" value="{{ auth()->user()->phone }}" required>
                                             </div>
+                                            @if(auth()->user()->roles != "User")
                                             <div class="col-lg-12">
                                                 <label for="name" class="form-label">Category:</label>
                                                 <select class="form-control py-3 mb-4 form-select @error('category') is-invalid @enderror" name="category" id="category" aria-label="Default select example" required>
@@ -124,6 +125,7 @@
                                                 <label for="name" class="form-label">Facebook:</label>
                                                 <input type="text" class="form-control py-3 mb-4 disabled" placeholder="Enter facebook" name="facebook" value="{{ auth()->user()->facebook }}">
                                             </div>
+                                            @endif
                                             <div class="col-lg-4 ms-auto">
                                                 <button type="submit" class="btn btn-primary py-3 w-100 fw-bold login-btn">Save</button>
                                             </div>

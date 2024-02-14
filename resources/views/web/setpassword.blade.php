@@ -53,14 +53,17 @@
                     <form role="form" action="{{ route('web.submitResetPasswordForm') }}" method="post">
                         @csrf
                                     <input type="hidden" name="token" value="{{ $token }}">
-                        <input name="password" type="password" value="" class="form-control py-3 mb-4" id="password" placeholder="Password" required="true" aria-label="password" aria-describedby="basic-addon1">
+                        <input name="new_password" type="password" value="" class="form-control py-3 mb-4" id="password" placeholder="Password" required="true" aria-label="password" aria-describedby="basic-addon1">
                         <div class="input-group-append position-relative">
                             <span onclick="password_show_hide();">
                               <i class="fas fa-eye" id="show_eye"></i>
                               <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
                             </span>
                         </div>
-                        <input name="password_confirmation" type="password" value="" class="form-control py-3 mb-4" id="password" placeholder="Confirm Password" required="true" aria-label="password" aria-describedby="basic-addon1">
+                        @error('new_password')
+                            <div class="alert">{{ $message }}</div>
+                        @enderror
+                        <input name="new_password_confirmation" type="password" value="" class="form-control py-3 mb-4" id="password" placeholder="Confirm Password" required="true" aria-label="password" aria-describedby="basic-addon1">
                         <div class="input-group-append position-relative">
                             <span onclick="password_show_hide();">
                               <i class="fas fa-eye" id="show_eye"></i>

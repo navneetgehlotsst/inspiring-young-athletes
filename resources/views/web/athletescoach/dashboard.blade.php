@@ -37,8 +37,6 @@
                     <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
                     <div class="d-none d-sm-inline-block">
                         <ul class="pagination">
-                            <li class="page-item"><a href="#" class="page-link">Today</a></li>
-                            <li class="page-item"><a href="#" class="page-link">Week</a></li>
                             <li class="page-item active"><a href="#" class="page-link">Month</a></li>
                             <li class="page-item"><a href="#" class="page-link">Year</a></li>
                             <li class="page-item"><a href="#" class="page-link">Custom</a></li>                                
@@ -58,7 +56,7 @@
                                     <div class="col mr-2">
                                         <div class="text-xs text-dark mb-2 h6">
                                             Unique Views </div>
-                                        <div class="mb-0 h3">{{$UniqueViews}}</div>
+                                        <div class="mb-0 h3">{{$uniqueViews}}</div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-chart-bar text-success h1 text-green"></i>
@@ -76,7 +74,7 @@
                                     <div class="col mr-2">
                                         <div class="text-xs text-dark mb-2 h6">
                                             Video Revenue </div>
-                                        <div class="mb-0 h3">$50,200</div>
+                                        <div class="mb-0 h3">${{$videoRevenue}}</div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-coins text-warning h1 text-green"></i>
@@ -94,7 +92,7 @@
                                     <div class="col mr-2">
                                         <div class="text-xs text-dark mb-2 h6">
                                             Referral Revenue </div>
-                                        <div class="mb-0 h3">$1,200</div>
+                                        <div class="mb-0 h3">${{$ReferralRevenue}}</div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-coins text-success h1 text-green"></i>

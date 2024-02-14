@@ -83,7 +83,7 @@ Route::name('web.athletes.coach.')->prefix('athletes-coach')->controller(Registe
 
 Route::group(['middleware' => 'auth'], function ()
 {
-    Route::name('web.athletes.coach.')->prefix('athletes-coach')->controller(RegisterController::class)->group(function () {
+    Route::name('web.athletes.coach.')->controller(RegisterController::class)->group(function () {
         Route::get('/logout', 'logout')->name('logout');
         Route::get('/verificationsucces', 'verificationSuccess')->name('verificationSuccess');
         Route::get('/editprofile', 'GetEditProfile')->name('GetEditProfile');
@@ -92,6 +92,9 @@ Route::group(['middleware' => 'auth'], function ()
         Route::post('/passwordupdate', 'passwordupdate')->name('passwordupdate');
         Route::get('/refer-and-earn', 'referralAndEarn')->name('referralAndEarn');
         Route::post('/referralandearnsend', 'referralAndEarnSend')->name('referralAndEarnSend');
+        Route::get('/my-subscription', 'MySubcription')->name('MySubcription');
+        Route::get('/resume_subcription', 'resume_subcription')->name('resume_subcription');
+        Route::get('/cancel_subcription', 'cancel_subcription')->name('cancel_subcription');
     });
     Route::name('web.athletes.coach.')->prefix('athletes-coach')->controller(QuestionController::class)->group(function () {
         Route::get('/athelitics-coach-question', 'atheliticsCoachQuestion')->name('atheliticsCoachQuestion');

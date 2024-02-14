@@ -15,8 +15,7 @@
                             <div class="user-info right pr-0">
                                 <div class="login-info">
                                     @if(auth()->user()->roles == "User")
-                                        <a href="{{ route('web.index') }}" class="pr-0"><i class="fa fa-lock"></i><em>Welcome, </em> {{ auth()->user()->name }}</a>
-                                        <a href="{{ route('web.user.profile') }}" class="text-white"><i class="fa fa-lock"></i>Edit Profile</a>
+                                        <a href="{{ route('web.athletes.coach.GetEditProfile') }}" class="pr-0"><i class="fa fa-lock"></i><em>Welcome, </em> {{ auth()->user()->name }}</a>
                                     @else
                                         <a href="{{ route('web.dashboard') }}" class="pr-0"><i class="fa fa-lock"></i><em>Welcome, </em> {{ auth()->user()->name }}</a>
                                     @endif
@@ -54,12 +53,12 @@
                             @php
                                 $name = explode(" ", auth()->user()->name)
                             @endphp
-                        @if(auth()->user()->roles == "User")
+                        {{-- @if(auth()->user()->roles == "User")
                             <a href="{{ route('web.index') }}" class="text-white"><i class="fa fa-lock"></i><em>Welcome, </em> {{ $name['0'] }}</a>
                             <a href="{{ route('web.index') }}" class="text-white"><i class="fa fa-lock"></i>Edit Profile</a>
-                        @else
+                        @else --}}
                             <a href="{{ route('web.dashboard') }}" class="text-white"><i class="fa fa-lock"></i><em>Welcome, </em> {{ $name['0'] }}</a>
-                        @endif
+                        {{-- @endif --}}
                     </div>
                     @else
                     <div class="user-info right">

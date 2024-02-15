@@ -22,6 +22,8 @@
     {{-- LOAD script --}}
     <script src="{{asset('web/assets/js/jquery-3.3.1.min.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js"></script>
+    
+    
 
     <script>
         //toster
@@ -134,8 +136,9 @@
     <script src="{{asset('web/assets/js/jquery.lazy.plugins.min.js')}}"></script>
     <script src="{{asset('web/assets/js/megamenu.js')}}"></script>
     <script src="{{asset('web/assets/js/main.js')}}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    
     <script>
         function uploadImage(id) {
             let formData = new FormData(document.getElementById('imageUploadForm'+id));
@@ -284,7 +287,7 @@
             });
         }
     </script>
-    <script>
+    {{-- <script>
         const xValues = ["Nov 15", "Nov 16", "Nov 17", "Nov 18", "Nov 19","Nov 20","Nov 21","Nov 22","Nov 23","Nov 24","Nov 25","Nov 26"];
         const yValues = [152, 109, 93, 113, 126, 161, 188, 148, 102, 113, 45, 62];
         const barColors = ["#55BFCF", "#55BFCF","#55BFCF","#55BFCF","#55BFCF","#55BFCF","#55BFCF","#55BFCF","#55BFCF","#55BFCF","#55BFCF","#55BFCF"];
@@ -311,8 +314,8 @@
             
           }
         });
-    </script>
-    <script src="https://js.stripe.com/v3/"></script>
+    </script> --}}
+    
     <script>
         const stripe = Stripe('{{ env('STRIPE_KEY') }}')
       

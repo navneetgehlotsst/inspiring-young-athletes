@@ -103,7 +103,7 @@
                                     </div>
                                     <div class="video-content">
                                         @auth
-                                        <h4><a class="video-title" href="{{ route('web.video',$video->video_id) }}">{{$vide->video_title}}</a></h4>
+                                        <h4><a class="video-title" href="{{ route('web.video',$video->video_id) }}">{{$video->video_title}}</a></h4>
                                         @else
                                             <h4><a class="video-title" href="{{ route('web.login') }}">{{$vide->video_title}}</a></h4>
                                         @endauth

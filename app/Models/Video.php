@@ -30,4 +30,26 @@ class Video extends Model
     {
         return $this->hasMany(VideoHistory::class,'video_id','video_id');
     }
+
+
+    public function videoHistoryMonth()
+    {
+        $currentMonth = date('m');
+        $currentYear = date('Y');
+
+        // Get the previous month and year
+        $previousMonth = date('m', strtotime('-1 month'));
+        $previousYear = date('Y', strtotime('-1 month'));
+        return $this->hasMany(VideoHistory::class, 'video_id','video_id')->where('created_at',$currentYear)->where('created_at',$currentMonth)->orderBy('Video_veiw_count', 'desc');
+    }
+
+
+    public function videoHistoryYears()
+    {
+        $currentYear = date('Y');
+
+        // Get the previous month and year
+        $previousYear = date('Y', strtotime('-1 month'));
+        return $this->hasMany(VideoHistory::class, 'video_id','video_id')->where('created_at',$currentMonth)->orderBy('Video_veiw_count', 'desc');
+    }
 }

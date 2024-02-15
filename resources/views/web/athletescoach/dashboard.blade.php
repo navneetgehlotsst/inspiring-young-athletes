@@ -37,8 +37,8 @@
                     <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
                     <div class="d-none d-sm-inline-block">
                         <ul class="pagination">
-                            <li class="page-item active"><a href="#" class="page-link">Month</a></li>
-                            <li class="page-item"><a href="#" class="page-link">Year</a></li>
+                            <li class="page-item active"><a href="{{ route('web.dashboard') }}" class="page-link">Month</a></li>
+                            <li class="page-item"><a href="{{ route('web.dashboard', ['by' => 'year']) }}" class="page-link">Year</a></li>
                             <li class="page-item"><a href="#" class="page-link">Custom</a></li>                                
                         </ul>
                     </div>
@@ -74,7 +74,11 @@
                                     <div class="col mr-2">
                                         <div class="text-xs text-dark mb-2 h6">
                                             Video Revenue </div>
-                                        <div class="mb-0 h3">${{$videoRevenue}}</div>
+                                        @if(!empty($userIncome->videorevenue))
+                                        <div class="mb-0 h3">${{$userIncome->videorevenue}}</div>
+                                        @else
+                                        <div class="mb-0 h3">$0</div>
+                                        @endif
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-coins text-warning h1 text-green"></i>
@@ -92,7 +96,11 @@
                                     <div class="col mr-2">
                                         <div class="text-xs text-dark mb-2 h6">
                                             Referral Revenue </div>
-                                        <div class="mb-0 h3">${{$ReferralRevenue}}</div>
+                                        @if(!empty($userIncome->referralrevenue))
+                                        <div class="mb-0 h3">${{$userIncome->referralrevenue}}</div>
+                                        @else
+                                        <div class="mb-0 h3">$0</div>
+                                        @endif
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-coins text-success h1 text-green"></i>
@@ -113,7 +121,7 @@
                         <!-- Project Card Example -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3 bg-white">
-                                <h6 class="m-0 font-weight-bold text-dark">Monthly Video Views</h6>
+                                <h6 class="m-0 font-weight-bold text-dark">{{$type}} Video Views</h6>
                             </div>
                             <div class="card-body">
                                 <canvas id="myChart" style="width:100%; width:100%"></canvas>
@@ -123,50 +131,27 @@
                         <!-- Color System -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3 border-0 bg-white">
-                                <h6 class="m-0 font-weight-bold text-dark">Monthly Video Views</h6>
+                                <h6 class="m-0 font-weight-bold text-dark">{{$type}} Video Views</h6>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table">
                                       <thead class="border-bottom">
                                         <tr>
-                                          <th scope="col" class="border-0">#</th>
                                           <th scope="col" class="border-0">Video Name</th>
                                           <th scope="col" class="border-0">Views</th>
                                           <th scope="col" class="text-center border-0">Action</th>
                                         </tr>
                                       </thead>
                                       <tbody>
+                                        @foreach ($videoLists as $videoList)
+                                            
+                                        @endforeach
                                         <tr>
-                                          <th scope="row" class="align-middle py-4">1</th>
-                                          <td class="align-middle py-4">Lorem sit amet, consectetur adipiscing elit.</td>
-                                          <td class="align-middle py-4">15,52,200</td>
-                                          <td class="text-center align-middle"><a href="#" class="btn btn-dark py-1">View</a></td>
+                                          <td class="align-middle py-4">{{$videoList->video_title}}</td>
+                                          <td class="align-middle py-4">{{$videoList->video_veiw_count}}</td>
+                                          <td class="text-center align-middle"><a href="{{ route('web.Video.viewVideo',$videoList->video_id) }}" class="btn btn-dark py-1">View</a></td>
                                         </tr>
-                                        <tr>
-                                            <th scope="row" class="align-middle py-4">2</th>
-                                            <td class="align-middle py-4">Lorem sit amet, consectetur adipiscing elit.</td>
-                                            <td class="align-middle py-4">15,52,200</td>
-                                            <td class="text-center align-middle"><a href="#" class="btn btn-dark py-1">View</a></td>
-                                          </tr>
-                                          <tr>
-                                            <th scope="row" class="align-middle py-4">3</th>
-                                            <td class="align-middle py-4">Lorem sit amet, consectetur adipiscing elit.</td>
-                                            <td class="align-middle py-4">15,52,200</td>
-                                            <td class="text-center align-middle"><a href="#" class="btn btn-dark py-1">View</a></td>
-                                          </tr>
-                                          <tr>
-                                            <th scope="row" class="align-middle py-4">4</th>
-                                            <td class="align-middle py-4">Lorem sit amet, consectetur adipiscing elit.</td>
-                                            <td class="align-middle py-4">15,52,200</td>
-                                            <td class="text-center align-middle"><a href="#" class="btn btn-dark py-1">View</a></td>
-                                          </tr>
-                                          <tr>
-                                            <th scope="row" class="align-middle py-4">5</th>
-                                            <td class="align-middle py-4">Lorem sit amet, consectetur adipiscing elit.</td>
-                                            <td class="align-middle py-4">15,52,200</td>
-                                            <td class="text-center align-middle"><a href="#" class="btn btn-dark py-1">View</a></td>
-                                          </tr>
                                       </tbody>
                                     </table>
                                 </div>
@@ -180,6 +165,50 @@
     </div>
 </section>
 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<script>
+
+        const xValues = {{ Js::from($date) }};
+        const yValues = {{ Js::from($count) }};
+    
+    new Chart("myChart", {
+      type: "bar",
+      data: {
+        labels: xValues,
+        datasets: [{
+          backgroundColor: "#55BFCF",
+          data: yValues,
+          borderSkipped: false,
+        }]
+      },
+      options: {
+        legend: {display: false},
+        title: {
+          display: true,
+        //   text: "World Wine Production 2018"
+        },
+        // scales: {
+        //     yAxes: [{ticks: {min: 0, max:200}}],
+            
+        // }
+
+        scales: {
+            xAxes: [{
+                gridLines: {
+                    display:false
+                }
+            }],
+            yAxes: [{
+                gridLines: {
+                    display:false
+                }   
+            }]
+        }
+        
+      }
+    });
+</script>
 @endsection 
 @section('script')
 @endsection

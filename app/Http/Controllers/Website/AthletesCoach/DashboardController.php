@@ -9,90 +9,73 @@ use App\Models\{
     Subscriptions,
     Plan,
     Transaction,
-    VideoHistory
+    VideoHistory,
+    UserIncome
 };
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{
     Auth,
     DB
 };
-
+use Carbon\Carbon;
 class DashboardController extends Controller
 {
-    public function Dashboard(){
+    public function Dashboard(Request $request){
         try {
             if (Auth::check()) {
                 $user = Auth::user();
                 $userID = $user->id;
-
-
-                $getUser = User::where('roles','!=','User')->where('user_status','1')->get();
-
-                $incomeArray = array();
-                $commistion = array();
-                $totalcommsitionAmount = "0";
-
-                foreach ($getUser as $key => $value) {
-                    // Get unique views for the user
-                    $videos = $value->videos()->withCount('videoHistory')
-                        ->whereYear('created_at', now()->year)
-                        ->whereMonth('created_at', now()->month)
-                        ->get();
-                    $uniqueViews = $videos->sum('video_history_count');
-                
-                    // Get total views for all videos
-                    $totalViews = VideoHistory::whereMonth('created_at', now()->format('m'))->count();
-                
-                    // Get Total Income
-                    $income = Transaction::where('status', 'active')
-                        ->whereYear('created_at', now()->year)
-                        ->whereMonth('created_at', now()->format('m'))
-                        ->sum('amount');
-                
-                    // Calculate athlete's share if there are unique views
-                    $videoRevenue = 0;
-                    if ($uniqueViews != 0) {
-                        $athleteShare = $uniqueViews / $totalViews;
-                        $totalAthleteIncome = $income * 0.6;
-                        $videoRevenue = $totalAthleteIncome * $athleteShare;
-                        $videoRevenue = number_format($videoRevenue, 2);
-                    }
-                    $incomeArray[$value->id] = $videoRevenue;
-
-                    
-                    
+                $currentMonth = date('m');
+                $currentYear = date('Y');
+                $by = $request->query('by');
+                $type = empty($by) ? 'Month' : 'Year';
+            
+                // Fetch video data and user income
+                $videoQuery = Video::where('user_id', $userID);
+                $userIncomeQuery = UserIncome::where('user_id', $userID);
+            
+                if (empty($by)) {
+                    $videoQuery->with('videoHistoryMonth');
+                    $userIncomeQuery->where('month', $currentMonth)->where('years', $currentYear);
+                } else {
+                    $videoQuery->with('videoHistoryYears');
+                    $userIncomeQuery->where('years', $currentYear);
                 }
-
-                foreach ($incomeArray as $incomeArraykey => $incomeArrayvalue) {
-                    # code...
+            
+                $uniqueViews = $videoQuery->count();
+                $videoLists = $videoQuery->take(5)->orderBy('video_veiw_count', 'ASC')->get();
+                $userIncome = $userIncomeQuery->first();
+            
+                // Prepare graph data
+                $results = $videoQuery
+                    ->leftJoin('video_history', function ($join) use ($currentMonth, $currentYear) {
+                        if (empty($by)) {
+                            $join->on('video.video_id', '=', 'video_history.video_id')
+                                ->whereMonth('video_history.created_at', $currentMonth)
+                                ->whereYear('video_history.created_at', $currentYear);
+                        } else {
+                            $join->on('video.video_id', '=', 'video_history.video_id')
+                                ->whereYear('video_history.created_at', $currentYear);
+                        }
+                    })
+                    ->selectRaw('IFNULL(DAY(video_history.created_at), 0) as day')
+                    ->selectRaw('IFNULL(MONTH(video_history.created_at), 0) as month')
+                    ->selectRaw('COUNT(video_history.id) as count')
+                    ->groupByRaw('IFNULL(DAY(video_history.created_at), 0)')
+                    ->groupByRaw('IFNULL(MONTH(video_history.created_at), 0)')
+                    ->orderByRaw('IFNULL(DAY(video_history.created_at), 0)')
+                    ->orderByRaw('IFNULL(MONTH(video_history.created_at), 0)')
+                    ->get();
+            
+                $graphData = [];
+                foreach ($results as $result) {
+                    $graphData[$result->day ?? $result->month] = $result->count;
                 }
-                $ReffralByUser = User::where('referral_by',$value->id)->get();
-                    
-                    $ReffralByUserid = $ReffralByUser->pluck('id');
-                    foreach ($ReffralByUser as $ReffralByUserkey => $ReffralByUservalue) {  
-                        $commistionamount = $incomeArray[$ReffralByUservalue->id] * 0.1;
-                        $totalcommsitionAmount += $commistionamount;
-                    }
-
-                    $commistion[$value->id] = $totalcommsitionAmount;
-                echo "<pre>";
-                print_r($commistion);
-                die;
-                // foreach ($getUser as $rrkey => $rrvalue) {
-                //     $ReffralByUser = User::where('referral_by',$rrvalue->id)->get();
-                //     $ReffralByUserid = $ReffralByUser->pluck('id');
-                //     foreach ($ReffralByUserid as $ReffralByUserkey => $ReffralByUservalue) {  
-                //         $commistionamount = $incomeArray[$ReffralByUservalue] * 0.1;
-                //         $totalcommsitionAmount += $commistionamount;
-                //     }
-                // }
-                // echo $totalcommsitionAmount;
-                // die;
-                // Return view with necessary data
-                return view('web.athletescoach.dashboard', compact('userID', 'uniqueViews', 'videoRevenue','ReferralRevenue'));
+            
+                return view('web.athletescoach.dashboard', compact('userID', 'userIncome', 'uniqueViews', 'videoLists', 'graphData', 'type'));
             } else {
                 return redirect()->route('web.login');
-            }            
+            }
             
         } catch (\Throwable $th) {
             //throw $th;

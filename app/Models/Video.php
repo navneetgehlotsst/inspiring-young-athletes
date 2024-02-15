@@ -40,7 +40,7 @@ class Video extends Model
         // Get the previous month and year
         $previousMonth = date('m', strtotime('-1 month'));
         $previousYear = date('Y', strtotime('-1 month'));
-        return $this->hasMany(VideoHistory::class, 'video_id','video_id')->where('created_at',$currentYear)->where('created_at',$currentMonth)->orderBy('Video_veiw_count', 'desc');
+        return $this->hasMany(VideoHistory::class, 'video_id','video_id')->whereYear('created_at',$currentYear)->whereMonth('created_at',$currentMonth);
     }
 
 
@@ -50,6 +50,6 @@ class Video extends Model
 
         // Get the previous month and year
         $previousYear = date('Y', strtotime('-1 month'));
-        return $this->hasMany(VideoHistory::class, 'video_id','video_id')->where('created_at',$currentMonth)->orderBy('Video_veiw_count', 'desc');
+        return $this->hasMany(VideoHistory::class, 'video_id','video_id')->whereYear('created_at',$currentYear);
     }
 }

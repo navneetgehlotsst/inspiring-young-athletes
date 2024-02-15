@@ -37,9 +37,8 @@
                     <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
                     <div class="d-none d-sm-inline-block">
                         <ul class="pagination">
-                            <li class="page-item active"><a href="{{ route('web.dashboard') }}" class="page-link">Month</a></li>
-                            <li class="page-item"><a href="{{ route('web.dashboard', ['by' => 'year']) }}" class="page-link">Year</a></li>
-                            <li class="page-item"><a href="#" class="page-link">Custom</a></li>                                
+                            <li class="page-item @if(empty($by)) active @endif"><a href="{{ route('web.dashboard') }}" class="page-link">Month</a></li>
+                            <li class="page-item @if(!empty($by)) active @endif"><a href="{{ route('web.dashboard', ['by' => 'year']) }}" class="page-link">Year</a></li>                                
                         </ul>
                     </div>
                             

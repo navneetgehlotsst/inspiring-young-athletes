@@ -111,19 +111,19 @@
                                             </div>
                                             <div class="col-lg-12">
                                                 <label for="name" class="form-label">Linkedin:</label>
-                                                <input type="text" class="form-control py-3 mb-4 disabled" placeholder="Enter Linkedin" name="linkedin" value="{{ auth()->user()->linkedin }}">
+                                                <input type="url" class="form-control py-3 mb-4 disabled" placeholder="Enter Linkedin" name="linkedin" value="{{ auth()->user()->linkedin }}">
                                             </div>
                                             <div class="col-lg-12">
                                                 <label for="name" class="form-label">Tik Tok:</label>
-                                                <input type="text" class="form-control py-3 mb-4 disabled" placeholder="Enter tiktok" name="tiktok" value="{{ auth()->user()->tiktok }}">
+                                                <input type="url" class="form-control py-3 mb-4 disabled" placeholder="Enter tiktok" name="tiktok" value="{{ auth()->user()->tiktok }}">
                                             </div>
                                             <div class="col-lg-12">
                                                 <label for="name" class="form-label">Instagram:</label>
-                                                <input type="text" class="form-control py-3 mb-4 disabled" placeholder="Enter instagram" name="instagram" value="{{ auth()->user()->instagram }}">
+                                                <input type="url" class="form-control py-3 mb-4 disabled" placeholder="Enter instagram" name="instagram" value="{{ auth()->user()->instagram }}">
                                             </div>
                                             <div class="col-lg-12">
                                                 <label for="name" class="form-label">Facebook:</label>
-                                                <input type="text" class="form-control py-3 mb-4 disabled" placeholder="Enter facebook" name="facebook" value="{{ auth()->user()->facebook }}">
+                                                <input type="url" class="form-control py-3 mb-4 disabled" placeholder="Enter facebook" name="facebook" value="{{ auth()->user()->facebook }}">
                                             </div>
                                             @endif
                                             <div class="col-lg-4 ms-auto">

@@ -63,11 +63,11 @@
                         @error('new_password')
                             <div class="alert">{{ $message }}</div>
                         @enderror
-                        <input name="new_password_confirmation" type="password" value="" class="form-control py-3 mb-4" id="password" placeholder="Confirm Password" required="true" aria-label="password" aria-describedby="basic-addon1">
+                        <input name="new_password_confirmation" type="password" value="" class="form-control py-3 mb-4" id="newpassword" placeholder="Confirm Password" required="true" aria-label="password" aria-describedby="basic-addon1">
                         <div class="input-group-append position-relative">
-                            <span onclick="password_show_hide();">
-                              <i class="fas fa-eye" id="show_eye"></i>
-                              <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
+                            <span onclick="password_show_hidenew();">
+                              <i class="fas fa-eye" id="show_eyenew"></i>
+                              <i class="fas fa-eye-slash d-none" id="hide_eyenew"></i>
                             </span>
                         </div>
                         <button type="submit" class="btn btn-primary py-3 w-100 fw-bold login-btn">Update Password</button>

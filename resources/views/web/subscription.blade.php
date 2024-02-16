@@ -11,6 +11,12 @@
         border-radius: .25rem;
         text-align: left;
     }
+
+    .stripcardpayment{
+        padding: 20px 10px;
+        border: 1px solid #ced4da;
+        border-radius: 0.375rem;
+    }
 </style>
 
 @if(session('error'))
@@ -67,14 +73,13 @@
                         </div>
   
                         <div class="row">
-                            <div class="col-xl-12 col-lg-12">
+                            <div class="col-xl-12 col-lg-12 mt-2">
                                 <div class="form-group">
-                                    <label for="">Card details</label>
-                                    <div id="card-element"></div>
+                                    <label class="mb-2">Card details</label>
+                                    <div id="card-element" class="stripcardpayment"></div>
                                 </div>
                             </div>
-                            <div class="col-xl-12 col-lg-12">
-                            <hr>
+                            <div class="col-xl-12 col-lg-12 mt-3">
                                 <button type="submit" class="btn btn-primary py-3 w-100 fw-bold login-btn" id="card-button" data-secret="{{ $inttentId }}">Purchase</button>
                             </div>
                         </div>

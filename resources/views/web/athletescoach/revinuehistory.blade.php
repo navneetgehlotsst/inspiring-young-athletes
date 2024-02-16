@@ -40,6 +40,7 @@
                     <h3>Revenue History</h3>
                 </div>
                 <div class="row g-4">
+                    @if(!empty($userIncomes))
                     <table class="table">
                         <thead>
                           <tr>
@@ -60,6 +61,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                    @else
+                        <p>No revenue history yet</p>
+                    @endif
                 </div>          
             </div>
         </div>

@@ -164,6 +164,23 @@ function password_show_hide() {
 }
 
 
+function password_show_hidenew() {
+   var x = document.getElementById("newpassword");
+   var show_eye = document.getElementById("show_eyenew");
+   var hide_eye = document.getElementById("hide_eyenew");
+   hide_eye.classList.remove("d-none");
+   if (x.type === "password") {
+   x.type = "text";
+   show_eye.style.display = "none";
+   hide_eye.style.display = "block";
+   } else {
+   x.type = "password";
+   show_eye.style.display = "block";
+   hide_eye.style.display = "none";
+   }
+}
+
+
 // otp screen
 
 document.querySelectorAll(".otp-input").forEach((element, index, array) => {

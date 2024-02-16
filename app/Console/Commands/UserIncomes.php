@@ -104,7 +104,7 @@ class UserIncomes extends Command
 
           // Update referral revenue for the user
           $userIncome->update(['referralrevenue' => $totalCommission]);
-          dd($userIncome);
       }
+      
   }
 }

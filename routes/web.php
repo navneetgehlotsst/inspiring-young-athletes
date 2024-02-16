@@ -105,6 +105,7 @@ Route::group(['middleware' => 'auth'], function ()
 
     Route::name('web.')->prefix('athletes-coach')->controller(DashboardController::class)->group(function () {
         Route::get('/dashboard', 'Dashboard')->name('dashboard');
+        Route::get('/revenue-history', 'RevenueHistory')->name('revenue.history');
     });
 
     Route::name('web.Video.')->prefix('Video')->controller(VideoConttroller::class)->group(function () {

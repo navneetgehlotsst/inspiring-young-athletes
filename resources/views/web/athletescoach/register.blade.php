@@ -53,7 +53,7 @@
             <div class="col-lg-6 align-self-center">
                 <div class="from-box text-center p-5">
                     <div class="pb-3">
-                        <h2 class="fw-bold">Create Your Account</h2>
+                        <h3 class="fw-bold">Enter to continue and explore within your grasp</h3>
                     </div>
                     <form role="form" action="{{ route('web.athletes.coach.register.post') }}" method="post" id="coachAtheliticsRegister">
                         @csrf
@@ -107,7 +107,7 @@
                         @else
                         <input type="text" name="code" id="code" value="@if(empty($getRefByDetail)){{ old('code') }} @else {{$getRefByDetail->referral_token}} @endif" class="form-control py-3 mb-4 @error('code') is-invalid @enderror" placeholder="Referral Code(Optional)">
                         @endif
-                        <button type="submit" class="btn btn-primary py-3 w-100 fw-bold login-btn">Sign up</button>
+                        <button type="submit" class="btn btn-primary py-3 w-100 fw-bold login-btn">Sign Up</button>
                         <p class="pt-4 text-center">Don’t have an account ? <a href="{{ route('web.login') }}" class="primary-color fw-bold">Login</a></p>
                     </form>
                 </div>

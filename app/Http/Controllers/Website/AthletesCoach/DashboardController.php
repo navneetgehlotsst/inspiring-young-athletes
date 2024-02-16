@@ -35,42 +35,46 @@ class DashboardController extends Controller
                 $monthlyActiveUsers = [];
 
                 if(empty($by)){
-                    $uniqueViews = Video::with('videoHistoryMonth')
-                    ->where('video.user_id', $userID)
-                    ->count();            
-                    $videoLists = Video::where('user_id', $userID)->take(5)->orderBy('video_veiw_count', 'ASC')->get();
-                    $userIncome = UserIncome::where('user_id', $userID)->where('month', $currentMonth)->where('years', $currentYear)->first();
+                    // Fetch unique views
+                    $uniqueViews = Video::where('user_id', $userID)->count();
 
+                    // Fetch video lists
+                    $videoLists = Video::where('user_id', $userID)
+                        ->orderBy('video_veiw_count')
+                        ->take(5)
+                        ->get(['video_id', 'user_id', 'video_veiw_count']); // Select only necessary columns
+
+                    // Fetch user income
+                    $userIncome = UserIncome::where('user_id', $userID)
+                        ->where('month', $currentMonth)
+                        ->where('years', $currentYear)
+                        ->first();
+
+                    // Fetch video history results
                     $results = Video::where('video.user_id', $userID)
-                    ->leftJoin('video_history', function ($join) use ($currentMonth, $currentYear) {
-                        $join->on('video.video_id', '=', 'video_history.video_id')
-                            ->where(DB::raw("MONTH(video_history.created_at)"), '=', $currentMonth)
-                            ->where(DB::raw("YEAR(video_history.created_at)"), '=', $currentYear);
-                    })
-                    ->select(DB::raw('DAY(video_history.created_at) as day'), DB::raw('COUNT(video_history.id) as count'))
-                    ->groupBy(DB::raw('DAY(video_history.created_at)'))
-                    ->orderBy(DB::raw('DAY(video_history.created_at)'))
-                    ->get();
-                    $filledResults = [];
-                    foreach (range(1, 31) as $day) {
-                        $found = false;
-                        foreach ($results as $result) {
-                            if ($result->day == $day) {
-                                $filledResults[] = $result;
-                                $found = true;
-                                break;
-                            }
-                        }
-                        if (!$found) {
-                            $filledResults[] = (object) ['day' => $day, 'count' => 0];
-                        }
-                    }
-                    if(!empty($filledResults)){
-                        foreach ($filledResults as $key => $graphresult) {
-                            $date[] = $graphresult->day.'/'.$currentMonth.'/'.$currentYear;
-                            $count[] = $graphresult->count;
-                        }
-                    }
+                        ->leftJoin('video_history', function ($join) use ($currentMonth, $currentYear) {
+                            $join->on('video.video_id', '=', 'video_history.video_id')
+                                ->whereMonth('video_history.created_at', $currentMonth)
+                                ->whereYear('video_history.created_at', $currentYear);
+                        })
+                        ->selectRaw('DAY(video_history.created_at) as day, COUNT(video_history.id) as count')
+                        ->groupByRaw('DAY(video_history.created_at)')
+                        ->orderByRaw('DAY(video_history.created_at)')
+                        ->get();
+
+                    // Fill missing days in results
+                    $filledResults = collect(range(1, 31))->map(function ($day) use ($results) {
+                        $foundResult = $results->firstWhere('day', $day);
+                        return $foundResult ?: (object)['day' => $day, 'count' => 0];
+                    });
+
+                    // Extract date and count for graph
+                    $date = $filledResults->map(function ($graphResult) use ($currentMonth, $currentYear) {
+                        return $graphResult->day.'/'.$currentMonth.'/'.$currentYear;
+                    });
+
+                    $count = $filledResults->pluck('count')->all();
+
                     $type = "Month";
                     $by = "";
                 }else{
@@ -120,5 +124,21 @@ class DashboardController extends Controller
             dd($th);
         }
 
+    }
+
+    public function RevenueHistory(Request $request){
+        try {
+            if (Auth::check()) {
+                $user = Auth::user();
+                $userID = $user->id;
+                $userIncomes = UserIncome::where('user_id', $userID)->get();
+                return view('web.athletescoach.revinuehistory', compact('userID','userIncomes'));
+            }else {
+                return redirect()->route('web.login');
+            } 
+        } catch (\Throwable $th) {
+            //throw $th;
+            dd($th);
+        }
     }
 }

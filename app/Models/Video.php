@@ -52,4 +52,14 @@ class Video extends Model
         $previousYear = date('Y', strtotime('-1 month'));
         return $this->hasMany(VideoHistory::class, 'video_id','video_id')->whereYear('created_at',$currentYear);
     }
+
+
+    public function userIncome()
+    {
+        $currentYear = date('Y');
+
+        // Get the previous month and year
+        $previousYear = date('Y', strtotime('-1 month'));
+        return $this->hasMany(UserIncome::class,'user_id','user_id')->whereYear('created_at',$currentYear);
+    }
 }

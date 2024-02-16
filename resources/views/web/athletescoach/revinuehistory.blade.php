@@ -44,10 +44,9 @@
                     <table class="table">
                         <thead>
                           <tr>
-                            <th scope="col">Video Revenue</th>
+                            <th scope="col">Video views Revenue</th>
                             <th scope="col">Referral Revenue</th>
-                            <th scope="col">Month</th>
-                            <th scope="col">Years</th>
+                            <th scope="col">Month/Year</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -55,8 +54,7 @@
                                 <tr>
                                     <td>{{$userIncome->videorevenue}}</td>
                                     <td>{{$userIncome->referralrevenue}}</td>
-                                    <td>{{$userIncome->month}}</td>
-                                    <td>{{$userIncome->years}}</td>
+                                    <td>{{$userIncome->month}}/{{$userIncome->years}}</td>
                                 </tr>
                             @endforeach
                         </tbody>

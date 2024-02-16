@@ -36,10 +36,12 @@ class UserIncomes extends Command
   public function handle()
   {
       $currentMonth = date('m');
+      $namecurrentMonth = date('M');
       $currentYear = date('Y');
 
       // Get the previous month and year
       $previousMonth = date('m', strtotime('-1 month'));
+      $namepreviousMonth = date('M', strtotime('-1 month'));
       $previousYear = date('Y', strtotime('-1 month'));
 
       // Fetch videos with count of videoHistory
@@ -77,13 +79,13 @@ class UserIncomes extends Command
           UserIncome::create([
               'user_id' => $user->id,
               'videorevenue' => $videoRevenue,
-              'month' => $currentMonth,
+              'month' => $namecurrentMonth,
               'years' => $currentYear,
           ]);
       }
 
       // Fetch user incomes for the current month
-      $userIncomes = UserIncome::where('month', $currentMonth)
+      $userIncomes = UserIncome::where('month', $namecurrentMonth)
           ->where('years', $currentYear)
           ->get();
 
@@ -94,7 +96,7 @@ class UserIncomes extends Command
 
           foreach ($userReferrals as $userReferral) {
               $userReferralIncome = UserIncome::where('user_id', $userReferral->id)
-                  ->where('month', $currentMonth)
+                  ->where('month', $namecurrentMonth)
                   ->where('years', $currentYear)
                   ->value('videorevenue');
 

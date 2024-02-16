@@ -27,10 +27,12 @@ class DashboardController extends Controller
                 $user = Auth::user();
                 $userID = $user->id;
                 $currentMonth = date('m');
+                $namecurrentMonth = date('M');
                 $currentYear = date('Y');
 
                 // Get the previous month and year
                 $previousMonth = date('m', strtotime('-1 month'));
+                $namepreviousMonth = date('M', strtotime('-1 month'));
                 $previousYear = date('Y', strtotime('-1 month'));
                 $monthlyActiveUsers = [];
 
@@ -70,8 +72,8 @@ class DashboardController extends Controller
                     });
 
                     // Extract date and count for graph
-                    $date = $filledResults->map(function ($graphResult) use ($currentMonth, $currentYear) {
-                        return $graphResult->day.'/'.$currentMonth.'/'.$currentYear;
+                    $date = $filledResults->map(function ($graphResult) use ($namecurrentMonth, $currentYear) {
+                        return $graphResult->day.'/'.$namecurrentMonth.'/'.$currentYear;
                     });
 
                     $count = $filledResults->pluck('count')->all();
@@ -89,12 +91,13 @@ class DashboardController extends Controller
                         $join->on('video.video_id', '=', 'video_history.video_id')
                             ->where(DB::raw("YEAR(video_history.created_at)"), '=', $currentYear);
                     })
-                    ->select(DB::raw('MONTH(video_history.created_at) as month'), DB::raw('COUNT(video_history.id) as count'))
+                    ->select(DB::raw('MONTHNAME(video_history.created_at) as month'), DB::raw('COUNT(video_history.id) as count'))
                     ->groupBy(DB::raw('MONTH(video_history.created_at)'))
                     ->orderBy(DB::raw('MONTH(video_history.created_at)'))
                     ->get();
                     $filledResults = [];
-                    foreach (range(1, 12) as $month) {
+                    $month_names = array("January","February","March","April","May","June","July","August","September","October","November","December");
+                    foreach ($month_names as $month) {
                         $found = false;
                         foreach ($results as $result) {
                             if ($result->month == $month) {

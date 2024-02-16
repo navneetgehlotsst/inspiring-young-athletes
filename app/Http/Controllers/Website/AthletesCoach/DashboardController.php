@@ -36,13 +36,13 @@ class DashboardController extends Controller
 
                 if(empty($by)){
                     // Fetch unique views
-                    $uniqueViews = Video::where('user_id', $userID)->count();
+                    $uniqueViews = Video::where('video.user_id', $userID)->join('video_history', 'video.video_id', '=', 'video_history.video_id')->count();
 
                     // Fetch video lists
                     $videoLists = Video::where('user_id', $userID)
                         ->orderBy('video_veiw_count')
                         ->take(5)
-                        ->get(['video_id', 'user_id', 'video_veiw_count']); // Select only necessary columns
+                        ->get(['video_id','video_title', 'user_id', 'video_veiw_count']); // Select only necessary columns
 
                     // Fetch user income
                     $userIncome = UserIncome::where('user_id', $userID)

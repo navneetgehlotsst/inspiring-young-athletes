@@ -16,6 +16,8 @@ use DB;
 use Mail;
 use File;
 use FFMpeg;
+use FFMpeg\Format\Video\X264;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{
     Auth,
@@ -24,17 +26,16 @@ use Illuminate\Support\Facades\{
     Storage,
     Validator
 };
-use Illuminate\Filesystem\Filesystem;
 use App\Mail\VerifyUserEmail;
 
 class QuestionController extends Controller
 {
-    public function atheliticsCoachQuestion(){
+    public function atheliticsCoachQuestion(Request $request){
 
         if (Auth::check()){
             $UserDetail = Auth::user();
             $userID = $UserDetail->id;
-            $userAnwereCount = UserAnswere::where('user_id',$userID)->count();
+            $userAnwereCount = UserAnswere::where('user_id',$userID)->where('question_id','!=','0')->count();
             $userAnwereGet = UserAnswere::where('user_id',$userID)->pluck('question_id');
             $userAns = [];
             foreach ($userAnwereGet as $key => $userAnwere) {
@@ -48,7 +49,7 @@ class QuestionController extends Controller
             }else{
                 $question = Question::where('question_type','for_coaches')->get();
                 $questionCount = $question->count();
-                return view('web.athletescoach.questions-coaches',compact('userID','question','questionCount','userAnwereCount','userAns'));
+                return view('web.athletescoach.questions-coaches',compact('userID','question','questionCount','userAnwereCount','userAns','UserDetail'));
             }
         }else{
             return redirect()->route('web.login');
@@ -61,7 +62,13 @@ class QuestionController extends Controller
         $userID = $UserDetail->id;
         $questiontype = $request->questiontype;
         $questionid = $request->questionid;
-        $questionTitel = Question::where('question_id',$questionid)->first();
+        if($questionid != 0){
+            $questionTitel = Question::where('question_id',$questionid)->first();
+            $question = $questionTitel->question;
+        }else{
+            $question = "Intro Video";
+        }
+        
         $validator = Validator::make($request->all(), [
             'video' => 'required|file|mimes:mp4,mov,avi,wmv',
         ]);
@@ -129,7 +136,7 @@ class QuestionController extends Controller
             'user_id' => $userID,
             'video' => $video_path_url,
             'video_from' => 'QA',
-            'video_title' => $questionTitel->question,
+            'video_title' => $question,
             'video_ext' => $extention,
             'thumbnails' => $thumbnail_path_url
         ];
@@ -226,7 +233,7 @@ class QuestionController extends Controller
         $userID = $UserDetail->id;
         $userAnwereCount = UserAnswere::where('user_id',$userID)->count();
         if($userAnwereCount < 1){
-            return redirect()->back()->with('error', 'Please Give atleast answere of 1 quertion.');
+            return redirect()->back()->with('error', 'Please Give atleast answere of 1 Question.');
         }
 
         if($UserDetail->roles == "Athletes"){
@@ -248,5 +255,41 @@ class QuestionController extends Controller
         $userverifiedbyquestion = User::where('id', $userID)->update(['quetion_status' => '1']);
 
         return redirect()->route('web.dashboard')->with('success', 'Your Account is verified successfully.');
+    }
+
+
+    public function UpdateRole(){
+        try {
+            if (Auth::check()){
+                $UserDetail = Auth::user();
+                $userID = $UserDetail->id;
+                $getrole = Role::latest()->take(2)->get();
+                return view('web.athletescoach.role_update',compact('userID','UserDetail','getrole'));
+            }else{
+                return redirect()->route('web.login');
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
+            dd($th);
+        }
+    }
+
+
+    public function SaveRole(Request $request){
+        try {
+            if (Auth::check()){
+                $UserDetail = Auth::user();
+                $userID = $UserDetail->id;
+
+                User::where('id', 1)
+                ->update(['roles' => $request->role]);
+                return redirect()->route('web.athletes.coach.atheliticsCoachQuestion')->with('success', 'Your Account is verified successfully.');
+            }else{
+                return redirect()->route('web.login');
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
+            dd($th);
+        }
     }
 }

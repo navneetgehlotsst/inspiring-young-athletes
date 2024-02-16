@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         // $schedule->command('user_income:genrate')->everySecond();
-        $schedule->command('user_income:genrate')->monthlyOn(1, '09:00');;
+        $schedule->command('user_income:genrate')->monthlyOn(1, '09:00');
     }
 
     /**

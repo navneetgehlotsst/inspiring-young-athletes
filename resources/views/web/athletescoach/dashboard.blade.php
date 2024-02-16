@@ -144,13 +144,12 @@
                                       </thead>
                                       <tbody>
                                         @foreach ($videoLists as $videoList)
-                                            
+                                            <tr>
+                                                <td class="align-middle py-4">{{$videoList->video_title}}</td>
+                                                <td class="align-middle py-4">{{$videoList->video_veiw_count}}</td>
+                                                <td class="text-center align-middle"><a href="{{ route('web.Video.viewVideo',$videoList->video_id) }}" class="btn btn-dark py-1">View</a></td>
+                                            </tr>
                                         @endforeach
-                                        <tr>
-                                          <td class="align-middle py-4">{{$videoList->video_title}}</td>
-                                          <td class="align-middle py-4">{{$videoList->video_veiw_count}}</td>
-                                          <td class="text-center align-middle"><a href="{{ route('web.Video.viewVideo',$videoList->video_id) }}" class="btn btn-dark py-1">View</a></td>
-                                        </tr>
                                       </tbody>
                                     </table>
                                 </div>

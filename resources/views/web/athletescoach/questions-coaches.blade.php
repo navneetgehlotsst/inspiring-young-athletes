@@ -23,6 +23,30 @@
         toastr.error('{{ session('error') }}');
     </script>
 @endif
+
+@if(session('success'))
+    <script>
+        $(document).ready(function() {
+			toastr.options = {
+				'closeButton': true,
+				'debug': false,
+				'newestOnTop': false,
+				'progressBar': false,
+				'positionClass': 'toast-top-right',
+				'preventDuplicates': false,
+				'showDuration': '1000',
+				'hideDuration': '1000',
+				'timeOut': '5000',
+				'extendedTimeOut': '1000',
+				'showEasing': 'swing',
+				'hideEasing': 'linear',
+				'showMethod': 'fadeIn',
+				'hideMethod': 'fadeOut',
+			}
+		});
+        toastr.success('{{ session('success') }}');
+    </script>
+@endif
 <!-- video Publisher Section Start-->
 <section class="publisher-section themeix-ptb-2">
     <div class="container">
@@ -38,6 +62,10 @@
                 <!--Athletes Questions Start-->
                 <div class="from-box p-3 p-lg-5">
                     <div class="row">
+                        <div class="col-lg-8 col-8">
+                            <p>You can change your Role here , After that you can't change Your Role <a href="{{ route('web.athletes.coach.update.role') }}">Click Here</a></p>
+                            <p></p>
+                        </div>
                         <div class="col-lg-8 col-8">
                             <h4 class="fw-bold">Questions for Coach:</h4>
                             <h5 class="">{{$questionCount}} Questions</h5>

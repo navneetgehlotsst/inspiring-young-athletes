@@ -213,7 +213,8 @@ class RegisterController extends Controller
 
     public function verificationSuccess(){
         $user = Auth::user();
-        return view('web.athletescoach.successfull-athletes-and-coach');
+        $getrole = Role::latest()->take(2)->get();
+        return view('web.athletescoach.successfull-athletes-and-coach',compact('user','getrole'));
     }
 
     public function GetEditProfile(){

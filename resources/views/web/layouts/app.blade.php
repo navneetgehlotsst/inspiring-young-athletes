@@ -233,7 +233,7 @@
                 });
         }
 
-        function removeVideo(id) {
+        function removevideo(id) {
             $.ajax({
                 url: '{{ route("web.athletes.coach.removeVideo") }}',
                 type: 'GET',

@@ -98,6 +98,8 @@ Route::group(['middleware' => 'auth'], function ()
     });
     Route::name('web.athletes.coach.')->prefix('athletes-coach')->controller(QuestionController::class)->group(function () {
         Route::get('/athelitics-coach-question', 'atheliticsCoachQuestion')->name('atheliticsCoachQuestion');
+        Route::get('/update-role', 'UpdateRole')->name('update.role');
+        Route::post('/save-role', 'SaveRole')->name('save.role');
         Route::post('/upload-Video', 'uploadVideo')->name('uploadVideo');
         Route::get('/remove-Video', 'removeVideo')->name('removeVideo');
         Route::get('/saveanswere', 'SaveAnswere')->name('SaveAnswere');

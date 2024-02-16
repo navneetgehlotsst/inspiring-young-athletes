@@ -17,7 +17,11 @@
                                     @if(auth()->user()->roles == "User")
                                         <a href="{{ route('web.athletes.coach.GetEditProfile') }}" class="pr-0"><i class="fa fa-lock"></i><em>Welcome, </em> {{ auth()->user()->name }}</a>
                                     @else
-                                        <a href="{{ route('web.dashboard') }}" class="pr-0"><i class="fa fa-lock"></i><em>Welcome, </em> {{ auth()->user()->name }}</a>
+                                        @if(auth()->user()->quetion_status == "1")
+                                            <a href="{{ route('web.dashboard') }}" class="pr-0"><i class="fa fa-lock"></i><em>Welcome, </em> {{ auth()->user()->name }}</a>
+                                        @else
+                                            <a href="{{ route('web.athletes.coach.atheliticsCoachQuestion') }}" class="pr-0"><i class="fa fa-lock"></i><em>Welcome, </em> {{ auth()->user()->name }}</a>
+                                        @endif
                                     @endif
                                     <span class="sepator">|</span>
                                 </div>

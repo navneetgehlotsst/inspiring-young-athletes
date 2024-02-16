@@ -43,6 +43,7 @@ class DashboardController extends Controller
                         ->orderBy('video_veiw_count')
                         ->take(5)
                         ->get(['video_id','video_title', 'user_id', 'video_veiw_count']); // Select only necessary columns
+                   
 
                     // Fetch user income
                     $userIncome = UserIncome::where('user_id', $userID)

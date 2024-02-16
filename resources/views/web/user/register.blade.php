@@ -20,11 +20,11 @@
                 <h2 class="text-white">Inspire the Next Champions and Generate passive income!</h2>
                 <h6 class="text-white mt-3 fw-bold"><span>🏆</span>Join the 'Inspiring Young Athletes' Movement<span>🏆</span></h6>
                 <p class="lh-lg text-white py-3">Inspiring Young Athletes isn't just a platform—it's a community where experience meets ambition, and where your journey inspires the next generation. As a seasoned athlete or coach, you possess invaluable insights that can light the way for youngsters eager to follow in your footsteps.</p>
-                <h6 class="text-white mt-3 fw-bold">Make an Impact, Earn Effortlessly :</h6>
+                <h6 class="text-white mt-3 fw-bold">Discover the Secrets to Sporting Success NOW :</h6>
                 <ul class="top-list-icon">
-                    <li class="text-white"><i class="far fa-check-circle me-2 text-white"></i> Share your unique story and professional wisdom with young aspirants (ages 10-16).</li>
-                    <li class="text-white"><i class="far fa-check-circle me-2 text-white"></i> Benefit from a user-friendly, mobile-optimized platform to reach a wide audience.</li>
-                    <li class="text-white"><i class="far fa-check-circle me-2 text-white"></i> Enjoy a steady passive income from a subscription model that rewards your contribution.</li>
+                    <li class="text-white"><i class="far fa-check-circle me-2 text-white"></i> Personal stories of triumph and challenge from professional athletes.</li>
+                    <li class="text-white"><i class="far fa-check-circle me-2 text-white"></i> Insider tips on what top coaches really look for in young talent.</li>
+                    <li class="text-white"><i class="far fa-check-circle me-2 text-white"></i> Answers to the burning questions every up-and-comer has.</li>
                 </ul>
             </div>
             <div class="col-lg-6 align-self-center">

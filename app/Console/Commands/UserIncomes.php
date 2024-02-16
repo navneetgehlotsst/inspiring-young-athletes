@@ -44,8 +44,6 @@ class UserIncomes extends Command
 
       // Fetch videos with count of videoHistory
       $videos = Video::withCount('videoHistory')
-          ->whereYear('created_at', $currentYear)
-          ->whereMonth('created_at', $currentMonth)
           ->get();
 
       // Fetch total views for the current month

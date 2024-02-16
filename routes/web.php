@@ -10,7 +10,8 @@ use App\Http\Controllers\Website\AthletesCoach\{
     RegisterController,
     QuestionController,
     DashboardController,
-    VideoConttroller
+    VideoConttroller,
+    BankController
 };
 
 
@@ -115,6 +116,12 @@ Route::group(['middleware' => 'auth'], function ()
         Route::get('/add', 'add')->name('add');
         Route::post('/store', 'store')->name('store');
         Route::get('/view-Video/{id}', 'viewVideo')->name('viewVideo');
+    });
+
+
+    Route::name('web.bank.')->prefix('bank')->controller(BankController::class)->group(function () {
+        Route::get('/index', 'index')->name('index');
+        Route::get('/add', 'add')->name('add');
     });
 });
 

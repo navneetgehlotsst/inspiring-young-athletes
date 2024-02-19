@@ -14,6 +14,11 @@ use App\Models\{
 };
 use Illuminate\Support\Carbon;
 
+use Laravel\Cashier\Cashier;
+use Laravel\Cashier\PaymentMethod;
+use Laravel\Cashier\Subscription;
+use Stripe;
+
 class UserIncomes extends Command
 {
   /**
@@ -107,6 +112,25 @@ class UserIncomes extends Command
           // Update referral revenue for the user
           $userIncome->update(['referralrevenue' => $totalCommission]);
       }
-      
+
+      foreach ($userIncomes as $userincome) {
+        $UserTotalIncome = (int)$userincome->videorevenue + (int)$userincome->referralrevenue; 
+        $usesstripConnect = $users = User::where('id', $userincome->user_id)->first();
+        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+        if (!empty($usesstripConnect->stripe_connect_id)) {
+            $amuntricived = $stripe->transfers->create([
+                'amount' => $UserTotalIncome,
+                'currency' => 'aud',
+                'destination' => $usesstripConnect->stripe_connect_id,
+            ]);
+
+            $user = new Transaction();
+            $user->user_id = $userincome->user_id;
+            $user->amount = $UserTotalIncome;
+            $user->transaction_id = $amuntricived->balance_transaction;
+            $user->status = 'active';
+            $user->save();
+        }
+      }
   }
 }

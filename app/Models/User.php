@@ -37,7 +37,9 @@ class User extends Authenticatable
         'stripe_id',
         'pm_type',
         'pm_last_four',
-        'trial_ends_at'
+        'trial_ends_at',
+        'stripe_connect_id',
+        'stripe_account_status'
     ];
 
     /**

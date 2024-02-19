@@ -118,7 +118,7 @@ class DashboardController extends Controller
                     }
                     $type = "Year";
                 }
-                return view('web.athletescoach.dashboard', compact('userID','userIncome','uniqueViews','videoLists','date','count','type','by'));
+                return view('web.athletescoach.dashboard', compact('user','userID','userIncome','uniqueViews','videoLists','date','count','type','by'));
             }else {
                 return redirect()->route('web.login');
             }                      

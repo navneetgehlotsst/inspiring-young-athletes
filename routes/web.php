@@ -122,6 +122,7 @@ Route::group(['middleware' => 'auth'], function ()
     Route::name('web.bank.')->prefix('bank')->controller(BankController::class)->group(function () {
         Route::get('/index', 'index')->name('index');
         Route::get('/add', 'add')->name('add');
+        Route::get('/accountResponse/{accountId}', 'accountResponse')->name('accountResponse');
     });
 });
 

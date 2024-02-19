@@ -43,7 +43,20 @@
                     </div>
                             
                 </div>
-
+                <div class="row">
+                    <div class="col-xl-12 col-md-12 mb-4">
+                        @if($user->stripe_account_status == '0')
+                            <div class="alert alert-danger" role="alert">
+                                    <a href="{{ route('web.bank.index') }}">Click here</a> to add bank account
+                            </div>
+                        @elseif($user->stripe_account_status == '2')
+                            <div class="alert alert-danger" role="alert">
+                                    <a href="{{ route('web.bank.index') }}">Click here</a> to update pendency in your bank acount bank account
+                            </div>
+                        @else
+                        @endif
+                    </div>
+                </div>
                 <!-- Content Row -->
                 <div class="row">
 

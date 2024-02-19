@@ -114,7 +114,7 @@ class UserIncomes extends Command
       }
 
       foreach ($userIncomes as $userincome) {
-        $UserTotalIncome = (int)$userincome->videorevenue + (int)$userincome->referralrevenue; 
+        $UserTotalIncome = ((int)$userincome->videorevenue + (int)$userincome->referralrevenue)*100; 
         $usesstripConnect = $users = User::where('id', $userincome->user_id)->first();
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
         if (!empty($usesstripConnect->stripe_connect_id)) {

@@ -32,21 +32,32 @@ class AuthController extends Controller
 
     // Login POST
     public function LoginPost(Request $request){
+        // Validate request
         $validatedData = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
-        $userCheck = User::where('email',$request->email)->first();
-        if(empty($userCheck)){
+        // Check if user exists
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
             return redirect()->back()->with('error', 'Invalid credentials..!');
-        }else{
-            if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
+        }
+
+        // Attempt authentication
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            // Authentication successful
+            if ($user->roles == 'Admin') {
                 return redirect()->route('admin.dashboard');
-            }else{
+            } else {
                 return redirect()->back()->with('error', 'Invalid credentials..!');
             }
         }
+
+        // Authentication failed
+        return redirect()->back()->with('error', 'Invalid credentials..!');
+
     }
 
 
@@ -59,7 +70,11 @@ class AuthController extends Controller
     // Dashboard
     public function dashboard()
     {
-        return view('admin.dashboard');
+        if (Auth::check()) {
+            return view('admin.dashboard');
+        }else {
+            return redirect()->route('admin.login');
+        }    
     }
 
 

@@ -37,7 +37,7 @@
                               </select>
                         </div>
                         <div class="col-lg-2">
-                            <button type="submit" class="btn iya-btn-blue w-100">Apply Now</button>
+                            <button type="submit" class="btn iya-btn-blue w-100">Search</button>
                         </div>
                     </div>
                 </form>

@@ -38,7 +38,7 @@
                       <button class="btn tab-btn-white active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-athletes" type="button" role="tab" aria-controls="pills-athletes" aria-selected="true">Athletes</button>
                     </li>
                     <li class="nav-item questions-answer-tap" role="presentation">
-                      <button class="btn tab-btn-white" id="pills-coachs-tab" data-bs-toggle="pill" data-bs-target="#pills-coachs" type="button" role="tab" aria-controls="pills-coachs" aria-selected="false">Coachs</button>
+                      <button class="btn tab-btn-white" id="pills-coachs-tab" data-bs-toggle="pill" data-bs-target="#pills-coachs" type="button" role="tab" aria-controls="pills-coachs" aria-selected="false">Coaches</button>
                     </li>
                 </ul>
                 <div class="tab-content" id="pills-tabContent">

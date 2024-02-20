@@ -21,6 +21,7 @@ use App\Http\Controllers\Website\User\{
 
 use App\Http\Controllers\Admin\{
     AuthController,
+    UserController
 };
 
 /*
@@ -158,5 +159,18 @@ Route::name('admin.')->prefix('admin')->controller(AuthController::class)->group
     Route::group(['middleware'=>'auth'],function(){
         Route::get('logout','logout')->name('logout');
         Route::get('dashboard','dashboard')->name('dashboard');
+        Route::get('profile','editProfile')->name('profile');
+    });
+});
+
+// Admin User
+
+Route::group(['middleware' => 'auth'], function ()
+{
+    Route::name('admin.user.')->prefix('user/')->controller(UserController::class)->group(function () {
+        Route::get('list', 'list')->name('list');
+        Route::post('delete', 'delete')->name('delete');
+        Route::get('view-detail/{id}', 'ViewDetail')->name('detail');
+
     });
 });

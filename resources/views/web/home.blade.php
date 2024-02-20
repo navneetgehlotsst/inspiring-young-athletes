@@ -137,7 +137,7 @@
     <section class="publisher-section categories-section py-5 pb-5">
         <div class="container">
             <div class="website-title text-center pb-5">
-                <h2 class="text-white">Popular Video Categories</h2>
+                <h2 class="text-white">Popular Sport Categories</h2>
                 <div class="border-box m-auto"></div>
             </div>
             <div class="row g-3 mt-4">

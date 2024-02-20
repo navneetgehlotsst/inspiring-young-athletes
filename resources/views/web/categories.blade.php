@@ -5,7 +5,7 @@
 <section class="publisher-section themeix-ptb-2">
     <div class="container">
         <div class="website-title-white text-center">
-            <h2 class="text-white">Video Categories</h2>
+            <h2 class="text-white">Sport Categories</h2>
             <div class="border-box m-auto"></div>
         </div>
     </div>

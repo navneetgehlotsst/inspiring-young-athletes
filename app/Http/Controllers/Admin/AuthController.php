@@ -61,9 +61,20 @@ class AuthController extends Controller
     }
 
 
-    // Login page
+    // Forgot Password page
     public function forgotpassword(){
         return view('admin.forgotPassword');
+    }
+
+    
+    // Edit Profile Page
+    public function editProfile(){
+        $user = Auth::user();
+        if (Auth::check()) {
+            return view('admin.profile', compact('user'));
+        }else {
+            return redirect()->route('admin.login');
+        }   
     }
 
 

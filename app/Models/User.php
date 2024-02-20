@@ -78,4 +78,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Video::class, 'user_id')->where('video_status','1');
     }
+
+    public function usersubciption()
+    {
+        return $this->hasMany(Subscriptions::class, 'user_id');
+    }
 }

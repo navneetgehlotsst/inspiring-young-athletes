@@ -6,7 +6,9 @@
     <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
       <div class="app-brand demo">
         <a href="index.html" class="app-brand-link">
-          <span class="app-brand-text demo menu-text fw-bold ms-2">Admin</span>
+          <span class="app-brand-logo demo">
+            <img src="{{asset('web/assets/images/new-img/logo.svg')}}" alt class="" width="220px" />
+         </span>
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">

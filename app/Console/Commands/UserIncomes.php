@@ -62,10 +62,12 @@ class UserIncomes extends Command
       $income = Transaction::where('status', 'active')
           ->whereYear('created_at', $currentYear)
           ->whereMonth('created_at', $currentMonth)
+          ->where('transaction_type', 'subscription')
           ->sum('amount');
 
       // Fetch users who are not 'User' and have active status
       $users = User::where('roles', '!=', 'User')
+          ->where('roles', '!=', 'Admin')
           ->where('user_status', '1')
           ->get();
 
@@ -79,7 +81,6 @@ class UserIncomes extends Command
               $totalAthleteIncome = $income * env('ATHLETES_COACH');
               $videoRevenue = number_format($totalAthleteIncome * $athleteShare, 2);
           }
-
           // Create UserIncome record
           UserIncome::create([
               'user_id' => $user->id,
@@ -88,7 +89,6 @@ class UserIncomes extends Command
               'years' => $currentYear,
           ]);
       }
-
       // Fetch user incomes for the current month
       $userIncomes = UserIncome::where('month', $namecurrentMonth)
           ->where('years', $currentYear)

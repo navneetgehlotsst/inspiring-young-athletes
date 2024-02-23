@@ -21,7 +21,8 @@ use App\Http\Controllers\Website\User\{
 
 use App\Http\Controllers\Admin\{
     AuthController,
-    UserController
+    UserController,
+    AtheliticsAndCoachesController
 };
 
 /*
@@ -171,6 +172,15 @@ Route::group(['middleware' => 'auth'], function ()
         Route::get('list', 'list')->name('list');
         Route::post('delete', 'delete')->name('delete');
         Route::get('view-detail/{id}', 'ViewDetail')->name('detail');
+    });
 
+    Route::name('admin.athelitics.')->prefix('athelitics-coaches/')->controller(AtheliticsAndCoachesController::class)->group(function () {
+        Route::get('list', 'list')->name('list');
+        Route::post('delete', 'delete')->name('delete');
+        Route::post('showvideo', 'showVideo')->name('show.video');
+        Route::get('view-detail/{id}', 'ViewDetail')->name('detail');
+        Route::post('changestatus', 'changestatus')->name('changestatus');
+        Route::post('aprrovedstatus', 'aprrovedstatus')->name('aprrovedstatus');
+        Route::post('rejectstatus', 'rejectstatus')->name('rejectstatus');
     });
 });

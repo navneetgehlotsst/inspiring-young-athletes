@@ -60,13 +60,14 @@ class QuestionController extends Controller
     {
         $UserDetail = Auth::user();
         $userID = $UserDetail->id;
-        $questiontype = $request->questiontype;
         $questionid = $request->questionid;
         if($questionid != 0){
             $questionTitel = Question::where('question_id',$questionid)->first();
             $question = $questionTitel->question;
+            $questiontype = $request->questiontype;
         }else{
             $question = "Intro Video";
+            $questiontype = "video";
         }
         
         $validator = Validator::make($request->all(), [

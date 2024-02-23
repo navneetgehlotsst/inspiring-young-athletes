@@ -3,23 +3,23 @@
 @if(session('error'))
 <script>
     $(document).ready(function() {
-  toastr.options = {
-    'closeButton': true,
-    'debug': true,
-    'newestOnTop': true,
-    'progressBar': true,
-    'positionClass': 'toast-top-right',
-    'preventDuplicates': false,
-    'showDuration': '1000',
-    'hideDuration': '1000',
-    'timeOut': '5000',
-    'extendedTimeOut': '1000',
-    'showEasing': 'swing',
-    'hideEasing': 'linear',
-    'showMethod': 'fadeIn',
-    'hideMethod': 'fadeOut',
-  }
-});
+      toastr.options = {
+        'closeButton': true,
+        'debug': true,
+        'newestOnTop': true,
+        'progressBar': true,
+        'positionClass': 'toast-top-right',
+        'preventDuplicates': false,
+        'showDuration': '1000',
+        'hideDuration': '1000',
+        'timeOut': '5000',
+        'extendedTimeOut': '1000',
+        'showEasing': 'swing',
+        'hideEasing': 'linear',
+        'showMethod': 'fadeIn',
+        'hideMethod': 'fadeOut',
+      }
+    });
     toastr.error('{{ session('error') }}');
 </script>
 @endif
@@ -46,91 +46,138 @@
         toastr.success('{{ session('success') }}');
     </script>
 @endif
-    <!-- Hero Slider Area Start-->
-    <section class="hero-banner-bg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 align-self-center">
-                    <div class="banner-text">
-                        <!-- <h1>Upload <span>game video</span> Earn Money</h1> -->
-                        <h1>Become Part of the Inspiring Young Athletes Journey </h1>
-                        <p class="pt-3">Are you ready to leap ahead in your athletic journey? Whether you're sprinting, swimming, or scoring, the Inspiring Young Athletes program is your digital coach to success! Tailored for the mobile generation, this innovative platform connects you with legends of the game—real athletes and coaches who've walked the path you're on now.</p>
-                        <h3 class="text-white">Discover the Secrets to Sporting Success:</h3>
-                        <ul class="top-list-icon pb-4">
-                            <li class="text-white"><i class="far fa-check-circle text-white me-2"></i> Personal stories of triumph and challenge from professional athletes.</li>
-                            <li class="text-white"><i class="far fa-check-circle text-white me-2"></i> Insider tips on what top coaches really look for in young talent.</li>
-                            <li class="text-white"><i class="far fa-check-circle text-white me-2"></i> Answers to the burning questions every up-and-comer has</li>
-                        </ul>
-                        <a href="{{ route('web.video.publisher.all') }}" class="btn iya-btn-white">Watch Limited Free Videos</a>
-                        <p class="py-3">Want to see more? Subscribe here for only <span class="fw-bold">US$3.95/Month</span> and unlock the most powerful tool in Youth Sport.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 align-self-center text-center">
-                    <div class="banner-slide-carousel owl-carousel">
-                        <div>
-                            <img src="{{asset('web/assets/images/quotes/Kidspic1.jpg')}}" alt="Quotes" class="img-fluid">
-                        </div>
-                        <div>
-                            <img src="{{asset('web/assets/images/quotes/Kidspic2.jpg')}}" alt="Quotes" class="img-fluid">
-                        </div>
-                        <div>
-                            <img src="{{asset('web/assets/images/quotes/Kidspic3.jpg')}}" alt="Quotes" class="img-fluid">
-                        </div>
-                        <div>
-                            <img src="{{asset('web/assets/images/quotes/Kidspic4.jpg')}}" alt="Quotes" class="img-fluid">
-                        </div>
-                        <div>
-                            <img src="{{asset('web/assets/images/quotes/Kidspic5.jpg')}}" alt="Quotes" class="img-fluid">
-                        </div>
-                        <div>
-                            <img src="{{asset('web/assets/images/quotes/Kidspic6.jpg')}}" alt="Quotes" class="img-fluid">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<style>
+  .imgprofileupdatehome{
+    height: 80px;
+    width: 80px;
+    background: #1badc4;
+  }
+
+  .publisher-details_home {
+      font-size: 14px !important;
+      font-weight: 500;
+  }
+
+  .view-btn-box-home {
+      background: var(--dark-navy);
+      border-radius: 10px 0px;
+      position: absolute;
+      bottom: -8px;
+      right: -8px;
+      padding: 8px 15px;
+  }
+  p.pt-3 {
+      font-size: 16px;
+      font-weight: bold;
+  }
+</style>
     <!-- Hero Slider Area End-->
-     <!-- Video Publisher Section Start-->
-     <section class="themeix-ptb-2">
+    <section class="hero-banner-bg py-5">
       <div class="container">
-          <div class="website-title-white text-center pb-5">
-              <h2 class="">Trending Videos</h2>
-              <div class="border-box m-auto"></div>
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h1>Become Part of the Inspiring Young Athletes Journey</h1>
+            <div class="py-3">
+              <a href="{{ route('web.video.publisher.all') }}" class="btn iya-btn-white">Watch Limited Free Videos</a>
+            </div>
+            <p class="mb-0">Want to see more? Subscribe here for only <span class="fw-bold">US$3.95/Month</span> and unlock the most powerful tool in Youth Sport.</p>
           </div>
-          <div class="row g-3">
-              @foreach ( $athleticCoaches as $athleticCoachprofile )
-              @php
-                  $datetime = $athleticCoachprofile->created_at;
-                  $dateTimestring = new DateTime($datetime);
-                  $year = $dateTimestring->format("Y");
-                  $videoCount = $athleticCoachprofile->videos_count;
-              @endphp
-              <div class="col-lg-4">
-                  <div class="publisher-box p-3">
+          <div class="col-lg-12 pt-5">
+            <h5 class="text-white">Trending Video</h5>
+            <div class="row">
+              <div class="col-lg-9">
+                <div class="row">
+                  @foreach ( $athleticCoaches as $athleticCoachprofile ) @php $datetime = $athleticCoachprofile->created_at; $dateTimestring = new DateTime($datetime); $year = $dateTimestring->format("Y"); $videoCount =
+                  $athleticCoachprofile->videos_count; @endphp
+                  <div class="col-md-6 col-xl-4 mb-3 d-none d-lg-block d-xl-block">
+                    <div class="publisher-box p-2">
                       <div class="d-flex position-relative">
-                          <div class="publisher-img">
-                              @if( $athleticCoachprofile->profile =="")
-                                  <img class="img-account-profile rounded-circle mb-2 imgprofileupdate" src="{{asset('web/assets/images/new-img/dummyuser.png')}}" alt="">
-                              @else
-                                  <img class="img-account-profile rounded-circle mb-2 imgprofileupdate" src="{{asset($athleticCoachprofile->profile)}}" alt="">
-                              @endif
-                          </div>
-                          <div class="publisher-details mt-2 ps-3">
-                              <h4>{{$athleticCoachprofile->name}}</h4>
-                              <p class="mb-1"><i class="far fa-play-circle text-danger me-2"></i> {{$videoCount}} videos</p>
-                              <p class="mb-0"><i class="far fa-calendar-alt text-break me-2"></i> joined {{$year}}</p>
-                          </div>
-                          <div class="view-btn-box">
-                              <a href="{{ route('web.video.publisher.list',$athleticCoachprofile->id) }}" class="text-white">View <img src="{{asset('web/assets/images/new-img/view-icon.svg')}}"
-                                      alt="arrow icon"></a>
-                          </div>
+                        <div class="publisher-img align-self-center">
+                          @if( $athleticCoachprofile->profile =="")
+                          <img class="img-account-profile rounded-circle imgprofileupdatehome" src="{{asset('web/assets/images/new-img/dummyuser.png')}}" alt="" />
+                          @else
+                          <img class="img-account-profile rounded-circle imgprofileupdatehome" src="{{asset($athleticCoachprofile->profile)}}" alt="" />
+                          @endif
+                        </div>
+                        <div class="publisher-details mt-2 ps-3 align-self-center">
+                          <h6 class="lh-1">{{$athleticCoachprofile->name}}</h6>
+                          <p class="lh-base mb-1 text-dark publisher-details_home"><i class="far fa-play-circle text-danger me-2"></i> {{$videoCount}} videos</p>
+                          <p class="lh-base mb-0 text-dark publisher-details_home"><i class="far fa-calendar-alt text-break me-2"></i> joined {{$year}}</p>
+                        </div>
+                        <div class="view-btn-box-home">
+                          <a href="{{ route('web.video.publisher.list',$athleticCoachprofile->id) }}" class="text-white">View <img src="{{asset('web/assets/images/new-img/view-icon.svg')}}" alt="arrow icon" /></a>
+                        </div>
                       </div>
+                    </div>
+                  </div>
+                  @endforeach
+                  <div class="col-md-12 col-xl-4   mb-3 d-md-block d-lg-none">
+                    <div class="home-trending-video-carousel owl-carousel">
+                      <div>
+                        @foreach ( $athleticCoaches as $athleticCoachprofile ) @php $datetime = $athleticCoachprofile->created_at; $dateTimestring = new DateTime($datetime); $year = $dateTimestring->format("Y"); $videoCount = $athleticCoachprofile->videos_count; @endphp
+                        <div class="publisher-box p-2 mb-3">
+                          <div class="d-flex position-relative">
+                            <div class="publisher-img align-self-center">
+                              @if( $athleticCoachprofile->profile =="")
+                              <img class="img-account-profile rounded-circle imgprofileupdatehome" src="{{asset('web/assets/images/new-img/dummyuser.png')}}" alt="" />
+                              @else
+                              <img class="img-account-profile rounded-circle imgprofileupdatehome" src="{{asset($athleticCoachprofile->profile)}}" alt="" />
+                              @endif
+                            </div>
+                            <div class="publisher-details mt-2 ps-3 align-self-center">
+                              <h6 class="lh-1">{{$athleticCoachprofile->name}}</h6>
+                              <p class="lh-base mb-1 text-dark publisher-details_home"><i class="far fa-play-circle text-danger me-2"></i> {{$videoCount}} videos</p>
+                              <p class="lh-base mb-0 text-dark publisher-details_home"><i class="far fa-calendar-alt text-break me-2"></i> joined {{$year}}</p>
+                            </div>
+                            <div class="view-btn-box-home">
+                              <a href="{{ route('web.video.publisher.list',$athleticCoachprofile->id) }}" class="text-white">View <img src="{{asset('web/assets/images/new-img/view-icon.svg')}}" alt="arrow icon"  class="d-none"/></a>
+                            </div>
+                          </div>
+                        </div>
+                        @endforeach
+                      </div>
+                    </div>
                   </div>
               </div>
-              @endforeach
-
+              </div>
+              <div class="col-lg-3 mt-3 mt-lg-0">
+                <div class="banner-slide-carousel owl-carousel">
+                  <div>
+                    <img src="{{asset('web/assets/images/quotes/Kidspic1.jpg')}}" alt="Quotes" class="img-fluid" />
+                  </div>
+                  <div>
+                    <img src="{{asset('web/assets/images/quotes/Kidspic2.jpg')}}" alt="Quotes" class="img-fluid" />
+                  </div>
+                  <div>
+                    <img src="{{asset('web/assets/images/quotes/Kidspic3.jpg')}}" alt="Quotes" class="img-fluid" />
+                  </div>
+                  <div>
+                    <img src="{{asset('web/assets/images/quotes/Kidspic4.jpg')}}" alt="Quotes" class="img-fluid" />
+                  </div>
+                  <div>
+                    <img src="{{asset('web/assets/images/quotes/Kidspic5.jpg')}}" alt="Quotes" class="img-fluid" />
+                  </div>
+                  <div>
+                    <img src="{{asset('web/assets/images/quotes/Kidspic6.jpg')}}" alt="Quotes" class="img-fluid" />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Video Publisher Section Start-->
+     <section class="themeix-ptb-5 py-4">
+      <div class="container">
+          <p class="pt-3">Are you ready to leap ahead in your athletic journey? Whether you're sprinting, swimming, or scoring, the Inspiring Young Athletes program is your digital coach to success! Tailored for the mobile generation, this innovative platform connects you with legends of the game—real athletes and coaches who've walked the path you're on now.</p>
+          <h3 class="">Discover the Secrets to Sporting Success:</h3>
+          <ul class="top-list-icon pb-4">
+              <li class=""><i class="far fa-check-circle me-2"></i> Personal stories of triumph and challenge from professional athletes.</li>
+              <li class=""><i class="far fa-check-circle me-2"></i> Insider tips on what top coaches really look for in young talent.</li>
+              <li class=""><i class="far fa-check-circle me-2"></i> Answers to the burning questions every up-and-comer has</li>
+          </ul>
       </div>
     </section>
     <!-- Categories Section Start-->

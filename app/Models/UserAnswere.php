@@ -19,4 +19,9 @@ class UserAnswere extends Model
         'user_queston_type',
         'answere_Video',
     ];
+
+    public function IntroVideo()
+    {
+        return $this->hasMany(Video::class,'video_id','answere_video');
+    }
 }

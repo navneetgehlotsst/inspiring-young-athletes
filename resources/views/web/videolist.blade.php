@@ -206,11 +206,11 @@
                                         <span>{{$Video->video_veiw_count}}</span>
                                     </div>
                                     
-                                    @if($Video->Video_type == 0)
+                                    @if($Video->video_type == '2')
                                         <div class="video-feedback py-1">
                                             <span class="free-video-tag">Free</span>
                                             @if(!empty($watch))
-                                                <span class="free-video-tag">Watched</span>
+                                                <span class="watched-video-tag"><i class="fas fa-check-circle"></i> Watched</span>
                                             @else
                                                 
                                             @endif
@@ -219,7 +219,7 @@
                                         <div class="video-feedback py-1">
                                             <span class="paid-video-tag">Paid</span>
                                             @if(!empty($watch))
-                                                <span class="free-video-tag">Watched</span>
+                                                <span class="watched-video-tag"><i class="fas fa-check-circle"></i> Watched</span>
                                             @else
                                                 
                                             @endif

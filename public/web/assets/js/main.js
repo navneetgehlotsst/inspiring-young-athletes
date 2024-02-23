@@ -72,6 +72,34 @@
          }
       }
    });
+   $(".home-trending-video-carousel").owlCarousel({
+      loop: true,
+      margin: 30,
+      autoplay:true,
+      autoplayTimeout:10000,
+      nav: false,
+      //navText: ['<i class="fas fa-angle-left"></i>', '<i class="fas fa-angle-right"></i>'],
+      responsive: {
+
+         0: {
+
+            items: 1
+         },
+
+         480: {
+
+            items: 1
+         },
+
+         768: {
+
+            items: 2
+         },
+         992: {
+            items: 2
+         }
+      }
+   });
 
    $(".feature-carousel").owlCarousel({
       loop: true,

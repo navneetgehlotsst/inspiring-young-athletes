@@ -49,9 +49,9 @@
                             }
                         @endphp
                         <div class="video-post-counter text-end">
-                            <div class="video-post-viewers">
+                            <div class="video-post-viewers d-flex">
                                 @if(!empty($watch))
-                                    <span class="free-video-tag">Watched</span>
+                                    <span class="watched-video-tag mr-2"><i class="fas fa-check-circle"></i> Watched</span>
                                 @else
                                     
                                 @endif

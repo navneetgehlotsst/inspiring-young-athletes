@@ -64,6 +64,10 @@
                                                 <div class="video-feedback py-1">
                                                     <span class="free-video-tag">Active</span>
                                                 </div>
+                                            @elseif($Video->video_status == 2)
+                                                <div class="video-feedback py-1">
+                                                    <span class="paid-video-tag">Rejected</span>
+                                                </div>
                                             @else
                                                 <div class="video-feedback py-1">
                                                     <span class="pending-video-tag">Pending</span>

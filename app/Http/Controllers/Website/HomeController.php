@@ -198,9 +198,11 @@ class HomeController extends Controller
             if(empty($getVideo)){
                 return Redirect::back()->withError('Video not found!');
             }
-            // if($userRole == 'Athletes' || $userRole == 'Coach' ){
-            //     return Redirect::back()->withError('you cant see this video');
-            // }
+            $getSubcrption = Subscriptions::where('user_id',$userId)->first();
+            $currentDate = date('Y-m-d'); 
+            if(empty($getSubcrption) || $getSubcrption->ends_at != ''){
+                return Redirect::back()->withError('Please Buy subcription for that');
+            }
             if($userId != $getVideo->user_id ){
                 if($userRole == 'Athletes' || $userRole == 'Coach' ){
                     return Redirect::back()->withError("You have log in with Athleat/Coach so you can't see the video");
@@ -224,7 +226,7 @@ class HomeController extends Controller
             $userdetail = User::where('id',$getVideo->user_id)->withCount('videos')->first();
             $VideoList = Video::where('user_id',$getVideo->user_id)->where('video_id','!=',$id)->where('video_status','1')->take(8)->get();
 
-            $popularVideos = Video::where('Video_id','!=',$id)->where('user_id',$getVideo->user_id)->orderBy('Video_veiw_count','DESC')->take(2)->get();
+            $popularVideos = Video::where('Video_id','!=',$id)->where('user_id',$getVideo->user_id)->where('video_status','2')->orderBy('Video_veiw_count','DESC')->take(2)->get();
             
             $trendingVideo = User::with('TopVideoList')->get();
 

@@ -65,7 +65,6 @@ class BankController extends Controller
                         } else {
                             $response['status'] = "error";
                             $response['message'] = "Oops! Something went wrong!";
-                            dd($response);
                         }
                     } else {
                         $accountResponse = $stripe->accounts->create([

@@ -62,13 +62,29 @@
                 </div>
                 <div class="tab-pane fade" id="navs-pills-top-intro" role="tabpanel">
                   <div class="row">
+                    @if(!empty($usersintro->IntroVideo))
                     <h3>{{$usersintro->IntroVideo['0']->video_title}}</h3>
                     <div class="embed-responsive embed-responsive-16by9">
-                          <video width="400" controls>
-                            <source src="{{$usersintro->IntroVideo['0']->video}}" type="video/mp4">
-                            <source src="{{$usersintro->IntroVideo['0']->video}}" type="video/ogg">
-                          </video>
-                        </div>
+                      <video width="400" controls>
+                        <source src="{{$usersintro->IntroVideo['0']->video}}" type="video/mp4">
+                        <source src="{{$usersintro->IntroVideo['0']->video}}" type="video/ogg">
+                      </video>
+                      <div>
+                        @if($usersintro->IntroVideo['0']->video_status == 0 )
+                            <button type="button" class="btn btn-outline-success aproved" id="approved-{{ $usersintro->IntroVideo['0']->video_id}}" data-videoid ="{{ $usersintro->IntroVideo['0']->video_id }}" data-url='{{ route("admin.athelitics.show.video") }}'>Approved</button>
+                            <button type="button" class="btn btn-outline-danger reject ms-2" id="rejected-{{$usersintro->IntroVideo['0']->video_id}}" data-videoid ="{{$usersintro->IntroVideo['0']->video_id}}" data-url='{{ route("admin.athelitics.changestatus") }}'>Rejected</button>
+                        @elseif($usersintro->IntroVideo['0']->video_status == 2)
+                            <button type="button" class="btn btn-outline-success aproved" id="approved-{{$usersintro->IntroVideo['0']->video_id}}" data-videoid ="{{$usersintro->IntroVideo['0']->video_id}}" data-url='{{ route("admin.athelitics.show.video") }}'>Approved</button>
+                            <button type="button" class="btn btn-outline-danger reject ms-2 d-none" id="rejected-{{$usersintro->IntroVideo['0']->video_id}}" data-videoid ="{{$usersintro->IntroVideo['0']->video_id}}" data-url='{{ route("admin.athelitics.changestatus") }}'>Rejected</button>
+                        @else
+                            <button type="button" class="btn btn-outline-success aproved d-none" id="approved-{{$usersintro->IntroVideo['0']->video_id}}" data-videoid ="{{$usersintro->IntroVideo['0']->video_id}}" data-url='{{ route("admin.athelitics.show.video") }}'>Approved</button>
+                            <button type="button" class="btn btn-outline-danger reject ms-2" id="rejected-{{$usersintro->IntroVideo['0']->video_id}}" data-videoid ="{{$usersintro->IntroVideo['0']->video_id}}" data-url='{{ route("admin.athelitics.changestatus") }}'>Rejected</button>
+                        @endif
+                      </div>
+                    </div>
+                    @else
+                      <h3>Intro Video Not Uploaded</h3>
+                    @endif
                   </div>
                 </div>
                 <div class="tab-pane fade" id="navs-pills-top-question" role="tabpanel">

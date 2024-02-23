@@ -40,9 +40,15 @@ class UserController extends Controller
     // User Detail
     public function ViewDetail($id){
         $users = User::where('id',$id)->with('usersubciption')->first();
-        $startDate = $users->usersubciption[0]->created_at; // Assuming usersubciption is a relationship
-        $formattedStartDate = Carbon::parse($startDate)->format('d-m-Y');
-        $enddate = Carbon::parse($formattedStartDate)->addDays(30)->format('d-m-Y');
+        if(empty($users->usersubciption)){
+            $startDate = $users->usersubciption[0]->created_at; // Assuming usersubciption is a relationship
+            $formattedStartDate = Carbon::parse($startDate)->format('d-m-Y');
+            $enddate = Carbon::parse($formattedStartDate)->addDays(30)->format('d-m-Y');
+        }else{
+            $formattedStartDate = "";
+            $enddate = "";
+
+        }
         return view('admin.user.detail', compact('users','formattedStartDate','enddate'));
     }
 

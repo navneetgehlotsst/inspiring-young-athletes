@@ -5,7 +5,7 @@
 
     <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
       <div class="app-brand demo">
-        <a href="index.html" class="app-brand-link">
+        <a href="{{ route('admin.dashboard') }}" class="app-brand-link">
           <span class="app-brand-logo demo">
             <img src="{{asset('web/assets/images/new-img/logo.svg')}}" alt class="" width="220px" />
          </span>

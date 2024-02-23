@@ -62,7 +62,7 @@
                                         </div>
                                             @if($Video->video_status == 1)
                                                 <div class="video-feedback py-1">
-                                                    <span class="free-video-tag">Active</span>
+                                                    <span class="free-video-tag">Approved</span>
                                                 </div>
                                             @elseif($Video->video_status == 2)
                                                 <div class="video-feedback py-1">

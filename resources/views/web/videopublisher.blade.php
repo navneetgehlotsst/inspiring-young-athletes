@@ -180,15 +180,22 @@
                                             <span class="fa fa-eye view-icon"></span>
                                             <span>{{$Video['video_veiw_count']}}</span>
                                         </div>
-                                            @if($Video->Video_type == 0)
-                                                <div class="video-feedback py-1">
-                                                    <span class="free-video-tag">Free</span>
-                                                </div>
+                                        @php
+                                            if (Auth::check()){ 
+                                                $watch = Helper::userview($Video->video_id,Auth::user()->id);  
+                                            }
+                                        @endphp
+                                        <div class="video-feedback py-1">
+                                            @if($Video->video_type == 2)
+                                                <span class="free-video-tag">Free</span>
                                             @else
-                                                <div class="video-feedback py-1">
-                                                    <span class="paid-video-tag">Paid</span>
-                                                </div>
+                                                <span class="paid-video-tag">Paid</span>
                                             @endif
+                                            @if(!empty($watch))
+                                                <span class="free-video-tag">Watched</span>
+                                            @else
+                                            @endif
+                                        </div>  
                                     </div>
                             </div>
                         </div>

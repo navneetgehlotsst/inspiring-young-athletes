@@ -172,25 +172,17 @@
                                                 
                                             }
                                         @endphp
-                                            @if($Video->Video_type == 0)
-                                                <div class="video-feedback py-1">
-                                                    <span class="free-video-tag">Free</span>
-                                                    @if(!empty($watch))
-                                                        <span class="free-video-tag">Watched</span>
-                                                    @else
-                                                        
-                                                    @endif
-                                                </div>
+                                        <div class="video-feedback py-1">
+                                            @if($Video->Video_type == 2)
+                                                <span class="free-video-tag">Free</span>
                                             @else
-                                                <div class="video-feedback py-1">
-                                                    <span class="paid-video-tag">Paid</span>
-                                                    @if(!empty($watch))
-                                                        <span class="free-video-tag">Watched</span>
-                                                    @else
-                                                        
-                                                    @endif
-                                                </div>
+                                                <span class="paid-video-tag">Paid</span>
                                             @endif
+                                            @if(!empty($watch))
+                                                <span class="free-video-tag">Watched</span>
+                                            @else
+                                            @endif
+                                        </div>
                                     </div>
                             </div>
                         </div>

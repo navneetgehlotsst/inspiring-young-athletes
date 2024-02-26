@@ -79,6 +79,10 @@
                         <div class="from-box p-3 p-lg-5">
                             <div class="row">
                                 <div class="col-lg-8 col-8">
+                                    <p>You can change your Role here , After that you can't change Your Role <a href="{{ route('web.athletes.coach.update.role') }}">Click Here</a></p>
+                                    <p></p>
+                                </div>
+                                <div class="col-lg-8 col-8">
                                     <h4 class="fw-bold">Questions for athletes:</h4>
                                     <h5 class="">{{$questionforathletes}} Questions</h5>
                                     <p>Answer any 8 of our pre-determined questions as an athlete or coach to activate your account online</p>

@@ -62,7 +62,7 @@
          ],
          chart: {
             height: 350,
-            type: "line",
+            type: "bar",
             zoom: {
                   enabled: false,
             },
@@ -88,6 +88,47 @@
       };
 
       var chart = new ApexCharts($("#chartVideo")[0], options); // Use jQuery to select the element
+      chart.render();
+   });
+
+   $(function () { // Use jQuery shorthand for document ready
+
+      const videoviewmonth = {{ Js::from($videoviewmonth) }};
+      const viewcount = {{ Js::from($viewcount) }};
+
+      // Define options object outside of the function to reduce duplication
+      var options = {
+         series: [
+            { name: "Count", data: viewcount },
+         ],
+         chart: {
+            height: 350,
+            type: "line",
+            zoom: {
+                  enabled: false,
+            },
+         },
+         dataLabels: {
+            enabled: false,
+         },
+         stroke: {
+            curve: "straight",
+         },
+         title: {
+            align: "left",
+         },
+         grid: {
+            row: {
+                  colors: ["#f3f3f3", "transparent"],
+                  opacity: 0.5,
+            },
+         },
+         xaxis: {
+            categories: videoviewmonth
+         },
+      };
+
+      var chart = new ApexCharts($("#chartviewVideo")[0], options); // Use jQuery to select the element
       chart.render();
    });
 </script>
@@ -131,6 +172,10 @@
                <div class="card mt-2">
                   <h4 class="card-title mb-1 text-nowrap pt-3 ps-3">Video</h4>
                   <div id="chartVideo"></div>
+               </div>
+               <div class="card mt-2">
+                  <h4 class="card-title mb-1 text-nowrap pt-3 ps-3">Video View</h4>
+                  <div id="chartviewVideo"></div>
                </div>
          </div>
          <div class="col-lg-4">

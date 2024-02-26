@@ -231,7 +231,30 @@ class AuthController extends Controller
                     $InActive[] = $videographresult['InActive'];
                     $Pending[] = $videographresult['Pending'];
                 }
-                return view('admin.dashboard', compact('userCount','athletesCount','coachesCount','totalUsersCount','subscriptionAmount','totalAthleteIncome','referralRevenue','adminIncome','totalVideoCount','pendingCount','approvedCount','rejectedCount','paidCount','freeCount','userDataCount','month','Athletes','Coach','User','videomonth','Active','InActive','Pending'));
+
+                // 9. Video View Graph
+                $videoViewCounts = VideoHistory::select(DB::raw('MONTHNAME(created_at) as month, COUNT(*) as count'))
+                ->orderBy('month', 'desc')
+                ->get();
+
+                $userViewCountvideo = [];
+                $monthnamesviewvideo = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+                foreach ($monthnamesviewvideo as $monthviewvideo) {
+                    $userViewCountvideo[$monthviewvideo] = ['month' => $monthviewvideo, 'count' => 0];
+                }
+
+                foreach ($videoViewCounts as $videoviewcountsvalue) {
+                    $videoviewmonths = $videoviewcountsvalue->month;
+                    $count = $videoviewcountsvalue->count;
+                    $userViewCountvideo[$videoviewmonths]['count'] = $count;
+                }
+                $videoviewmonth = [];
+                $viewcount = [];
+                foreach ($userViewCountvideo as $videoviewgraphresult) {
+                    $videoviewmonth[] = $videoviewgraphresult['month'];
+                    $viewcount[] = $videoviewgraphresult['count'];
+                }
+                return view('admin.dashboard', compact('userCount','athletesCount','coachesCount','totalUsersCount','subscriptionAmount','totalAthleteIncome','referralRevenue','adminIncome','totalVideoCount','pendingCount','approvedCount','rejectedCount','paidCount','freeCount','userDataCount','month','Athletes','Coach','User','videomonth','Active','InActive','Pending','videoviewmonth','viewcount'));
             }else {
                 return redirect()->route('admin.login');
             }    

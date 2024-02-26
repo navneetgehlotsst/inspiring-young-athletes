@@ -199,9 +199,11 @@ class HomeController extends Controller
                 return Redirect::back()->withError('Video not found!');
             }
             $getSubcrption = Subscriptions::where('user_id',$userId)->first();
-            $currentDate = date('Y-m-d'); 
-            if(empty($getSubcrption) || $getSubcrption->ends_at != ''){
-                return Redirect::back()->withError('Please Buy subcription for that');
+            $currentDate = date('Y-m-d');
+            if($getVideo->video_type == '1'){ 
+                if(empty($getSubcrption)){
+                    return Redirect::back()->withError('Please Buy subcription for that');
+                }
             }
             if($userId != $getVideo->user_id ){
                 if($userRole == 'Athletes' || $userRole == 'Coach' ){

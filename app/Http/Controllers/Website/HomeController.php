@@ -124,7 +124,7 @@ class HomeController extends Controller
     }
 
     public function Question(){
-        $AthletesList = Question::where('question_status','1')->where('question_type','!=','for_coaches')->get();
+        $AthletesList = Question::where('question_status','1')->where('question_type','for_athletes')->get();
         $CoachList = Question::where('question_status','1')->where('question_type','for_coaches')->get();
         return view('web.question',compact('AthletesList','CoachList'));
     }

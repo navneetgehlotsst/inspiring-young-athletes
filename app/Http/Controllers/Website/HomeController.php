@@ -26,6 +26,7 @@ use App\Models\{
     Plan,
     Subscriptions,
     Transaction,
+    AskQuestion
 };
 use App\Mail\ForgotPasswordMail;
 use Laravel\Cashier\Cashier;
@@ -125,8 +126,11 @@ class HomeController extends Controller
 
     public function Question(){
         $AthletesList = Question::where('question_status','1')->where('question_type','for_athletes')->get();
+        $parentList = Question::where('question_status','1')->where('question_type','for_parents')->get();
+        $atheliticsCoachesList = Question::where('question_status','1')->where('question_type','for_athletes_coaches')->get();
+        $fridayfrenziList = Question::where('question_status','1')->where('question_type','for_friday_frenzy')->get();
         $CoachList = Question::where('question_status','1')->where('question_type','for_coaches')->get();
-        return view('web.question',compact('AthletesList','CoachList'));
+        return view('web.question',compact('AthletesList','CoachList','parentList','atheliticsCoachesList','fridayfrenziList'));
     }
 
 
@@ -202,7 +206,7 @@ class HomeController extends Controller
             $currentDate = date('Y-m-d');
             if($getVideo->video_type == '1'){ 
                 if(empty($getSubcrption)){
-                    return Redirect::back()->withError('Please Buy subcription for that');
+                    return Redirect::back()->withError('Subscription Required to View Video');
                 }
             }
             if($userId != $getVideo->user_id ){
@@ -420,6 +424,23 @@ class HomeController extends Controller
             } else {
                 return redirect()->route('web.login');
             }
+        } catch (\Throwable $th) {
+            return back()->with('error',$th->getMessage());
+        }
+        
+    }
+
+
+    public function askquestion(Request $request)
+    {   
+        try {
+            AskQuestion::insert([
+                'full_name' => $request->name,
+                'email' => $request->email,
+                'coachandatheletes' => $request->atheliticsandcoachname,
+                'description' => $request->askquestion
+            ]);
+            return back()->with('success','Ask Question message');
         } catch (\Throwable $th) {
             return back()->with('error',$th->getMessage());
         }

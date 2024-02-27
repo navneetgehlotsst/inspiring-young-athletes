@@ -67,7 +67,7 @@
                 </div>
                 <div class="collapse navbar-collapse px-3 px-lg-3" id="navbarNavDarkDropdown">
                     <ul class="navbar-nav">
-                        <li class="nav-item"><a href="{{ route('web.athletes.coach.MySubcription') }}" class="nav-link px-2" href="#"><i class="fas fa-coins me-2"></i> My Subcription</a></li>
+                        <li class="nav-item"><a href="{{ route('web.athletes.coach.MySubcription') }}" class="nav-link px-2" href="#"><i class="fas fa-coins me-2"></i> My Subscription</a></li>
                         <li class="nav-item"><a href="{{ route('web.athletes.coach.ChangePassword') }}" class="nav-link px-2 {{ request()->is('athletes-coach/changepassword') ? 'active' : '' }}" href="#"><i class="fas fa-coins me-2"></i> Change Password</a></li>
                     </ul>
                 </div>

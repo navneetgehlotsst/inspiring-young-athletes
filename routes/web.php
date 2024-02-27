@@ -74,6 +74,7 @@ Route::name('web.')->controller(HomeController::class)->group(function () {
     Route::post('submitResetPasswordForm', 'submitResetPasswordForm')->name('submitResetPasswordForm');
     Route::get('joinnow', 'joinNow')->name('joinnow');
     Route::post('subscription', 'subscription')->name('subscription.create');
+    Route::post('ask-question', 'askquestion')->name('askquestion.create');
 });
 
 Route::name('web.athletes.coach.')->prefix('athletes-coach')->controller(RegisterController::class)->group(function () {
@@ -174,7 +175,7 @@ Route::group(['middleware' => 'auth'], function ()
         Route::get('view-detail/{id}', 'ViewDetail')->name('detail');
     });
 
-    Route::name('admin.athelitics.')->prefix('athelitics-coaches/')->controller(AtheliticsAndCoachesController::class)->group(function () {
+    Route::name('admin.athelitics.')->prefix('atheletes-coaches/')->controller(AtheliticsAndCoachesController::class)->group(function () {
         Route::get('list', 'list')->name('list');
         Route::post('delete', 'delete')->name('delete');
         Route::post('showvideo', 'showVideo')->name('show.video');

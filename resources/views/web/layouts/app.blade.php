@@ -22,6 +22,8 @@
     {{-- LOAD script --}}
     <script src="{{asset('web/assets/js/jquery-3.3.1.min.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     
     
 
@@ -77,19 +79,22 @@
             <h5 class="modal-title" id="staticBackdropLabel">Ask a Question</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <div class="">
-                    <input type="name" class="form-control py-3 mb-4" placeholder="Full Name">
-                    <input type="email" class="form-control py-3 mb-4" placeholder="Email">
-                    <input type="text" class="form-control py-3 mb-4" placeholder="Ask Question To Athletes & Coach Name">
-                    <textarea class="form-control py-3 mb-4" placeholder="Ask Questions"></textarea>
-                    
+            <form role="form" action="{{ route('web.askquestion.create') }}" method="post">
+                @csrf
+                <div class="modal-body">
+                    <div class="">
+                        <input type="text" name="name" class="form-control py-3 mb-4" placeholder="Full Name">
+                        <input type="email" name="email" class="form-control py-3 mb-4" placeholder="Email">
+                        <input type="text" name="atheliticsandcoachname" class="form-control py-3 mb-4" placeholder="Which Athlete or Coach would you like to ask a question">
+                        <textarea class="form-control py-3 mb-4" name="askquestion" placeholder="Ask Question/s"></textarea>
+                        
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn iya-btn-blue bg-dark" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn iya-btn-blue">Send</button>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn iya-btn-blue bg-dark" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn iya-btn-blue">Send</button>
+                </div>
+            </form>
         </div>
         </div>
     </div>

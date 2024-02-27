@@ -19,7 +19,7 @@
     <li class="menu-item">
         <a href="{{ route('admin.athelitics.list') }}" class="menu-link">
             <i class='bx bx-user'></i>
-            <div data-i18n="Email">Athelitic & Coach</div>
+            <div data-i18n="Email">Athletes & Coaches</div>
         </a>
     </li>
     

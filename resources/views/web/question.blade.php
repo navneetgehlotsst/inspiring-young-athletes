@@ -46,18 +46,64 @@
                         <!--Athletes Questions Start-->
                         <div class="from-box p-3 p-lg-5">
                             <div class="questions-answer-section">
-                                <div class="accordion" id="accordionAthletesQuestions">
-                                    @php $athi = 1; @endphp
-                                    @foreach($AthletesList as $athletesList)
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingParents1">
-                                            <button class="accordion-button" type="button">
-                                                <a href="{{ route('web.question.video',$athletesList->question_id) }}" class="h6"><strong>{{$athi++}}. </strong>{{$athletesList->question}}</a>    
-                                            </button>
-                                        </h2>
+                                    <nav>
+                                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                            <button class="nav-link fw-bold active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#for_athletes" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Athletics</button>
+                                            <button class="nav-link fw-bold" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#for_parents" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Parents</button>
+                                            <button class="nav-link fw-bold" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#for_athletes_coaches" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Coaches</button>
+                                            <button class="nav-link fw-bold" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#for_friday_frenzy" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Game Day Prep</button>
+                                        </div>
+                                    </nav>
+                                    <div class="tab-content" id="nav-tabContent">
+                                        <div class="tab-pane fade show active" id="for_athletes" role="tabpanel" aria-labelledby="nav-home-tab">
+                                            @php $athi = 1; @endphp
+                                            @foreach($AthletesList as $athletesList)
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="headingParents1">
+                                                    <button class="accordion-button" type="button">
+                                                        <a href="{{ route('web.question.video',$athletesList->question_id) }}" class="h6"><strong>{{$athi++}}. </strong>{{$athletesList->question}}</a>    
+                                                    </button>
+                                                </h2>
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                        <div class="tab-pane fade" id="for_parents" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                            @php $pari = 1; @endphp
+                                            @foreach($parentList as $parentLists)
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="headingParents1">
+                                                    <button class="accordion-button" type="button">
+                                                        <a href="{{ route('web.question.video',$parentLists->question_id) }}" class="h6"><strong>{{$pari++}}. </strong>{{$parentLists->question}}</a>    
+                                                    </button>
+                                                </h2>
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                        <div class="tab-pane fade" id="for_athletes_coaches" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                            @php $athchi = 1; @endphp
+                                            @foreach($atheliticsCoachesList as $atheliticsCoaches)
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="headingParents1">
+                                                    <button class="accordion-button" type="button">
+                                                        <a href="{{ route('web.question.video',$atheliticsCoaches->question_id) }}" class="h6"><strong>{{$athchi++}}. </strong>{{$atheliticsCoaches->question}}</a>    
+                                                    </button>
+                                                </h2>
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                        <div class="tab-pane fade" id="for_friday_frenzy" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                            @php $frii = 1; @endphp
+                                            @foreach($fridayfrenziList as $fridayfrenzi)
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="headingParents1">
+                                                    <button class="accordion-button" type="button">
+                                                        <a href="{{ route('web.question.video',$fridayfrenzi->question_id) }}" class="h6"><strong>{{$frii++}}. </strong>{{$fridayfrenzi->question}}</a>    
+                                                    </button>
+                                                </h2>
+                                            </div>
+                                            @endforeach
+                                        </div>
                                     </div>
-                                    @endforeach
-                                </div>
                             </div>
                         </div>
                         <!--Athletes Questions End-->

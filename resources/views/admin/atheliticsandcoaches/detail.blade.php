@@ -10,7 +10,7 @@
   }
 </style>
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Athelitecs And Coach /</span> Detail</h4>
+    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Atheletes And Coach /</span> Detail</h4>
     <div class="row">
         <div class="col-xl-12">
           <div class="nav-align-top mb-4">
@@ -92,7 +92,7 @@
                         <thead>
                           <tr class="text-nowrap">
                               <th>S. No.</th>
-                              <th>Questions</th>
+                              <th col="3">Questions</th>
                               <th>Veiws</th>
                               <th>Answere</th>
                               <th>Type</th>
@@ -112,8 +112,9 @@
                                     <td>
                                       @if ($usersvideo['answere'] != "")
                                         <a href="javascript:void(0);" class="showvideo" data-videoid ="{{$usersvideo['video_id']}}" data-url='{{ route("admin.athelitics.show.video") }}'>
-                                          <img src="{{$usersvideo['answere']}}" alt="{{$usersvideo['question']}}" width="100">
-                                          </a>
+                                          <img src="{{asset('admin/assets/img/play.svg')}}" alt="{{$usersvideo['question']}}" width="20">
+                                        <span class="fw-bold">Play Video</span>
+                                        </a>
                                       @endif
                                     </td>
                                     <td>

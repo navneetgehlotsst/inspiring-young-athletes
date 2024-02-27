@@ -39,8 +39,7 @@
                             
                             <div class="footer-list">
                                 <ul>
-                                    <li><a href="mailto:info@themeix.com"><i class="fas fa-envelope me-2"></i> info@inspiringyoungathletes.com</a></li>
-                                    <li><a href="mailto:info@themeix.com"><i class="fas fa-envelope me-2"></i> inspiringyoungathletes@gmail.com</a></li>
+                                    <li><a href="mailto:info@inspiringyoungathletes.com"><i class="fas fa-envelope me-2"></i> info@inspiringyoungathletes.com</a></li>
                                     <li><a href="tel:+610452327021"><i class="fas fa-phone-volume h5 me-2"></i> +61 0452327021</a></li>
                                 </ul>
                             </div>

@@ -137,29 +137,29 @@
     <div class="row mb-3">
          <div class="col-lg-8">
                <div class="card">
-                  <h4 class="card-title mb-1 text-nowrap pt-3 ps-3">Incomes</h4>  
+                  <h4 class="card-title mb-1 text-nowrap pt-3 ps-3">Income</h4>  
                   <div class="d-flex row">
                      <div class="col-3">
                            <div class="card-body">                      
-                              <h5 class="card-title text-primary mb-1">{{$subscriptionAmount}}</h5>
-                              <p class="d-block mb-4 pb-1 text-muted">Total Subcription(Amount)</p>
+                              <h5 class="card-title text-primary mb-1">$ {{$subscriptionAmount}}</h5>
+                              <p class="d-block mb-4 pb-1 text-muted">Total Subscription</p>
                            </div>
                      </div>
                      <div class="col-3">
                            <div class="card-body">                      
-                              <h5 class="card-title text-primary mb-1">{{$referralRevenue}}</h5>
-                              <p class="d-block mb-4 pb-1 text-muted">Refralle Given</p>
+                              <h5 class="card-title text-primary mb-1 @if($referralRevenue <= 0) text-danger @else text-primary @endif">$ {{$referralRevenue}}</h5>
+                              <p class="d-block mb-4 pb-1 text-muted">Referral Given</p>
                            </div>
                      </div>
                      <div class="col-3">
                         <div class="card-body">                      
-                           <h5 class="card-title text-primary mb-1">{{$totalAthleteIncome}}</h5>
-                           <p class="d-block mb-4 pb-1 text-muted">Vedio Revenue</p>
+                           <h5 class="card-title mb-1 @if($totalAthleteIncome <= 0) text-danger @else text-primary @endif">$ {{$totalAthleteIncome}}</h5>
+                           <p class="d-block mb-4 pb-1 text-muted">Video Revenue</p>
                         </div>
                   </div>
                      <div class="col-3">
                            <div class="card-body">                      
-                              <h5 class="card-title text-primary mb-1">{{$adminIncome}}</h5>
+                              <h5 class="card-title text-primary mb-1 @if($adminIncome <= 0) text-danger @else text-primary @endif">$ {{$adminIncome}}</h5>
                               <p class="d-block mb-4 pb-1 text-muted">Total Income</p>
                            </div>
                      </div>
@@ -205,7 +205,7 @@
                         </div>
                         <h4 class="ms-1 mb-0">{{$userCount}}</h4>
                      </div>
-                     <p class="mb-1">Users</p>
+                     <p class="mb-1">Viewers</p>
                   </div>
                  </div>                               
                  <div class="col-6">
@@ -238,7 +238,7 @@
             </div>
 
             <div class="card mt-2">
-               <h4 class="card-title mb-1 text-nowrap pt-3 ps-3">Video</h4>  
+               <h4 class="card-title mb-1 text-nowrap pt-3 ps-3">Videos</h4>  
                <div class="d-flex row">
                  <div class="col-6">
                   <div class="card-body">
@@ -250,7 +250,7 @@
                         </div>
                         <h4 class="ms-1 mb-0">{{$totalVideoCount}}</h4>
                      </div>
-                     <p class="mb-1">Total Video</p>
+                     <p class="mb-1">Total Videos</p>
                   </div>
                  </div>                               
                  <div class="col-6">
@@ -263,7 +263,7 @@
                         </div>
                         <h4 class="ms-1 mb-0">{{$approvedCount}}</h4>
                      </div>
-                     <p class="mb-1">Approved Video</p>
+                     <p class="mb-1">Approved Videos</p>
                   </div>
                  </div>                               
                  <div class="col-6">
@@ -276,7 +276,7 @@
                         </div>
                         <h4 class="ms-1 mb-0">{{$rejectedCount}}</h4>
                      </div>
-                     <p class="mb-1">Rejected Video</p>
+                     <p class="mb-1">Rejected Videos</p>
                   </div>
                  </div>                               
                  <div class="col-6">
@@ -289,7 +289,7 @@
                         </div>
                         <h4 class="ms-1 mb-0">{{$pendingCount}}</h4>
                      </div>
-                     <p class="mb-1">Pending Video</p>
+                     <p class="mb-1">Pending Videos</p>
                   </div>
                  </div>                               
                </div>
@@ -307,7 +307,7 @@
                         </div>
                         <h4 class="ms-1 mb-0">{{$paidCount}}</h4>
                      </div>
-                     <p class="mb-1">Paid Video</p>
+                     <p class="mb-1">Paid Videos</p>
                   </div>
                  </div>                               
                  <div class="col-6">
@@ -320,7 +320,7 @@
                         </div>
                         <h4 class="ms-1 mb-0">{{$freeCount}}</h4>
                      </div>
-                     <p class="mb-1">Free Video</p>
+                     <p class="mb-1">Free Videos</p>
                   </div>
                  </div>                               
                </div>

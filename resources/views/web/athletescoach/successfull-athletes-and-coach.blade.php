@@ -13,7 +13,8 @@
                                <p class="fw-bold pt-3 mb-2">Your Email Address has been successfully verified</p>
                     </div>
                         <div class="accordion-body">
-                            <form id="imageUploadFormintro" class="" enctype="multipart/form-data">
+                            <p class="fw-bold text-center">Please Add 30 second video giving introduction about your self like Your Name and Which Sport you played.</p>
+                            <form id="imageUploadFormintro" class="d-flex justify-content-center" enctype="multipart/form-data">
                                 <div class="mb-4">
                                     <input type="hidden" name="questiontype" value="QA">
                                     <input type="hidden" name="questionid" value="0">
@@ -23,12 +24,9 @@
                             <button type="button" id="removevideobuttonintro" class="btn btn-danger d-none" onclick="removevideo('intro')">Remove</button>
                             <div id="uploadStatusintro"></div>
                             <div id="progress-bar-containerintro" style="display: none;">
-                                {{-- <div id="progress-barintro"></div> --}}
-                                {{-- <progress id="progress-barintro" value="0" max="100"></progress> --}}
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" id="progress-barintro" role="progressbar" value="0" max="100">0%</div>
                                 </div>
-                                {{-- <div id="progress-textintro">0%</div> --}}
                             </div>
                         </div>
                     <a href="{{ route('web.athletes.coach.atheliticsCoachQuestion') }}" class="btn btn-primary py-3 w-100 fw-bold login-btn">Continue</a>

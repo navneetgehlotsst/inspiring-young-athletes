@@ -71,7 +71,17 @@
 				'hideMethod': 'fadeOut',
 			}
 		});
-        toastr.error('{{ session('error') }}');
+        $(document).ready(function(){
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "{{ session('error') }}",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.replace("{{ route('web.athletes.coach.MySubcription') }}");
+                    }
+                });
+        });
     </script>
 @endif
  <!-- Video Publisher Section Start-->

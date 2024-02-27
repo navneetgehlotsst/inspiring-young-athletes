@@ -58,7 +58,7 @@
             <div class="col-lg-9 py-3">
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">My Subcription</h1>                               
+                    <h1 class="h3 mb-0 text-gray-800">My Subscription</h1>                               
                 </div>
                 <!-- Content Row -->
                 <div class="card shadow p-3">

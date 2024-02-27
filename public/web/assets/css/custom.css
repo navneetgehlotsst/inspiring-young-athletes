@@ -781,5 +781,8 @@ p.small.text-muted {
   font-weight: 700;
 }
 
+.play-video-box-tab{
+  min-width: 150px;
+}
 
 

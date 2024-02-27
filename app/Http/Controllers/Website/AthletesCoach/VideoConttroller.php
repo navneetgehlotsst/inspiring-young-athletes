@@ -145,9 +145,9 @@ class VideoConttroller extends Controller
         ];
         $veid = Video::insertGetId($dataVideo);
 
-    // ->route('admin.branch.list')
-    return redirect()->route('web.Video.index')->with('success','Video has been added successfully.');
-}
+        // ->route('admin.branch.list')
+        return redirect()->route('web.Video.index')->with('success','Video has been added successfully.');
+    }
 
     public function index(){
         if (Auth::check()){

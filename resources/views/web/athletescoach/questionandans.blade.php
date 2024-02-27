@@ -36,7 +36,8 @@
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-800">Questions And Answer</h1>                                
                 </div>
-                <div class="">
+                @if ($UserDetail->roles == 'Athletes')
+                  <div class="">
                     <div class="m-auto">
                         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                             <li class="nav-item questions-answer-tap" role="presentation">
@@ -63,19 +64,54 @@
                                               <th scope="col">S.R.</th>
                                               <th scope="col">Questions</th>
                                               <th scope="col" class="text-center">Video</th>
+                                              <th scope="col" class="text-center">Status</th>
                                               <th scope="col" class="text-center">Action</th>
                                             </tr>
                                           </thead>
                                           <tbody>
-                                            <tr>
-                                              <th class="align-middle" scope="row">1</th>
-                                              <td class="align-middle">What would you say to parents of talented young kids based on your learnings with your child?</td>
-                                              <td class="text-center align-middle play-video-box-tab"><a href="#" class="fw-bold w-100" data-bs-toggle="modal" data-bs-target="#exampleModal"> <img src="{{asset('web/assets/images/new-img/favicon.svg')}}" alt="Play Icon" width="20"> Play Video</a></td>
-                                              <td class="text-center align-middle">
-                                                    <a href="#" class="btn btn-success px-3 py-1"><i class="far fa-edit"></i></a>
-                                                    <!-- <a href="#" class="btn btn-info px-3 py-1 text-white"><i class="fas fa-plus"></i> Add Video</a> -->
-                                              </td>
-                                            </tr>
+                                            @php $i = 1; @endphp
+                                            @foreach($questionathelitics as $questionList)
+                                              @if($questionList->question_type == "for_athletes")
+                                              @php
+                                                $videodetail = Helper::videodetail($questionList->question_id,Auth::user()->id); 
+                                               
+                                              @endphp
+                                              <tr>
+                                                <th class="align-middle" scope="row">{{$i++}}.</th>
+                                                <td class="align-middle">{{$questionList->question}}</td>
+                                                <td class="text-center align-middle play-video-box-tab">
+                                                  @if(in_array($questionList->question_id, $userAns))  
+                                                      <a href="javascript:void(0);" class="showvideo fw-bold w-100" data-question ="{{$questionList->question_id}}" data-url='{{ route("web.athletes.coach.show.video") }}' class="fw-bold w-100"> 
+                                                        <img src="{{asset('web/assets/images/new-img/favicon.svg')}}" alt="Play Icon" width="20"> 
+                                                        Play Video
+                                                  @else
+                                                      <a href="#" class="fw-bold w-100">
+                                                        No Answere
+                                                  @endif
+                                                  </a>
+                                                </td>
+                                                <td class="text-center align-middle">
+                                                  @if(in_array($questionList->question_id, $userAns))
+                                                      @if($videodetail['VideoDetail']->video_status == '0')
+                                                            <span class="badge bg-warning text-dark">Pending</span>
+                                                      @elseif($videodetail['VideoDetail']->video_status == '1')
+                                                            <span class="badge bg-success">Approved</span>
+                                                      @else
+                                                            <span class="badge bg-danger">Rejected</span>
+                                                      @endif
+                                                  @else
+                                                  @endif
+                                                </td>
+                                                <td class="text-center align-middle">
+                                                      @if(in_array($questionList->question_id, $userAns))  
+                                                        <a href="{{ route('web.athletes.coach.edit.video', $questionList->question_id ) }}" class="btn btn-success px-3 py-1"><i class="far fa-edit"></i></a>
+                                                      @else
+                                                        <a href="{{ route('web.athletes.coach.add.video', $questionList->question_id ) }}" class="btn btn-info px-3 py-1 text-white"><i class="fas fa-plus"></i></a>
+                                                      @endif
+                                                </td>
+                                              </tr>
+                                              @endif
+                                            @endforeach
                                           </tbody>
                                         </table>
                                     </div>
@@ -90,47 +126,49 @@
                                               <th scope="col">S.R.</th>
                                               <th scope="col">Questions</th>
                                               <th scope="col" class="text-center">Video</th>
+                                              <th scope="col" class="text-center">Status</th>
                                               <th scope="col" class="text-center">Action</th>
                                             </tr>
                                           </thead>
                                           <tbody>
-                                            <tr>
-                                              <th class="align-middle" scope="row">1</th>
-                                              <td class="align-middle">What would you say to parents of talented young kids based on your learnings with your child?</td>
-                                              <td class="text-center align-middle play-video-box-tab"><a href="#" class="fw-bold w-100" data-bs-toggle="modal" data-bs-target="#exampleModal"> <img src="{{asset('web/assets/images/new-img/favicon.svg')}}" alt="Play Icon" width="20"> Play Video</a></td>
-                                              <td class="text-center align-middle">
-                                                    <a href="#" class="btn btn-success px-3 py-1"><i class="far fa-edit"></i></a>
-                                                    <!-- <a href="#" class="btn btn-info px-3 py-1 text-white"><i class="fas fa-plus"></i> Add Video</a> -->
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                                <th class="align-middle" scope="row">2</th>
-                                                <td class="align-middle">What would you say to parents of talented young kids based on your learnings with your child?</td>
-                                                <td class="text-center align-middle play-video-box-tab"><a href="#" class="fw-bold w-100" data-bs-toggle="modal" data-bs-target="#exampleModal"> <img src="{{asset('web/assets/images/new-img/favicon.svg')}}" alt="Play Icon" width="20"> Play Video</a></td>
-                                                <td class="text-center align-middle">
-                                                    <!-- <a href="#" class="btn btn-success px-3 py-1"><i class="far fa-edit"></i></a> -->
-                                                    <a href="#" class="btn btn-info px-3 py-1 text-white"><i class="fas fa-plus"></i></a>
+                                            @php $i = 1; @endphp
+                                            @foreach($questionathelitics as $questionList)
+                                              @if($questionList->question_type == "for_parents")
+                                              <tr>
+                                                <th class="align-middle" scope="row">{{$i++}}.</th>
+                                                <td class="align-middle">{{$questionList->question}}</td>
+                                                <td class="text-center align-middle play-video-box-tab">
+                                                  <a href="#" class="fw-bold w-100" data-bs-toggle="modal" data-bs-target="#exampleModal"> 
+                                                      @if(in_array($questionList->question_id, $userAns))  
+                                                        <img src="{{asset('web/assets/images/new-img/favicon.svg')}}" alt="Play Icon" width="20"> 
+                                                        Play Video
+                                                      @else
+                                                        No Answere
+                                                      @endif
+                                                  </a>
                                                 </td>
-                                            </tr>
-                                            <tr>
-                                                <th class="align-middle" scope="row">3</th>
-                                                <td class="align-middle">What would you say to parents of talented young kids based on your learnings with your child?</td>
-                                                <td class="text-center align-middle play-video-box-tab"><a href="#" class="fw-bold w-100" data-bs-toggle="modal" data-bs-target="#exampleModal"> <img src="{{asset('web/assets/images/new-img/favicon.svg')}}" alt="Play Icon" width="20"> Play Video</a></td>
                                                 <td class="text-center align-middle">
-                                                    <a href="#" class="btn btn-success px-3 py-1"><i class="far fa-edit"></i></a>
-                                                    <!-- <a href="#" class="btn btn-info px-3 py-1 text-white"><i class="fas fa-plus"></i></a> -->
+                                                  @if(in_array($questionList->question_id, $userAns))
+                                                      @if($videodetail['VideoDetail']->video_status == '0')
+                                                            <span class="badge bg-warning text-dark">Pending</span>
+                                                      @elseif($videodetail['VideoDetail']->video_status == '1')
+                                                            <span class="badge bg-success">Approved</span>
+                                                      @else
+                                                            <span class="badge bg-danger">Rejected</span>
+                                                      @endif
+                                                  @else
+                                                  @endif
                                                 </td>
-                                            </tr>
-                                            <tr>
-                                                <th class="align-middle" scope="row">4</th>
-                                                <td class="align-middle">What would you say to parents of talented young kids based on your learnings with your child?</td>
-                                                <td class="text-center align-middle play-video-box-tab"><a href="#" class="fw-bold w-100" data-bs-toggle="modal" data-bs-target="#exampleModal"> <img src="{{asset('web/assets/images/new-img/favicon.svg')}}" alt="Play Icon" width="20"> Play Video</a></td>
                                                 <td class="text-center align-middle">
-                                                    <!-- <a href="#" class="btn btn-success px-3 py-1"><i class="far fa-edit"></i></a> -->
-                                                    <a href="#" class="btn btn-info px-3 py-1 text-white"><i class="fas fa-plus"></i></a>
+                                                      @if(in_array($questionList->question_id, $userAns))  
+                                                        <a href="#" class="btn btn-success px-3 py-1"><i class="far fa-edit"></i></a>
+                                                      @else
+                                                        <a href="#" class="btn btn-info px-3 py-1 text-white"><i class="fas fa-plus"></i></a>
+                                                      @endif
                                                 </td>
-                                            </tr>
-                                            
+                                              </tr>
+                                              @endif
+                                            @endforeach
                                           </tbody>
                                         </table>
                                     </div>
@@ -145,47 +183,49 @@
                                               <th scope="col">S.R.</th>
                                               <th scope="col">Questions</th>
                                               <th scope="col" class="text-center">Video</th>
+                                              <th scope="col" class="text-center">Status</th>
                                               <th scope="col" class="text-center">Action</th>
                                             </tr>
                                           </thead>
                                           <tbody>
-                                            <tr>
-                                              <th class="align-middle" scope="row">1</th>
-                                              <td class="align-middle">What would you say to parents of talented young kids based on your learnings with your child?</td>
-                                              <td class="text-center align-middle play-video-box-tab"><a href="#" class="fw-bold w-100" data-bs-toggle="modal" data-bs-target="#exampleModal"> <img src="{{asset('web/assets/images/new-img/favicon.svg')}}" alt="Play Icon" width="20"> Play Video</a></td>
-                                              <td class="text-center align-middle">
-                                                    <a href="#" class="btn btn-success px-3 py-1"><i class="far fa-edit"></i></a>
-                                                    <!-- <a href="#" class="btn btn-info px-3 py-1 text-white"><i class="fas fa-plus"></i> Add Video</a> -->
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                                <th class="align-middle" scope="row">2</th>
-                                                <td class="align-middle">What would you say to parents of talented young kids based on your learnings with your child?</td>
-                                                <td class="text-center align-middle play-video-box-tab"><a href="#" class="fw-bold w-100" data-bs-toggle="modal" data-bs-target="#exampleModal"> <img src="{{asset('web/assets/images/new-img/favicon.svg')}}" alt="Play Icon" width="20"> Play Video</a></td>
-                                                <td class="text-center align-middle">
-                                                    <!-- <a href="#" class="btn btn-success px-3 py-1"><i class="far fa-edit"></i></a> -->
-                                                    <a href="#" class="btn btn-info px-3 py-1 text-white"><i class="fas fa-plus"></i></a>
+                                            @php $i = 1; @endphp
+                                            @foreach($questionathelitics as $questionList)
+                                              @if($questionList->question_type == "for_athletes_coaches")
+                                              <tr>
+                                                <th class="align-middle" scope="row">{{$i++}}.</th>
+                                                <td class="align-middle">{{$questionList->question}}</td>
+                                                <td class="text-center align-middle play-video-box-tab">
+                                                  <a href="#" class="fw-bold w-100" data-bs-toggle="modal" data-bs-target="#exampleModal"> 
+                                                      @if(in_array($questionList->question_id, $userAns))  
+                                                        <img src="{{asset('web/assets/images/new-img/favicon.svg')}}" alt="Play Icon" width="20"> 
+                                                        Play Video
+                                                      @else
+                                                        No Answere
+                                                      @endif
+                                                  </a>
                                                 </td>
-                                            </tr>
-                                            <tr>
-                                                <th class="align-middle" scope="row">3</th>
-                                                <td class="align-middle">What would you say to parents of talented young kids based on your learnings with your child?</td>
-                                                <td class="text-center align-middle play-video-box-tab"><a href="#" class="fw-bold w-100" data-bs-toggle="modal" data-bs-target="#exampleModal"> <img src="{{asset('web/assets/images/new-img/favicon.svg')}}" alt="Play Icon" width="20"> Play Video</a></td>
                                                 <td class="text-center align-middle">
-                                                    <a href="#" class="btn btn-success px-3 py-1"><i class="far fa-edit"></i></a>
-                                                    <!-- <a href="#" class="btn btn-info px-3 py-1 text-white"><i class="fas fa-plus"></i></a> -->
+                                                  @if(in_array($questionList->question_id, $userAns))
+                                                      @if($videodetail['VideoDetail']->video_status == '0')
+                                                            <span class="badge bg-warning text-dark">Pending</span>
+                                                      @elseif($videodetail['VideoDetail']->video_status == '1')
+                                                            <span class="badge bg-success">Approved</span>
+                                                      @else
+                                                            <span class="badge bg-danger">Rejected</span>
+                                                      @endif
+                                                  @else
+                                                  @endif
                                                 </td>
-                                            </tr>
-                                            <tr>
-                                                <th class="align-middle" scope="row">4</th>
-                                                <td class="align-middle">What would you say to parents of talented young kids based on your learnings with your child?</td>
-                                                <td class="text-center align-middle play-video-box-tab"><a href="#" class="fw-bold w-100" data-bs-toggle="modal" data-bs-target="#exampleModal"> <img src="{{asset('web/assets/images/new-img/favicon.svg')}}" alt="Play Icon" width="20"> Play Video</a></td>
                                                 <td class="text-center align-middle">
-                                                    <!-- <a href="#" class="btn btn-success px-3 py-1"><i class="far fa-edit"></i></a> -->
-                                                    <a href="#" class="btn btn-info px-3 py-1 text-white"><i class="fas fa-plus"></i></a>
+                                                      @if(in_array($questionList->question_id, $userAns))  
+                                                        <a href="#" class="btn btn-success px-3 py-1"><i class="far fa-edit"></i></a>
+                                                      @else
+                                                        <a href="#" class="btn btn-info px-3 py-1 text-white"><i class="fas fa-plus"></i></a>
+                                                      @endif
                                                 </td>
-                                            </tr>
-                                            
+                                              </tr>
+                                              @endif
+                                            @endforeach
                                           </tbody>
                                         </table>
                                     </div>
@@ -200,47 +240,49 @@
                                               <th scope="col">S.R.</th>
                                               <th scope="col">Questions</th>
                                               <th scope="col" class="text-center">Video</th>
+                                              <th scope="col" class="text-center">Status</th>
                                               <th scope="col" class="text-center">Action</th>
                                             </tr>
                                           </thead>
                                           <tbody>
-                                            <tr>
-                                              <th class="align-middle" scope="row">1</th>
-                                              <td class="align-middle">What would you say to parents of talented young kids based on your learnings with your child?</td>
-                                              <td class="text-center align-middle play-video-box-tab"><a href="#" class="fw-bold w-100" data-bs-toggle="modal" data-bs-target="#exampleModal"> <img src="{{asset('web/assets/images/new-img/favicon.svg')}}" alt="Play Icon" width="20"> Play Video</a></td>
-                                              <td class="text-center align-middle">
-                                                    <a href="#" class="btn btn-success px-3 py-1"><i class="far fa-edit"></i></a>
-                                                    <!-- <a href="#" class="btn btn-info px-3 py-1 text-white"><i class="fas fa-plus"></i> Add Video</a> -->
-                                              </td>
-                                            </tr>
-                                            <tr>
-                                                <th class="align-middle" scope="row">2</th>
-                                                <td class="align-middle">What would you say to parents of talented young kids based on your learnings with your child?</td>
-                                                <td class="text-center align-middle play-video-box-tab"><a href="#" class="fw-bold w-100" data-bs-toggle="modal" data-bs-target="#exampleModal"> <img src="{{asset('web/assets/images/new-img/favicon.svg')}}" alt="Play Icon" width="20"> Play Video</a></td>
-                                                <td class="text-center align-middle">
-                                                    <!-- <a href="#" class="btn btn-success px-3 py-1"><i class="far fa-edit"></i></a> -->
-                                                    <a href="#" class="btn btn-info px-3 py-1 text-white"><i class="fas fa-plus"></i></a>
+                                            @php $i = 1; @endphp
+                                            @foreach($questionathelitics as $questionList)
+                                              @if($questionList->question_type == "for_friday_frenzy")
+                                              <tr>
+                                                <th class="align-middle" scope="row">{{$i++}}.</th>
+                                                <td class="align-middle">{{$questionList->question}}</td>
+                                                <td class="text-center align-middle play-video-box-tab">
+                                                  <a href="#" class="fw-bold w-100" data-bs-toggle="modal" data-bs-target="#exampleModal"> 
+                                                      @if(in_array($questionList->question_id, $userAns))  
+                                                        <img src="{{asset('web/assets/images/new-img/favicon.svg')}}" alt="Play Icon" width="20"> 
+                                                        Play Video
+                                                      @else
+                                                        No Answere
+                                                      @endif
+                                                  </a>
                                                 </td>
-                                            </tr>
-                                            <tr>
-                                                <th class="align-middle" scope="row">3</th>
-                                                <td class="align-middle">What would you say to parents of talented young kids based on your learnings with your child?</td>
-                                                <td class="text-center align-middle play-video-box-tab"><a href="#" class="fw-bold w-100" data-bs-toggle="modal" data-bs-target="#exampleModal"> <img src="{{asset('web/assets/images/new-img/favicon.svg')}}" alt="Play Icon" width="20"> Play Video</a></td>
                                                 <td class="text-center align-middle">
-                                                    <a href="#" class="btn btn-success px-3 py-1"><i class="far fa-edit"></i></a>
-                                                    <!-- <a href="#" class="btn btn-info px-3 py-1 text-white"><i class="fas fa-plus"></i></a> -->
+                                                  @if(in_array($questionList->question_id, $userAns))
+                                                      @if($videodetail['VideoDetail']->video_status == '0')
+                                                            <span class="badge bg-warning text-dark">Pending</span>
+                                                      @elseif($videodetail['VideoDetail']->video_status == '1')
+                                                            <span class="badge bg-success">Approved</span>
+                                                      @else
+                                                            <span class="badge bg-danger">Rejected</span>
+                                                      @endif
+                                                  @else
+                                                  @endif
                                                 </td>
-                                            </tr>
-                                            <tr>
-                                                <th class="align-middle" scope="row">4</th>
-                                                <td class="align-middle">What would you say to parents of talented young kids based on your learnings with your child?</td>
-                                                <td class="text-center align-middle play-video-box-tab"><a href="#" class="fw-bold w-100" data-bs-toggle="modal" data-bs-target="#exampleModal"> <img src="{{asset('web/assets/images/new-img/favicon.svg')}}" alt="Play Icon" width="20"> Play Video</a></td>
                                                 <td class="text-center align-middle">
-                                                    <!-- <a href="#" class="btn btn-success px-3 py-1"><i class="far fa-edit"></i></a> -->
-                                                    <a href="#" class="btn btn-info px-3 py-1 text-white"><i class="fas fa-plus"></i></a>
+                                                      @if(in_array($questionList->question_id, $userAns))  
+                                                        <a href="#" class="btn btn-success px-3 py-1"><i class="far fa-edit"></i></a>
+                                                      @else
+                                                        <a href="#" class="btn btn-info px-3 py-1 text-white"><i class="fas fa-plus"></i></a>
+                                                      @endif
                                                 </td>
-                                            </tr>
-                                            
+                                              </tr>
+                                              @endif
+                                            @endforeach
                                           </tbody>
                                         </table>
                                     </div>
@@ -249,14 +291,93 @@
                             </div>
                         </div>
                     </div>
+                  </div>
+                @else
+                <div class="">
+                  <div class="m-auto">
+                      <div class="card shadow p-3">
+                          <div class="tab-content" id="pills-tabContent">
+                              <div class="tab-pane fade show active" id="pills-athletes" role="tabpanel" aria-labelledby="pills-home-tab">
+                                  <!--Athletes Questions Start-->
+                                  <div class="table-responsive"> 
+                                      <table class="table table-bordered">
+                                        <thead class="thead-dark">
+                                          <tr>
+                                            <th scope="col">S.R.</th>
+                                            <th scope="col">Questions</th>
+                                            <th scope="col" class="text-center">Video</th>
+                                            <th scope="col" class="text-center">Status</th>
+                                            <th scope="col" class="text-center">Action</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          @php $i = 1; @endphp
+                                          @foreach($questioncoaches as $questionList)
+                                            <tr>
+                                              <th class="align-middle" scope="row">{{$i++}}.</th>
+                                              <td class="align-middle">{{$questionList->question}}</td>
+                                              <td class="text-center align-middle play-video-box-tab">
+                                                <a href="#" class="fw-bold w-100" data-bs-toggle="modal" data-bs-target="#exampleModal"> 
+                                                    @if(in_array($questionList->question_id, $userAns))  
+                                                      <img src="{{asset('web/assets/images/new-img/favicon.svg')}}" alt="Play Icon" width="20"> 
+                                                      Play Video
+                                                    @else
+                                                      No Answere
+                                                    @endif
+                                                </a>
+                                              </td>
+                                              <td class="text-center align-middle">
+                                                @if(in_array($questionList->question_id, $userAns))
+                                                    @if($videodetail['VideoDetail']->video_status == '0')
+                                                          <span class="badge bg-warning text-dark">Pending</span>
+                                                    @elseif($videodetail['VideoDetail']->video_status == '1')
+                                                          <span class="badge bg-success">Approved</span>
+                                                    @else
+                                                          <span class="badge bg-danger">Rejected</span>
+                                                    @endif
+                                                @else
+                                                @endif
+                                              </td>
+                                              <td class="text-center align-middle">
+                                                    @if(in_array($questionList->question_id, $userAns))  
+                                                      <a href="#" class="btn btn-success px-3 py-1"><i class="far fa-edit"></i></a>
+                                                    @else
+                                                      <a href="#" class="btn btn-info px-3 py-1 text-white"><i class="fas fa-plus"></i></a>
+                                                    @endif
+                                              </td>
+                                            </tr>
+                                          @endforeach
+                                        </tbody>
+                                      </table>
+                                  </div>
+                                  <!--Athletes Questions End-->
+                              </div>
+                          </div>
+                      </div>
+                  </div>
                 </div>
-
+                @endif
             </div>
         </div>
     </div>
 </section>
-
-@endsection 
-@section('script')
+<!-- Modal -->
+<div class="modal fade" id="modalVideo" aria-labelledby="modalToggleLabel" tabindex="-1" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="VideoTitle"></h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <video id="viewVideo" width="470" controls>
+                  <source src="" />
+              </video>
+          </div>
+          <div class="modal-footer"></div>
+      </div>
+  </div>
+</div>
+<!-- Modal -->
 @endsection
     

@@ -93,7 +93,7 @@
                           <tr class="text-nowrap">
                               <th>S. No.</th>
                               <th col="3">Questions</th>
-                              <th>Veiws</th>
+                              <th>View</th>
                               <th>Answere</th>
                               <th>Type</th>
                               <th>Status</th>
@@ -166,7 +166,7 @@
                         <tr class="text-nowrap">
                             <th>S. No.</th>
                             <th>Title</th>
-                            <th>Veiws</th>
+                            <th>View</th>
                             <th>Video</th>
                             <th>Type</th>
                             <th>Status</th>

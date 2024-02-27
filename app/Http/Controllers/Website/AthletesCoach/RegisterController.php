@@ -383,14 +383,6 @@ class RegisterController extends Controller
 
     }
 
-    public function questionandanswere(){
-        if (Auth::check()){
-            return view('web.athletescoach.questionandans');
-        }else{
-            return redirect('')->route('web.login');
-        }
-    }
-
 
 
 }

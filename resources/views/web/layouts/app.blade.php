@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Inspiring Young Athletes</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" type="image/png" href="{{asset('web/assets/images/new-img/favicon.svg')}}">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600;1,900&display=swap" rel="stylesheet">
     <!-- LOAD CSS -->
@@ -292,34 +293,31 @@
             });
         }
     </script>
-    {{-- <script>
-        const xValues = ["Nov 15", "Nov 16", "Nov 17", "Nov 18", "Nov 19","Nov 20","Nov 21","Nov 22","Nov 23","Nov 24","Nov 25","Nov 26"];
-        const yValues = [152, 109, 93, 113, 126, 161, 188, 148, 102, 113, 45, 62];
-        const barColors = ["#55BFCF", "#55BFCF","#55BFCF","#55BFCF","#55BFCF","#55BFCF","#55BFCF","#55BFCF","#55BFCF","#55BFCF","#55BFCF","#55BFCF"];
-        
-        new Chart("myChart", {
-          type: "bar",
-          data: {
-            labels: xValues,
-            datasets: [{
-              backgroundColor: barColors,
-              data: yValues,
-              borderSkipped: false,
-            }]
-          },
-          options: {
-            legend: {display: false},
-            title: {
-              display: true,
-            //   text: "World Wine Production 2018"
-            },
-            scales: {
-                yAxes: [{ticks: {min: 0, max:200}}],
-            }
-            
-          }
+
+    <script>
+        //show Video
+        $(".showvideo").click(function(){
+            var $this = $(this);
+            var id = $this.data("question");
+            var url = $this.data("url");
+            var token = $("meta[name='csrf-token']").attr("content");
+
+            $.post(url, { id: id, _token: token })
+            .done(function(response) {
+                console.log(response);
+                if (response.success) {
+                $('#modalVideo').modal('show');
+                $('#viewVideo').attr('src', response.data.video);
+                $('#VideoTitle').text(response.data.video_title);
+                } else {
+                Swal.fire("No Video Found", "", "info");
+                }
+            })
+            .fail(function() {
+                Swal.fire("Error", "Failed to retrieve video data", "error");
+            });
         });
-    </script> --}}
+    </script>
     
     <script>
         const stripe = Stripe('{{ env('STRIPE_KEY') }}')

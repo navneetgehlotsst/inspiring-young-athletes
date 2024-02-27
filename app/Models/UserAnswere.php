@@ -24,4 +24,10 @@ class UserAnswere extends Model
     {
         return $this->hasMany(Video::class,'video_id','answere_video');
     }
+
+
+    public function VideoDetail()
+    {
+        return $this->hasOne(Video::class,'video_id','answere_video');
+    }
 }

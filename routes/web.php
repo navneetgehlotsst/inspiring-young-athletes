@@ -95,6 +95,7 @@ Route::group(['middleware' => 'auth'], function ()
         Route::get('/changepassword', 'ChangePassword')->name('ChangePassword');
         Route::post('/passwordupdate', 'passwordupdate')->name('passwordupdate');
         Route::get('/refer-and-earn', 'referralAndEarn')->name('referralAndEarn');
+        Route::get('/question-and-answere', 'questionandanswere')->name('questionandanswere');
         Route::post('/referralandearnsend', 'referralAndEarnSend')->name('referralAndEarnSend');
         Route::get('/my-subscription', 'MySubcription')->name('MySubcription');
         Route::get('/resume_subcription', 'resume_subcription')->name('resume_subcription');

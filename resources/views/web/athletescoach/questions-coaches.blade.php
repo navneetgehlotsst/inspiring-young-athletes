@@ -57,7 +57,7 @@
                     <p class="text-white">Answer any 8 of our pre-determined questions as an athlete or coach to activate your account online</p>
                 </div>
                 <div class="complete-box-position">
-                    <span class="complete-questions"><span class="h4 pt-3" id="showanswerecount">@if($userAnwereCount == '0') 0 @else {{$userAnwereCount}} @endif</span> Complete</span>
+                    <span class="complete-questions"><span class="h4 pt-3" id="showanswerecount">@if($userAnswerCount == '0') 0 @else {{$userAnswerCount}} @endif</span> Complete</span>
                 </div>
                 <!--Athletes Questions Start-->
                 <div class="from-box p-3 p-lg-5">
@@ -120,11 +120,11 @@
                 <!--Athletes Questions End-->
                 <div class="d-flex justify-content-between align-items-center mt-3">
                     <div>
-                        <h4 class="fw-bold text-white"><span id="compltedquestioncount">@if($userAnwereCount == '0') 0  @elseif($userAnwereCount > 8) 8 @else {{$userAnwereCount}} @endif</span>/8 Questions Complete</h4>
+                        <h4 class="fw-bold text-white"><span id="compltedquestioncount">@if($userAnswerCount == '0') 0  @elseif($userAnswerCount > 8) 8 @else {{$userAnswerCount}} @endif</span>/8 Questions Complete</h4>
                         <p class="text-white">Answer any 8 of our pre-determined questions as an athlete or coach to activate your account online</p>
                     </div>
                     {{-- <a href="{{ route('web.athletes.coach.SaveAnswere') }}" class="btn iya-btn-white py-3 fw-bold enable" id="enabledisable">Go to Dashboard</a> --}}
-                    <a href="{{ route('web.athletes.coach.SaveAnswere') }}" class="btn iya-btn-white py-3 fw-bold @if($userAnwereCount > '1') disabled @else enable @endif" id="enabledisable">Go to Dashboard</a>
+                    <a href="{{ route('web.athletes.coach.SaveAnswere') }}" class="btn iya-btn-white py-3 fw-bold @if($userAnswerCount > '1') disabled @else enable @endif" id="enabledisable">Go to Dashboard</a>
                 </div>
             </div>
         </div>

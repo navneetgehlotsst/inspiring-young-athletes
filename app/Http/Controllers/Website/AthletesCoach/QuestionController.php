@@ -31,11 +31,14 @@ use App\Mail\VerifyUserEmail;
 class QuestionController extends Controller
 {
     public function atheliticsCoachQuestion(Request $request){
-
         if (Auth::check()){
             $UserDetail = Auth::user();
             $userID = $UserDetail->id;
-            $userAnwereCount = UserAnswere::where('user_id',$userID)->where('question_id','!=','0')->count();
+            $checkIntro = UserAnswere::where('user_id',$userID)->where('question_id','0')->count();
+            $userAnswerCount = UserAnswere::where('user_id',$userID)->where('question_id','!=','0')->count();
+            if($checkIntro == 0){
+                return redirect()->back()->with('error', 'First Add Intro Video Procced Futher');
+            }
             $userAnwereGet = UserAnswere::where('user_id',$userID)->pluck('question_id');
             $userAns = [];
             foreach ($userAnwereGet as $key => $userAnwere) {
@@ -45,11 +48,11 @@ class QuestionController extends Controller
                 $question = Question::where('question_type', '!=' ,'for_coaches')->get();
                 $questionforathletes = Question::where('question_type','for_athletes')->count();
                 $questionforparents = Question::where('question_type','for_parents')->count();
-                return view('web.athletescoach.questions-athletes',compact('userID','question','questionforathletes','questionforparents','userAnwereCount','userAns'));
+                return view('web.athletescoach.questions-athletes',compact('userID','question','questionforathletes','questionforparents','userAnswerCount','userAns'));
             }else{
                 $question = Question::where('question_type','for_coaches')->get();
                 $questionCount = $question->count();
-                return view('web.athletescoach.questions-coaches',compact('userID','question','questionCount','userAnwereCount','userAns','UserDetail'));
+                return view('web.athletescoach.questions-coaches',compact('userID','question','questionCount','userAnswerCount','userAns','UserDetail'));
             }
         }else{
             return redirect()->route('web.login');
@@ -282,7 +285,7 @@ class QuestionController extends Controller
                 $UserDetail = Auth::user();
                 $userID = $UserDetail->id;
 
-                User::where('id', 1)
+                User::where('id',$userID)
                 ->update(['roles' => $request->role]);
                 return redirect()->route('web.athletes.coach.atheliticsCoachQuestion')->with('success', 'Your Account is verified successfully.');
             }else{

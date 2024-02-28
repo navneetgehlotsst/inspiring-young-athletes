@@ -125,6 +125,8 @@ Route::group(['middleware' => 'auth'], function ()
         Route::get('/add', 'add')->name('add');
         Route::post('/store', 'store')->name('store');
         Route::get('/view-Video/{id}', 'viewVideo')->name('viewVideo');
+        Route::get('/editvideo/{id}', 'editVideo')->name('edit.video');
+        Route::post('/update', 'updateVideo')->name('update');
     });
 
 

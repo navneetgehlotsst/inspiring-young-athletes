@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 
 use App\Models\{
     User,
-    Video
+    Video,
+    VideoCommentHistory
 };
 
 use File;
@@ -154,7 +155,7 @@ class VideoConttroller extends Controller
             $UserDetail = Auth::user();
             $userID = $UserDetail->id;
             //$getVideo = Video::where('user_id',$userID)->where('Video_from','Video')->get();
-            $getVideo = Video::where('user_id',$userID)->get();
+            $getVideo = Video::where('user_id',$userID)->where('video_from','video')->get();
             $Videocount = $getVideo->count();
 
             return view('web.athletescoach.listvideo',compact('userID','getVideo','Videocount'));
@@ -174,5 +175,85 @@ class VideoConttroller extends Controller
         }else{
             return redirect('')->route('web.login');
         }
+    }
+
+
+    public function editVideo($id){
+        if (Auth::check()){
+            $UserDetail = Auth::user();
+            $videodetail = Video::where('video_id',$id)->where('user_id',$UserDetail->id)->first();
+            $videorejectedcomment = VideoCommentHistory::where('video_id',$videodetail->video_id)->first();
+            return view('web.athletescoach.editVideo',compact('videodetail','videorejectedcomment'));
+        }else{
+            return redirect('')->route('web.login');
+        }
+    }
+
+
+    public function updateVideo(Request $request){
+        $validatedData = $request->validate([
+            'video' => 'required|file|mimes:mp4,mov,avi,wmv',
+        ]);
+
+        $UserDetail = Auth::user();
+        $userID = $UserDetail->id;
+
+        //==================== Upload video to s3 ================//
+
+        $file = $request->file('video');
+        $visibility = 'public';
+        $filePath = 'uploads/user/'.$userID.'/video/' . $file->getClientOriginalName();
+        Storage::disk('s3')->put($filePath, file_get_contents($file), $visibility);
+        $video_path_url = Storage::disk('s3')->url($filePath);
+
+
+        //===================== get thumbnail from video ===============//
+
+        $file       =  $request->file('video');
+        $extention  =  $file->getClientOriginalExtension();
+        $filename   =   time().$file->getClientOriginalName();
+        $filename   =   $this->clean($filename);
+        $folder     =   'uploads/thumbnail/';
+        $path       =   public_path($folder);
+        if(!File::exists($path)) {
+            File::makeDirectory($path, $mode = 0777, true, true);
+        }
+        $file->move($path, $filename);
+        $video_path   = $folder.$filename;
+
+        $ffmpeg = FFMpeg\FFMpeg::create([
+            'ffmpeg.binaries'  => env('FFMPEG_PATH'),
+            'ffprobe.binaries' => env('FFPROBE_PATH'),
+            'timeout'          => 3600,
+            'ffmpeg.threads'   => 12,
+        ]);
+
+        $s3_thumb_folder = 'uploads/user/'.$userID.'/video/';
+        $local_thumbnail_folder = 'uploads/thumbnail/';
+        $filevideo = $ffmpeg->open($video_path);
+        $frame_path = time().'_'.rand().'.jpg';
+        $filevideo->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(3))->save('uploads/thumbnail/'.$frame_path);
+        $local_thumbnail_path = $local_thumbnail_folder.$frame_path;
+        $s3_thumb_path = $s3_thumb_folder.$frame_path;
+
+        //======================Upload thumbanial to s3 bucket ======================//
+
+        Storage::disk('s3')->put($s3_thumb_path, file_get_contents($local_thumbnail_path), $visibility);
+        $thumbnail_path_url = Storage::disk('s3')->url($s3_thumb_path);
+
+        //======================Clean directory localy use for save ==================//
+        $dir = new Filesystem;
+        $dir->cleanDirectory('uploads/thumbnail');
+
+        $dataVideo = [
+            'user_id' => $userID,
+            'video' => $video_path_url,
+            'video_title' => $request->title,
+            'video_ext' => $extention,
+            'thumbnails' => $thumbnail_path_url,
+            'video_status' => '0'
+        ];
+        $veid = Video::where('video_id', $request->videoid)->update($dataVideo);
+        return redirect()->route('web.Video.index')->with('success','Video has been updated successfully.');
     }
 }

@@ -55,24 +55,31 @@
                                 <div class="video-content">
                                     <h4><a class="video-title" href="{{ route('web.Video.viewVideo',$Video->video_id) }}">{{$Video->video_title}}</a></h4>
                                     <h4><a class="video-title">{{$uplaoddate}}</a></h4>
-                                    <div class="video-counter">
+                                    <div class="video-counter d-flex justify-content-between">
                                         <div class="video-viewers">
                                             <span class="fa fa-eye view-icon"></span>
                                             <span>{{$Video->video_veiw_count}}</span>
                                         </div>
-                                            @if($Video->video_status == 1)
+                                            
+                                            <div>
+                                                <div class="video-feedback py-1">
+                                                    <a class="free-video-tag bg-success ms-2" href="{{ route('web.Video.edit.video', $Video->video_id ) }}">Edit</a>
+                                                </div>
+                                                @if($Video->video_status == 1)
                                                 <div class="video-feedback py-1">
                                                     <span class="free-video-tag">Approved</span>
                                                 </div>
-                                            @elseif($Video->video_status == 2)
-                                                <div class="video-feedback py-1">
-                                                    <span class="paid-video-tag">Rejected</span>
-                                                </div>
-                                            @else
-                                                <div class="video-feedback py-1">
-                                                    <span class="pending-video-tag">Pending</span>
-                                                </div>
-                                            @endif
+                                                @elseif($Video->video_status == 2)
+                                                    <div class="video-feedback py-1">
+                                                        <span class="paid-video-tag">Rejected</span>
+                                                    </div>
+                                                @else
+                                                    <div class="video-feedback py-1">
+                                                        <span class="pending-video-tag">Pending</span>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                            
                                     </div>
                                 </div>
                             </div>

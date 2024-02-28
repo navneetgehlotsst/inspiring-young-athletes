@@ -26,7 +26,8 @@ use App\Models\{
     UserIncome,
     VideoCommentHistory
 };
-
+use App\Mail\RejectVideoMail;
+use App\Mail\ApprovedVideoMail;
 class AtheliticsAndCoachesController extends Controller
 {
     // Listing
@@ -98,6 +99,13 @@ class AtheliticsAndCoachesController extends Controller
             $record->comment = $request->comment;
             $record->save();
 
+
+            $userId = $videoData->user_id;
+
+            $UserDetail = User::where('id', $userId)->first();
+
+            Mail::to($UserDetail->email)->send(new RejectVideoMail($UserDetail));
+
             return response()->json(['success'=>true]);
         }
     }
@@ -111,6 +119,10 @@ class AtheliticsAndCoachesController extends Controller
             $videoData = Video::where('video_id', $request->id)->first();
             $updateUserData = ['video_status' => '1' , 'video_type' => $request->type];
             Video::where('video_id', $request->id)->update($updateUserData);
+            $userId = $videoData->user_id;
+
+            $UserDetail = User::where('id', $userId)->first();
+            Mail::to($UserDetail->email)->send(new ApprovedVideoMail($UserDetail));
             return response()->json(['success'=>true , 'data' => $request->type]);
         }
     }

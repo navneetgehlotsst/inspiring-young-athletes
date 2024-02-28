@@ -192,4 +192,10 @@ Route::group(['middleware' => 'auth'], function ()
         Route::post('aprrovedstatus', 'aprrovedstatus')->name('aprrovedstatus');
         Route::post('rejectstatus', 'rejectstatus')->name('rejectstatus');
     });
+
+    Route::name('admin.user.')->prefix('user/')->controller(UserController::class)->group(function () {
+        Route::get('list', 'list')->name('list');
+        Route::post('delete', 'delete')->name('delete');
+        Route::get('view-detail/{id}', 'ViewDetail')->name('detail');
+    });
 });

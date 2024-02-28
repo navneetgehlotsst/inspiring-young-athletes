@@ -55,12 +55,21 @@
                                 @endif
                             </div>
                         </div>
-                        @if($introVideoCheck->video_status == '2')
-                            <div class="card border-warning mb-3" style="max-width: 100%;">
+                        @if (!empty($introVideoCheck))
+                            @if($introVideoCheck->video_status == '2')
+                                <div class="card border-warning mb-3" style="max-width: 100%;">
+                                    <div class="card-body text-dark">
+                                        <p class="card-text">Your intro video is rejected <a href="{{ route('web.Video.edit.video', $introVideoCheck->video_id ) }}" class="text-warning fw-bold">Update Intro Video</a></p>
+                                    </div>
+                                </div>
+                            @endif
+                            
+                        @else
+                            {{-- <div class="card border-warning mb-3" style="max-width: 100%;">
                                 <div class="card-body text-dark">
                                     <p class="card-text">Your intro video is rejected <a href="{{ route('web.Video.edit.video', $introVideoCheck->video_id ) }}" class="text-warning fw-bold">Update Intro Video</a></p>
                                 </div>
-                            </div>
+                            </div> --}}
                         @endif
                     </div>
                 </div>

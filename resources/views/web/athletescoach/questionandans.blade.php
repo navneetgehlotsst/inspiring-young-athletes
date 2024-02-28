@@ -74,6 +74,7 @@
                                               @if($questionList->question_type == "for_athletes")
                                               @php
                                                 $videodetail = Helper::videodetail($questionList->question_id,Auth::user()->id); 
+                                                
                                                
                                               @endphp
                                               <tr>
@@ -160,11 +161,11 @@
                                                   @endif
                                                 </td>
                                                 <td class="text-center align-middle">
-                                                      @if(in_array($questionList->question_id, $userAns))  
-                                                        <a href="#" class="btn btn-success px-3 py-1"><i class="far fa-edit"></i></a>
-                                                      @else
-                                                        <a href="#" class="btn btn-info px-3 py-1 text-white"><i class="fas fa-plus"></i></a>
-                                                      @endif
+                                                  @if(in_array($questionList->question_id, $userAns))  
+                                                    <a href="{{ route('web.athletes.coach.edit.video', $questionList->question_id ) }}" class="btn btn-success px-3 py-1"><i class="far fa-edit"></i></a>
+                                                  @else
+                                                    <a href="{{ route('web.athletes.coach.add.video', $questionList->question_id ) }}" class="btn btn-info px-3 py-1 text-white"><i class="fas fa-plus"></i></a>
+                                                  @endif
                                                 </td>
                                               </tr>
                                               @endif
@@ -217,11 +218,11 @@
                                                   @endif
                                                 </td>
                                                 <td class="text-center align-middle">
-                                                      @if(in_array($questionList->question_id, $userAns))  
-                                                        <a href="#" class="btn btn-success px-3 py-1"><i class="far fa-edit"></i></a>
-                                                      @else
-                                                        <a href="#" class="btn btn-info px-3 py-1 text-white"><i class="fas fa-plus"></i></a>
-                                                      @endif
+                                                    @if(in_array($questionList->question_id, $userAns))  
+                                                      <a href="{{ route('web.athletes.coach.edit.video', $questionList->question_id ) }}" class="btn btn-success px-3 py-1"><i class="far fa-edit"></i></a>
+                                                    @else
+                                                      <a href="{{ route('web.athletes.coach.add.video', $questionList->question_id ) }}" class="btn btn-info px-3 py-1 text-white"><i class="fas fa-plus"></i></a>
+                                                    @endif
                                                 </td>
                                               </tr>
                                               @endif
@@ -274,11 +275,11 @@
                                                   @endif
                                                 </td>
                                                 <td class="text-center align-middle">
-                                                      @if(in_array($questionList->question_id, $userAns))  
-                                                        <a href="#" class="btn btn-success px-3 py-1"><i class="far fa-edit"></i></a>
-                                                      @else
-                                                        <a href="#" class="btn btn-info px-3 py-1 text-white"><i class="fas fa-plus"></i></a>
-                                                      @endif
+                                                    @if(in_array($questionList->question_id, $userAns))  
+                                                      <a href="{{ route('web.athletes.coach.edit.video', $questionList->question_id ) }}" class="btn btn-success px-3 py-1"><i class="far fa-edit"></i></a>
+                                                    @else
+                                                      <a href="{{ route('web.athletes.coach.add.video', $questionList->question_id ) }}" class="btn btn-info px-3 py-1 text-white"><i class="fas fa-plus"></i></a>
+                                                    @endif
                                                 </td>
                                               </tr>
                                               @endif
@@ -313,6 +314,11 @@
                                         <tbody>
                                           @php $i = 1; @endphp
                                           @foreach($questioncoaches as $questionList)
+                                          @php
+                                                $videodetail = Helper::videodetail($questionList->question_id,Auth::user()->id); 
+                                                
+                                               
+                                              @endphp
                                             <tr>
                                               <th class="align-middle" scope="row">{{$i++}}.</th>
                                               <td class="align-middle">{{$questionList->question}}</td>
@@ -339,11 +345,11 @@
                                                 @endif
                                               </td>
                                               <td class="text-center align-middle">
-                                                    @if(in_array($questionList->question_id, $userAns))  
-                                                      <a href="#" class="btn btn-success px-3 py-1"><i class="far fa-edit"></i></a>
-                                                    @else
-                                                      <a href="#" class="btn btn-info px-3 py-1 text-white"><i class="fas fa-plus"></i></a>
-                                                    @endif
+                                                  @if(in_array($questionList->question_id, $userAns))  
+                                                    <a href="{{ route('web.athletes.coach.edit.video', $questionList->question_id ) }}" class="btn btn-success px-3 py-1"><i class="far fa-edit"></i></a>
+                                                  @else
+                                                    <a href="{{ route('web.athletes.coach.add.video', $questionList->question_id ) }}" class="btn btn-info px-3 py-1 text-white"><i class="fas fa-plus"></i></a>
+                                                  @endif
                                               </td>
                                             </tr>
                                           @endforeach

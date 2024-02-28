@@ -124,7 +124,7 @@
                         <p class="text-white">Answer any 8 of our pre-determined questions as an athlete or coach to activate your account online</p>
                     </div>
                     {{-- <a href="{{ route('web.athletes.coach.SaveAnswere') }}" class="btn iya-btn-white py-3 fw-bold enable" id="enabledisable">Go to Dashboard</a> --}}
-                    <a href="{{ route('web.athletes.coach.SaveAnswere') }}" class="btn iya-btn-white py-3 fw-bold @if($userAnswerCount > '1') disabled @else enable @endif" id="enabledisable">Go to Dashboard</a>
+                    <a href="{{ route('web.athletes.coach.SaveAnswere') }}" class="btn iya-btn-white py-3 fw-bold @if($userAnswerCount < '1') disabled @else enable @endif" id="enabledisable">Go to Dashboard</a>
                 </div>
             </div>
         </div>

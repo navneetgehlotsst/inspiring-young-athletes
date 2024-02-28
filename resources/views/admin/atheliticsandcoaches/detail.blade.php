@@ -12,17 +12,44 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="py-3 mb-4"><span class="text-muted fw-light">Atheletes And Coach /</span> Detail</h4>
     <div class="row">
+      <div class="col-12">
+          <div class="card mb-4">
+              <div class="user-profile-header-banner">
+                  <img src="{{asset('admin/assets/img/avatars/profile-banner.png')}}" alt="Banner image" class="rounded-top" />
+              </div>
+              <div class="user-profile-header d-flex flex-column flex-sm-row text-sm-start text-center mb-4">
+                  <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto">
+                      
+                        @if(empty($users->profile))
+                          <img src="{{asset('admin/assets/img/avatars/user.png')}}" alt="user image" class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
+                        @else
+                          <img src="{{asset($users->profile)}}" alt="user image" class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
+                        @endif
+                  </div>
+                  <div class="flex-grow-1 mt-3 mt-sm-5">
+                      <div class="d-flex align-items-md-end align-items-sm-start align-items-center justify-content-md-between justify-content-start mx-4 flex-md-row flex-column gap-4">
+                          <div class="user-profile-info">
+                              <h4>{{$users->name}}</h4>
+                              <ul class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2">
+                                  <li class="list-inline-item fw-medium"><i class='bx bx-envelope'></i> {{$users->email}}</li>
+                                  <li class="list-inline-item fw-medium"><i class='bx bx-phone' ></i> {{$users->phone}}</li>
+                                  <li class="list-inline-item fw-medium"><i class='bx bx-category'></i> {{$userscat->category_name}}</li>
+                              </ul>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+  
+    <div class="row">
         <div class="col-xl-12">
           <div class="nav-align-top mb-4">
             <div class="nav-align-top mb-4">
               <ul class="nav nav-pills mb-3" role="tablist">
                 <li class="nav-item" role="presentation">
-                  <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-top-detail" aria-controls="navs-pills-top-detail" aria-selected="true">
-                      Basic Info
-                  </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-top-intro" aria-controls="navs-pills-top-intro" aria-selected="false" tabindex="-1">
+                  <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-top-intro" aria-controls="navs-pills-top-intro" aria-selected="false" tabindex="-1">
                     Intro Video
                   </button>
                 </li>
@@ -43,24 +70,7 @@
                 </li>
               </ul>
               <div class="tab-content">
-                <div class="tab-pane fade show active" id="navs-pills-top-detail" role="tabpanel">
-                  <h5>Basic Info</h5>
-                  <div class="row">
-                      <div class="col-md-4">
-                          <label for="defaultFormControlInput" class="form-label">Name</label>
-                          <input type="text" class="form-control" id="defaultFormControlInput" placeholder="{{$users->name}}" value="{{$users->name}}" aria-describedby="defaultFormControlHelp" readonly/>
-                      </div>
-                      <div class="col-md-4">
-                          <label for="defaultFormControlInput" class="form-label">Email</label>
-                          <input type="text" class="form-control" id="defaultFormControlInput" placeholder="{{$users->email}}" value="{{$users->email}}" aria-describedby="defaultFormControlHelp" readonly/>
-                      </div>
-                      <div class="col-md-4">
-                          <label for="defaultFormControlInput" class="form-label">Phone</label>
-                          <input type="text" class="form-control" id="defaultFormControlInput" placeholder="{{$users->phone}}" value="{{$users->phone}}" aria-describedby="defaultFormControlHelp" readonly/>
-                      </div>
-                  </div>
-                </div>
-                <div class="tab-pane fade" id="navs-pills-top-intro" role="tabpanel">
+                <div class="tab-pane fade show active" id="navs-pills-top-intro" role="tabpanel">
                   <div class="row">
                     @if(!empty($usersintro->IntroVideo))
                     <h3>{{$usersintro->IntroVideo['0']->video_title}}</h3>

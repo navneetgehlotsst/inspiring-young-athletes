@@ -44,6 +44,7 @@ class AtheliticsAndCoachesController extends Controller
     // User Detail
     public function ViewDetail($id){
         $users = User::where('id',$id)->first();
+        $userscat = Category::where('category_id',$users->category)->first();
         $usersintro = UserAnswere::where('user_id',$id)->where('question_id','0')->with('IntroVideo')->first();
         $usersAnsweres = UserAnswere::where('user_id',$id)->where('question_id','!=','0')->with('IntroVideo')->get();
         if($users->roles == "Athletes"){
@@ -79,7 +80,7 @@ class AtheliticsAndCoachesController extends Controller
             $totalIncome +=  $totalvideoIncome;
         }
         $totalIncome;
-        return view('admin.atheliticsandcoaches.detail', compact('users','usersintro','usersAnsweres','questionAnswere','id','videolists','totalIncome','userincomes'));
+        return view('admin.atheliticsandcoaches.detail', compact('users','usersintro','usersAnsweres','questionAnswere','id','videolists','totalIncome','userincomes','userscat'));
     }
 
 

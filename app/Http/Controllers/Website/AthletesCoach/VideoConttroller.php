@@ -155,7 +155,7 @@ class VideoConttroller extends Controller
             $UserDetail = Auth::user();
             $userID = $UserDetail->id;
             //$getVideo = Video::where('user_id',$userID)->where('Video_from','Video')->get();
-            $getVideo = Video::where('user_id',$userID)->where('video_from','video')->get();
+            $getVideo = Video::where('user_id',$userID)->get();
             $Videocount = $getVideo->count();
 
             return view('web.athletescoach.listvideo',compact('userID','getVideo','Videocount'));

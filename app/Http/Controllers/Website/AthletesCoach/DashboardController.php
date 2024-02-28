@@ -30,6 +30,10 @@ class DashboardController extends Controller
                 $namecurrentMonth = date('M');
                 $currentYear = date('Y');
 
+
+                // check Intro video
+                $introVideoCheck = Video::where('user_id', $userID)->where('video_title', 'Intro Video')->first();
+
                 // Get the previous month and year
                 $previousMonth = date('m', strtotime('-1 month'));
                 $namepreviousMonth = date('M', strtotime('-1 month'));
@@ -118,7 +122,7 @@ class DashboardController extends Controller
                     }
                     $type = "Year";
                 }
-                return view('web.athletescoach.dashboard', compact('user','userID','userIncome','uniqueViews','videoLists','date','count','type','by'));
+                return view('web.athletescoach.dashboard', compact('user','userID','userIncome','uniqueViews','videoLists','date','count','type','by','introVideoCheck'));
             }else {
                 return redirect()->route('web.login');
             }                      

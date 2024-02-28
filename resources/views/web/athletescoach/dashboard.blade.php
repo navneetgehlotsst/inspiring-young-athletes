@@ -45,15 +45,22 @@
                 </div>
                 <div class="row">
                     <div class="col-xl-12 col-md-12 mb-4">
-                        @if($user->stripe_account_status == '0')
-                            <div class="alert alert-danger" role="alert">
-                                    <a href="{{ route('web.bank.index') }}">Click here</a> to add bank account
+                        <div class="card border-danger mb-3" style="max-width: 100%;">
+                            <div class="card-body text-dark">
+                                @if($user->stripe_account_status == '0')
+                                    <p class="card-text">Please provide us your <a href="{{ route('web.bank.index') }}" class="text-danger fw-bold">payout details</a> so that we can pay you once you accrue earnings.</p>
+                                @elseif($user->stripe_account_status == '2')
+                                    <p class="card-text">Please Update Your pendancy in <a href="{{ route('web.bank.index') }}" class="text-danger fw-bold">payout details</a> so that we can pay you once you accrue earnings.</p>
+                                @else
+                                @endif
                             </div>
-                        @elseif($user->stripe_account_status == '2')
-                            <div class="alert alert-danger" role="alert">
-                                    <a href="{{ route('web.bank.index') }}">Click here</a> to update pendency in your bank acount bank account
+                        </div>
+                        @if($introVideoCheck->video_status == '2')
+                            <div class="card border-warning mb-3" style="max-width: 100%;">
+                                <div class="card-body text-dark">
+                                    <p class="card-text">Your intro video is rejected <a href="{{ route('web.Video.edit.video', $introVideoCheck->video_id ) }}" class="text-warning fw-bold">Update Intro Video</a></p>
+                                </div>
                             </div>
-                        @else
                         @endif
                     </div>
                 </div>

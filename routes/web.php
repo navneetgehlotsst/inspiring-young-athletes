@@ -22,7 +22,9 @@ use App\Http\Controllers\Website\User\{
 use App\Http\Controllers\Admin\{
     AuthController,
     UserController,
-    AtheliticsAndCoachesController
+    AtheliticsAndCoachesController,
+    PagesController,
+    FaqController
 };
 
 /*
@@ -197,5 +199,17 @@ Route::group(['middleware' => 'auth'], function ()
         Route::get('list', 'list')->name('list');
         Route::post('delete', 'delete')->name('delete');
         Route::get('view-detail/{id}', 'ViewDetail')->name('detail');
+    });
+
+    Route::name('admin.pages.')->prefix('pages/')->controller(PagesController::class)->group(function () {
+        Route::get('ask-question-list', 'askquestionlist')->name('ask.question.list');
+    });
+
+
+    Route::name('admin.faq.')->prefix('faq/')->controller(FaqController::class)->group(function () {
+        Route::get('list', 'list')->name('list');
+        Route::get('create', 'create')->name('create');
+        Route::post('store', 'store')->name('store');
+        Route::post('destroy', 'destroy')->name('destroy');
     });
 });

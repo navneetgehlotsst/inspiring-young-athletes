@@ -135,6 +135,9 @@
                                             @php $i = 1; @endphp
                                             @foreach($questionathelitics as $questionList)
                                               @if($questionList->question_type == "for_parents")
+                                              @php
+                                                $videodetail = Helper::videodetail($questionList->question_id,Auth::user()->id); 
+                                              @endphp
                                               <tr>
                                                 <th class="align-middle" scope="row">{{$i++}}.</th>
                                                 <td class="align-middle">{{$questionList->question}}</td>
@@ -192,6 +195,9 @@
                                             @php $i = 1; @endphp
                                             @foreach($questionathelitics as $questionList)
                                               @if($questionList->question_type == "for_athletes_coaches")
+                                              @php
+                                                $videodetail = Helper::videodetail($questionList->question_id,Auth::user()->id); 
+                                              @endphp
                                               <tr>
                                                 <th class="align-middle" scope="row">{{$i++}}.</th>
                                                 <td class="align-middle">{{$questionList->question}}</td>
@@ -249,6 +255,9 @@
                                             @php $i = 1; @endphp
                                             @foreach($questionathelitics as $questionList)
                                               @if($questionList->question_type == "for_friday_frenzy")
+                                              @php
+                                                $videodetail = Helper::videodetail($questionList->question_id,Auth::user()->id); 
+                                              @endphp
                                               <tr>
                                                 <th class="align-middle" scope="row">{{$i++}}.</th>
                                                 <td class="align-middle">{{$questionList->question}}</td>

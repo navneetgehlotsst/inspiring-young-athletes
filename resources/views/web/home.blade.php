@@ -251,198 +251,20 @@
                 <div class="col-lg-8 m-auto">
                     <div class="faq-accordion p-3">
                         <div class="accordion" id="accordionExample">
+                            @foreach ($faqs as $faq)
                             <div class="accordion-item">
                               <h2 class="accordion-header" id="headingOne">
-                                <button class="accordion-button text-black" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    What inspirational content can I expect on the website?
+                                <button class="accordion-button text-black" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$faq->id}}" aria-expanded="true" aria-controls="collapse{{$faq->id}}">
+                                  {{$faq->question}}
                                 </button>
                               </h2>
-                              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                              <div id="collapse{{$faq->id}}" class="accordion-collapse collapse" aria-labelledby="heading{{$faq->id}}" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                  <p>Every athlete has an inspirational story behind their success and our mission is to have over 300 athletes on board within 2 years</p>
+                                  <p>{{$faq->answer}}</p>
                                 </div>
                               </div>
                             </div>
-                            <div class="accordion-item">
-                              <h2 class="accordion-header" id="headingTwo">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                    Are there success stories of young athletes overcoming obstacles?
-                                </button>
-                              </h2>
-                              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    <p>Some of our professional athletes are still fairly young athletes but all our athletes have overcome obstacles at some stage in their journey.</p>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="accordion-item">
-                              <h2 class="accordion-header" id="headingThree">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    Do you provide tips for balancing academics and sports for young athletes?
-                                </button>
-                              </h2>
-                              <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    <p>If this is not one of the questions asked online, we do have an ‘ask a question to an athlete’ button on the page where your question will be sent to a specific  athlete that you may want to ask it to and if time allows, they may answer it for you.</p>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingFor">
-                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFor" aria-expanded="false" aria-controls="collapseFor">
-                                    Are there exclusive features or interviews with professional athletes and coaches?
-                                  </button>
-                                </h2>
-                                <div id="collapseFor" class="accordion-collapse collapse" aria-labelledby="headingFor" data-bs-parent="#accordionExample">
-                                  <div class="accordion-body">
-                                      <p>Every athlete or coach is asked 8 questions to activate their profile and after that can give any advice after that. They can download unlimited videos with advice.</p>
-                                  </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingFive">
-                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                    How can young athletes benefit from joining the community or forum on the site?
-                                  </button>
-                                </h2>
-                                <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
-                                  <div class="accordion-body">
-                                      <p>Aspiring Young Athletes would have unlimited resources to choose from seeing athletes from numerous sporting codes talk each answering a minimum of 8 questions from their journey through their teen years so the benefits are immense.</p>
-                                  </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingSix">
-                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-                                    Do you offer training resources and workout plans for specific sports?
-                                  </button>
-                                </h2>
-                                <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
-                                  <div class="accordion-body">
-                                      <p>Unfortunately, we don’t offer training plans as each athlete is different and this would need to be advised by a specialist coach or mentor who understand that athlete.</p>
-                                  </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingSeven">
-                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-                                    What advice do you have for parents supporting aspiring young athletes?
-                                  </button>
-                                </h2>
-                                <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#accordionExample">
-                                  <div class="accordion-body">
-                                      <p>Great question, we actually ask athletes what their parents did (right or wrong) and hope in time to include parents of athletes on the platform to ask them about their kids.</p>
-                                  </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingEight">
-                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-                                    What advice do you have for parents supporting aspiring young athletes?
-                                  </button>
-                                </h2>
-                                <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#accordionExample">
-                                  <div class="accordion-body">
-                                      <p>Great question, we actually ask athletes what their parents did (right or wrong) and hope in time to include parents of athletes on the platform to ask them about their kids.</p>
-                                  </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingEight">
-                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-                                    Are there opportunities for networking or mentorship within the platform?
-                                  </button>
-                                </h2>
-                                <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#accordionExample">
-                                  <div class="accordion-body">
-                                      <p>At this stage no but definitely something we are looking at in the future allowing aspiring young athletes across the world to be able to speak to each other and support one another.</p>
-                                  </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingNine">
-                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
-                                    What sets your platform apart in terms of inspiring young athletes?
-                                  </button>
-                                </h2>
-                                <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#accordionExample">
-                                  <div class="accordion-body">
-                                      <p>We see this platform as the only program for aspiring young athletes where they can hear from multiple male, female and disabled athletes and coaches across different sporting codeson one platform.</p>
-                                  </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingTen">
-                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
-                                    Is the content suitable for athletes in various sports, or is it focused on specific ones?
-                                  </button>
-                                </h2>
-                                <div id="collapseTen" class="accordion-collapse collapse" aria-labelledby="headingTen" data-bs-parent="#accordionExample">
-                                  <div class="accordion-body">
-                                      <p>Most definitely. We aim to have 30+ sporting codes available in time. Our belief is no matter the sport, aspiring young athletes can learn lessons from all athletes, not just those from their specific sport.</p>
-                                  </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingEleven">
-                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
-                                    How frequently is new content added to the website?
-                                  </button>
-                                </h2>
-                                <div id="collapseEleven" class="accordion-collapse collapse" aria-labelledby="headingEleven" data-bs-parent="#accordionExample">
-                                  <div class="accordion-body">
-                                      <p>Athletes are free to download content whenever they please. Initially they need to download 8 videos each onto the platform and then have choices of other questions to download on top of the initial 8.</p>
-                                  </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingTwelve">
-                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve">
-                                    Are there age-appropriate resources for very young athletes?
-                                  </button>
-                                </h2>
-                                <div id="collapseTwelve" class="accordion-collapse collapse" aria-labelledby="headingTwelve" data-bs-parent="#accordionExample">
-                                  <div class="accordion-body">
-                                      <p>I believe the stories from athletes who have become professional will resonate with ALL aspiring young athletes no matter what their ages are.</p>
-                                  </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingThirteen">
-                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThirteen" aria-expanded="false" aria-controls="collapseThirteen">
-                                    Can coaches or educators benefit from the content on the website?
-                                  </button>
-                                </h2>
-                                <div id="collapseThirteen" class="accordion-collapse collapse" aria-labelledby="headingThirteen" data-bs-parent="#accordionExample">
-                                  <div class="accordion-body">
-                                      <p>The idea behind Raising Young Athletes is one of education so yes 100% anyone can learn from these athletes. We will have a login where education facilities can pay for a subscription on behalf of a young aspiring athlete with an access code.</p>
-                                  </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingFourteen">
-                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourteen" aria-expanded="false" aria-controls="collapseFourteen">
-                                    Is the content accessible to individuals outside of a specific region or country?
-                                  </button>
-                                </h2>
-                                <div id="collapseFourteen" class="accordion-collapse collapse" aria-labelledby="headingFourteen" data-bs-parent="#accordionExample">
-                                  <div class="accordion-body">
-                                      <p>The beauty of this online platform is that it is accessible to all who have an internet connection anywhere in the world.</p>
-                                  </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingFifteen">
-                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFifteen" aria-expanded="false" aria-controls="collapseFifteen">
-                                    Can I cancel my subscription at any time?
-                                  </button>
-                                </h2>
-                                <div id="collapseFifteen" class="accordion-collapse collapse" aria-labelledby="headingFifteen" data-bs-parent="#accordionExample">
-                                  <div class="accordion-body">
-                                      <p>Yes you can, you just need to give 30 days’ notice.</p>
-                                  </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

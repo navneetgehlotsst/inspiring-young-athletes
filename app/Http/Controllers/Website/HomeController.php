@@ -26,7 +26,8 @@ use App\Models\{
     Plan,
     Subscriptions,
     Transaction,
-    AskQuestion
+    AskQuestion,
+    Faq
 };
 use App\Mail\ForgotPasswordMail;
 use Laravel\Cashier\Cashier;
@@ -35,6 +36,7 @@ class HomeController extends Controller
     // Home page
     public function Index(){
         $getcategory = Category::where('category_status','1')->take(12)->get();
+        $faqs = Faq::get();
         //count query pending show data in veiw
         $athleticCoaches = User::where('roles', '!=', 'User')->where('roles', '!=', 'Admin')->withCount('videos')->take(9)->get();
         if (Auth::check()){
@@ -44,7 +46,7 @@ class HomeController extends Controller
         }else{
             $checkSubscriptions = "";
         }
-        return view('web.home',compact('getcategory','athleticCoaches','checkSubscriptions'));
+        return view('web.home',compact('getcategory','athleticCoaches','checkSubscriptions','faqs'));
     }
     // About page
     public function About(){

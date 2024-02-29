@@ -236,23 +236,27 @@ class AuthController extends Controller
                 $videoViewCounts = VideoHistory::select(DB::raw('MONTHNAME(created_at) as month, COUNT(*) as count'))
                 ->orderBy('month', 'desc')
                 ->get();
+                if(!empty($videoViewCounts['0']->month)){
+                    $userViewCountvideo = [];
+                    $monthnamesviewvideo = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+                    foreach ($monthnamesviewvideo as $monthviewvideo) {
+                        $userViewCountvideo[$monthviewvideo] = ['month' => $monthviewvideo, 'count' => 0];
+                    }
 
-                $userViewCountvideo = [];
-                $monthnamesviewvideo = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-                foreach ($monthnamesviewvideo as $monthviewvideo) {
-                    $userViewCountvideo[$monthviewvideo] = ['month' => $monthviewvideo, 'count' => 0];
-                }
-
-                foreach ($videoViewCounts as $videoviewcountsvalue) {
-                    $videoviewmonths = $videoviewcountsvalue->month;
-                    $count = $videoviewcountsvalue->count;
-                    $userViewCountvideo[$videoviewmonths]['count'] = $count;
-                }
-                $videoviewmonth = [];
-                $viewcount = [];
-                foreach ($userViewCountvideo as $videoviewgraphresult) {
-                    $videoviewmonth[] = $videoviewgraphresult['month'];
-                    $viewcount[] = $videoviewgraphresult['count'];
+                    foreach ($videoViewCounts as $videoviewcountsvalue) {
+                        $videoviewmonths = $videoviewcountsvalue->month;
+                        $count = $videoviewcountsvalue->count;
+                        $userViewCountvideo[$videoviewmonths]['count'] = $count;
+                    }
+                    $videoviewmonth = [];
+                    $viewcount = [];
+                    foreach ($userViewCountvideo as $videoviewgraphresult) {
+                        $videoviewmonth[] = $videoviewgraphresult['month'];
+                        $viewcount[] = $videoviewgraphresult['count'];
+                    }
+                }else{
+                    $videoviewmonth[] = "";
+                    $viewcount[] = "";
                 }
                 return view('admin.dashboard', compact('userCount','athletesCount','coachesCount','totalUsersCount','subscriptionAmount','totalAthleteIncome','referralRevenue','adminIncome','totalVideoCount','pendingCount','approvedCount','rejectedCount','paidCount','freeCount','userDataCount','month','Athletes','Coach','User','videomonth','Active','InActive','Pending','videoviewmonth','viewcount'));
             }else {

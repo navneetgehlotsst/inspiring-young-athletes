@@ -324,7 +324,7 @@ class RegisterController extends Controller
     public function referralAndEarnSend(Request $request){
         $baseUrl = url('/');
         $UserDetail = Auth::user();
-        $senderemail = $UserDetail->email; 
+        $senderemail = $UserDetail->name; 
         $posturl = $request->url;
         $code = $request->code;
         $referralEmail = $request->referralEmail;

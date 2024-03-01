@@ -122,7 +122,7 @@ class HomeController extends Controller
 
 
     public function fridayFrenzy(){
-        $VideoList = UserAnswere::where('question_id','45')->join('video', 'user_queston.answere_video', '=', 'video.video_id')->paginate(10);
+        $VideoList = UserAnswere::where('question_id','45')->join('video', 'user_queston.answere_video', '=', 'video.video_id')->join('users', 'video.user_id', '=', 'users.id')->paginate(10);
         return view('web.videolist',compact('VideoList'));
     }
 
@@ -138,8 +138,9 @@ class HomeController extends Controller
 
 
     public function QuestionVideo($id){
-        $VideoList = UserAnswere::where('question_id',$id)->join('video', 'user_queston.answere_video', '=', 'video.video_id')->paginate(10);
-        return view('web.videolist',compact('VideoList'));
+        $VideoList = UserAnswere::where('question_id',$id)->join('video', 'user_queston.answere_video', '=', 'video.video_id')->join('users', 'video.user_id', '=', 'users.id')->paginate(10);
+        $pagetitel = "Question Video";
+        return view('web.videolist',compact('VideoList','pagetitel'));
     }
 
     // Video By Pubisher
@@ -166,17 +167,20 @@ class HomeController extends Controller
 
     // All Video List
     public function VideoPublisherAll(){
-        $VideoList = Video::where('Video_status','1')->paginate(10);
+        $VideoList = Video::where('Video_status','1')->where('video_type','2')->join('users', 'video.user_id', '=', 'users.id')->paginate(10);
+        $pagetitel = "Free Video";
 
-        return view('web.videolist',compact('VideoList'));
+        return view('web.videolist',compact('VideoList','pagetitel'));
     }
 
     // All NewVideo
     public function NewVideo(){
         $lastFiveDays = Carbon::now()->subDays(5);
-        $VideoList = Video::whereDate('created_at', '>=', $lastFiveDays)->where('Video_status','1')->paginate(10);
+        $VideoList = Video::whereDate('video.created_at', '>=', $lastFiveDays)->join('users', 'video.user_id', '=', 'users.id')->where('Video_status','1')->paginate(10);
+        
+        $pagetitel = "New Video";
 
-        return view('web.videolist',compact('VideoList'));
+        return view('web.videolist',compact('VideoList','pagetitel'));
     }
 
     // Video list
@@ -318,7 +322,7 @@ class HomeController extends Controller
 
         try
         {
-            Mail::send('web.email.forgetPassword', ['token' => $token], function ($message) use ($request)
+            Mail::send('web.email.forgetPassword', ['token' => $token , 'name' => $userCheck->name], function ($message) use ($request)
             {
                 $message->to($request->email);
                 $message->subject('Reset Password');

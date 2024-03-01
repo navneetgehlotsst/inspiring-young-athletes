@@ -104,7 +104,7 @@ class AtheliticsAndCoachesController extends Controller
 
             $UserDetail = User::where('id', $userId)->first();
 
-            Mail::to($UserDetail->email)->send(new RejectVideoMail($UserDetail));
+            Mail::to($UserDetail->email)->send(new RejectVideoMail($UserDetail,$videoData));
 
             return response()->json(['success'=>true]);
         }
@@ -122,7 +122,7 @@ class AtheliticsAndCoachesController extends Controller
             $userId = $videoData->user_id;
 
             $UserDetail = User::where('id', $userId)->first();
-            Mail::to($UserDetail->email)->send(new ApprovedVideoMail($UserDetail));
+            Mail::to($UserDetail->email)->send(new ApprovedVideoMail($UserDetail,$videoData));
             return response()->json(['success'=>true , 'data' => $request->type]);
         }
     }

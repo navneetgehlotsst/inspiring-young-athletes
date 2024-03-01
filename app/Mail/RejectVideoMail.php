@@ -17,9 +17,11 @@ class RejectVideoMail extends Mailable
      * @return void
      */
     protected $user;
-    public function __construct($user)
+    protected $videoData;
+    public function __construct($user,$videoData)
     {
         $this->user = $user;
+        $this->videoData = $videoData;
     }
 
     /**
@@ -31,6 +33,7 @@ class RejectVideoMail extends Mailable
     {
         return $this->view('web.email.rejectVideo')->with([
             'email' => $this->user['name'],
+            'video_titel' => $this->videoData['video_title'],
         ]);
     }
 }

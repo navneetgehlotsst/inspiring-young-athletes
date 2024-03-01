@@ -85,7 +85,7 @@
     </script>
 @endif
  <!-- Video Publisher Section Start-->
- <section class="publisher-view py-4">
+ <section class="@if(!empty($userdetail)) publisher-view py-4 @endif">
     <div class="container">
         @if(!empty($userdetail))
             <div class="row">
@@ -119,7 +119,7 @@
                     <div class="mt-2">
                         <a href="{{ $userdetail->facebook }}" class="my-2 my-lg-0 me-3 text-white btn btn-primary"><i class="fab fa-facebook text-white"></i></a>
                         <a href="{{ $userdetail->instagram }}" class="my-2 my-lg-0 me-3 text-white btn btn-primary"><i class="fab fa-instagram text-white"></i></a>
-                        <a href="{{ $userdetail->tiktok }}" class="my-2 my-lg-0 me-3 text-white btn btn-primary"><i class="fab fa-tiktok"></i></a>
+                        <a href="{{ $userdetail->tiktok }}" class="my-2 my-lg-0 me-3 text-white btn btn-primary"><img src="{{asset('web/assets/images/new-img/tiktok.svg')}}" alt="logo" width="16px"></a>
                         <a href="{{ $userdetail->linkedin }}" class="my-2 my-lg-0 me-3 text-white btn btn-primary"><i class="fab fa-linkedin"></i></a>
                     </div>
                 </div>
@@ -134,18 +134,18 @@
             </div>
         @else
         <div class="row">
-            <div class="col-lg-6 align-self-center">
+            {{-- <div class="col-lg-6 align-self-center">
                 <div class="d-flex">
                     <div class="publisher-img">
                         <img class="img-account-profile rounded-circle mb-2 imgprofileupdate" src="{{asset('web/assets/images/new-img/dummyuser.png')}}" alt="">
                     </div>
-                    <div class="publisher-details mt-2 ps-4">
-                        <h4 class="text-white">Video</h4>
+                    <div class="publisher-details mt-2 ps-4"> --}}
+                        {{-- <h4 class="text-white">{{$pagetitel}}</h4> --}}
                         {{-- <p class="mb-1 text-white"><i class="far fa-play-circle text-white me-2"></i> {{$userdetail->videos_count}} videos</p> --}}
                         {{-- <p class="mb-0 text-white"><i class="far fa-calendar-alt text-white me-2"></i> joined {{$year}}</p> --}}
-                    </div>
+                    {{-- </div>
                 </div>
-            </div>
+            </div> --}}
             {{-- <div class="col-lg-4 align-self-center text-lg-end">
                 <div class="mt-2">
                     <a href="#" class="my-2 my-lg-0 me-3 text-white btn btn-primary"><i class="fab fa-facebook text-white"></i></a>
@@ -175,9 +175,14 @@
     <div class="container">
         <div class="themeix-section-h">
             <span class="heading-icon"><i class="far fa-play-circle"></i></span>
-            <h3>Videos</h3>
+            @if(!empty($userdetail))
+                <h3>Videos</h3>
+            @else
+                <h3>{{$pagetitel}}</h3>
+            @endif
         </div>
         <div class="row mt-5">
+            
             @if($count != 0)
                 @foreach ($VideoList as $Video)
                 @php
@@ -203,7 +208,12 @@
                                 @else
                                     <h4><a class="video-title" href="{{ route('web.login') }}">{{$Video->video_title}}</a></h4>
                                 @endauth
-                                <h4><a class="video-title">{{$uplaoddate}}</a></h4>
+                                <div class="d-flex justify-content-between">
+                                    <p class="fw-bold">{{$uplaoddate}}</p>
+                                    @if (!empty($Video->name))
+                                        <p><span class="fw-bold">Published By</span> :- {{$Video->name}}</p>
+                                    @endif
+                                </div>
                                 <div class="video-counter">
                                     <div class="video-viewers">
                                         @php

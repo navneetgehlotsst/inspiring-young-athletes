@@ -72,6 +72,9 @@
                     <li class="nav-item questions-answer-tap" role="presentation">
                         <button class="btn tab-btn-white" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-frenzy" type="button" role="tab" aria-controls="pills-frenzy" aria-selected="false">Game Day Prep</button>
                     </li>
+                    {{-- <li class="nav-item questions-answer-tap" role="presentation">
+                        <button class="btn tab-btn-white" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-female" type="button" role="tab" aria-controls="pills-frenzy" aria-selected="false">Female Athletes</button>
+                    </li> --}}
                 </ul>
                 <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-athletes" role="tabpanel" aria-labelledby="pills-home-tab">
@@ -310,6 +313,7 @@
                         </div>
                         <!--Question for Friday Frenzy End-->
                     </div>
+                   
                 </div>
                 <div class="d-flex justify-content-between align-items-center mt-3">
                     <div>

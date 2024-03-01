@@ -52,6 +52,7 @@
                                             <button class="nav-link fw-bold" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#for_parents" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Parents</button>
                                             <button class="nav-link fw-bold" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#for_athletes_coaches" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Coaches</button>
                                             <button class="nav-link fw-bold" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#for_friday_frenzy" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Game Day Prep</button>
+                                            {{-- <button class="nav-link fw-bold" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#for_female_athletes" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Female Athletes</button> --}}
                                         </div>
                                     </nav>
                                     <div class="tab-content" id="nav-tabContent">
@@ -103,6 +104,18 @@
                                             </div>
                                             @endforeach
                                         </div>
+                                        {{-- <div class="tab-pane fade" id="for_female_athletes" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                            @php $fmale = 1; @endphp
+                                            @foreach($forfemaleathletes as $forfemaleathlete)
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="headingParents1">
+                                                    <button class="accordion-button" type="button">
+                                                        <a href="{{ route('web.question.video',$forfemaleathlete->question_id) }}" class="h6"><strong>{{$fmale++}}. </strong>{{$forfemaleathlete->question}}</a>    
+                                                    </button>
+                                                </h2>
+                                            </div>
+                                            @endforeach
+                                        </div> --}}
                                     </div>
                             </div>
                         </div>

@@ -80,7 +80,11 @@
             <div class="py-3">
               <a href="{{ route('web.video.publisher.all') }}" class="btn iya-btn-white">Watch Limited Free Videos</a>
             </div>
-            <p class="mb-0">Want to see more? Subscribe here for only <span class="fw-bold">US$3.95/Month</span> and unlock the most powerful tool in Youth Sport.</p>
+            <p class="mb-0">Want to see more? Subscribe here for only <span class="fw-bold">US$3.95/Month</span> and unlock the most powerful tool in Youth Sport. 
+              @if(empty($checkSubscriptions))
+              <a href="{{ route('web.joinnow') }}" class="fw-bold bg-white p-1 rounded">Join Now</a>
+              @endif
+            </p>
           </div>
           <div class="col-lg-12 pt-5">
             <h5 class="text-white">Trending Video</h5>
@@ -207,7 +211,7 @@
     <!-- Categories Section End-->
     <!-- Video Publisher Section End-->
     <!-- Pricing Plan Section Start-->
-    <section class="categories-section pt-5 my-5 pb-5">
+    <section class="categories-section pt-5 my-5 pb-5" id="userSubcription">
         <div class="container">
             <div class="row g-3 mt-4">
                 <div class="col-lg-10 m-auto">

@@ -130,9 +130,10 @@ class HomeController extends Controller
         $AthletesList = Question::where('question_status','1')->where('question_type','for_athletes')->get();
         $parentList = Question::where('question_status','1')->where('question_type','for_parents')->get();
         $atheliticsCoachesList = Question::where('question_status','1')->where('question_type','for_athletes_coaches')->get();
+        $forfemaleathletes = Question::where('question_status','1')->where('question_type','for_female_athletes')->get();
         $fridayfrenziList = Question::where('question_status','1')->where('question_type','for_friday_frenzy')->get();
         $CoachList = Question::where('question_status','1')->where('question_type','for_coaches')->get();
-        return view('web.question',compact('AthletesList','CoachList','parentList','atheliticsCoachesList','fridayfrenziList'));
+        return view('web.question',compact('AthletesList','CoachList','parentList','atheliticsCoachesList','fridayfrenziList','forfemaleathletes'));
     }
 
 
@@ -173,7 +174,7 @@ class HomeController extends Controller
     // All NewVideo
     public function NewVideo(){
         $lastFiveDays = Carbon::now()->subDays(5);
-        $VideoList = Video::whereDate('created_at', '>=', $lastFiveDays)->paginate(10);
+        $VideoList = Video::whereDate('created_at', '>=', $lastFiveDays)->where('Video_status','1')->paginate(10);
 
         return view('web.videolist',compact('VideoList'));
     }

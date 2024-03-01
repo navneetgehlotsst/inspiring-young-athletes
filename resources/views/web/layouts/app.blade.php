@@ -348,6 +348,12 @@
       
             if(error) {
                 cardBtn.disable = false
+                $('#card-button').prop('disabled', false);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: error.message
+                })
             } else {
                 let token = document.createElement('input')
                 token.setAttribute('type', 'hidden')

@@ -28,90 +28,93 @@ class BankController extends Controller
 {
     public function index(Request $request){
 
-            if (Auth::check()){
-                $UserDetail = Auth::user();
                 try {
-                    $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+                    if (Auth::check()){
+                        $UserDetail = Auth::user();
+                        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
 
-                    if (!empty($UserDetail->stripe_connect_id) && (!in_array($UserDetail->stripe_account_status, [0, 1]))) {
-                        $stripe_connect_id = $UserDetail->stripe_connect_id;
-                        $accResponse = $stripe->accounts->retrieve($UserDetail->stripe_connect_id, []);
+                        if (!empty($UserDetail->stripe_connect_id) && (!in_array($UserDetail->stripe_account_status, [0, 1]))) {
+                            $stripe_connect_id = $UserDetail->stripe_connect_id;
+                            $accResponse = $stripe->accounts->retrieve($UserDetail->stripe_connect_id, []);
 
-                        if (!empty($accResponse) && isset($accResponse->id)) {
-                            if ($accResponse->charges_enabled == true && $accResponse->payouts_enabled == true) {
-                                $response['status'] = "error";
-                                $response['message'] = "Your account is already created and payout is enabled.";
+                            if (!empty($accResponse) && isset($accResponse->id)) {
+                                if ($accResponse->charges_enabled == true && $accResponse->payouts_enabled == true) {
+                                    $response['status'] = "error";
+                                    $response['message'] = "Your account is already created and payout is enabled.";
+                                } else {
+                                    $accLinkResponse = $stripe->accountLinks->create([
+                                        'account' => $stripe_connect_id,
+                                        'refresh_url' => route('web.dashboard'),
+                                        'return_url' => route('web.bank.accountResponse', $accResponse->id),
+                                        'type' => 'account_onboarding',
+                                    ]);
+
+                                    if (!empty($accLinkResponse) && isset($accLinkResponse->url)) {
+                                        User::where('id', $UserDetail->id)->update(['stripe_account_status' => 1]);
+
+                                        $response['status'] = "success";
+                                        $response['message'] = "Please complete the account setup process.";
+                                        $response['action'] = $accLinkResponse->url;
+
+                                        return redirect($accLinkResponse->url);
+                                    } else {
+                                        $response['status'] = "error";
+                                        $response['message'] = "Something went wrong! Account verification URL not created or missing.";
+                                    }
+                                }
                             } else {
+                                $response['status'] = "error";
+                                $response['message'] = "Oops! Something went wrong!";
+                            }
+                        } else {
+                            $accountResponse = $stripe->accounts->create([
+                                'type' => 'express',
+                                'email' => $UserDetail->email,
+                                'capabilities' => [
+                                    'card_payments' => ['requested' => true],
+                                    'transfers' => ['requested' => true],
+                                ],
+                                'business_type' => 'individual',
+                                'individual' => [
+                                    'first_name' => $UserDetail->name,
+                                ],
+                                'business_profile' => [
+                                    'mcc' => '5816',
+                                    'url' => 'www.testurl.com',
+                                    'support_url' => 'www.testurl.com',
+                                ],
+                            ]);
+                            if (!empty($accountResponse) && isset($accountResponse->id)) {
+                                User::where('id', $UserDetail->id)->update(['stripe_connect_id' => $accountResponse->id]);
+
                                 $accLinkResponse = $stripe->accountLinks->create([
-                                    'account' => $stripe_connect_id,
+                                    'account' => $accountResponse->id,
                                     'refresh_url' => route('web.dashboard'),
-                                    'return_url' => route('web.bank.accountResponse', $accResponse->id),
+                                    'return_url' => route('web.bank.accountResponse', $accountResponse->id),
                                     'type' => 'account_onboarding',
                                 ]);
+
+
 
                                 if (!empty($accLinkResponse) && isset($accLinkResponse->url)) {
                                     User::where('id', $UserDetail->id)->update(['stripe_account_status' => 1]);
 
-                                    $response['status'] = "success";
+                                    $response['success'] = true;
                                     $response['message'] = "Please complete the account setup process.";
                                     $response['action'] = $accLinkResponse->url;
 
                                     return redirect($accLinkResponse->url);
                                 } else {
-                                    $response['status'] = "error";
-                                    $response['message'] = "Something went wrong! Account verification URL not created or missing.";
+                                    $response['success'] = false;
+                                    $response['message'] = "Something went wrong! Account not created.";
                                 }
-                            }
-                        } else {
-                            $response['status'] = "error";
-                            $response['message'] = "Oops! Something went wrong!";
-                        }
-                    } else {
-                        $accountResponse = $stripe->accounts->create([
-                            'type' => 'express',
-                            'email' => $UserDetail->email,
-                            'capabilities' => [
-                                'card_payments' => ['requested' => true],
-                                'transfers' => ['requested' => true],
-                            ],
-                            'business_type' => 'individual',
-                            'individual' => [
-                                'first_name' => $UserDetail->name,
-                            ],
-                            'business_profile' => [
-                                'mcc' => '5816',
-                                'url' => 'www.testurl.com',
-                                'support_url' => 'www.testurl.com',
-                            ],
-                        ]);
-                        if (!empty($accountResponse) && isset($accountResponse->id)) {
-                            User::where('id', $UserDetail->id)->update(['stripe_connect_id' => $accountResponse->id]);
-
-                            $accLinkResponse = $stripe->accountLinks->create([
-                                'account' => $accountResponse->id,
-                                'refresh_url' => route('web.dashboard'),
-                                'return_url' => route('web.bank.accountResponse', $accountResponse->id),
-                                'type' => 'account_onboarding',
-                            ]);
-
-
-
-                            if (!empty($accLinkResponse) && isset($accLinkResponse->url)) {
-                                User::where('id', $UserDetail->id)->update(['stripe_account_status' => 1]);
-
-                                $response['success'] = true;
-                                $response['message'] = "Please complete the account setup process.";
-                                $response['action'] = $accLinkResponse->url;
-
-                                return redirect($accLinkResponse->url);
                             } else {
                                 $response['success'] = false;
                                 $response['message'] = "Something went wrong! Account not created.";
                             }
-                        } else {
-                            $response['success'] = false;
-                            $response['message'] = "Something went wrong! Account not created.";
                         }
+                    }else{
+                        return redirect()->route('web.login');
                     }
                 } catch(\Stripe\Exception\CardException $e) {
                     $errMessage    =   $e->getMessage();
@@ -133,9 +136,6 @@ class BankController extends Controller
                     // Something else happened, completely unrelated to Stripe
                     $errMessage    =   $e->getMessage();
                 }
-            }else{
-                return redirect()->route('web.login');
-            }
     }
 
 

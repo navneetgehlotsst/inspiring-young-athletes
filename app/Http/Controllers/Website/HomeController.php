@@ -177,7 +177,6 @@ class HomeController extends Controller
     public function NewVideo(){
         $lastFiveDays = Carbon::now()->subDays(5);
         $VideoList = Video::whereDate('video.created_at', '>=', $lastFiveDays)->join('users', 'video.user_id', '=', 'users.id')->where('Video_status','1')->paginate(10);
-        
         $pagetitel = "New Video";
 
         return view('web.videolist',compact('VideoList','pagetitel'));

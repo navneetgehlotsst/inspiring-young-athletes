@@ -21,20 +21,31 @@
               </a>
             </div>
             <!-- /Logo -->
-            <h4 class="mb-2">Forgot Password? 🔒</h4>
-            <form id="formAuthentication" class="mb-3" action="{{ route('admin.forgotpassword.post') }}"  method="post">
+            <h4 class="mb-2">Reset Password?</h4>
+            <form id="formAuthentication" class="mb-3" action="{{ route('admin.submitResetPasswordForm') }}"  method="post">
               @csrf
+              <input type="hidden" name="token" value="{{ $token }}">
               <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
+                <label for="newpassword" class="form-label">New Password</label>
                 <input
-                  type="text"
+                  type="password"
                   class="form-control"
-                  id="email"
-                  name="email"
-                  placeholder="Enter your email"
+                  id="newpassword"
+                  name="newpassword"
+                  placeholder="Enter your New Password"
                   autofocus />
               </div>
-              <button class="btn btn-primary d-grid w-100">Send Reset Link</button>
+              <div class="mb-3">
+                <label for="conpassword" class="form-label">Confirm Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="conpassword"
+                  name="conpassword"
+                  placeholder="Enter your Confirm Password"
+                  autofocus />
+              </div>
+              <button class="btn btn-primary d-grid w-100">Save</button>
             </form>
             <div class="text-center">
               <a href="{{ route('admin.login') }}" class="d-flex align-items-center justify-content-center">

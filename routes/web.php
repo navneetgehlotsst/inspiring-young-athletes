@@ -167,6 +167,9 @@ Route::name('admin.')->prefix('admin')->controller(AuthController::class)->group
     Route::get('/login', 'Login')->name('login');
     Route::post('/loginpost', 'LoginPost')->name('loginpost');
     Route::get('/forgotpassword', 'forgotpassword')->name('forgotpassword');
+    Route::post('/forgotpasswordpost', 'forgotPasswordPost')->name('forgotpassword.post');
+    Route::get('reset-password/{token}', 'showResetPasswordForm')->name('reset.password.get');
+    Route::post('submitResetPasswordForm', 'submitResetPasswordForm')->name('submitResetPasswordForm');
 
     Route::group(['middleware'=>'auth'],function(){
         Route::get('logout','logout')->name('logout');

@@ -236,6 +236,7 @@ class HomeController extends Controller
                 $vidoecount = $getVideo->Video_veiw_count;
             }
             $userdetail = User::where('id',$getVideo->user_id)->withCount('videos')->first();
+            
             $VideoList = Video::where('user_id',$getVideo->user_id)->where('video_id','!=',$id)->where('video_status','1')->take(8)->get();
 
             $popularVideos = Video::where('Video_id','!=',$id)->where('user_id',$getVideo->user_id)->where('video_status','2')->orderBy('Video_veiw_count','DESC')->take(2)->get();

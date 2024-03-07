@@ -23,8 +23,8 @@
                             <div class="d-flex">
                                 <span class="video-icons bg-white">
                                     <div class="publisher-img">
-                                        @if( $userdetail->profile =="")
-                                            <img class="img-fluid publisher-img-width" src="{{asset('web/assets/images/new-img/dummyuser.png')}}" alt="">
+                                        @if($userdetail->profile == "")
+                                            <img class="img-fluid publisher-img-width" src="{{asset('web/assets/images/new-img/user.png')}}" alt="">
                                         @else
                                             <img class="img-fluid publisher-img-width" src="{{asset($userdetail->profile)}}" alt="">
                                         @endif
@@ -80,8 +80,7 @@
                     <h3>Popular Videos</h3>
                 </div>
                 <div class="single-feature row g-3">
-                    @if(!empty($popularVideos))
-
+                    @if(count($popularVideos) != 0)
                         @foreach($popularVideos as $video)
 
                             @php
@@ -116,6 +115,8 @@
                                 </div>
                             </div>
                         @endforeach
+                    @else
+                        <p class="fw-bold">No Popular Videos</p>
                     @endif
                 </div>
                 <!-- End Popular Videos -->

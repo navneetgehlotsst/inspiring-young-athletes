@@ -16,7 +16,7 @@
 
 
    $(".video-carousel").owlCarousel({
-      loop: true,
+      loop: false,
       margin: 30,
    //    autoplay:true,
    //  autoplayTimeout:2500,

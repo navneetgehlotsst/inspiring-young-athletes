@@ -9,7 +9,7 @@
             <h5 class="card-header">Update Profile</h5>
             <div class="card-body">
               <form action="{{ route('admin.profileupdate') }}" method="post">
-                @csrf
+                @csrf 
                 <div class="mb-3">
                   <label for="defaultFormControlInput" class="form-label">Name</label>
                   <input
@@ -33,7 +33,7 @@
                     aria-describedby="defaultFormControlHelp" required />
                 </div>
                 <div class="mb-3">
-                  <label for="defaultFormControlInput" class="form-label">Email</label>
+                  <label for="defaultFormControlInput" class="form-label">Phone</label>
                   <input
                     type="text"
                     class="form-control"

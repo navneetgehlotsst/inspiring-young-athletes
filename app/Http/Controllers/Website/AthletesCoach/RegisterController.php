@@ -78,7 +78,7 @@ class RegisterController extends Controller
             $referral_by = "0";
         }
         $Useremail = $request->email;
-        $code = rand(1000,9999); //rand(1000,9999);
+        $code = '1234'; //rand(1000,9999);
         $date = date('Y-m-d H:i:s');
         $currentDate = strtotime($date);
         $futureDate = $currentDate+(60*5);
@@ -185,7 +185,7 @@ class RegisterController extends Controller
         $user = Session::get('user');
         if(!empty($user)){
             $email = $user['email'];
-            $code = rand(1000,9999); //rand(1000,9999);
+            $code = '1234'; //rand(1000,9999);
             $date = date('Y-m-d H:i:s');
             $currentDate = strtotime($date);
             $futureDate = $currentDate+(60*5);
@@ -296,7 +296,7 @@ class RegisterController extends Controller
          User::whereId(auth()->user()->id)->update([
             "password" => Hash::make($request->new_password),
         ]);
-        return back()->with("success", "Your password has updated successfully.Please log in!");
+        return back()->with("success", "Your password has updated successfully!");
 
     }
 

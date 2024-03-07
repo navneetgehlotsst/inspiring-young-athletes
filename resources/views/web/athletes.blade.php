@@ -83,7 +83,7 @@
                             <img class="mb-2" width="200" src="{{asset('web/assets/images/new-img/empty_item.svg')}}" alt="">
                         </div>
                         <div class="publisher-details mt-2 ps-3">
-                            <h4>NO Video Found</h4>
+                            <h4>No Athletes Found</h4>
                         </div>
                     </div>
                 </div>

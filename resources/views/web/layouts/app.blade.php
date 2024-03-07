@@ -239,6 +239,99 @@
                 });
         }
 
+        function uploadIntroVideo(id) {
+            let formData = new FormData(document.getElementById('imageUploadForm'+id));
+            document.getElementById('formFileLg'+id).disabled = true;
+            axios.post('{{ route("web.athletes.coach.uploadVideo") }}', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+                onUploadProgress: function (progressEvent) {
+                    var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                    document.getElementById('progress-bar-containerintro').style.display = 'block';
+                    document.getElementById('progress-barintro').style.width = percentCompleted + '%';
+                    document.getElementById('progress-barintro').innerText = percentCompleted + '%';
+                    // document.getElementById('progress-text'+id).innerText = percentCompleted + '%';
+                },
+            })
+                .then(function (response) {
+                    console.error(response.data.success);
+                    if(response.data.success == true){
+                        document.getElementById('uploadStatusintro').innerHTML = response.data.message;
+                        $("#uploadStatusintro").addClass("Videosucces");
+                        $("#uploadStatusintro").removeClass("Videoerror");
+                        document.getElementById('showanswerecount').innerHTML = '';
+                        document.getElementById('showanswerecount').innerHTML += response.data.count;
+                        if(response.data.count == '0'){
+                            document.getElementById('compltedquestioncount').innerHTML = '';
+                           document.getElementById('compltedquestioncount').innerHTML += '0';
+                        }else if(response.data.count > 1){
+                            document.getElementById('compltedquestioncount').innerHTML = '';
+                            document.getElementById('compltedquestioncount').innerHTML += '8';
+                        }else{
+                            document.getElementById('compltedquestioncount').innerHTML = '';
+                            document.getElementById('compltedquestioncount').innerHTML += response.data.count;
+                        }
+                        $("#imageUploadFormintro").addClass("d-none");
+                        $("#removevideobuttonintro").removeClass("d-none");
+                        $("#ansGiven"+id).removeClass("d-none");
+                        document.getElementById('progress-bar-containerintro').style.display = 'none';
+                        if(response.data.count == 0){
+                            $("#enabledisable").addClass("disabled");
+                        }else if(response.data.count < 1){
+                            $("#enabledisable").addClass("disabled");
+                        }else{
+                            $("#enabledisable").removeClass("disabled");
+                            $("#enabledisable").addClass("enable");
+                        }
+                    }else{
+                        document.getElementById('uploadStatusintro').innerHTML = response.data.message;
+                        $("#uploadStatusintro").addClass("Videoerror");
+                        $("#uploadStatusintro").removeClass("Videosucces");
+                        if(response.data.count == '0'){
+                            document.getElementById('compltedquestioncount').innerHTML = '';
+                           document.getElementById('compltedquestioncount').innerHTML += '0';
+                        }else if(response.data.count > 1){
+                            document.getElementById('compltedquestioncount').innerHTML = '';
+                            document.getElementById('compltedquestioncount').innerHTML += '8';
+                        }else{
+                            document.getElementById('compltedquestioncount').innerHTML = '';
+                            document.getElementById('compltedquestioncount').innerHTML += response.data.count;
+                        }
+                        document.getElementById('compltedquestioncount').innerHTML = '';
+                        document.getElementById('compltedquestioncount').innerHTML += response.data.count ;
+                        document.getElementById('progress-bar-container'+ id).style.display = 'none';
+                        if(error.response.data.count == 0){
+                            $("#enabledisable").addClass("disabled");
+                        }else if(error.response.data.count < 1){
+                            $("#enabledisable").addClass("disabled");
+                        }else{
+                            $("#enabledisable").removeClass("disabled");
+                            $("#enabledisable").addClass("enable");
+                        }
+                    }
+                })
+                .catch(function (error) {
+                    console.error(error.response);
+                    document.getElementById('uploadStatusintro').innerHTML = error.response.data.message;
+                    $("#uploadStatusintro").addClass("Videoerror");
+                    $("#uploadStatusintro").removeClass("Videosucces");
+                    document.getElementById('showanswerecount').innerHTML = '';
+                    document.getElementById('showanswerecount').innerHTML += error.response.data.count ;
+                    document.getElementById('compltedquestioncount').innerHTML = '';
+                    document.getElementById('compltedquestioncount').innerHTML += error.response.data.count ;
+                    document.getElementById('progress-bar-containerintro').style.display = 'none';
+                    if(error.response.data.count == 0){
+                        $("#enabledisable").addClass("disabled");
+                    }else if(error.response.data.count < 1){
+                        $("#enabledisable").addClass("disabled");
+                    }else{
+                        $("#enabledisable").removeClass("disabled");
+                        $("#enabledisable").addClass("enable");
+                    }
+                });
+        }
+
         function removevideo(id) {
             $.ajax({
                 url: '{{ route("web.athletes.coach.removeVideo") }}',

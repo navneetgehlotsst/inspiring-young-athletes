@@ -42,7 +42,7 @@
                                 <div class="mb-4">
                                     <input type="hidden" name="questiontype" value="QA">
                                     <input type="hidden" name="questionid" value="0">
-                                    <input class="choose-btn-iyg" name="video" id="formFileLgintro" accept="video/mp4,video/x-m4v,video/*" type="file" onchange="uploadImage('intro')" />
+                                    <input class="choose-btn-iyg" name="video" id="formFileLgintro" accept="video/mp4,video/x-m4v,video/*" type="file" onchange="uploadIntroVideo('intro')" />
                                 </div>
                             </form>
                             <button type="button" id="removevideobuttonintro" class="btn btn-danger d-none" onclick="removevideo('intro')">Remove</button>

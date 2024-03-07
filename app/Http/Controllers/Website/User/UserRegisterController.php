@@ -42,7 +42,7 @@ class UserRegisterController extends Controller
         // $id = User::insertGetId($datauser);
 
         $Useremail = $request->email;
-        $code = rand(1000,9999); //rand(1000,9999);
+        $code = '1234'; //rand(1000,9999);
         $date = date('Y-m-d H:i:s');
         $currentDate = strtotime($date);
         $futureDate = $currentDate+(60*5);
@@ -113,7 +113,7 @@ class UserRegisterController extends Controller
     public function reSendOtp(Request $request){
         $user = Session::get('user');
         $email = $user['email'];
-        $code = rand(1000,9999); //rand(1000,9999);
+        $code = '1234'; //rand(1000,9999);
         $date = date('Y-m-d H:i:s');
         $currentDate = strtotime($date);
         $futureDate = $currentDate+(60*5);

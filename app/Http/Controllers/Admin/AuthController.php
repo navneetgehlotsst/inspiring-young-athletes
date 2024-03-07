@@ -72,14 +72,36 @@ class AuthController extends Controller
     
     // Edit Profile Page
     public function editProfile(){
-        $user = Auth::user();
         if (Auth::check()) {
+            $user = Auth::user();
             return view('admin.profile', compact('user'));
         }else {
             return redirect()->route('admin.login');
         }   
     }
 
+    public function profileupdate(Request $request){
+        $input = $request->all();
+        $UserDetail = Auth::user();
+        $userID = $UserDetail->id;
+
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+        ]);
+
+
+        $updateUserData = [
+            'name' => $input['name'],
+            'email' => $input['email'],
+            'phone' => $input['phone'],
+        ];
+        
+        User::where('id', $userID)->update($updateUserData);
+
+        return redirect()->back()->with('success', 'Profile Update Successfully.');
+    }
 
     // Dashboard
     public function dashboard()

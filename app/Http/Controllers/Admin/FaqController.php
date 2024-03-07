@@ -38,18 +38,18 @@ class FaqController extends Controller
             $faq = Faq::find($id);
             return view('admin.faq.edit', compact('faq'));
         }catch(Exception $e){
-            return redirect()->route('admin.faq.index')->with('error', $e->getMessage());
+            return redirect()->route('admin.faq.list')->with('error', $e->getMessage());
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         try{    
-            $faq = Faq::find($id);
+            $faq = Faq::find($request->faqid);
             $faq->update($request->all());
-            return redirect()->route('admin.faq.index')->with('success', 'FAQ updated successfully');
+            return redirect()->route('admin.faq.list')->with('success', 'FAQ updated successfully');
         }catch(Exception $e){
-            return redirect()->route('admin.faq.index')->with('error', $e->getMessage());
+            return redirect()->route('admin.faq.list')->with('error', $e->getMessage());
         }
     }
 

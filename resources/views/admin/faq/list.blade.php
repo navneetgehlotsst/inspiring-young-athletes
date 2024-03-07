@@ -26,9 +26,10 @@
                                 @foreach ($faqs as $faq)
                                     <tr>
                                         <td scope="col">{{$faq->question}}</td>
-                                        <td scope="col">{{$faq->answer}}</td>
+                                        <td scope="col">{{ Illuminate\Support\Str::limit($faq->answer, $limit = 50, $end = '...') }}</td>
                                         <td>
                                             <button class="btn btn-danger deleteUser" data-id="{{ $faq->id }}" data-url="{{ route('admin.faq.destroy') }}">Delete</button>
+                                            <a class="btn btn-warning" href="{{ route('admin.faq.edit', $faq->id ) }}">Edit</a>
                                         </td>
                                     </tr>
                                 @endforeach

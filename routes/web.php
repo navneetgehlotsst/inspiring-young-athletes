@@ -172,6 +172,7 @@ Route::name('admin.')->prefix('admin')->controller(AuthController::class)->group
         Route::get('logout','logout')->name('logout');
         Route::get('dashboard','dashboard')->name('dashboard');
         Route::get('profile','editProfile')->name('profile');
+        Route::post('/profileupdate', 'profileupdate')->name('profileupdate');
     });
 });
 
@@ -210,6 +211,8 @@ Route::group(['middleware' => 'auth'], function ()
         Route::get('list', 'list')->name('list');
         Route::get('create', 'create')->name('create');
         Route::post('store', 'store')->name('store');
+        Route::get('edit/{id}', 'edit')->name('edit');
+        Route::post('/update', 'update')->name('update');
         Route::post('destroy', 'destroy')->name('destroy');
     });
 });

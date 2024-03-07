@@ -5,7 +5,7 @@
     <h4 class="py-3 mb-4"><span class="text-muted fw-light">User /</span> Detail</h4>
     <div class="row">
         <div class="col-xl-12">
-          <h6 class="text-muted">User Detail</h6>
+          <h6 class="text-muted">Viewers Details</h6>
           <div class="nav-align-top mb-4">
             <ul class="nav nav-tabs" role="tablist">
               <li class="nav-item">
@@ -17,7 +17,7 @@
                   data-bs-target="#navs-top-detail"
                   aria-controls="navs-top-detail"
                   aria-selected="true">
-                  User Detail
+                  Viewers Detail
                 </button>
               </li>
               <li class="nav-item">
@@ -54,6 +54,7 @@
               <div class="tab-pane fade" id="navs-top-subcription" role="tabpanel">
                 <h5>User Subcription</h5>
                 <div class="row">
+                  @if (!empty($formattedStartDate))
                     <div class="col-md-6">
                         <label for="defaultFormControlInput" class="form-label">Start Date</label>
                         <input type="text" class="form-control" id="defaultFormControlInput" placeholder="{{$formattedStartDate}}" value="{{$formattedStartDate}}" aria-describedby="defaultFormControlHelp" readonly/>
@@ -62,6 +63,11 @@
                         <label for="defaultFormControlInput" class="form-label">End Date</label>
                         <input type="text" class="form-control" id="defaultFormControlInput" placeholder="{{$enddate}}" value="{{$enddate}}" aria-describedby="defaultFormControlHelp" readonly/>
                     </div>
+                  @else
+                    <div class="col-md-12">
+                        <p>Not purchased yet</p>
+                    </div>
+                  @endif
                 </div>
               </div>
             </div>

@@ -218,7 +218,7 @@
                         </div>
                         <h4 class="ms-1 mb-0">{{$athletesCount}}</h4>
                      </div>
-                     <p class="mb-1">Athelitics</p>
+                     <p class="mb-1">Athletes</p>
                   </div>
                  </div>                               
                  <div class="col-6">

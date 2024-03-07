@@ -31,7 +31,7 @@
                <td style="padding: 30px 30px 30px 30px;">
                   <h2 style="font-size: 28px; margin:0 0 20px 0; font-family:poppins;"> Email verification</h2>
                   <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:poppins">Hey <b>{{$email}},</b></p>
-                  <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:poppins">Wowwee! Thanks for registering an account With Inspiring Young Athletes!</b></p>
+                  <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:poppins">Wow! Thanks for registering an account With Inspiring Young Athletes!</b></p>
                   <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:poppins">Before we get started, we'll need to verify your email.</b></p>
                   <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:poppins">Your email verification 4 digits code is</p>
                   <p style="border: 1px solid #ccc; padding: 10px; border-radius: 5px; width: 80px; font-family:poppins; text-align: center;"><b style="color: #1BADC4; font-size: 22px;">{{$code}}</b></p>

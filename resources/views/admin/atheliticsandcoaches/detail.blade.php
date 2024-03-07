@@ -10,7 +10,7 @@
   }
 </style>
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Atheletes And Coach /</span> Detail</h4>
+    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Athlete And Coach /</span> Detail</h4>
     <div class="row">
       <div class="col-12">
           <div class="card mb-4">
@@ -55,7 +55,7 @@
                 </li>
                 <li class="nav-item" role="presentation">
                   <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-top-question" aria-controls="navs-pills-top-question" aria-selected="false" tabindex="-1">
-                    Question And Answere
+                    Question And Answer
                   </button>
                 </li>
                 <li class="nav-item" role="presentation">
@@ -103,8 +103,8 @@
                           <tr class="text-nowrap">
                               <th>S. No.</th>
                               <th col="3">Questions</th>
-                              <th>View</th>
-                              <th>Answere</th>
+                              <th>Views</th>
+                              <th>Answer</th>
                               <th>Type</th>
                               <th>Status</th>
                               <th>Action</th>
@@ -171,7 +171,8 @@
                     </table>
                 </div>
                 <div class="tab-pane fade" id="navs-pills-top-video" role="tabpanel">
-                  <table id="userDataTable" class="table datatables-users border-top" style="width: 100%">
+                  @if (count($videolists) != 0)
+                    <table id="userDataTable" class="table datatables-users border-top" style="width: 100%">
                       <thead>
                         <tr class="text-nowrap">
                             <th>S. No.</th>
@@ -233,7 +234,10 @@
                               </tr>
                           @endforeach
                       </tbody>
-                  </table>
+                    </table>
+                  @else
+                      <p>No video added yet</p>
+                  @endif
                 </div>
                 <div class="tab-pane fade" id="navs-pills-income" role="tabpanel">
                   <div class="btn btn-outline-primary mb-2">
@@ -245,7 +249,7 @@
                         <tr class="text-nowrap">
                             <th class="incometableth">S. No.</th>
                             <th class="incometableth">Video Revenue</th>
-                            <th class="incometableth">Reffral And Earn</th>
+                            <th class="incometableth">Referral And Earn</th>
                             <th class="incometableth">Month</th>
                             <th class="incometableth">Year</th>
                         </tr>

@@ -174,7 +174,7 @@ $(document).ready( function () {
                 if (response.success == false) {
                     Swal.fire("User Have not Given answere for this question", "", "info");
                 } else {
-                    Swal.fire("Record Status Change Succesfully", "", "success");
+                    Swal.fire("Status Change Succesfully", "", "success");
                     $('#changeStatus').modal('hide');
                     $("#changestatus-" + id).addClass("bg-label-success");
                     $("#changestatus-" + id).removeClass("bg-label-warning");
@@ -221,7 +221,7 @@ $(document).ready( function () {
                 if (response.success == false) {
                     Swal.fire("User Have not Given answere for this question", "", "info");
                 } else {
-                    Swal.fire("Record Status Change Succesfully", "", "success");
+                    Swal.fire("Status Change Succesfully", "", "success");
                     $("#changestatus-" + id).addClass("bg-label-danger");
                     $("#changestatus-" + id).removeClass("bg-label-success");
                     $("#changestatus-" + id).text("Rejected");

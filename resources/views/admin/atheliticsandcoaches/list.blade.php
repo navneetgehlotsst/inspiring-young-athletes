@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <h5 class="card-header">Atheletes / Coaches List</h5>
+                <h5 class="card-header">Athlete / Coaches List</h5>
                 <div class="card-body">
                     <div class="table-responsive text-nowrap">
                         <table id="userDataTable" class="table datatables-users border-top">

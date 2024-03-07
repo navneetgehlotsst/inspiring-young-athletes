@@ -3,6 +3,9 @@ $(document).ready( function () {
     // User Data Table
     $('#userDataTable').DataTable();
 
+    // News Letters Table
+    $('#newsDataTable').DataTable();
+
     //user Income
     $('#userIncomeDataTable').DataTable();
 

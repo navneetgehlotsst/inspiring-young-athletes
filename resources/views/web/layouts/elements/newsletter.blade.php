@@ -9,8 +9,11 @@
                 </div>
                 <div class="col-md-6 m-auto">
                     <div class="subscribe-section">
-                        <input type="email" placeholder="Enter your email">
-                        <button class="px-2 px-lg-5">Subscribe</button>
+                        <form action="{{ route('web.newsletter.create') }}" method="post">
+                            @csrf
+                            <input type="email" name="email" placeholder="Enter your email">
+                            <button type="submit" class="px-2 px-lg-5">Subscribe</button>
+                        </form>
                     </div>
                 </div>
             </div>

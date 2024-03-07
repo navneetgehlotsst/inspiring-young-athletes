@@ -2,25 +2,23 @@
 @section('content')
 
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Ask Questions </span></h4>
+    <h4 class="py-3 mb-4"><span class="text-muted fw-light">News Letter </span></h4>
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <h5 class="card-header">Ask Questions</h5>
+                <h5 class="card-header">News Letter</h5>
                 <div class="card-body">
                     <div class="table-responsive text-nowrap">
-                        <table id="userDataTable" class="table datatables-users border-top">
+                        <table id="newsDataTable" class="table datatables-users border-top">
                             <thead>
                             <tr class="text-nowrap">
-                                <th>Title</th>
-                                <th>Description</th>
+                                <th>Email</th>
                             </tr>
                             </thead>
                             <tbody class="table-border-bottom-0">
-                                @foreach ($asks as $ask)
+                                @foreach ($newsletters as $newsletter)
                                     <tr>
-                                        <td>{{$ask->full_name}}</td>
-                                        <td>{{$ask->email}}</td>
+                                        <td>{{$newsletter->email}}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

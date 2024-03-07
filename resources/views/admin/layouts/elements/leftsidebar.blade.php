@@ -32,6 +32,13 @@
     </li>
 
     <li class="menu-item">
+        <a href="{{ route('admin.pages.newsletter.list') }}" class="menu-link">
+            <i class='bx bx-user'></i>
+            <div data-i18n="Email">News Letters</div>
+        </a>
+    </li>
+
+    <li class="menu-item">
         <a href="{{ route('admin.faq.list') }}" class="menu-link">
             <i class='bx bx-user'></i>
             <div data-i18n="Email">FAQ</div>

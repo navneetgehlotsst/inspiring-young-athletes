@@ -27,7 +27,8 @@ use App\Models\{
     Subscriptions,
     Transaction,
     AskQuestion,
-    Faq
+    Faq,
+    NewsLetter
 };
 use App\Mail\ForgotPasswordMail;
 use Laravel\Cashier\Cashier;
@@ -448,6 +449,25 @@ class HomeController extends Controller
                 'description' => $request->askquestion
             ]);
             return back()->with('success','Ask Question message');
+        } catch (\Throwable $th) {
+            return back()->with('error',$th->getMessage());
+        }
+        
+    }
+
+
+    public function newsletter(Request $request)
+    {   
+        try {
+            $newsletters = NewsLetter::where('email',$request->email)->first();
+            if($newsletters != ""){
+                return back()->with('error','You Have already Subscribed');
+            }else{
+                NewsLetter::insert([
+                    'email' => $request->email,
+                ]);
+                return back()->with('success','Thank you for Subscription');
+            }
         } catch (\Throwable $th) {
             return back()->with('error',$th->getMessage());
         }

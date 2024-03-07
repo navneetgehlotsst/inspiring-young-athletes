@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{asset('admin/assets/vendor/css/pages/page-auth.css')}}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.0/css/dataTables.dataTables.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.0/css/buttons.dataTables.css">
     <script src="{{asset('admin/assets/vendor/libs/jquery/jquery.js')}}"></script>
     <script src="{{asset('admin/assets/vendor/js/helpers.js')}}"></script>
     <script src="{{asset('admin/assets/js/config.js')}}"></script>

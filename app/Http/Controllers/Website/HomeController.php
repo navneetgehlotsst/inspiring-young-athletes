@@ -28,7 +28,8 @@ use App\Models\{
     Transaction,
     AskQuestion,
     Faq,
-    NewsLetter
+    NewsLetter,
+    ContactUs
 };
 use App\Mail\ForgotPasswordMail;
 use Laravel\Cashier\Cashier;
@@ -218,7 +219,7 @@ class HomeController extends Controller
             }
             if($userId != $getVideo->user_id ){
                 if($userRole == 'Athletes' || $userRole == 'Coach' ){
-                    return Redirect::back()->withError("You have log in with Athleat/Coach so you can't see the video");
+                    return Redirect::back()->withError("You have log in with Athleat/Coach so you cannot see the video");
                 }
                 $checkvideoHistory = VideoHistory::where('video_id',$id)->where('user_id',$userId)->first();
                 if(empty($checkvideoHistory)){
@@ -468,6 +469,24 @@ class HomeController extends Controller
                 ]);
                 return back()->with('success','Thank you for Subscription');
             }
+        } catch (\Throwable $th) {
+            return back()->with('error',$th->getMessage());
+        }
+        
+    }
+
+
+    public function contactSave(Request $request)
+    {   
+        try {
+            ContactUs::insert([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'number' => $request->number,
+                    'organisation' => $request->organisation,
+                    'message' => $request->message
+                ]);
+                return back()->with('success','Message Send succesfully. We will rivert back soon');
         } catch (\Throwable $th) {
             return back()->with('error',$th->getMessage());
         }

@@ -44,5 +44,13 @@
             <div data-i18n="Email">FAQ</div>
         </a>
     </li>
+
+
+    <li class="menu-item">
+        <a href="{{ route('admin.pages.contactus.list') }}" class="menu-link">
+            <i class='bx bx-user'></i>
+            <div data-i18n="Email">Contact Us</div>
+        </a>
+    </li>
     
 </ul>

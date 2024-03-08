@@ -14,8 +14,9 @@ class ContactUs extends Model
 
     protected $fillable = [
         'name',
-        'duration',
-        'plan',
-        'price'
+        'email',
+        'number',
+        'organisation',
+        'message'
     ];
 }

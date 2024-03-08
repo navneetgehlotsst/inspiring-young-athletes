@@ -78,6 +78,7 @@ Route::name('web.')->controller(HomeController::class)->group(function () {
     Route::post('subscription', 'subscription')->name('subscription.create');
     Route::post('ask-question', 'askquestion')->name('askquestion.create');
     Route::post('news-letter', 'newsletter')->name('newsletter.create');
+    Route::post('contactus-save', 'contactSave')->name('contactus.create');
 });
 
 Route::name('web.athletes.coach.')->prefix('athletes-coach')->controller(RegisterController::class)->group(function () {
@@ -209,6 +210,7 @@ Route::group(['middleware' => 'auth'], function ()
     Route::name('admin.pages.')->prefix('pages/')->controller(PagesController::class)->group(function () {
         Route::get('ask-question-list', 'askquestionlist')->name('ask.question.list');
         Route::get('newsletter-list', 'newsletterlist')->name('newsletter.list');
+        Route::get('contact-list', 'contactus')->name('contactus.list');
     });
 
 

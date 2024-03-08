@@ -17,7 +17,8 @@ use Illuminate\Support\Facades\{
 
 use App\Models\{
     AskQuestion,
-    NewsLetter
+    NewsLetter,
+    ContactUs
 };
 
 class PagesController extends Controller
@@ -30,8 +31,8 @@ class PagesController extends Controller
 
 
     // FAQ Listing
-    public function newsletterlist(){
-        $newsletters = NewsLetter::get();
-        return view('admin.pages.newsletter', compact('newsletters'));
+    public function contactus(){
+        $contacts = ContactUs::get();
+        return view('admin.pages.contactus', compact('contacts'));
     }
 }

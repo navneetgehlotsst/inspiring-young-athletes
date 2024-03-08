@@ -1,6 +1,28 @@
 @extends('web.layouts.app') 
 @section('content')
-
+@if(session('success'))
+    <script>
+        $(document).ready(function() {
+          toastr.options = {
+            'closeButton': true,
+            'debug': false,
+            'newestOnTop': false,
+            'progressBar': false,
+            'positionClass': 'toast-top-right',
+            'preventDuplicates': false,
+            'showDuration': '1000',
+            'hideDuration': '1000',
+            'timeOut': '5000',
+            'extendedTimeOut': '1000',
+            'showEasing': 'swing',
+            'hideEasing': 'linear',
+            'showMethod': 'fadeIn',
+            'hideMethod': 'fadeOut',
+          }
+        });
+        toastr.success('{{ session('success') }}');
+    </script>
+@endif
 <section class="watch-video-free py-3">
     <div class="top-section text-center publisher-section pt-5 pb-5">
         <h2 class="text-white">Contact Us</h2>
@@ -20,22 +42,23 @@
                             <a href="tel:+610452327021"> +61 0452327021</a>
                         </div>
                     </div>
-                    <form>
+                    <form action="{{ route('web.contactus.create') }}" method="post">
+                        @csrf
                         <div class="row">
                             <div class="col-lg-6">
-                                <input type="name" class="form-control py-3 mb-4" placeholder="Your Name" />
+                                <input type="text" class="form-control py-3 mb-4" name="name" placeholder="Your Name" required/>
                             </div>
                             <div class="col-lg-6">
-                                <input type="email" class="form-control py-3 mb-4" placeholder="Enter your email" />
+                                <input type="email" class="form-control py-3 mb-4" name="email" placeholder="Enter your email" required/>
                             </div>
                             <div class="col-lg-6">
-                                <input type="number" class="form-control py-3 mb-4" placeholder="Your number" />
+                                <input type="text" class="form-control py-3 mb-4" name="number" placeholder="Your number" required/>
                             </div>
                             <div class="col-lg-6">
-                                <input type="text" class="form-control py-3 mb-4" placeholder="Your organisation" />
+                                <input type="text" class="form-control py-3 mb-4" name="organisation" placeholder="Your organisation" required/>
                             </div>
                         </div>
-                        <textarea class="form-control py-3 mb-4" placeholder="Your Comments or enquriy"></textarea>
+                        <textarea class="form-control py-3 mb-4" placeholder="Your Comments or enquriy" name="message" required></textarea>
                         <div class="row my-4">
                             <div class="col-md-8">
                                 <div class="form-check form-switch ps-0">
@@ -44,7 +67,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="login-user.html" class="btn btn-primary py-3 w-100 fw-bold login-btn">Submit</a>
+                        <button type="submit" class="btn btn-primary py-3 w-100 fw-bold login-btn">Submit</button>
                     </form>
                 </div>
             </div>

@@ -201,7 +201,7 @@ class AuthController extends Controller
                 foreach (User::where('user_status', '1')->where('roles','!=', 'Admin')->get() as $user) {
                     if ($user->roles === "User") {
                         $userCount++;
-                    } elseif ($user->roles === "Athletes") {
+                    } elseif ($user->roles === "Athlete") {
                         $athletesCount++;
                     } else {
                         $coachesCount++;

@@ -77,7 +77,7 @@ class HomeController extends Controller
         // Fetch categories
         $getcategory = Category::where('category_status', '1')->get();
 
-        $athleticCoaches = User::where('roles', 'Athletes')
+        $athleticCoaches = User::where('roles', 'Athlete')
         ->withCount('videos');
     
         if (!empty($search)) {
@@ -89,6 +89,7 @@ class HomeController extends Controller
         }
         
         $athleticCoaches = $athleticCoaches->paginate(10);
+
         
         $videoCount = $athleticCoaches->total();
     
@@ -125,7 +126,8 @@ class HomeController extends Controller
 
     public function fridayFrenzy(){
         $VideoList = UserAnswere::where('question_id','45')->join('video', 'user_queston.answere_video', '=', 'video.video_id')->join('users', 'video.user_id', '=', 'users.id')->paginate(10);
-        return view('web.videolist',compact('VideoList'));
+        $pagetitel = "Game Day perp";
+        return view('web.videolist',compact('VideoList','pagetitel'));
     }
 
     public function Question(){
@@ -385,21 +387,26 @@ class HomeController extends Controller
     }
 
     public function joinNow(){
-        if (Auth::check()){
-            $UserDetail = Auth::user();
-            $userID = $UserDetail->id;
-            if($UserDetail->roles == "User"){
-                $planGet = Plan::where('status','1')->first();
-                $PlanId = $planGet->id;
-                $intent = $UserDetail->createSetupIntent();
-                $inttentId = $intent->client_secret;
-                return view('web.subscription',compact('PlanId','inttentId'));
+        try {
+            if (Auth::check()){
+                $UserDetail = Auth::user();
+                $userID = $UserDetail->id;
+                if($UserDetail->roles == "User"){
+                    $planGet = Plan::where('status','1')->first();
+                    $PlanId = $planGet->id;
+                    $intent = $UserDetail->createSetupIntent();
+                    $inttentId = $intent->client_secret;
+                    return view('web.subscription',compact('PlanId','inttentId'));
+                }else{
+                    return redirect()->back()->with('error', 'Athletics And Coach Cant buy this subscription');
+                }
             }else{
-                return redirect()->back()->with('error', 'Athletics And Coach Cant buy this subscription');
+                return redirect()->route('web.login');
             }
-        }else{
-            return redirect()->route('web.login');
+        } catch (\Throwable $th) {
+            return back()->with('error',$th->getMessage());
         }
+        
     }
 
     public function subscription(Request $request)

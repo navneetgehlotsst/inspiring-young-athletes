@@ -44,8 +44,8 @@
             </div>
         </div>
         <div class="row g-3">
-            @if ($videoCount != '0')
-            @foreach ( $athleticCoaches as $athleticCoachprofile )
+            @if (count($athleticCoaches) != 0)
+            @foreach($athleticCoaches as $athleticCoachprofile)
             @php
                 $datetime = $athleticCoachprofile->created_at;
                 $dateTimestring = new DateTime($datetime);

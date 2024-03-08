@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css">
 
     {{-- LOAD script --}}
+    <script src="{{asset('web/assets/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('web/assets/js/jquery-3.3.1.min.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -134,7 +135,6 @@
     <!-- Load JS -->
     <script src="{{asset('web/assets/js/popper.min.js')}}"></script>
     <script src="{{asset('web/assets/js/jquery.easing.min.js')}}"></script>
-    <script src="{{asset('web/assets/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('web/assets/js/pgwslideshow.min.js')}}"></script>
     <script src="{{asset('web/assets/js/pgwslider.min.js')}}"></script>
     <script src="{{asset('web/assets/js/owl.carousel.min.js')}}"></script>

@@ -145,7 +145,7 @@
                                                 <th class="align-middle" scope="row">{{$i++}}.</th>
                                                 <td class="align-middle">{{$questionList->question}}</td>
                                                 <td class="text-center align-middle play-video-box-tab">
-                                                  <a href="#" class="fw-bold w-100" data-bs-toggle="modal" data-bs-target="#exampleModal"> 
+                                                  <a href="#" class="showvideo fw-bold w-100" data-question ="{{$questionList->question_id}}" data-url='{{ route("web.athletes.coach.show.video") }}'> 
                                                       @if(in_array($questionList->question_id, $userAns))  
                                                         <img src="{{asset('web/assets/images/new-img/favicon.svg')}}" alt="Play Icon" width="20"> 
                                                         Play Video
@@ -205,7 +205,7 @@
                                                 <th class="align-middle" scope="row">{{$i++}}.</th>
                                                 <td class="align-middle">{{$questionList->question}}</td>
                                                 <td class="text-center align-middle play-video-box-tab">
-                                                  <a href="#" class="fw-bold w-100" data-bs-toggle="modal" data-bs-target="#exampleModal"> 
+                                                  <a href="#" class="showvideo fw-bold w-100" data-question ="{{$questionList->question_id}}" data-url='{{ route("web.athletes.coach.show.video") }}'> 
                                                       @if(in_array($questionList->question_id, $userAns))  
                                                         <img src="{{asset('web/assets/images/new-img/favicon.svg')}}" alt="Play Icon" width="20"> 
                                                         Play Video
@@ -265,7 +265,7 @@
                                                 <th class="align-middle" scope="row">{{$i++}}.</th>
                                                 <td class="align-middle">{{$questionList->question}}</td>
                                                 <td class="text-center align-middle play-video-box-tab">
-                                                  <a href="#" class="fw-bold w-100" data-bs-toggle="modal" data-bs-target="#exampleModal"> 
+                                                  <a href="#" class="showvideo fw-bold w-100" data-question ="{{$questionList->question_id}}" data-url='{{ route("web.athletes.coach.show.video") }}'> 
                                                       @if(in_array($questionList->question_id, $userAns))  
                                                         <img src="{{asset('web/assets/images/new-img/favicon.svg')}}" alt="Play Icon" width="20"> 
                                                         Play Video
@@ -395,7 +395,7 @@
                                               <th class="align-middle" scope="row">{{$i++}}.</th>
                                               <td class="align-middle">{{$questionList->question}}</td>
                                               <td class="text-center align-middle play-video-box-tab">
-                                                <a href="#" class="fw-bold w-100" data-bs-toggle="modal" data-bs-target="#exampleModal"> 
+                                                <a href="#" class="showvideo fw-bold w-100" data-question ="{{$questionList->question_id}}" data-url='{{ route("web.athletes.coach.show.video") }}'> 
                                                     @if(in_array($questionList->question_id, $userAns))  
                                                       <img src="{{asset('web/assets/images/new-img/favicon.svg')}}" alt="Play Icon" width="20"> 
                                                       Play Video

@@ -62,7 +62,7 @@
                         <div class="row my-4">
                             <div class="col-md-8">
                                 <div class="form-check form-switch ps-0">
-                                    <input type="checkbox" />
+                                    <input type="checkbox" required/>
                                     <label class="form-check-label" for="flexSwitchCheckChecked">I have read the Privacy Statement</label>
                                 </div>
                             </div>

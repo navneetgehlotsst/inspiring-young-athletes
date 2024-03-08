@@ -38,7 +38,7 @@ class QuestionController extends Controller
             $checkIntro = UserAnswere::where('user_id',$userID)->where('question_id','0')->count();
             $userAnswerCount = UserAnswere::where('user_id',$userID)->where('question_id','!=','0')->count();
             if($checkIntro == 0){
-                return redirect()->back()->with('error', 'Intro Video is required');
+                return redirect()->route('web.athletes.coach.verificationSuccess')->with('error', 'Intro Video is required');
             }
             $userAnwereGet = UserAnswere::where('user_id',$userID)->pluck('question_id');
             $userAns = [];

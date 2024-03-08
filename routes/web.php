@@ -173,7 +173,7 @@ Route::name('admin.')->prefix('admin')->controller(AuthController::class)->group
     Route::get('reset-password/{token}', 'showResetPasswordForm')->name('reset.password.get');
     Route::post('submitResetPasswordForm', 'submitResetPasswordForm')->name('submitResetPasswordForm');
 
-    Route::group(['middleware'=>'auth'],function(){
+    Route::group(['middleware'=>'admin'],function(){
         Route::get('logout','logout')->name('logout');
         Route::get('dashboard','dashboard')->name('dashboard');
         Route::get('profile','editProfile')->name('profile');
@@ -183,7 +183,7 @@ Route::name('admin.')->prefix('admin')->controller(AuthController::class)->group
 
 // Admin User
 
-Route::group(['middleware' => 'auth'], function ()
+Route::group(['middleware' => 'admin'], function ()
 {
     Route::name('admin.user.')->prefix('user/')->controller(UserController::class)->group(function () {
         Route::get('list', 'list')->name('list');

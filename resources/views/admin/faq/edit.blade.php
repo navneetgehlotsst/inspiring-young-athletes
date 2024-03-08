@@ -13,11 +13,11 @@
                         <input type="hidden" name="faqid" value="{{$faq->id}}">
                         <div class="form-group mb-2">
                             <label for="">Question</label>
-                            <input type="text" class="form-control" name="question" value="{{$faq->question}}" placeholder="Question">
+                            <input type="text" class="form-control" name="question" value="{{$faq->question}}" placeholder="Question" required>
                         </div>
                         <div class="form-group mb-2">
                             <label for="">Answer</label>
-                            <textarea class="form-control" name="answer" id="" cols="30" rows="10">{{$faq->answer}}</textarea>
+                            <textarea class="form-control" name="answer" id="" cols="30" rows="10" required>{{$faq->answer}}</textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">save</button>
                     </form>

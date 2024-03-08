@@ -16,9 +16,15 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(!Auth::guard('admin')->check()){
-            return redirect('admin/login');
+        if(Auth::user()) {
+            $user = Auth::user();
+            if($user->roles == "Admin") {
+                return $next($request);
+            }else{
+                return back()->with("error","Oops, insufficient access. Please contact administration for assistance.");
+            }
+        }else{
+            return redirect()->route('admin.login');
         }
-        return $next($request);
     }
 }

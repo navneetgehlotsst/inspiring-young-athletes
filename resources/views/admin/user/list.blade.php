@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="py-3 mb-4"><span class="text-muted fw-light">User /</span> List</h4>
+    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Viewers /</span> List</h4>
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -27,7 +27,7 @@
                                         <td>{{$user->name}}</td>
                                         <td>{{$user->email}}</td>
                                         <td>{{$user->phone}}</td>
-                                        <td>{{$user->roles}}</td>
+                                        <td>Viewerw</td>
                                         <td>
                                             @if($user->user_status == '1' )
                                                 <p class="btn btn-success mb-0">Active</p>
@@ -44,7 +44,7 @@
                                         </td>
                                         <td>
                                             <button class="btn btn-danger deleteUser" data-id="{{ $user->id }}" data-url="{{ route('admin.user.delete') }}">Delete</button>
-                                            <a href="{{ route('admin.user.detail', $user->id ) }}" class="btn btn-info" id="userdetail">User Detail</a>
+                                            <a href="{{ route('admin.user.detail', $user->id ) }}" class="btn btn-info" id="userdetail">Viewer Detail</a>
                                         </td>
                                     </tr>
                                 @endforeach

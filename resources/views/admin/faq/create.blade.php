@@ -12,11 +12,11 @@
                         @csrf
                         <div class="form-group mb-2">
                             <label for="">Question</label>
-                            <input type="text" class="form-control" name="question" placeholder="Question">
+                            <input type="text" class="form-control" name="question" placeholder="Question" required>
                         </div>
                         <div class="form-group mb-2">
                             <label for="">Answer</label>
-                            <textarea class="form-control" name="answer" id="" cols="30" rows="10"></textarea>
+                            <textarea class="form-control" name="answer" id="" cols="30" rows="10" required></textarea>
                         </div>
                         <button type="submit" class="btn btn-success">save</button>
                     </form>

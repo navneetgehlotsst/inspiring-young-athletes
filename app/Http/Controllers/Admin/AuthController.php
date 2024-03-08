@@ -74,7 +74,7 @@ class AuthController extends Controller
         $validatedData = $request->validate([
             'email' => 'required|email',
         ]);
-        $userCheck = User::where('email',$request->email)->first();
+        $userCheck = User::where('email',$request->email)->where('roles','Admin')->first();
         if(empty($userCheck)){
             return redirect()->back()->with('error', 'Invalid email..!');
         }else{

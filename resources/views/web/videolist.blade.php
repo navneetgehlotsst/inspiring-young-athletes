@@ -191,15 +191,22 @@
                     <div class="col-lg-4">
                         <div class="card single-video p-3">
                             <div class="video-img">
-                                @auth
+                                @if($Video->video_type == '2')
                                     <a href="{{ route('web.video',$Video->video_id) }}">
                                         <img class="lazy" alt="Video" src="{{asset($Video->thumbnails)}}" style="" />
                                     </a>
                                 @else
-                                    <a href="{{ route('web.login') }}" >
-                                        <img class="lazy" alt="Video" src="{{asset($Video->thumbnails)}}" style="" />
-                                    </a>
-                                @endauth
+                                    @auth
+                                        <a href="{{ route('web.video',$Video->video_id) }}">
+                                            <img class="lazy" alt="Video" src="{{asset($Video->thumbnails)}}" style="" />
+                                        </a>
+                                    @else
+                                        <a href="{{ route('web.login') }}" >
+                                            <img class="lazy" alt="Video" src="{{asset($Video->thumbnails)}}" style="" />
+                                        </a>
+                                    @endauth
+                                @endif
+                               
                                 {{-- <span class="video-duration">5.28</span> --}}
                             </div>
                             <div class="video-content">

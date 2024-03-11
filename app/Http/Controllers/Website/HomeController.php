@@ -204,8 +204,8 @@ class HomeController extends Controller
 
     // Video
     public function Video($id){
-        if (Auth::check()){
-            $getVideo = Video::where('Video_id',$id)->first();
+        $getVideo = Video::where('Video_id',$id)->first();
+        if (Auth::check() && $getVideo->video_type == '2'){
             $user = Auth::user();
             $userId = $user->id;
             $userRole = $user->roles;
@@ -249,7 +249,17 @@ class HomeController extends Controller
 
             return view('web.publisher-play-video',compact('getVideo','userdetail','VideoList','vidoecount', 'popularVideos','trendingVideo'));
         }else{
-            return Redirect::route('web.login')->withError('Please login to view videos.');
+            $userdetail = User::where('id',$getVideo->user_id)->withCount('videos')->first();
+
+            $vidoecount = $getVideo->Video_veiw_count;
+
+            $VideoList = Video::where('user_id',$getVideo->user_id)->where('video_id','!=',$id)->where('video_status','1')->take(8)->get();
+
+            $popularVideos = Video::where('Video_id','!=',$id)->where('user_id',$getVideo->user_id)->where('video_status','2')->orderBy('Video_veiw_count','DESC')->take(2)->get();
+            
+            $trendingVideo = User::with('TopVideoList')->get();
+
+            return view('web.publisher-play-video',compact('getVideo','vidoecount','userdetail','popularVideos','trendingVideo'));
         }
     }
     // Login
@@ -284,6 +294,11 @@ class HomeController extends Controller
                         $user->save();
                     }
                     if($user->roles == 'User'){
+                        $getSubcrption = Subscriptions::where('user_id',$user->id)->first();
+                        $currentDate = date('Y-m-d');
+                        if(empty($getSubcrption)){
+                            return redirect()->route('web.athletes.coach.MySubcription')->withError('Subscription Required To View Video');
+                        }
                         if(!empty($url)){
                             $url = Session::get('url');
                             session()->forget('url');

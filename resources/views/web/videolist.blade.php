@@ -203,11 +203,15 @@
                                 {{-- <span class="video-duration">5.28</span> --}}
                             </div>
                             <div class="video-content">
-                                @auth
+                                @if($Video->video_type == '2')
                                     <h4><a class="video-title" href="{{ route('web.video',$Video->video_id) }}">{{$Video->video_title}}</a></h4>
                                 @else
-                                    <h4><a class="video-title" href="{{ route('web.login') }}">{{$Video->video_title}}</a></h4>
-                                @endauth
+                                    @auth
+                                        <h4><a class="video-title" href="{{ route('web.video',$Video->video_id) }}">{{$Video->video_title}}</a></h4>
+                                    @else
+                                        <h4><a class="video-title" href="{{ route('web.login') }}">{{$Video->video_title}}</a></h4>
+                                    @endauth
+                                @endif
                                 <div class="d-flex justify-content-between">
                                     <p class="fw-bold">{{$uplaoddate}}</p>
                                     @if (!empty($Video->name))

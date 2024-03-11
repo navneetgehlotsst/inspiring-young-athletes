@@ -174,7 +174,7 @@
                                             }
                                         @endphp
                                         <div class="video-feedback py-1">
-                                            @if($Video->Video_type == 2)
+                                            @if($Video->video_type == 2)
                                                 <span class="free-video-tag">Free</span>
                                             @else
                                                 <span class="paid-video-tag">Paid</span>

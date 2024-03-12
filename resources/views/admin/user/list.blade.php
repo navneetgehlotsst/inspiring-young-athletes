@@ -27,7 +27,7 @@
                                         <td>{{$user->name}}</td>
                                         <td>{{$user->email}}</td>
                                         <td>{{$user->phone}}</td>
-                                        <td>Viewerw</td>
+                                        <td>Viewer</td>
                                         <td>
                                             @if($user->user_status == '1' )
                                                 <p class="btn btn-success mb-0">Active</p>

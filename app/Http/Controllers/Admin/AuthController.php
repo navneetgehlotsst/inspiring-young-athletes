@@ -116,13 +116,13 @@ class AuthController extends Controller
             //throw $th;
             dd($th);
         }
-        
+
     }
 
     public function submitResetPasswordForm(Request $request)
     {
         $request->validate(['newpassword' => 'required']);
-        
+
         $updatePassword = DB::table('password_reset_tokens')->where(['token' => $request->token])->first();
 
         if(!$updatePassword)
@@ -142,7 +142,7 @@ class AuthController extends Controller
             ->with('success', 'Your password has updated successfully.Please log in!');
     }
 
-    
+
     // Edit Profile Page
     public function editProfile(){
         if (Auth::check()) {
@@ -150,7 +150,7 @@ class AuthController extends Controller
             return view('admin.profile', compact('user'));
         }else {
             return redirect()->route('admin.login');
-        }   
+        }
     }
 
     public function profileupdate(Request $request){
@@ -170,7 +170,7 @@ class AuthController extends Controller
             'email' => $input['email'],
             'phone' => $input['phone'],
         ];
-        
+
         User::where('id', $userID)->update($updateUserData);
 
         return redirect()->back()->with('success', 'Profile Update Successfully.');
@@ -187,15 +187,15 @@ class AuthController extends Controller
                 $previousMonth = date('m', strtotime('-1 month'));
                 $currentYear = date('Y');
                 $previousYear = date('Y', strtotime('-1 month'));
-    
+
                 // 1. Get total user count directly from the database
                 $totalUsersCount = User::where('user_status', '1')->where('roles','!=', 'Admin')->count();
-    
+
                 // Initialize counters
                 $userCount = 0;
                 $coachesCount = 0;
                 $athletesCount = 0;
-    
+
                 // Assuming the roles are consistent and well-defined
                 // 2. Loop through user roles to count each type
                 foreach (User::where('user_status', '1')->where('roles','!=', 'Admin')->get() as $user) {
@@ -207,17 +207,17 @@ class AuthController extends Controller
                         $coachesCount++;
                     }
                 }
-    
+
                 // 3. Optimize calculation by using a single query
                 $subscriptionAmount = Transaction::where('transaction_type', 'subscription')
                     ->whereMonth('created_at', $currentMonth)
                     ->whereMonth('created_at', $currentMonth)
                     ->sum('amount');
-    
+
                 $totalAthleteIncome = $subscriptionAmount * env('ATHLETES_COACH');
-    
+
                 $referralRevenue = UserIncome::where('month', $namecurrentMonth)->sum('referralrevenue');
-    
+
                 // 4. Perform necessary calculations
                 $adminIncome = $subscriptionAmount - $totalAthleteIncome - $referralRevenue;
 
@@ -230,11 +230,11 @@ class AuthController extends Controller
                 $pendingCount = 0;
                 $paidCount = 0;
                 $freeCount = 0;
-    
+
                 // Assuming the roles are consistent and well-defined
                 // 6. Loop through Video to count each type
                 $video = Video::get();
-                
+
                 foreach (Video::get() as $video) {
                     if ($video->video_status === "0") {
                         $pendingCount++;
@@ -255,7 +255,7 @@ class AuthController extends Controller
 
 
                 // 7. user Count graph
-                $userCounts = User::select(DB::raw('MONTHNAME(created_at) as month, roles, COUNT(*) as count'))
+                $userCounts = User::select(DB::raw('MONTH(created_at) as month, roles, COUNT(*) as count'))
                 ->where('roles', '!=', 'Admin')
                 ->groupBy('month', 'roles')
                 ->orderBy('month', 'desc')
@@ -263,9 +263,13 @@ class AuthController extends Controller
                 ->get();
 
                 $userDataCount = [];
-                $month_names = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+                // $month_names = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
-                foreach ($month_names as $month) {
+                // foreach ($month_names as $month) {
+                //     $userDataCount[$month] = ['month' => $month, 'Athletes' => 0, 'Coach' => 0, 'User' => 0];
+                // }
+
+                for ($month = 0; $month < 12; $month++) {
                     $userDataCount[$month] = ['month' => $month, 'Athletes' => 0, 'Coach' => 0, 'User' => 0];
                 }
 
@@ -356,7 +360,7 @@ class AuthController extends Controller
                 return view('admin.dashboard', compact('userCount','athletesCount','coachesCount','totalUsersCount','subscriptionAmount','totalAthleteIncome','referralRevenue','adminIncome','totalVideoCount','pendingCount','approvedCount','rejectedCount','paidCount','freeCount','userDataCount','month','Athletes','Coach','User','videomonth','Active','InActive','Pending','videoviewmonth','viewcount'));
             }else {
                 return redirect()->route('admin.login');
-            }    
+            }
         } catch (\Throwable $th) {
             //throw $th;
             dd($th);

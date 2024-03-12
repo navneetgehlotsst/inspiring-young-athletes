@@ -43,9 +43,9 @@
                             </div>
                         </div>
                         @php
-                            if (Auth::check()){ 
-                            $watch = Helper::userview($getVideo->video_id,Auth::user()->id); 
-                                
+                            if (Auth::check()){
+                            $watch = Helper::userview($getVideo->video_id,Auth::user()->id);
+
                             }
                         @endphp
                         <div class="video-post-counter text-end">
@@ -53,7 +53,7 @@
                                 @if(!empty($watch))
                                     <span class="watched-video-tag mr-2"><i class="fas fa-check-circle"></i> Watched</span>
                                 @else
-                                    
+
                                 @endif
                                 <p class="h5"><span class="fa fa-eye view-icon"></span>{{$getVideo->video_veiw_count}} views</p>
                             </div>
@@ -87,9 +87,9 @@
                                 $uplaoddate = date_format($video->created_at,"d/m/Y")
                             @endphp
                             @php
-                                if (Auth::check()){ 
-                                $watch = Helper::userview($video->video_id,Auth::user()->id); 
-                                    
+                                if (Auth::check()){
+                                $watch = Helper::userview($video->video_id,Auth::user()->id);
+
                                 }
                             @endphp
                             <div class="slider-part-two col-md-12">
@@ -110,7 +110,7 @@
                                     @if(!empty($watch))
                                         <span class="free-video-tag">Watched</span>
                                     @else
-                                        
+
                                     @endif
                                 </div>
                             </div>
@@ -136,59 +136,75 @@
                     <h3>Trending Videos</h3>
                 </div>
                 <div class="video-carousel owl-carousel">
-                    @foreach ($trendingVideo as $userdataVideo)
+                    @if(!empty($trendingVideo))
+                        @foreach ($trendingVideo as $userdataVideo)
 
-                        @foreach ($userdataVideo->TopVideoList as $Video )
-                        @php
-                            $uplaoddate = date_format($Video->created_at,"d/m/Y")
-                        @endphp
-                        <div class="single-video">
-                            <div class="video-img">
-                                @auth
-                                    <a href="{{ route('web.video',$Video['video_id']) }}">
-                                        <img class="lazy" alt="Video" src="{{asset($Video['thumbnails'])}}" style="" />
-                                    </a>
-                                @else
-                                    <a href="{{ route('web.login') }}" >
-                                        <img class="lazy" alt="Video" src="{{asset($Video['thumbnails'])}}" style="" />
-                                    </a>
-                                @endauth
-                                {{-- <span class="video-duration">5.28</span> --}}
-                            </div>
-                            <div class="video-content">
-                                    @auth
-                                        <h4><a class="video-title" href="{{ route('web.video',$Video['video_id']) }}">{{$Video['video_title']}}</a></h4>
-                                    @else
-                                        <h4><a class="video-title" href="{{ route('web.login') }}">{{$Video['video_title']}}</a></h4>
-                                    @endauth
-                                    <h4><a class="video-title">{{$uplaoddate}}</a></h4>
-                                    <div class="video-counter">
-                                        <div class="video-viewers">
-                                            <span class="fa fa-eye view-icon"></span>
-                                            <span>{{$Video['video_veiw_count']}}</span>
-                                        </div>
-                                        @php
-                                            if (Auth::check()){ 
-                                            $watch = Helper::userview($Video->video_id,Auth::user()->id); 
-                                                
-                                            }
-                                        @endphp
-                                        <div class="video-feedback py-1">
-                                            @if($Video->video_type == 2)
-                                                <span class="free-video-tag">Free</span>
+                            @foreach ($userdataVideo->TopVideoList as $Video )
+                                @php
+                                    $uplaoddate = date_format($Video->created_at,"d/m/Y")
+                                @endphp
+                                <div class="single-video">
+                                    <div class="video-img">
+                                        @if($Video->video_type == 2)
+
+                                            <a href="{{ route('web.video',$Video->video_id) }}">
+                                                <img class="lazy" alt="Video" src="{{asset($Video->thumbnails)}}" style="" />
+                                            </a>
+                                        @else
+                                            @auth
+                                                <a href="{{ route('web.video',$Video->video_id) }}">
+                                                    <img class="lazy" alt="Video" src="{{asset($Video->thumbnails)}}" style="" />
+                                                </a>
                                             @else
-                                                <span class="paid-video-tag">Paid</span>
-                                            @endif
-                                            @if(!empty($watch))
-                                                <span class="free-video-tag">Watched</span>
-                                            @else
-                                            @endif
-                                        </div>
+                                                <a href="{{ route('web.login') }}" >
+                                                    <img class="lazy" alt="Video" src="{{asset($Video->thumbnails)}}" style="" />
+                                                </a>
+                                            @endauth
+                                        @endif
+                                        {{-- <span class="video-duration">5.28</span> --}}
                                     </div>
-                            </div>
-                        </div>
+                                    <div class="video-content">
+                                            @if($Video->video_type == 2)
+                                                <h4><a class="video-title" href="{{ route('web.video',$Video->video_id) }}">{{$Video->video_title}}</a></h4>
+                                            @else
+                                                @auth
+                                                    <h4><a class="video-title" href="{{ route('web.video',$Video->video_id) }}">{{$Video->video_title}}</a></h4>
+                                                @else
+                                                    <h4><a class="video-title" href="{{ route('web.login') }}">{{$Video->video_title}}</a></h4>
+                                                @endauth
+                                            @endif
+                                            <h4><a class="video-title">{{$uplaoddate}}</a></h4>
+                                            <div class="video-counter">
+                                                <div class="video-viewers">
+                                                    <span class="fa fa-eye view-icon"></span>
+                                                    <span>{{$Video['video_veiw_count']}}</span>
+                                                </div>
+                                                @php
+                                                    if (Auth::check()){
+                                                    $watch = Helper::userview($Video->video_id,Auth::user()->id);
+
+                                                    }
+                                                @endphp
+                                                <div class="video-feedback py-1">
+                                                    @if($Video->video_type == 2)
+                                                        <span class="free-video-tag">Free</span>
+                                                    @else
+                                                        <span class="paid-video-tag">Paid</span>
+                                                    @endif
+                                                    @if(!empty($watch))
+                                                        <span class="free-video-tag">Watched</span>
+                                                    @else
+                                                    @endif
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                            @endforeach
                         @endforeach
-                    @endforeach
+                    @else
+                            <h3>No Video Found</h3>
+                    @endif
+
                 </div>
             </div>
         </div>

@@ -45,6 +45,9 @@ class AtheliticsAndCoachesController extends Controller
     // User Detail
     public function ViewDetail($id){
         $users = User::where('id',$id)->first();
+        if(empty($users)){
+            return redirect()->route('admin.athelitics.list')->with('error', 'invalid Request');
+        }
         $userscat = Category::where('category_id',$users->category)->first();
         $usersintro = UserAnswere::where('user_id',$id)->where('question_id','0')->with('IntroVideo')->first();
         $usersAnsweres = UserAnswere::where('user_id',$id)->where('question_id','!=','0')->with('IntroVideo')->get();

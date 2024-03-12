@@ -19,7 +19,7 @@
               </div>
               <div class="user-profile-header d-flex flex-column flex-sm-row text-sm-start text-center mb-4">
                   <div class="flex-shrink-0 mt-n2 mx-sm-0 mx-auto">
-                      
+
                         @if(empty($users->profile))
                           <img src="{{asset('admin/assets/img/avatars/user.png')}}" alt="user image" class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" />
                         @else
@@ -42,7 +42,7 @@
           </div>
       </div>
     </div>
-  
+
     <div class="row">
         <div class="col-xl-12">
           <div class="nav-align-top mb-4">
@@ -98,7 +98,7 @@
                   </div>
                 </div>
                 <div class="tab-pane fade" id="navs-pills-top-question" role="tabpanel">
-                    <table id="userDataTable" class="table datatables-users border-top" style="width: 100%">
+                    <table id="questionDataTable" class="table datatables-users border-top" style="width: 100%">
                         <thead>
                           <tr class="text-nowrap">
                               <th>S. No.</th>
@@ -163,7 +163,7 @@
                                               <button type="button" class="btn btn-outline-danger reject ms-2" id="rejected-{{$usersvideo['video_id']}}" data-videoid ="{{$usersvideo['video_id']}}" data-url='{{ route("admin.athelitics.changestatus") }}'>Rejected</button>
                                           @endif
                                         @endif
-                                      </div>                                    
+                                      </div>
                                     </td>
                                 </tr>
                             @endforeach
@@ -172,7 +172,7 @@
                 </div>
                 <div class="tab-pane fade" id="navs-pills-top-video" role="tabpanel">
                   @if (count($videolists) != 0)
-                    <table id="userDataTable" class="table datatables-users border-top" style="width: 100%">
+                    <table id="videoDataTable" class="table datatables-users border-top" style="width: 100%">
                       <thead>
                         <tr class="text-nowrap">
                             <th>S. No.</th>
@@ -229,7 +229,7 @@
                                             <button type="button" class="btn btn-outline-success aproved d-none" id="approved-{{$videolist->video_id}}" data-videoid ="{{$videolist->video_id}}" data-url='{{ route("admin.athelitics.show.video") }}'>Approved</button>
                                             <button type="button" class="btn btn-outline-danger reject ms-2" id="rejected-{{$videolist->video_id}}" data-videoid ="{{$videolist->video_id}}" data-url='{{ route("admin.athelitics.rejectstatus") }}'>Rejected</button>
                                         @endif
-                                    </div>                                    
+                                    </div>
                                   </td>
                               </tr>
                           @endforeach
@@ -313,7 +313,7 @@
                     <option value="1">Paid</option>
                     <option value="2">Free</option>
                 </select>
-            </div>    
+            </div>
           </div>
           <div class="modal-footer">
               <button class="btn btn-primary SaveChanges" data-url='{{ route("admin.athelitics.aprrovedstatus") }}' data-bs-dismiss="modal">
@@ -336,7 +336,7 @@
               <div class="mt-2 mb-3">
                 <label for="comment" class="form-label">Comment</label>
                 <textarea name="comment" id="comment" class="form-control" cols="30"></textarea>
-            </div>    
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
@@ -351,4 +351,3 @@
 </div>
 
 @endsection
-    

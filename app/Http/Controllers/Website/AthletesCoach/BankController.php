@@ -15,7 +15,8 @@ use App\Models\{
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{
     Auth,
-    DB
+    DB,
+    Redirect
 };
 use Carbon\Carbon;
 use Laravel\Cashier\Cashier;
@@ -153,12 +154,12 @@ class BankController extends Controller
 					if($accResponse->payouts_enabled == 1){
 						/* update account status in babysitter */
 						User::where('stripe_connect_id',$accountId)->update(array('stripe_account_status'=> 3));
-						
+
 						$payoutMsg	=	"";
 					}else{
 						/* update account status in babysitter */
 						User::where('stripe_connect_id',$accountId)->update(array('stripe_account_status'=> 2));
-						
+
 						$payoutMsg	=	" Your account is in under review. Once it will approved your payout will settle automatically in your bank account.";
 					}
 					$message	=	"Payment process is completed successfully.".$payoutMsg;
@@ -190,11 +191,11 @@ class BankController extends Controller
 			// Something else happened, completely unrelated to Stripe
 			$errMessage    =   $e->getMessage();
 		}
-		
+
 		if(empty($errMessage)){
 			$errMessage = "Something went wrong!";
 		}
 
-		return Redirect::route('profileSettings')->with('error',$errMessage);
+		return Redirect::route('web.dashboard')->with('error',$errMessage);
     }
 }

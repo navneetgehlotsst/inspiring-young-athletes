@@ -7,7 +7,7 @@
     }
     div#social-links ul li {
         display: inline-block;
-    }          
+    }
     div#social-links ul li a {
         padding: 4px;
         margin: 1px;
@@ -162,7 +162,7 @@
                     </div>
                 </div>
             </div> --}}
-        </div>    
+        </div>
         @endif
     </div>
 </section>
@@ -182,7 +182,7 @@
             @endif
         </div>
         <div class="row mt-5">
-            
+
             @if($count != 0)
                 @foreach ($VideoList as $Video)
                 @php
@@ -197,16 +197,22 @@
                                     </a>
                                 @else
                                     @auth
-                                        <a href="{{ route('web.video',$Video->video_id) }}">
-                                            <img class="lazy" alt="Video" src="{{asset($Video->thumbnails)}}" style="" />
-                                        </a>
+                                        @if ($is_subcribed == 1)
+                                            <a href="{{ route('web.video',$Video->video_id) }}">
+                                                <img class="lazy" alt="Video" src="{{asset($Video->thumbnails)}}" style="" />
+                                            </a>
+                                        @else
+                                            <a href="{{ route('web.athletes.coach.MySubcription') }}">
+                                                <img class="lazy" alt="Video" src="{{asset($Video->thumbnails)}}" style="" />
+                                            </a>
+                                        @endif
                                     @else
                                         <a href="{{ route('web.login') }}" >
                                             <img class="lazy" alt="Video" src="{{asset($Video->thumbnails)}}" style="" />
                                         </a>
                                     @endauth
                                 @endif
-                               
+
                                 {{-- <span class="video-duration">5.28</span> --}}
                             </div>
                             <div class="video-content">
@@ -214,7 +220,11 @@
                                     <h4><a class="video-title" href="{{ route('web.video',$Video->video_id) }}">{{$Video->video_title}}</a></h4>
                                 @else
                                     @auth
-                                        <h4><a class="video-title" href="{{ route('web.video',$Video->video_id) }}">{{$Video->video_title}}</a></h4>
+                                        @if ($is_subcribed == 1)
+                                            <h4><a class="video-title" href="{{ route('web.video',$Video->video_id) }}">{{$Video->video_title}}</a></h4>
+                                        @else
+                                            <h4><a class="video-title" href="{{ route('web.athletes.coach.MySubcription') }}">{{$Video->video_title}}</a></h4>
+                                        @endif
                                     @else
                                         <h4><a class="video-title" href="{{ route('web.login') }}">{{$Video->video_title}}</a></h4>
                                     @endauth
@@ -228,22 +238,22 @@
                                 <div class="video-counter">
                                     <div class="video-viewers">
                                         @php
-                                            if (Auth::check()){ 
-                                            $watch = Helper::userview($Video->video_id,Auth::user()->id); 
-                                                
+                                            if (Auth::check()){
+                                            $watch = Helper::userview($Video->video_id,Auth::user()->id);
+
                                             }
                                         @endphp
                                         <span class="fa fa-eye view-icon"></span>
                                         <span>{{$Video->video_veiw_count}}</span>
                                     </div>
-                                    
+
                                     @if($Video->video_type == '2')
                                         <div class="video-feedback py-1">
                                             <span class="free-video-tag">Free</span>
                                             @if(!empty($watch))
                                                 <span class="watched-video-tag"><i class="fas fa-check-circle"></i> Watched</span>
                                             @else
-                                                
+
                                             @endif
                                         </div>
                                     @else
@@ -252,7 +262,7 @@
                                             @if(!empty($watch))
                                                 <span class="watched-video-tag"><i class="fas fa-check-circle"></i> Watched</span>
                                             @else
-                                                
+
                                             @endif
                                         </div>
                                     @endif

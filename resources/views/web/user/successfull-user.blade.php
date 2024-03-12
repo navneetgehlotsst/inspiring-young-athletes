@@ -13,7 +13,7 @@
                                <p class="fw-bold pt-3 mb-2">Your Email Address has been successfully verified</p>
                     </div>
                     <form>
-                        <a href="{{ route('web.index') }}" class="btn btn-primary py-3 w-100 fw-bold login-btn">Back To home</a>
+                        <a href="{{ route('web.athletes.coach.MySubcription') }}" class="btn btn-primary py-3 w-100 fw-bold login-btn">Continue</a>
                     </form>
                 </div>
             </div>

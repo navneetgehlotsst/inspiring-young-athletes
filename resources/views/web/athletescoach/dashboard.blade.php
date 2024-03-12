@@ -1,4 +1,4 @@
-@extends('web.layouts.app') 
+@extends('web.layouts.app')
 @section('content')
 @if(session('success'))
     <script>
@@ -38,19 +38,19 @@
                     <div class="d-none d-sm-inline-block">
                         <ul class="pagination">
                             <li class="page-item @if(empty($by)) active @endif"><a href="{{ route('web.dashboard') }}" class="page-link">Month</a></li>
-                            <li class="page-item @if(!empty($by)) active @endif"><a href="{{ route('web.dashboard', ['by' => 'year']) }}" class="page-link">Year</a></li>                                
+                            <li class="page-item @if(!empty($by)) active @endif"><a href="{{ route('web.dashboard', ['by' => 'year']) }}" class="page-link">Year</a></li>
                         </ul>
                     </div>
-                            
+
                 </div>
                 <div class="row">
                     <div class="col-xl-12 col-md-12 mb-4">
-                        @if($user->stripe_account_status == '0')
+                        @if($user->stripe_account_status == '0' || $user->stripe_account_status == '1')
                         <div class="card border-danger mb-3" style="max-width: 100%;">
                             <div class="card-body text-dark">
                                 <p class="card-text">Please provide us your <a href="{{ route('web.bank.index') }}" class="text-danger fw-bold">payout details</a> so that we can pay you once you accrue earnings.</p>
                             </div>
-                        </div>        
+                        </div>
                         @elseif($user->stripe_account_status == '2')
                         <div class="card border-danger mb-3" style="max-width: 100%;">
                             <div class="card-body text-dark">
@@ -67,7 +67,7 @@
                                     </div>
                                 </div>
                             @endif
-                            
+
                         @else
                             {{-- <div class="card border-warning mb-3" style="max-width: 100%;">
                                 <div class="card-body text-dark">
@@ -142,7 +142,7 @@
                         </div>
                     </div>
 
-                    
+
                 </div>
                 <!-- Content Row -->
                 <div class="row">
@@ -202,7 +202,7 @@
 
         const xValues = {{ Js::from($date) }};
         const yValues = {{ Js::from($count) }};
-    
+
     new Chart("myChart", {
       type: "bar",
       data: {
@@ -221,7 +221,7 @@
         },
         // scales: {
         //     yAxes: [{ticks: {min: 0, max:200}}],
-            
+
         // }
 
         scales: {
@@ -233,14 +233,13 @@
             yAxes: [{
                 gridLines: {
                     display:false
-                }   
+                }
             }]
         }
-        
+
       }
     });
 </script>
-@endsection 
+@endsection
 @section('script')
 @endsection
-    

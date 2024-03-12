@@ -164,24 +164,34 @@
                                                 <img class="lazy" alt="Video" src="{{asset($Video->thumbnails)}}" style="" />
                                             </a>
                                         @else
-                                            @auth
+                                        @auth
+                                            @if ($is_subcribed == 1)
                                                 <a href="{{ route('web.video',$Video->video_id) }}">
                                                     <img class="lazy" alt="Video" src="{{asset($Video->thumbnails)}}" style="" />
                                                 </a>
                                             @else
-                                                <a href="{{ route('web.login') }}" >
+                                                <a href="{{ route('web.athletes.coach.MySubcription') }}">
                                                     <img class="lazy" alt="Video" src="{{asset($Video->thumbnails)}}" style="" />
                                                 </a>
-                                            @endauth
+                                            @endif
+                                        @else
+                                            <a href="{{ route('web.login') }}" >
+                                                <img class="lazy" alt="Video" src="{{asset($Video->thumbnails)}}" style="" />
+                                            </a>
+                                        @endauth
                                         @endif
                                         {{-- <span class="video-duration">5.28</span> --}}
                                     </div>
                                     <div class="video-content">
-                                            @if($Video->video_type == 2)
+                                            @if($Video->video_type == '2')
                                                 <h4><a class="video-title" href="{{ route('web.video',$Video->video_id) }}">{{$Video->video_title}}</a></h4>
                                             @else
                                                 @auth
-                                                    <h4><a class="video-title" href="{{ route('web.video',$Video->video_id) }}">{{$Video->video_title}}</a></h4>
+                                                    @if ($is_subcribed == 1)
+                                                        <h4><a class="video-title" href="{{ route('web.video',$Video->video_id) }}">{{$Video->video_title}}</a></h4>
+                                                    @else
+                                                        <h4><a class="video-title" href="{{ route('web.athletes.coach.MySubcription') }}">{{$Video->video_title}}</a></h4>
+                                                    @endif
                                                 @else
                                                     <h4><a class="video-title" href="{{ route('web.login') }}">{{$Video->video_title}}</a></h4>
                                                 @endauth

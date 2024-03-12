@@ -74,19 +74,19 @@ class UserRegisterController extends Controller
     }
 
     public function verifyOtp(Request $request){
-            $user = Session::get('user');
-            $email = $user['email'];
+            $userdata = Session::get('user');
+            $email = $userdata['email'];
             $otp = $request->otp1.$request->otp2.$request->otp3.$request->otp4;
             $date = date('Y-m-d H:i:s');
             $currentTime = strtotime($date);
-            if($user['otp'] == $otp){
-                if($currentTime < $user['futureDate']){
+            if($userdata['otp'] == $otp){
+                if($currentTime < $userdata['futureDate']){
 
                     $datauser = [
-                        'name' => $user['name'],
-                        'email' => $user['email'],
-                        'password' => $user['password'],
-                        'phone' => $user['phone'],
+                        'name' => $userdata['name'],
+                        'email' => $userdata['email'],
+                        'password' => $userdata['password'],
+                        'phone' => $userdata['phone'],
                         'roles' => 'User',
                         'email_verified_at' => $date,
                     ];
@@ -97,8 +97,8 @@ class UserRegisterController extends Controller
                     $user->save();
                     session()->forget('user');
                     $credentials = [
-                        'email' => $user['email'],
-                        'password' => $user['temppassword'],
+                        'email' => $userdata['email'],
+                        'password' => $userdata['temppassword'],
                     ];
                     Auth::attempt($credentials);
                     return redirect()->route('web.user.verificationSuccess');
@@ -196,7 +196,7 @@ class UserRegisterController extends Controller
             'email' => $input['email'],
             'phone' => $input['phone'],
         ];
-        
+
         User::where('id', $userID)->update($updateUserData);
 
         return redirect()->back()->with('success', 'Profile Update Successfully.');

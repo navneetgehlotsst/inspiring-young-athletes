@@ -125,9 +125,23 @@ class HomeController extends Controller
 
 
     public function fridayFrenzy(){
-        $VideoList = UserAnswere::where('question_id','45')->join('video', 'user_queston.answere_video', '=', 'video.video_id')->join('users', 'video.user_id', '=', 'users.id')->paginate(10);
+        $VideoList = UserAnswere::where('question_id','45')->where('video.video_status','1')->join('video', 'user_queston.answere_video', '=', 'video.video_id')->join('users', 'video.user_id', '=', 'users.id')->paginate(10);
         $pagetitel = "Game Day perp";
-        return view('web.videolist',compact('VideoList','pagetitel'));
+        if (Auth::check()){
+            $UserDetail = Auth::user();
+            $userID = $UserDetail->id;
+            $checkSubscriptions = Subscriptions::where('user_id',$userID)->first();
+
+            if(!empty($checkSubscriptions)){
+                $is_subcribed = 1;
+            }else{
+                $is_subcribed = 0;
+            }
+        }else{
+            $checkSubscriptions = "";
+            $is_subcribed = 0;
+        }
+        return view('web.videolist',compact('VideoList','pagetitel','is_subcribed'));
     }
 
     public function Question(){
@@ -142,9 +156,23 @@ class HomeController extends Controller
 
 
     public function QuestionVideo($id){
-        $VideoList = UserAnswere::where('question_id',$id)->join('video', 'user_queston.answere_video', '=', 'video.video_id')->join('users', 'video.user_id', '=', 'users.id')->paginate(10);
+        $VideoList = UserAnswere::where('question_id',$id)->where('video.video_status','1')->join('video', 'user_queston.answere_video', '=', 'video.video_id')->join('users', 'video.user_id', '=', 'users.id')->paginate(10);
         $pagetitel = "Question Video";
-        return view('web.videolist',compact('VideoList','pagetitel'));
+        if (Auth::check()){
+            $UserDetail = Auth::user();
+            $userID = $UserDetail->id;
+            $checkSubscriptions = Subscriptions::where('user_id',$userID)->first();
+
+            if(!empty($checkSubscriptions)){
+                $is_subcribed = 1;
+            }else{
+                $is_subcribed = 0;
+            }
+        }else{
+            $checkSubscriptions = "";
+            $is_subcribed = 0;
+        }
+        return view('web.videolist',compact('VideoList','pagetitel','is_subcribed'));
     }
 
     // Video By Pubisher
@@ -166,24 +194,52 @@ class HomeController extends Controller
         $videoCount = $athleticCoaches->total();
         $trendingVideo = User::where('category', $categoryFirst->category_id)->with('TopVideoList')->get();
 
+
         return view('web.videopublisher',compact('getcategory','categoryFirst','athleticCoaches','search','categorys','videoCount','trendingVideo'));
     }
 
     // All Video List
     public function VideoPublisherAll(){
-        $VideoList = Video::where('Video_status','1')->where('video_type','2')->join('users', 'video.user_id', '=', 'users.id')->paginate(10);
+        $VideoList = Video::where('video_status','1')->where('video_type','2')->join('users', 'video.user_id', '=', 'users.id')->paginate(10);
         $pagetitel = "Free Video";
+        if (Auth::check()){
+            $UserDetail = Auth::user();
+            $userID = $UserDetail->id;
+            $checkSubscriptions = Subscriptions::where('user_id',$userID)->first();
 
-        return view('web.videolist',compact('VideoList','pagetitel'));
+            if(!empty($checkSubscriptions)){
+                $is_subcribed = 1;
+            }else{
+                $is_subcribed = 0;
+            }
+        }else{
+            $checkSubscriptions = "";
+            $is_subcribed = 0;
+        }
+        return view('web.videolist',compact('VideoList','pagetitel','is_subcribed'));
     }
 
     // All NewVideo
     public function NewVideo(){
         $lastFiveDays = Carbon::now()->subDays(5);
-        $VideoList = Video::whereDate('video.created_at', '>=', $lastFiveDays)->join('users', 'video.user_id', '=', 'users.id')->where('Video_status','1')->paginate(10);
+        $VideoList = Video::whereDate('video.created_at', '>=', $lastFiveDays)->join('users', 'video.user_id', '=', 'users.id')->where('video_status','1')->paginate(10);
         $pagetitel = "New Video";
+        if (Auth::check()){
+            $UserDetail = Auth::user();
+            $userID = $UserDetail->id;
+            $checkSubscriptions = Subscriptions::where('user_id',$userID)->first();
 
-        return view('web.videolist',compact('VideoList','pagetitel'));
+            if(!empty($checkSubscriptions)){
+                $is_subcribed = 1;
+            }else{
+                $is_subcribed = 0;
+            }
+        }else{
+            $checkSubscriptions = "";
+            $is_subcribed = 0;
+        }
+
+        return view('web.videolist',compact('VideoList','pagetitel','is_subcribed'));
     }
 
     // Video list
@@ -198,69 +254,89 @@ class HomeController extends Controller
         $userdetail = User::where('id',$id)->withCount('videos')->first();
         $categoryFirst = Category::where('category_id',$userdetail->category)->first();
         $VideoList = Video::where('user_id',$userdetail->id)->where('Video_status','1')->paginate(10);
+        if (Auth::check()){
+            $UserDetail = Auth::user();
+            $userID = $UserDetail->id;
+            $checkSubscriptions = Subscriptions::where('user_id',$userID)->first();
 
-        return view('web.videolist',compact('userdetail','categoryFirst','VideoList','shareComponent','url'));
+            if(!empty($checkSubscriptions)){
+                $is_subcribed = 1;
+            }else{
+                $is_subcribed = 0;
+            }
+        }else{
+            $checkSubscriptions = "";
+            $is_subcribed = 0;
+        }
+
+        return view('web.videolist',compact('userdetail','categoryFirst','VideoList','shareComponent','url','is_subcribed'));
     }
 
     // Video
     public function Video($id){
-        $getVideo = Video::where('Video_id',$id)->first();
-        if (Auth::check() && $getVideo->video_type == '2'){
-            $user = Auth::user();
-            $userId = $user->id;
-            $userRole = $user->roles;
-            if(empty($getVideo)){
-                return Redirect::back()->withError('Video not found!');
-            }
-            $getSubcrption = Subscriptions::where('user_id',$userId)->first();
-            $currentDate = date('Y-m-d');
-            if($getVideo->video_type == '1'){
-                if(empty($getSubcrption)){
+        $getVideo = Video::where('Video_id', $id)->first();
+
+        if (empty($getVideo)) {
+            return Redirect::back()->withError('Video not found!');
+        }
+
+        $isSubscriber = false;
+        $user = Auth::user();
+        $userId = $user ? $user->id : null;
+        $userRole = $user ? $user->roles : null;
+
+        if ($userId && $getVideo->video_type == '2') {
+            if ($getVideo->video_type == '1') {
+                $getSubscription = Subscriptions::where('user_id', $userId)->first();
+                if (empty($getSubscription)) {
                     return Redirect::back()->withError('Subscription Required to View Video');
                 }
             }
-            if($userId != $getVideo->user_id ){
-                if($userRole == 'Athletes' || $userRole == 'Coach' ){
-                    return Redirect::back()->withError("You have log in with Athleat/Coach so you cannot see the video");
-                }
-                $checkvideoHistory = VideoHistory::where('video_id',$id)->where('user_id',$userId)->first();
-                if(empty($checkvideoHistory)){
-                    $Viewvidiocount = Video::where('Video_id',$id)->increment('Video_veiw_count');
-                    $datavideoHistory= [
-                        'video_id' => $id,
-                        'user_id' => $userId,
-                    ];
-                    $id = VideoHistory::insertGetId($datavideoHistory);
-                }
+
+            if ($userId != $getVideo->user_id && ($userRole == 'Athletes' || $userRole == 'Coach')) {
+                return Redirect::back()->withError("You have logged in as Athlete/Coach and cannot view the video");
             }
 
-            if(!empty($Viewvidiocount)){
-                $vidoecount = $Viewvidiocount;
-            }else{
-                $vidoecount = $getVideo->Video_veiw_count;
+            $checkVideoHistory = VideoHistory::where('video_id', $id)->where('user_id', $userId)->first();
+            if (empty($checkVideoHistory)) {
+                $getVideo->increment('Video_veiw_count');
+                $videoHistoryData = [
+                    'video_id' => $id,
+                    'user_id' => $userId,
+                ];
+                VideoHistory::insert($videoHistoryData);
             }
-            $userdetail = User::where('id',$getVideo->user_id)->withCount('videos')->first();
 
-            $VideoList = Video::where('user_id',$getVideo->user_id)->where('video_id','!=',$id)->where('video_status','1')->take(8)->get();
-
-            $popularVideos = Video::where('Video_id','!=',$id)->where('user_id',$getVideo->user_id)->where('video_status','2')->orderBy('Video_veiw_count','DESC')->take(2)->get();
-
-            $trendingVideo = User::with('TopVideoList')->get();
-
-            return view('web.publisher-play-video',compact('getVideo','userdetail','VideoList','vidoecount', 'popularVideos','trendingVideo'));
-        }else{
-            $userdetail = User::where('id',$getVideo->user_id)->withCount('videos')->first();
-
-            $vidoecount = $getVideo->Video_veiw_count;
-
-            $VideoList = Video::where('user_id',$getVideo->user_id)->where('video_id','!=',$id)->where('video_status','1')->take(8)->get();
-
-            $popularVideos = Video::where('Video_id','!=',$id)->where('user_id',$getVideo->user_id)->where('video_status','2')->orderBy('Video_veiw_count','DESC')->take(2)->get();
-
-            $trendingVideo = User::with('TopVideoList')->get();
-
-            return view('web.publisher-play-video',compact('getVideo','vidoecount','userdetail','popularVideos','trendingVideo'));
+            $isSubscriber = true;
         }
+
+        $userDetail = User::where('id', $getVideo->user_id)->withCount('videos')->first();
+        $videoCount = $getVideo->Video_veiw_count;
+
+        $videoList = Video::where('user_id', $getVideo->user_id)
+            ->where('video_id', '!=', $id)
+            ->where('video_status', '1')
+            ->take(8)
+            ->get();
+
+        $popularVideos = Video::where('Video_id', '!=', $id)
+            ->where('user_id', $getVideo->user_id)
+            ->where('video_status', '2')
+            ->orderBy('Video_veiw_count', 'DESC')
+            ->take(2)
+            ->get();
+
+        $trendingVideos = User::with('TopVideoList')->get();
+
+        $isSubscribed = 0;
+        if (Auth::check()) {
+            $userId = Auth::id();
+            $checkSubscription = Subscriptions::where('user_id', $userId)->first();
+            $isSubscribed = $checkSubscription ? 1 : 0;
+        }
+
+        return view('web.publisher-play-video', compact('getVideo', 'userDetail', 'videoList', 'videoCount', 'popularVideos', 'trendingVideos', 'isSubscribed'));
+
     }
     // Login
     public function Login(Request $request){

@@ -16,7 +16,7 @@
                      width="300px">
             </tr>
             </td>
-         </table>        
+         </table>
         <!-- Header -->
          <table role="presentation" border="0" width="100%" cellspacing="0" style="margin-top: 20px;">
             <tr>
@@ -30,8 +30,8 @@
             <tr>
                <td style="padding: 30px 30px 30px 30px;">
                   <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:poppins">Hey <b>{{$email}},</b></p>
-                  <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:poppins">Video Titel :- {{$video_titel}}</p>
-                  <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:poppins">Your Video Is Rejected Please See Comment And Resolve reupload it</b></p>
+                  <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:poppins">Video Title :- {{$video_titel}}</p>
+                  <p style="margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:poppins">Your video is rejected.Please see the below commnets and reupload it.</b></p>
                 </td>
             </tr>
          </table>

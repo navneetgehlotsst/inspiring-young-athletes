@@ -41,6 +41,9 @@ class UserController extends Controller
     // User Detail
     public function ViewDetail($id){
         $users = User::where('id',$id)->first();
+        if(empty($users)){
+            return redirect()->route('admin.user.list')->with('error', 'invalid Request');
+        }
         $userSubscriptions = Subscriptions::where('user_id',$id)->first();
         if(!empty($usersubciption)){
             $startDate = $usersubciption->created_at; // Assuming usersubciption is a relationship

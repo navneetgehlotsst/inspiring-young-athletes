@@ -19,7 +19,7 @@
     <li class="menu-item">
         <a href="{{ route('admin.athelitics.list') }}" class="menu-link">
             <i class='bx bx-user'></i>
-            <div data-i18n="Email">Athletes & Coaches</div>
+            <div data-i18n="Email">Athlete & Coaches</div>
         </a>
     </li>
 
@@ -52,5 +52,5 @@
             <div data-i18n="Email">Contact Us</div>
         </a>
     </li>
-    
+
 </ul>

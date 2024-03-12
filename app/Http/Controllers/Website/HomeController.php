@@ -79,20 +79,20 @@ class HomeController extends Controller
 
         $athleticCoaches = User::where('roles', 'Athlete')
         ->withCount('videos');
-    
+
         if (!empty($search)) {
             $athleticCoaches->where('name', 'like', '%' . $search . '%');
         }
-        
+
         if (!empty($categorys)) {
             $athleticCoaches->where('category', $categorys);
         }
-        
+
         $athleticCoaches = $athleticCoaches->paginate(10);
 
-        
+
         $videoCount = $athleticCoaches->total();
-    
+
         return view('web.athletes',compact('athleticCoaches','getcategory','search','categorys','videoCount'));
     }
 
@@ -108,17 +108,17 @@ class HomeController extends Controller
 
         $athleticCoaches = User::where('roles', 'Coach')
         ->withCount('videos');
-    
+
         if (!empty($search)) {
             $athleticCoaches->where('name', 'like', '%' . $search . '%');
         }
-        
+
         if (!empty($categorys)) {
             $athleticCoaches->where('category', $categorys);
         }
-        
+
         $athleticCoaches = $athleticCoaches->paginate(10);
-        
+
         $videoCount = $athleticCoaches->total();
         return view('web.coach',compact('athleticCoaches','getcategory','search','categorys','videoCount'));
     }
@@ -165,7 +165,7 @@ class HomeController extends Controller
         $athleticCoaches = $athleticCoaches->paginate(10);
         $videoCount = $athleticCoaches->total();
         $trendingVideo = User::where('category', $categoryFirst->category_id)->with('TopVideoList')->get();
-        
+
         return view('web.videopublisher',compact('getcategory','categoryFirst','athleticCoaches','search','categorys','videoCount','trendingVideo'));
     }
 
@@ -214,7 +214,7 @@ class HomeController extends Controller
             }
             $getSubcrption = Subscriptions::where('user_id',$userId)->first();
             $currentDate = date('Y-m-d');
-            if($getVideo->video_type == '1'){ 
+            if($getVideo->video_type == '1'){
                 if(empty($getSubcrption)){
                     return Redirect::back()->withError('Subscription Required to View Video');
                 }
@@ -233,18 +233,18 @@ class HomeController extends Controller
                     $id = VideoHistory::insertGetId($datavideoHistory);
                 }
             }
-            
+
             if(!empty($Viewvidiocount)){
                 $vidoecount = $Viewvidiocount;
             }else{
                 $vidoecount = $getVideo->Video_veiw_count;
             }
             $userdetail = User::where('id',$getVideo->user_id)->withCount('videos')->first();
-            
+
             $VideoList = Video::where('user_id',$getVideo->user_id)->where('video_id','!=',$id)->where('video_status','1')->take(8)->get();
 
             $popularVideos = Video::where('Video_id','!=',$id)->where('user_id',$getVideo->user_id)->where('video_status','2')->orderBy('Video_veiw_count','DESC')->take(2)->get();
-            
+
             $trendingVideo = User::with('TopVideoList')->get();
 
             return view('web.publisher-play-video',compact('getVideo','userdetail','VideoList','vidoecount', 'popularVideos','trendingVideo'));
@@ -256,7 +256,7 @@ class HomeController extends Controller
             $VideoList = Video::where('user_id',$getVideo->user_id)->where('video_id','!=',$id)->where('video_status','1')->take(8)->get();
 
             $popularVideos = Video::where('Video_id','!=',$id)->where('user_id',$getVideo->user_id)->where('video_status','2')->orderBy('Video_veiw_count','DESC')->take(2)->get();
-            
+
             $trendingVideo = User::with('TopVideoList')->get();
 
             return view('web.publisher-play-video',compact('getVideo','vidoecount','userdetail','popularVideos','trendingVideo'));
@@ -264,6 +264,9 @@ class HomeController extends Controller
     }
     // Login
     public function Login(Request $request){
+        if (Auth::check()){
+            return redirect()->back();
+        }
         $previousUrl = URL::previous();
         $request->session()->put('url', $previousUrl);
         $getcategory = Category::where('category_status','1')->get();
@@ -272,51 +275,59 @@ class HomeController extends Controller
 
     // Login Post
     public function LoginPost(Request $request){
-        $validatedData = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-        $userCheck = User::where('email',$request->email)->first();
-        if(empty($userCheck)){
-            return redirect()->back()->with('error', 'Invalid credentials..!');
-        }else{
-            if($userCheck->user_status == 0){
-                return redirect()->back()->with('error', 'You are a inactive user!pleae contact to adminstrator');
+        try {
+            $validatedData = $request->validate([
+                'email' => 'required|email',
+                'password' => 'required',
+            ]);
+            $userCheck = User::where('email',$request->email)->first();
+            if(empty($userCheck)){
+                return redirect()->back()->with('error', 'Invalid credentials..!');
             }else{
-                $credentials = $request->only('email', 'password');
-                if (Auth::attempt($credentials))
-                {
-                    $user = Auth::user();
-                    if(empty($user->stripe_id)){
-                        $stripeCustomer = $user->createAsStripeCustomer();
-                        $user = User::find($user->id);
-                        $user->stripe_id = $stripeCustomer->id;
-                        $user->save();
-                    }
-                    if($user->roles == 'User'){
-                        $getSubcrption = Subscriptions::where('user_id',$user->id)->first();
-                        $currentDate = date('Y-m-d');
-                        if(empty($getSubcrption)){
-                            return redirect()->route('web.athletes.coach.MySubcription')->withError('Subscription Required To View Video');
-                        }
-                        if(!empty($url)){
-                            $url = Session::get('url');
-                            session()->forget('url');
-                            return redirect($url);
-                        }else{
-                            return redirect()->route('web.index')->with('success', 'Login Succesfully.');
-                        }
-                    }else{
-                        if($user->quetion_status == '0'){
-                            return redirect()->route('web.athletes.coach.atheliticsCoachQuestion');
-                        }else{
-                            return redirect()->route('web.dashboard')->with('success', 'Login Succesfully.');
-                        }
-                    }
-                }else{
+                if($userCheck->roles == 'Admin'){
                     return redirect()->back()->with('error', 'Invalid credentials..!');
                 }
+                if($userCheck->user_status == 0){
+                    return redirect()->back()->with('error', 'You are a inactive user!pleae contact to adminstrator');
+                }else{
+                    $credentials = $request->only('email', 'password');
+                    if (Auth::attempt($credentials))
+                    {
+                        $user = Auth::user();
+                        if(empty($user->stripe_id)){
+                            $stripeCustomer = $user->createOrGetStripeCustomer();
+                            $user = User::find($user->id);
+                            $user->stripe_id = $stripeCustomer->id;
+                            $user->save();
+                        }
+                        if($user->roles == 'User'){
+                            $getSubcrption = Subscriptions::where('user_id',$user->id)->first();
+                            $currentDate = date('Y-m-d');
+                            if(empty($getSubcrption)){
+                                return redirect()->route('web.athletes.coach.MySubcription')->withError('Subscription Required To View Video');
+                            }
+                            if(!empty($url)){
+                                $url = Session::get('url');
+                                session()->forget('url');
+                                return redirect($url);
+                            }else{
+                                return redirect()->route('web.index')->with('success', 'Login Succesfully.');
+                            }
+                        }else{
+                            if($user->quetion_status == '0'){
+                                return redirect()->route('web.athletes.coach.atheliticsCoachQuestion');
+                            }else{
+                                return redirect()->route('web.dashboard')->with('success', 'Login Succesfully.');
+                            }
+                        }
+                    }else{
+                        return redirect()->back()->with('error', 'Invalid credentials..!');
+                    }
+                }
             }
+        } catch (\Throwable $th) {
+            //throw $th;
+            return redirect()->back()->with('error', $th);
         }
     }
 
@@ -372,7 +383,7 @@ class HomeController extends Controller
             //throw $th;
             dd($th);
         }
-        
+
     }
 
     public function submitResetPasswordForm(Request $request)
@@ -421,20 +432,20 @@ class HomeController extends Controller
         } catch (\Throwable $th) {
             return back()->with('error',$th->getMessage());
         }
-        
+
     }
 
     public function subscription(Request $request)
-    {   
+    {
         try {
             if (Auth::check()) {
                 $user = Auth::user();
                 $plan = Plan::find($request->plan);
-        
+
                 if (!$plan) {
                     return redirect()->route('web.index')->with('error', 'Invalid Plan');
                 }
-        
+
                 $subscription = $user->newSubscription($request->plan, $plan->plan)->create($request->token);
                 $transactionData = [
                     'user_id' => $user->id,
@@ -443,10 +454,10 @@ class HomeController extends Controller
                     'transaction_type' => 'subscription',
                     'status' => $subscription->stripe_status,
                 ];
-        
+
                 // Use a transaction to ensure data consistency
                 $transaction = Transaction::create($transactionData);
-        
+
                 if ($subscription->stripe_status == 'active') {
                     return redirect()->route('web.athletes.coach.MySubcription')->with('success', 'Subscription Created Successfully');
                 } else {
@@ -458,12 +469,12 @@ class HomeController extends Controller
         } catch (\Throwable $th) {
             return back()->with('error',$th->getMessage());
         }
-        
+
     }
 
 
     public function askquestion(Request $request)
-    {   
+    {
         try {
             AskQuestion::insert([
                 'full_name' => $request->name,
@@ -475,12 +486,12 @@ class HomeController extends Controller
         } catch (\Throwable $th) {
             return back()->with('error',$th->getMessage());
         }
-        
+
     }
 
 
     public function newsletter(Request $request)
-    {   
+    {
         try {
             $newsletters = NewsLetter::where('email',$request->email)->first();
             if($newsletters != ""){
@@ -494,12 +505,12 @@ class HomeController extends Controller
         } catch (\Throwable $th) {
             return back()->with('error',$th->getMessage());
         }
-        
+
     }
 
 
     public function contactSave(Request $request)
-    {   
+    {
         try {
             ContactUs::insert([
                     'name' => $request->name,
@@ -512,7 +523,7 @@ class HomeController extends Controller
         } catch (\Throwable $th) {
             return back()->with('error',$th->getMessage());
         }
-        
+
     }
 
 }

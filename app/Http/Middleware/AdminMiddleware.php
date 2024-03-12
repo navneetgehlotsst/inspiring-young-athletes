@@ -21,7 +21,7 @@ class AdminMiddleware
             if($user->roles == "Admin") {
                 return $next($request);
             }else{
-                return back()->with("error","Oops, insufficient access. Please contact administration for assistance.");
+                return redirect()->route('web.index');
             }
         }else{
             return redirect()->route('admin.login');

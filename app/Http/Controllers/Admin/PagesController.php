@@ -35,4 +35,10 @@ class PagesController extends Controller
         $contacts = ContactUs::get();
         return view('admin.pages.contactus', compact('contacts'));
     }
+
+    // News Letter List
+    public function newsletterlist(){
+        $newsletters = NewsLetter::get();
+        return view('admin.pages.newsletter', compact('newsletters'));
+    }
 }

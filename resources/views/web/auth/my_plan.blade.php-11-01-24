@@ -1,0 +1,90 @@
+@extends('web.layouts.app')
+@section('content')
+<div class=" osahan-pricing">
+  <div class="container">
+     <div class="row py-lg-4">
+        <div class="col-md-9 mx-auto mb-md-2">
+           <div class="text-center mt-4">
+              <h6>Our Pricing</h6>
+              <h2 class="text-gray-900">Choose Your Package</h2>
+              
+           </div>
+           <form  method="post" class="planForm">
+            @csrf
+            <input type="hidden" name="plan" class="plan" value="" />
+            <input type="hidden" name="amount" class="amount" value="" />
+            <input type="hidden" name="total_offer" class="total_offer" value="" />
+            <input type="hidden" name="expiry_date" class="expiry_date" value="" />
+            <input type="hidden" name="name" class="business_name" value="{{$business->full_name}}" />
+           <div class="row py-lg-4">
+               <div class="col-md-6 mb-md-2 ">
+                  <div class="shadow-sm bg-white rounded  p-4">
+                     <header class="card-header bg-white border-bottom ">
+                        <span class="d-block ">
+                        <span class="display-4 gs-price text-gray-900 font-weight-bold">
+                        <span class="small">$</span><del>55</del>
+                        </span>
+                        <span class=" text-secondary text-secondary-ga"><span class="small">$</span><del>66</del>
+                     </span></span>
+                        </span>
+                        <h4 class="h6  gs-price-head mb-2 mt-3">Standard Plan <span class="badge "> 36% Off </span></h4>
+                     </header>
+                     <div class="card-body p-4">
+                        <ul class="list-group list-group-gs list-group-flush mb-4">
+                           <li class="list-group-item list-group-item-gs py-2 px-0 border-0"><i class="icofont-check-circled  mr-1 icofont-gs"></i> List only 1 Ad</li>
+                           <li class="list-group-item list-group-item-gs py-2 px-0 border-0"><i class="icofont-check-circled  mr-1 icofont-gs"></i> Ad will listed for 30 days</li>
+                           <li class="list-group-item list-group-item-gs py-2 px-0 border-0"><i class="icofont-check-circled  mr-1 icofont-gs"></i> Upload upto 5 pictures</li>
+                           <li class="list-group-item list-group-item-gs-two py-2 px-0 border-0"><i class="icofont-close-circled text-danger mr-1 icofont-gs-gs"></i> 20 Limit periods ad highlght</li>
+                           <li class="list-group-item list-group-item-gs-two py-2 px-0 border-0"><i class="icofont-close-circled text-danger mr-1 icofont-gs-gs"></i> No Home Suggestion</li>
+                        </ul>
+                        <a href="{{route('card','standard')}}" class="btn btn-gs-sub purchase" tabindex="0" data-amount="55" data-offer="1" data-exipiry="30" value="standard">Purchase Now</a>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-6 mb-md-2 ">
+                  <div class="shadow-sm bg-white rounded  p-4">
+                     <header class="card-header bg-white border-bottom ">
+                        <span class="d-block ">
+                        <span class="display-4 gs-price text-gray-900 font-weight-bold">
+                        <span class="small">$</span><del>88</del>
+                        </span>
+                        <span class=" text-secondary text-secondary-ga"><span class="small">$</span><del>99</del>
+                        </span></span>
+                        </span>
+                           <h4 class="h6  gs-price-head mb-2 mt-3">Featured Plan<span class="badge "> 45% Off </span></h4>
+                     </header>
+                     <div class="card-body p-4">
+                        <ul class="list-group list-group-gs list-group-flush mb-4">
+                           <li class="list-group-item list-group-item-gs py-2 px-0 border-0"><i class="icofont-check-circled  mr-1 icofont-gs"></i> List only 10 Ad</li>
+                           <li class="list-group-item list-group-item-gs py-2 px-0 border-0"><i class="icofont-check-circled  mr-1 icofont-gs"></i> Ad will listed for 90 days</li>
+                           <li class="list-group-item list-group-item-gs py-2 px-0 border-0"><i class="icofont-check-circled  mr-1 icofont-gs"></i> Upload upto 10 pictures</li>
+                           <li class="list-group-item list-group-item-gs py-2 px-0 border-0"><i class="icofont-check-circled  mr-1 icofont-gs"></i> 20 Limit periods ad highlght</li>
+                           <li class="list-group-item list-group-item-gs py-2 px-0 border-0"><i class="icofont-check-circled  mr-1 icofont-gs"></i> Home Suggestion</li>
+                        </ul>
+                        <a href="{{route('card','featured')}}"class="btn btn-gs-sub purchase" tabindex="0" data-amount="88" data-offer="10" data-exipiry="90" value="featured">Purchase Now</a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </form>
+        </div>
+     </div>
+  </div>
+</div>
+@endsection 
+@section('script')
+
+<script>
+$('.purchase').click(function(){
+   var plan = $(this).val();
+   var amount = $(this).data('amount');
+   var offer = $(this).data('offer');
+   var exipiry = $(this).data('exipiry');
+   $('.plan').val(plan);
+   $('.amount').val(amount);
+   $('.total_offer').val(offer);
+   $('.expiry_date').val(exipiry);
+   $('.planForm').submit();
+});
+</script>
+@endsection

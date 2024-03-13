@@ -25,24 +25,34 @@
 @endif
 
 <style>
-    .loader {
-      display: none;
-      border: 16px solid #f3f3f3; /* Light grey */
-      border-top: 16px solid #3498db; /* Blue */
-      border-radius: 50%;
-      width: 120px;
-      height: 120px;
-      animation: spin 2s linear infinite;
-      margin: auto;
+    .loading-overlay {
+    display: none;
+    background: rgba(255, 255, 255, 0.7);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 9998;
+    align-items: center;
+    justify-content: center;
     }
 
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    .loading-overlay.is-active {
+    display: flex;
+    }
+
+    .code {
+    font-family: monospace;
+    /*   font-size: .9em; */
+    color: #dd4a68;
+    background-color: rgb(238, 238, 238);
+    padding: 0 3px;
     }
   </style>
-
-
+<div class="loading-overlay">
+    <span class="fas fa-spinner fa-3x fa-spin"></span>
+</div>
 <section class="dashboard-section">
     <div class="container">
         <div class="row">
@@ -71,7 +81,7 @@
                                 @enderror
                             </div>
                             <div class="col-lg-4">
-                                <button type="submit" class="btn btn-primary py-3 w-100 fw-bold login-btn" onclick="showLoader()">Save</button>
+                                <button type="submit" class="btn btn-primary py-3 w-100 fw-bold login-btn" id="load-button">Save</button>
                             </div>
                         </div>
                     </form>

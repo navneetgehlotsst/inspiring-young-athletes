@@ -478,9 +478,12 @@
         });
     </script>
     <script>
-        function showLoader() {
-           document.getElementById("loader").style.display = "block";
-        }
+        let overlay = document.getElementsByClassName('loading-overlay')[0]
+
+        //overlay.addEventListener('click', e => overlay.classList.toggle('is-active'))
+
+        document.getElementById('load-button')
+        .addEventListener('click', e => overlay.classList.toggle('is-active'))
     </script>
 </body>
 

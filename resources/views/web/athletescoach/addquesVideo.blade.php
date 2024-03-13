@@ -1,4 +1,4 @@
-@extends('web.layouts.app') 
+@extends('web.layouts.app')
 @section('content')
 @if(session('success'))
     <script>
@@ -24,6 +24,23 @@
     </script>
 @endif
 
+<style>
+    .loader {
+      display: none;
+      border: 16px solid #f3f3f3; /* Light grey */
+      border-top: 16px solid #3498db; /* Blue */
+      border-radius: 50%;
+      width: 120px;
+      height: 120px;
+      animation: spin 2s linear infinite;
+      margin: auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
 
 
 <section class="dashboard-section">
@@ -34,7 +51,7 @@
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Add Question Video</h1>                               
+                    <h1 class="h3 mb-0 text-gray-800">Add Question Video</h1>
                 </div>
                 {{-- $videodetail['VideoDetail']->video --}}
                 <!-- Content Row -->
@@ -54,18 +71,16 @@
                                 @enderror
                             </div>
                             <div class="col-lg-4">
-                                <button type="submit" class="btn btn-primary py-3 w-100 fw-bold login-btn">Save</button>
+                                <button type="submit" class="btn btn-primary py-3 w-100 fw-bold login-btn" onclick="showLoader()">Save</button>
                             </div>
                         </div>
                     </form>
                 </div>
-
+                <div id="loader" class="loader"></div>
             </div>
         </div>
     </div>
 </section>
-
-@endsection 
+@endsection
 @section('script')
 @endsection
-    

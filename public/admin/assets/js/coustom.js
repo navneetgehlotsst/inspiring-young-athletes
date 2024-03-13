@@ -1,7 +1,10 @@
 $(document).ready( function () {
 
     // User Data Table
-    $('#userDataTable').DataTable();
+    $('#userDataTable').DataTable({
+        "ordering": false // Disable default ordering
+    });
+
 
     $('#questionDataTable').DataTable();
 

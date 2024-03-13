@@ -12,14 +12,14 @@
                         @endif
                     </div>
                     <h5 class="text-white mt-3">{{ auth()->user()->name }}</h5>
-                    @php 
+                    @php
                         $catid = auth()->user()->category;
                         $category = DB::table('category')->where('category_id',$catid)->first();
                     @endphp
                     @if(auth()->user()->roles != "User")
                     <p class="text-white">{{$category->category_name}}</p>
                     @endif
-                    <div> <a href="{{ route('web.athletes.coach.GetEditProfile') }}" class="btn btn-primary bg-white text-dark border-0 px-4">Edit Profile</a> </div>                                                
+                    <div> <a href="{{ route('web.athletes.coach.GetEditProfile') }}" class="btn btn-primary bg-white text-dark border-0 px-4">Edit Profile</a> </div>
                 </div>
             </div>
             <hr class="d-none d-lg-block">
@@ -30,7 +30,7 @@
                 </button>
                 <div class="d-block d-lg-none">
                     <div class="user-profile mt-2 mt-lg-5">
-                       <a href="#"><img src="{{asset('web/assets/images/new-img/dummyuser.png')}}" alt="user img" height="40" width="40" /> <span class="text-white h6">{{ auth()->user()->name }}</span></a> 
+                       <a href="#"><img src="{{asset('web/assets/images/new-img/dummyuser.png')}}" alt="user img" height="40" width="40" /> <span class="text-white h6">{{ auth()->user()->name }}</span></a>
                     </div>
                 </div>
                 <div class="collapse navbar-collapse px-3 px-lg-3" id="navbarNavDarkDropdown">
@@ -44,9 +44,9 @@
                             </a>
                             <ul class="dropdown-menu {{ request()->is('athletes-coach/Video*') ? 'show' : '' }}"
                                 aria-labelledby="navbarDarkDropdownMenuLink">
-                                <li><a class="dropdown-item" href="{{ route('web.athletes.coach.questionandanswere') }}">Question & Answer</a></li>
-                                <li><a class="dropdown-item {{ request()->is('athletes-coach/Video/index') ? 'active' : '' }}" href="{{ route('web.Video.index') }}">All Videos</a></li>
-                                <li><a class="dropdown-item {{ request()->is('athletes-coach/Video/add') ? 'active' : '' }}" href="{{ route('web.Video.add') }}">Add New Video</a></li>
+                                <li class="py-0"><a class="dropdown-item" href="{{ route('web.athletes.coach.questionandanswere') }}">Question & Answer</a></li>
+                                <li class="py-0"><a class="dropdown-item {{ request()->is('athletes-coach/Video/index') ? 'active' : '' }}" href="{{ route('web.Video.index') }}">All Videos</a></li>
+                                <li class="py-0"><a class="dropdown-item {{ request()->is('athletes-coach/Video/add') ? 'active' : '' }}" href="{{ route('web.Video.add') }}">Add New Video</a></li>
                             </ul>
                         </li>
                         <li class="nav-item"><a class="nav-link px-2" href="{{ route('web.revenue.history') }}"><i class="fas fa-coins me-2"></i> Revenue History</a></li>
@@ -64,7 +64,7 @@
                 </button>
                 <div class="d-block d-lg-none">
                     <div class="user-profile mt-2 mt-lg-5">
-                       <a href="#"><img src="{{asset('web/assets/images/new-img/dummyuser.png')}}" alt="user img" height="40" width="40" /> <span class="text-white h6">{{ auth()->user()->name }}</span></a> 
+                       <a href="#"><img src="{{asset('web/assets/images/new-img/dummyuser.png')}}" alt="user img" height="40" width="40" /> <span class="text-white h6">{{ auth()->user()->name }}</span></a>
                     </div>
                 </div>
                 <div class="collapse navbar-collapse px-3 px-lg-3" id="navbarNavDarkDropdown">

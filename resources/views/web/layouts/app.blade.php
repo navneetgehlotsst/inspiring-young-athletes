@@ -25,8 +25,8 @@
     <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    
-    
+
+
 
     <script>
         //toster
@@ -71,7 +71,7 @@
     <button type="button" class="ask-questions" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
         <img src="{{asset('web/assets/images/new-img/ask.svg')}}" alt="ask">
     </button>
-    
+
     <!-- Modal -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -88,7 +88,7 @@
                         <input type="email" name="email" class="form-control py-3 mb-4" placeholder="Email">
                         <input type="text" name="atheliticsandcoachname" class="form-control py-3 mb-4" placeholder="Which Athlete or Coach would you like to ask a question">
                         <textarea class="form-control py-3 mb-4" name="askquestion" placeholder="Ask Question/s"></textarea>
-                        
+
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -144,7 +144,7 @@
     <script src="{{asset('web/assets/js/main.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://js.stripe.com/v3/"></script>
-    
+
     <script>
         function uploadImage(id) {
             let formData = new FormData(document.getElementById('imageUploadForm'+id));
@@ -257,6 +257,8 @@
                 .then(function (response) {
                     console.error(response.data.success);
                     if(response.data.success == true){
+                        $("#saveintro").removeClass("disabled");
+                        console.log(response.data.message)
                         document.getElementById('uploadStatusintro').innerHTML = response.data.message;
                         $("#uploadStatusintro").addClass("Videosucces");
                         $("#uploadStatusintro").removeClass("Videoerror");
@@ -275,6 +277,7 @@
                         $("#imageUploadFormintro").addClass("d-none");
                         $("#removevideobuttonintro").removeClass("d-none");
                         $("#ansGiven"+id).removeClass("d-none");
+
                         document.getElementById('progress-bar-containerintro').style.display = 'none';
                         if(response.data.count == 0){
                             $("#enabledisable").addClass("disabled");
@@ -283,6 +286,7 @@
                         }else{
                             $("#enabledisable").removeClass("disabled");
                             $("#enabledisable").addClass("enable");
+
                         }
                     }else{
                         document.getElementById('uploadStatusintro').innerHTML = response.data.message;
@@ -312,7 +316,6 @@
                     }
                 })
                 .catch(function (error) {
-                    console.error(error.response);
                     document.getElementById('uploadStatusintro').innerHTML = error.response.data.message;
                     $("#uploadStatusintro").addClass("Videoerror");
                     $("#uploadStatusintro").removeClass("Videosucces");
@@ -377,7 +380,7 @@
                 },
                 success: function (response) {
                     console.log(response);
-                    
+
                 },
                 error: function (xhr, status, error) {
                     console.error(xhr.responseText);
@@ -411,22 +414,22 @@
             });
         });
     </script>
-    
+
     <script>
         const stripe = Stripe('{{ env('STRIPE_KEY') }}')
-      
+
         const elements = stripe.elements()
         const cardElement = elements.create('card')
-      
+
         cardElement.mount('#card-element')
-      
+
         const form = document.getElementById('payment-form')
         const cardBtn = document.getElementById('card-button')
         const cardHolderName = document.getElementById('card-holder-name')
-      
+
         form.addEventListener('submit', async (e) => {
             e.preventDefault()
-      
+
             cardBtn.disabled = true
             const { setupIntent, error } = await stripe.confirmCardSetup(
                 cardBtn.dataset.secret, {
@@ -434,11 +437,11 @@
                         card: cardElement,
                         billing_details: {
                             name: cardHolderName.value
-                        }   
+                        }
                     }
                 }
             )
-      
+
             if(error) {
                 cardBtn.disable = false
                 $('#card-button').prop('disabled', false);
@@ -473,6 +476,11 @@
         $("#file-input").change(function() {
         readURL(this);
         });
+    </script>
+    <script>
+        function showLoader() {
+           document.getElementById("loader").style.display = "block";
+        }
     </script>
 </body>
 

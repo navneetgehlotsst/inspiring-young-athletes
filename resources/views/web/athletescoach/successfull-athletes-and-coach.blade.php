@@ -24,7 +24,12 @@
         toastr.error('{{ session('error') }}');
     </script>
 @endif
-
+<style>
+    a.disabled {
+        pointer-events: none;
+        cursor: default;
+    }
+</style>
 <!-- Video Publisher Section Start-->
 <section class="publisher-section themeix-ptb-2">
     <div class="container">
@@ -53,7 +58,7 @@
                                 </div>
                             </div>
                         </div>
-                    <a href="{{ route('web.athletes.coach.atheliticsCoachQuestion') }}" class="btn btn-primary py-3 w-100 fw-bold login-btn">Continue</a>
+                    <a href="{{ route('web.athletes.coach.atheliticsCoachQuestion') }}" class="btn btn-primary py-3 w-100 fw-bold login-btn disabled" id="saveintro">Continue</a>
                 </div>
             </div>
         </div>

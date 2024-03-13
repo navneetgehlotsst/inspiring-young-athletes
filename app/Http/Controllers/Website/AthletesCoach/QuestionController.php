@@ -73,20 +73,20 @@ class QuestionController extends Controller
             $question = "Intro Video";
             $questiontype = "video";
         }
-        
+
         $validator = Validator::make($request->all(), [
             'video' => 'required|file|mimes:mp4,mov,avi,wmv',
         ]);
 
         if($validator->fails()){
-            $userAnwereCount = UserAnswere::where('user_id',$userID)->count();
+            $userAnwereCount = UserAnswere::where('user_id',$userID)->where('question_id','!=','0')->count();
             return response()->json(['success' => false,'message' => 'Upload valid video','count' => $userAnwereCount]);
         }
 
         $userAnwereCheck = UserAnswere::where('user_id',$userID)->where('question_id',$questionid)->first();
 
         if(!empty($userAnwereCheck)){
-            $userAnwereCount = UserAnswere::where('user_id',$userID)->count();
+            $userAnwereCount = UserAnswere::where('user_id',$userID)->where('question_id','!=','0')->count();
             return response()->json(['success' => true, 'message' => 'This question answere already given','count' => $userAnwereCount]);
         }
 
@@ -203,7 +203,7 @@ class QuestionController extends Controller
         ];
         $id = UserAnswere::insertGetId($datauser);
 
-        $userAnwereCount = UserAnswere::where('user_id',$userID)->count();
+        $userAnwereCount = UserAnswere::where('user_id',$userID)->where('question_id','!=','0')->count();
 
         return response()->json(['success' => true, 'message' => 'video uploaded successfully','count' => $userAnwereCount]);
     }

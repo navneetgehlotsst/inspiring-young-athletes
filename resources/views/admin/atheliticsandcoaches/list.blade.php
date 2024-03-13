@@ -16,24 +16,26 @@
                                 <th>Email</th>
                                 <th>Phone</th>
                                 <th>Role</th>
-                                <th>Status</th>
                                 <th>Video Count</th>
+                                <th>Created Date</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody class="table-border-bottom-0">
                                 @foreach ($users as $user)
+                                    @php
+                                        $date = $user->created_at
+                                    @endphp
                                     <tr>
                                         <td>{{$user->name}}</td>
                                         <td>{{$user->email}}</td>
                                         <td>{{$user->phone}}</td>
                                         <td>{{$user->roles}}</td>
                                         <td>
-                                            @php
-                                                echo "<pre>";
-                                                print_r($user);
-                                            @endphp
+                                           {{count($user->videosCount)}}
                                         </td>
+                                        <td>{{$date->format('d-m-Y')}}</td>
                                         <td>
                                             @if($user->user_status == '1' )
                                                 <p class="badge bg-label-success">Active</p>

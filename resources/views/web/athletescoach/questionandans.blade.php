@@ -1,4 +1,4 @@
-@extends('web.layouts.app') 
+@extends('web.layouts.app')
 @section('content')
 @if(session('success'))
     <script>
@@ -31,12 +31,12 @@
         <div class="row">
             @include('web.layouts.elements.leftsidebar')
             <div class="col-lg-9 py-3">
-                
+
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Questions And Answer</h1>                                
+                    <h1 class="h3 mb-0 text-gray-800">Questions And Answer</h1>
                 </div>
-                @if ($UserDetail->roles == 'Athletes')
+                @if ($UserDetail->roles == 'Athlete')
                   <div class="">
                     <div class="m-auto">
                         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
@@ -60,7 +60,7 @@
                             <div class="tab-content" id="pills-tabContent">
                                 <div class="tab-pane fade show active" id="pills-athletes" role="tabpanel" aria-labelledby="pills-home-tab">
                                     <!--Athletes Questions Start-->
-                                    <div class="table-responsive"> 
+                                    <div class="table-responsive">
                                         <table class="table table-bordered">
                                           <thead class="thead-dark">
                                             <tr>
@@ -76,17 +76,17 @@
                                             @foreach($questionathelitics as $questionList)
                                               @if($questionList->question_type == "for_athletes")
                                               @php
-                                                $videodetail = Helper::videodetail($questionList->question_id,Auth::user()->id); 
-                                                
-                                               
+                                                $videodetail = Helper::videodetail($questionList->question_id,Auth::user()->id);
+
+
                                               @endphp
                                               <tr>
                                                 <th class="align-middle" scope="row">{{$i++}}.</th>
                                                 <td class="align-middle">{{$questionList->question}}</td>
                                                 <td class="text-center align-middle play-video-box-tab">
-                                                  @if(in_array($questionList->question_id, $userAns))  
-                                                      <a href="javascript:void(0);" class="showvideo fw-bold w-100" data-question ="{{$questionList->question_id}}" data-url='{{ route("web.athletes.coach.show.video") }}' class="fw-bold w-100"> 
-                                                        <img src="{{asset('web/assets/images/new-img/favicon.svg')}}" alt="Play Icon" width="20"> 
+                                                  @if(in_array($questionList->question_id, $userAns))
+                                                      <a href="javascript:void(0);" class="showvideo fw-bold w-100" data-question ="{{$questionList->question_id}}" data-url='{{ route("web.athletes.coach.show.video") }}' class="fw-bold w-100">
+                                                        <img src="{{asset('web/assets/images/new-img/favicon.svg')}}" alt="Play Icon" width="20">
                                                         Play Video
                                                   @else
                                                       <a href="#" class="fw-bold w-100">
@@ -107,7 +107,7 @@
                                                   @endif
                                                 </td>
                                                 <td class="text-center align-middle">
-                                                      @if(in_array($questionList->question_id, $userAns))  
+                                                      @if(in_array($questionList->question_id, $userAns))
                                                         <a href="{{ route('web.athletes.coach.edit.video', $questionList->question_id ) }}" class="btn btn-success px-3 py-1"><i class="far fa-edit"></i></a>
                                                       @else
                                                         <a href="{{ route('web.athletes.coach.add.video', $questionList->question_id ) }}" class="btn btn-info px-3 py-1 text-white"><i class="fas fa-plus"></i></a>
@@ -123,7 +123,7 @@
                                 </div>
                                 <div class="tab-pane fade" id="pills-parents" role="tabpanel" aria-labelledby="pills-profile-tab">
                                     <!--Parents Questions Start-->
-                                    <div class="table-responsive"> 
+                                    <div class="table-responsive">
                                         <table class="table table-bordered">
                                           <thead class="thead-dark">
                                             <tr>
@@ -139,18 +139,18 @@
                                             @foreach($questionathelitics as $questionList)
                                               @if($questionList->question_type == "for_parents")
                                               @php
-                                                $videodetail = Helper::videodetail($questionList->question_id,Auth::user()->id); 
+                                                $videodetail = Helper::videodetail($questionList->question_id,Auth::user()->id);
                                               @endphp
                                               <tr>
                                                 <th class="align-middle" scope="row">{{$i++}}.</th>
                                                 <td class="align-middle">{{$questionList->question}}</td>
                                                 <td class="text-center align-middle play-video-box-tab">
-                                                  <a href="#" class="showvideo fw-bold w-100" data-question ="{{$questionList->question_id}}" data-url='{{ route("web.athletes.coach.show.video") }}'> 
-                                                      @if(in_array($questionList->question_id, $userAns))  
-                                                        <img src="{{asset('web/assets/images/new-img/favicon.svg')}}" alt="Play Icon" width="20"> 
+                                                  <a href="#" class="showvideo fw-bold w-100" data-question ="{{$questionList->question_id}}" data-url='{{ route("web.athletes.coach.show.video") }}'>
+                                                      @if(in_array($questionList->question_id, $userAns))
+                                                        <img src="{{asset('web/assets/images/new-img/favicon.svg')}}" alt="Play Icon" width="20">
                                                         Play Video
                                                       @else
-                                                        No Answere
+                                                        No Answer
                                                       @endif
                                                   </a>
                                                 </td>
@@ -167,7 +167,7 @@
                                                   @endif
                                                 </td>
                                                 <td class="text-center align-middle">
-                                                  @if(in_array($questionList->question_id, $userAns))  
+                                                  @if(in_array($questionList->question_id, $userAns))
                                                     <a href="{{ route('web.athletes.coach.edit.video', $questionList->question_id ) }}" class="btn btn-success px-3 py-1"><i class="far fa-edit"></i></a>
                                                   @else
                                                     <a href="{{ route('web.athletes.coach.add.video', $questionList->question_id ) }}" class="btn btn-info px-3 py-1 text-white"><i class="fas fa-plus"></i></a>
@@ -183,7 +183,7 @@
                                 </div>
                                 <div class="tab-pane fade" id="pills-coaches" role="tabpanel" aria-labelledby="pills-contact-tab">
                                     <!--coaches and teenager Questions Start-->
-                                    <div class="table-responsive"> 
+                                    <div class="table-responsive">
                                         <table class="table table-bordered">
                                           <thead class="thead-dark">
                                             <tr>
@@ -199,18 +199,18 @@
                                             @foreach($questionathelitics as $questionList)
                                               @if($questionList->question_type == "for_athletes_coaches")
                                               @php
-                                                $videodetail = Helper::videodetail($questionList->question_id,Auth::user()->id); 
+                                                $videodetail = Helper::videodetail($questionList->question_id,Auth::user()->id);
                                               @endphp
                                               <tr>
                                                 <th class="align-middle" scope="row">{{$i++}}.</th>
                                                 <td class="align-middle">{{$questionList->question}}</td>
                                                 <td class="text-center align-middle play-video-box-tab">
-                                                  <a href="#" class="showvideo fw-bold w-100" data-question ="{{$questionList->question_id}}" data-url='{{ route("web.athletes.coach.show.video") }}'> 
-                                                      @if(in_array($questionList->question_id, $userAns))  
-                                                        <img src="{{asset('web/assets/images/new-img/favicon.svg')}}" alt="Play Icon" width="20"> 
+                                                  <a href="#" class="showvideo fw-bold w-100" data-question ="{{$questionList->question_id}}" data-url='{{ route("web.athletes.coach.show.video") }}'>
+                                                      @if(in_array($questionList->question_id, $userAns))
+                                                        <img src="{{asset('web/assets/images/new-img/favicon.svg')}}" alt="Play Icon" width="20">
                                                         Play Video
                                                       @else
-                                                        No Answere
+                                                        No Answer
                                                       @endif
                                                   </a>
                                                 </td>
@@ -227,7 +227,7 @@
                                                   @endif
                                                 </td>
                                                 <td class="text-center align-middle">
-                                                    @if(in_array($questionList->question_id, $userAns))  
+                                                    @if(in_array($questionList->question_id, $userAns))
                                                       <a href="{{ route('web.athletes.coach.edit.video', $questionList->question_id ) }}" class="btn btn-success px-3 py-1"><i class="far fa-edit"></i></a>
                                                     @else
                                                       <a href="{{ route('web.athletes.coach.add.video', $questionList->question_id ) }}" class="btn btn-info px-3 py-1 text-white"><i class="fas fa-plus"></i></a>
@@ -243,7 +243,7 @@
                                 </div>
                                 <div class="tab-pane fade" id="pills-frenzy" role="tabpanel" aria-labelledby="pills-contact-tab">
                                     <!--Question for Friday Frenzy Start-->
-                                    <div class="table-responsive"> 
+                                    <div class="table-responsive">
                                         <table class="table table-bordered">
                                           <thead class="thead-dark">
                                             <tr>
@@ -259,18 +259,18 @@
                                             @foreach($questionathelitics as $questionList)
                                               @if($questionList->question_type == "for_friday_frenzy")
                                               @php
-                                                $videodetail = Helper::videodetail($questionList->question_id,Auth::user()->id); 
+                                                $videodetail = Helper::videodetail($questionList->question_id,Auth::user()->id);
                                               @endphp
                                               <tr>
                                                 <th class="align-middle" scope="row">{{$i++}}.</th>
                                                 <td class="align-middle">{{$questionList->question}}</td>
                                                 <td class="text-center align-middle play-video-box-tab">
-                                                  <a href="#" class="showvideo fw-bold w-100" data-question ="{{$questionList->question_id}}" data-url='{{ route("web.athletes.coach.show.video") }}'> 
-                                                      @if(in_array($questionList->question_id, $userAns))  
-                                                        <img src="{{asset('web/assets/images/new-img/favicon.svg')}}" alt="Play Icon" width="20"> 
+                                                  <a href="#" class="showvideo fw-bold w-100" data-question ="{{$questionList->question_id}}" data-url='{{ route("web.athletes.coach.show.video") }}'>
+                                                      @if(in_array($questionList->question_id, $userAns))
+                                                        <img src="{{asset('web/assets/images/new-img/favicon.svg')}}" alt="Play Icon" width="20">
                                                         Play Video
                                                       @else
-                                                        No Answere
+                                                        No Answer
                                                       @endif
                                                   </a>
                                                 </td>
@@ -287,7 +287,7 @@
                                                   @endif
                                                 </td>
                                                 <td class="text-center align-middle">
-                                                    @if(in_array($questionList->question_id, $userAns))  
+                                                    @if(in_array($questionList->question_id, $userAns))
                                                       <a href="{{ route('web.athletes.coach.edit.video', $questionList->question_id ) }}" class="btn btn-success px-3 py-1"><i class="far fa-edit"></i></a>
                                                     @else
                                                       <a href="{{ route('web.athletes.coach.add.video', $questionList->question_id ) }}" class="btn btn-info px-3 py-1 text-white"><i class="fas fa-plus"></i></a>
@@ -303,7 +303,7 @@
                                 </div>
                                 {{-- <div class="tab-pane fade" id="pills-female" role="tabpanel" aria-labelledby="pills-contact-tab">
                                   <!--Question for Friday Frenzy Start-->
-                                  <div class="table-responsive"> 
+                                  <div class="table-responsive">
                                       <table class="table table-bordered">
                                         <thead class="thead-dark">
                                           <tr>
@@ -319,18 +319,18 @@
                                           @foreach($questionathelitics as $questionList)
                                             @if($questionList->question_type == "for_female_athletes")
                                             @php
-                                              $videodetail = Helper::videodetail($questionList->question_id,Auth::user()->id); 
+                                              $videodetail = Helper::videodetail($questionList->question_id,Auth::user()->id);
                                             @endphp
                                             <tr>
                                               <th class="align-middle" scope="row">{{$i++}}.</th>
                                               <td class="align-middle">{{$questionList->question}}</td>
                                               <td class="text-center align-middle play-video-box-tab">
-                                                <a href="#" class="fw-bold w-100" data-bs-toggle="modal" data-bs-target="#exampleModal"> 
-                                                    @if(in_array($questionList->question_id, $userAns))  
-                                                      <img src="{{asset('web/assets/images/new-img/favicon.svg')}}" alt="Play Icon" width="20"> 
+                                                <a href="#" class="fw-bold w-100" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                    @if(in_array($questionList->question_id, $userAns))
+                                                      <img src="{{asset('web/assets/images/new-img/favicon.svg')}}" alt="Play Icon" width="20">
                                                       Play Video
                                                     @else
-                                                      No Answere
+                                                      No Answer
                                                     @endif
                                                 </a>
                                               </td>
@@ -347,7 +347,7 @@
                                                 @endif
                                               </td>
                                               <td class="text-center align-middle">
-                                                  @if(in_array($questionList->question_id, $userAns))  
+                                                  @if(in_array($questionList->question_id, $userAns))
                                                     <a href="{{ route('web.athletes.coach.edit.video', $questionList->question_id ) }}" class="btn btn-success px-3 py-1"><i class="far fa-edit"></i></a>
                                                   @else
                                                     <a href="{{ route('web.athletes.coach.add.video', $questionList->question_id ) }}" class="btn btn-info px-3 py-1 text-white"><i class="fas fa-plus"></i></a>
@@ -372,7 +372,7 @@
                           <div class="tab-content" id="pills-tabContent">
                               <div class="tab-pane fade show active" id="pills-athletes" role="tabpanel" aria-labelledby="pills-home-tab">
                                   <!--Athletes Questions Start-->
-                                  <div class="table-responsive"> 
+                                  <div class="table-responsive">
                                       <table class="table table-bordered">
                                         <thead class="thead-dark">
                                           <tr>
@@ -387,20 +387,20 @@
                                           @php $i = 1; @endphp
                                           @foreach($questioncoaches as $questionList)
                                           @php
-                                                $videodetail = Helper::videodetail($questionList->question_id,Auth::user()->id); 
-                                                
-                                               
+                                                $videodetail = Helper::videodetail($questionList->question_id,Auth::user()->id);
+
+
                                               @endphp
                                             <tr>
                                               <th class="align-middle" scope="row">{{$i++}}.</th>
                                               <td class="align-middle">{{$questionList->question}}</td>
                                               <td class="text-center align-middle play-video-box-tab">
-                                                <a href="#" class="showvideo fw-bold w-100" data-question ="{{$questionList->question_id}}" data-url='{{ route("web.athletes.coach.show.video") }}'> 
-                                                    @if(in_array($questionList->question_id, $userAns))  
-                                                      <img src="{{asset('web/assets/images/new-img/favicon.svg')}}" alt="Play Icon" width="20"> 
+                                                <a href="#" class="showvideo fw-bold w-100" data-question ="{{$questionList->question_id}}" data-url='{{ route("web.athletes.coach.show.video") }}'>
+                                                    @if(in_array($questionList->question_id, $userAns))
+                                                      <img src="{{asset('web/assets/images/new-img/favicon.svg')}}" alt="Play Icon" width="20">
                                                       Play Video
                                                     @else
-                                                      No Answere
+                                                      No Answer
                                                     @endif
                                                 </a>
                                               </td>
@@ -417,7 +417,7 @@
                                                 @endif
                                               </td>
                                               <td class="text-center align-middle">
-                                                  @if(in_array($questionList->question_id, $userAns))  
+                                                  @if(in_array($questionList->question_id, $userAns))
                                                     <a href="{{ route('web.athletes.coach.edit.video', $questionList->question_id ) }}" class="btn btn-success px-3 py-1"><i class="far fa-edit"></i></a>
                                                   @else
                                                     <a href="{{ route('web.athletes.coach.add.video', $questionList->question_id ) }}" class="btn btn-info px-3 py-1 text-white"><i class="fas fa-plus"></i></a>
@@ -458,4 +458,3 @@
 </div>
 <!-- Modal -->
 @endsection
-    

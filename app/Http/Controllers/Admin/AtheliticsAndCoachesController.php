@@ -32,15 +32,14 @@ class AtheliticsAndCoachesController extends Controller
 {
     // Listing
     public function list(){
-        $users = User::where('roles','!=','User')->where('roles','!=','Admin')->with('videosCount')->get();
-        dd(count($users['0']->videosCount));
+        $users = User::where('roles','!=','User')->where('roles','!=','Admin')->with('videosCount')->orderByDesc('created_at')->get();
         return view('admin.atheliticsandcoaches.list', compact('users'));
     }
 
     // Delete
     public function delete(Request $request){
         $deleted = User::where('id', $request->id)->delete();
-        return response()->json(['success'=>'Allergy Deleted Successfully!']);
+        return response()->json(['success'=>'User Deleted Successfully!']);
     }
 
     // User Detail
@@ -52,7 +51,7 @@ class AtheliticsAndCoachesController extends Controller
         $userscat = Category::where('category_id',$users->category)->first();
         $usersintro = UserAnswere::where('user_id',$id)->where('question_id','0')->with('IntroVideo')->first();
         $usersAnsweres = UserAnswere::where('user_id',$id)->where('question_id','!=','0')->with('IntroVideo')->get();
-        if($users->roles == "Athletes"){
+        if($users->roles == "Athlete"){
             $QuestonLists = Question::where('question_type','!=','for_coaches')->get();
         }else{
             $QuestonLists = Question::where('question_type','for_coaches')->get();

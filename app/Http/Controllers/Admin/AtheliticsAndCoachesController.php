@@ -32,7 +32,8 @@ class AtheliticsAndCoachesController extends Controller
 {
     // Listing
     public function list(){
-        $users = User::where('roles','!=','User')->where('roles','!=','Admin')->with('usersubciption')->get();
+        $users = User::where('roles','!=','User')->where('roles','!=','Admin')->with('videosCount')->get();
+        dd(count($users['0']->videosCount));
         return view('admin.atheliticsandcoaches.list', compact('users'));
     }
 

@@ -62,7 +62,7 @@
                                             <div class="accordion-item">
                                                 <h2 class="accordion-header" id="headingParents1">
                                                     <button class="accordion-button" type="button">
-                                                        <a href="{{ route('web.question.video',$athletesList->question_id) }}" class="h6"><strong>{{$athi++}}. </strong>{{$athletesList->question}}</a>    
+                                                        <a href="{{ route('web.question.video',$athletesList->question_id) }}" class="h6"><strong>{{$athi++}}. </strong>{!!$athletesList->question!!}</a>    
                                                     </button>
                                                 </h2>
                                             </div>

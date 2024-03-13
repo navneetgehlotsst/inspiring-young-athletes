@@ -193,9 +193,23 @@ class HomeController extends Controller
         $athleticCoaches = $athleticCoaches->paginate(10);
         $videoCount = $athleticCoaches->total();
         $trendingVideo = User::where('category', $categoryFirst->category_id)->with('TopVideoList')->get();
+        if (Auth::check()){
+            $UserDetail = Auth::user();
+            $userID = $UserDetail->id;
+            $checkSubscriptions = Subscriptions::where('user_id',$userID)->first();
+
+            if(!empty($checkSubscriptions)){
+                $is_subcribed = 1;
+            }else{
+                $is_subcribed = 0;
+            }
+        }else{
+            $checkSubscriptions = "";
+            $is_subcribed = 0;
+        }
 
 
-        return view('web.videopublisher',compact('getcategory','categoryFirst','athleticCoaches','search','categorys','videoCount','trendingVideo'));
+        return view('web.videopublisher',compact('getcategory','categoryFirst','athleticCoaches','search','categorys','videoCount','trendingVideo','is_subcribed'));
     }
 
     // All Video List
@@ -286,6 +300,7 @@ class HomeController extends Controller
         $userRole = $user ? $user->roles : null;
 
         if ($userId && $getVideo->video_type == '2') {
+
             if ($getVideo->video_type == '1') {
                 $getSubscription = Subscriptions::where('user_id', $userId)->first();
                 if (empty($getSubscription)) {
@@ -293,13 +308,12 @@ class HomeController extends Controller
                 }
             }
 
-            if ($userId != $getVideo->user_id && ($userRole == 'Athletes' || $userRole == 'Coach')) {
-                return Redirect::back()->withError("You have logged in as Athlete/Coach and cannot view the video");
+            if ($userId != $getVideo->user_id && ($userRole == 'Athlete' || $userRole == 'Coach')) {
+                return Redirect::back()->withError("You have logged in as Athlete/Coach and cannot view the video","You have logged in as Athlete/Coach and cannot view the video");
             }
-
             $checkVideoHistory = VideoHistory::where('video_id', $id)->where('user_id', $userId)->first();
             if (empty($checkVideoHistory)) {
-                $getVideo->increment('Video_veiw_count');
+                Video::where('Video_id', $id)->increment('video_veiw_count');
                 $videoHistoryData = [
                     'video_id' => $id,
                     'user_id' => $userId,

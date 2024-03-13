@@ -44,13 +44,14 @@
                             </a>
                             <ul class="dropdown-menu {{ request()->is('athletes-coach/Video*') ? 'show' : '' }}"
                                 aria-labelledby="navbarDarkDropdownMenuLink">
-                                <li><a class="dropdown-item {{ request()->is('athletes-coach/Video/add') ? 'active' : '' }}" href="{{ route('web.Video.add') }}">Add New Video</a></li>
+                                <li><a class="dropdown-item" href="{{ route('web.athletes.coach.questionandanswere') }}">Question & Answer</a></li>
                                 <li><a class="dropdown-item {{ request()->is('athletes-coach/Video/index') ? 'active' : '' }}" href="{{ route('web.Video.index') }}">All Videos</a></li>
+                                <li><a class="dropdown-item {{ request()->is('athletes-coach/Video/add') ? 'active' : '' }}" href="{{ route('web.Video.add') }}">Add New Video</a></li>
                             </ul>
                         </li>
                         <li class="nav-item"><a class="nav-link px-2" href="{{ route('web.revenue.history') }}"><i class="fas fa-coins me-2"></i> Revenue History</a></li>
                         <li class="nav-item"><a class="nav-link px-2" href="{{ route('web.athletes.coach.referralAndEarn') }}"><i class="fas fa-coins me-2"></i> Refer and Earn</a></li>
-                        <li class="nav-item"><a href="{{ route('web.athletes.coach.questionandanswere') }}" class="nav-link px-2"><i class="fas fa-coins me-2"></i>Question & Answer</a></li>
+                        {{-- <li class="nav-item"><a href="{{ route('web.athletes.coach.questionandanswere') }}" class="nav-link px-2"><i class="fas fa-coins me-2"></i>Question & Answer</a></li> --}}
                         <li class="nav-item"><a href="{{ route('web.athletes.coach.ChangePassword') }}" class="nav-link px-2 {{ request()->is('athletes-coach/changepassword') ? 'active' : '' }}" href="#"><i class="fas fa-coins me-2"></i> Change Password</a></li>
                         {{-- <li class="nav-item"><a class="nav-link px-2" href="{{ route('web.bank.index') }}"><i class="fas fa-coins me-2"></i> Add Account</a></li> --}}
                     </ul>

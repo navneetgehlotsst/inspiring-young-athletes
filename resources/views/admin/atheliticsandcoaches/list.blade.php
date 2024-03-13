@@ -17,6 +17,7 @@
                                 <th>Phone</th>
                                 <th>Role</th>
                                 <th>Status</th>
+                                <th>Video Count</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -27,6 +28,12 @@
                                         <td>{{$user->email}}</td>
                                         <td>{{$user->phone}}</td>
                                         <td>{{$user->roles}}</td>
+                                        <td>
+                                            @php
+                                                echo "<pre>";
+                                                print_r($user);
+                                            @endphp
+                                        </td>
                                         <td>
                                             @if($user->user_status == '1' )
                                                 <p class="badge bg-label-success">Active</p>

@@ -263,7 +263,8 @@ class AuthController extends Controller
                 ->get();
 
                 $userDataCount = [];
-                // $month_names = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+                $month = 0;
+                /// $month_names = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
                 // foreach ($month_names as $month) {
                 //     $userDataCount[$month] = ['month' => $month, 'Athletes' => 0, 'Coach' => 0, 'User' => 0];

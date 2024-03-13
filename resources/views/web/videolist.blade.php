@@ -51,26 +51,8 @@
         border-radius: 0.25rem;
     }
 </style>
-@if(session('error'))
+@if(session('You have logged in as Athlete/Coach and cannot view the video'))
     <script>
-        $(document).ready(function() {
-			toastr.options = {
-				'closeButton': true,
-				'debug': false,
-				'newestOnTop': false,
-				'progressBar': false,
-				'positionClass': 'toast-top-right',
-				'preventDuplicates': false,
-				'showDuration': '1000',
-				'hideDuration': '1000',
-				'timeOut': '5000',
-				'extendedTimeOut': '1000',
-				'showEasing': 'swing',
-				'hideEasing': 'linear',
-				'showMethod': 'fadeIn',
-				'hideMethod': 'fadeOut',
-			}
-		});
         $(document).ready(function(){
             Swal.fire({
                 icon: "error",
@@ -80,6 +62,18 @@
                     if (result.isConfirmed) {
                         window.location.replace("{{ route('web.athletes.coach.MySubcription') }}");
                     }
+                });
+        });
+    </script>
+@endif
+
+@if(session('error'))
+    <script>
+        $(document).ready(function(){
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "{{ session('error') }}",
                 });
         });
     </script>

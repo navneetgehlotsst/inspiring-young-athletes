@@ -90,7 +90,7 @@
                                                         Play Video
                                                   @else
                                                       <a href="#" class="fw-bold w-100">
-                                                        No Answere
+                                                        No Answer
                                                   @endif
                                                   </a>
                                                 </td>

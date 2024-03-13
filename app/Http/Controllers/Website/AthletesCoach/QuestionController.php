@@ -45,7 +45,7 @@ class QuestionController extends Controller
             foreach ($userAnwereGet as $key => $userAnwere) {
                 $userAns[] = $userAnwere;
             }
-            if($UserDetail->roles == "Athletes"){
+            if($UserDetail->roles == "Athlete"){
                 $question = Question::where('question_type', '!=' ,'for_coaches')->get();
                 $questionforathletes = Question::where('question_type','for_athletes')->count();
                 $questionforparents = Question::where('question_type','for_parents')->count();

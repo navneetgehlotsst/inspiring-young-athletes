@@ -79,6 +79,11 @@ class User extends Authenticatable
         return $this->hasMany(Video::class, 'user_id')->where('video_status','1');
     }
 
+    public function videosCount()
+    {
+        return $this->hasMany(Video::class, 'user_id');
+    }
+
     public function usersubciption()
     {
         return $this->hasMany(Subscriptions::class, 'user_id');

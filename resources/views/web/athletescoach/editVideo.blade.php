@@ -71,7 +71,7 @@
                     <form id="videoUpload" role="form" action="{{ route('web.Video.update') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="videoid" value="{{$videodetail->video_id}}">
-                        <input type="text" name="title" class="form-control py-3 mb-4" value="{{$videodetail->video_title}}" placeholder="Video Title">
+                        <input type="text" name="title" class="form-control py-3 mb-4" value="{!!$videodetail->video_title!!}" placeholder="Video Title">
                         @if($videodetail->video_status == '2')
                             <input type="text" name="remark" class="form-control py-3 mb-4" value="{{$videorejectedcomment->comment}}" placeholder="Video Reject Comment" readonly>
                         @endif

@@ -71,9 +71,11 @@
                     <form id="videoUpload" role="form" action="{{ route('web.athletes.coach.question.update') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="videoid" value="{{$videodetail['VideoDetail']->video_id}}">
-                        <input type="text" name="title" class="form-control py-3 mb-4" value="{{$questiondetail->question}}" placeholder="Video Title" readonly>
+                        <input type="hidden" name="title" class="form-control py-3 mb-4" value="{{$questiondetail->question}}" placeholder="Video Title" readonly>
+                        <div class="py-3 mb-4 h5">{!!$questiondetail->question!!}</div>
                         @if($videodetail['VideoDetail']->video_status == '2')
-                            <input type="text" name="remark" class="form-control py-3 mb-4" value="{{$videorejectedcomment->comment}}" placeholder="Video Reject Comment" readonly>
+                            <input type="hidden" name="remark" class="form-control py-3 mb-4" value="{{$videorejectedcomment->comment}}" placeholder="Video Reject Comment" readonly>
+                            <div class="py-3 mb-4 h5">Rejected For: {{$videorejectedcomment->comment}}</div>
                         @endif
                         <div class="row">
                             <div class="col-lg-12">

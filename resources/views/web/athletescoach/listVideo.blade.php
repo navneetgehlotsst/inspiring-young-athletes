@@ -53,7 +53,7 @@
                                     {{-- <span class="video-duration">5.28</span> --}}
                                 </div>
                                 <div class="video-content">
-                                    <h4><a class="video-title" href="{{ route('web.Video.viewVideo',$Video->video_id) }}">{{$Video->video_title}}</a></h4>
+                                    <h4><a class="video-title" href="{{ route('web.Video.viewVideo',$Video->video_id) }}">{!!$Video->video_title!!}</a></h4>
                                     <h4><a class="video-title">{{$uplaoddate}}</a></h4>
                                     <div class="video-counter d-flex justify-content-between">
                                         <div class="video-viewers">

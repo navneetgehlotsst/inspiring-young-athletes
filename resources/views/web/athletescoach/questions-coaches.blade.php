@@ -87,7 +87,7 @@
                                             </span>
                                             <p class="h6 ps-3">
                                                 <strong>{{$i++}}.</strong>
-                                                {{$questionList->question}}
+                                                {!!$questionList->question!!}
                                             </p>
                                         </button>
                                     </h2>

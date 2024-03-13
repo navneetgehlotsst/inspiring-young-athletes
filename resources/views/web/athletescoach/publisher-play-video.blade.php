@@ -24,7 +24,7 @@
                                         <div class="video-post-title">
                                             <div class="d-flex d-lg-block">
                                                 <div class="video-post-info">
-                                                    <h4><a href="#">{{$getVideo->video_title}}</a></h4>
+                                                    <h4><a href="#">{!!$getVideo->video_title!!}</a></h4>
                                                     <div class="video-post-date pt-2">
                                                         <span class="h5"><i class="fas fa-calendar-alt"></i></span>
                                                         @php

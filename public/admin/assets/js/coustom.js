@@ -106,7 +106,7 @@ $(document).ready( function () {
     });
 
     // Show Status Change Pop
-    $(".aproved").click(function(){
+    $('#questionDataTable').on('click', '.aproved', function() {
         var id = $(this).data("videoid");
         var url = $(this).data("url");
         var token = $("meta[name='csrf-token']").attr("content");
@@ -135,7 +135,7 @@ $(document).ready( function () {
     });
 
     // Show Status Change Pop
-    $(".reject").click(function(){
+    $('#questionDataTable').on('click', '.reject', function() {
         var id = $(this).data("videoid");
         $('#rejectmodel').modal('show');
         $('#videoId').val(id);

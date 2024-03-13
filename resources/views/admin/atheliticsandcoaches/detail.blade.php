@@ -117,7 +117,7 @@
                           @foreach ($questionAnswere as $usersvideo)
                                 <tr>
                                     <td>{{$i++}}</td>
-                                    <td>{{$usersvideo['question']}}</td>
+                                    <td>{!!$usersvideo['question']!!}</td>
                                     <td>{{$usersvideo['video_veiw_count']}}</td>
                                     <td>
                                       @if ($usersvideo['answere'] != "")

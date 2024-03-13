@@ -82,13 +82,13 @@
                       <div>
                         @if($usersintro->IntroVideo['0']->video_status == 0 )
                             <button type="button" class="btn btn-outline-success aproved" id="approved-{{ $usersintro->IntroVideo['0']->video_id}}" data-videoid ="{{ $usersintro->IntroVideo['0']->video_id }}" data-url='{{ route("admin.athelitics.show.video") }}'>Approve</button>
-                            <button type="button" class="btn btn-outline-danger reject ms-2" id="rejected-{{$usersintro->IntroVideo['0']->video_id}}" data-videoid ="{{$usersintro->IntroVideo['0']->video_id}}" data-url='{{ route("admin.athelitics.changestatus") }}'>Rejecte</button>
+                            <button type="button" class="btn btn-outline-danger reject ms-2" id="rejected-{{$usersintro->IntroVideo['0']->video_id}}" data-videoid ="{{$usersintro->IntroVideo['0']->video_id}}" data-url='{{ route("admin.athelitics.changestatus") }}'>Reject</button>
                         @elseif($usersintro->IntroVideo['0']->video_status == 2)
                             <button type="button" class="btn btn-outline-success aproved" id="approved-{{$usersintro->IntroVideo['0']->video_id}}" data-videoid ="{{$usersintro->IntroVideo['0']->video_id}}" data-url='{{ route("admin.athelitics.show.video") }}'>Approve</button>
-                            <button type="button" class="btn btn-outline-danger reject ms-2 d-none" id="rejected-{{$usersintro->IntroVideo['0']->video_id}}" data-videoid ="{{$usersintro->IntroVideo['0']->video_id}}" data-url='{{ route("admin.athelitics.changestatus") }}'>Rejecte</button>
+                            <button type="button" class="btn btn-outline-danger reject ms-2 d-none" id="rejected-{{$usersintro->IntroVideo['0']->video_id}}" data-videoid ="{{$usersintro->IntroVideo['0']->video_id}}" data-url='{{ route("admin.athelitics.changestatus") }}'>Reject</button>
                         @else
                             <button type="button" class="btn btn-outline-success aproved d-none" id="approved-{{$usersintro->IntroVideo['0']->video_id}}" data-videoid ="{{$usersintro->IntroVideo['0']->video_id}}" data-url='{{ route("admin.athelitics.show.video") }}'>Approve</button>
-                            <button type="button" class="btn btn-outline-danger reject ms-2" id="rejected-{{$usersintro->IntroVideo['0']->video_id}}" data-videoid ="{{$usersintro->IntroVideo['0']->video_id}}" data-url='{{ route("admin.athelitics.changestatus") }}'>Rejected</button>
+                            <button type="button" class="btn btn-outline-danger reject ms-2" id="rejected-{{$usersintro->IntroVideo['0']->video_id}}" data-videoid ="{{$usersintro->IntroVideo['0']->video_id}}" data-url='{{ route("admin.athelitics.changestatus") }}'>Reject</button>
                         @endif
                       </div>
                     </div>

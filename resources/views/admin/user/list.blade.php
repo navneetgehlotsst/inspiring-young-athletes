@@ -30,16 +30,16 @@
                                         <td>Viewer</td>
                                         <td>
                                             @if($user->user_status == '1' )
-                                                <p class="btn btn-success mb-0">Active</p>
+                                                <p class="badge bg-label-success mb-0">Active</p>
                                             @else
-                                                <p class="btn btn-danger mb-0">Inactive</p>
+                                                <p class="badge bg-label-danger mb-0">Inactive</p>
                                             @endif
                                         </td>
                                         <td>
                                             @if(count($user->usersubciption) == '0' )
-                                                <p class="btn btn-danger mb-0">Not Subscribed</p>
+                                                <p class="badge bg-label-danger mb-0">Not Subscribed</p>
                                             @else
-                                                <p class="btn btn-success mb-0">Subscribed</p>
+                                                <p class="badge bg-label-success mb-0">Subscribed</p>
                                             @endif
                                         </td>
                                         <td>
@@ -57,4 +57,3 @@
     </div>
 </div>
 @endsection
-    

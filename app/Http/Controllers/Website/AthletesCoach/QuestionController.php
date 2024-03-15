@@ -288,7 +288,18 @@ class QuestionController extends Controller
 
                 User::where('id',$userID)
                 ->update(['roles' => $request->role]);
-                return redirect()->route('web.athletes.coach.atheliticsCoachQuestion')->with('success', 'Your Account is verified successfully.');
+
+                $UserAnswere = UserAnswere::where('user_id',$userID)->where('question_id','!=','0');
+                if($UserAnswere) {
+                    $UserAnswere->delete();
+                }
+
+                $Video = Video::where('user_id',$userID)->where('video_title','!=','Intro Video');
+                if($Video){
+                    $Video->delete();
+                }
+
+                return redirect()->route('web.athletes.coach.atheliticsCoachQuestion')->with('success', 'Your Role Has Been Chnaged.');
             }else{
                 return redirect()->route('web.login');
             }
@@ -298,7 +309,7 @@ class QuestionController extends Controller
         }
     }
 
-    public function questionandanswere(){
+    public function questionandanswere($new_video = null){
         if (Auth::check()){
             $UserDetail = Auth::user();
             $questionathelitics = Question::where('question_type', '!=' ,'for_coaches')->get();
@@ -308,7 +319,13 @@ class QuestionController extends Controller
             foreach ($userAnwereGet as $key => $userAnwere) {
                 $userAns[] = $userAnwere;
             }
-            return view('web.athletescoach.questionandans',compact('questionathelitics','questioncoaches','UserDetail','userAns'));
+            if($new_video == "add_question"){
+                return redirect()->route('web.athletes.coach.questionandanswere')->with('success','Video has been added successfully.');
+            }elseif($new_video == 'update_question'){
+                return redirect()->route('web.athletes.coach.questionandanswere')->with('success','Video has been updated successfully.');
+            }else{
+                return view('web.athletescoach.questionandans',compact('questionathelitics','questioncoaches','UserDetail','userAns'));
+            }
         }else{
             return redirect('')->route('web.login');
         }
@@ -417,7 +434,8 @@ class QuestionController extends Controller
             'video_status' => '0'
         ];
         $veid = Video::where('video_id', $request->videoid)->update($dataVideo);
-        return redirect()->route('web.athletes.coach.questionandanswere')->with('success','Video has been updated successfully.');
+        //return redirect()->route('web.athletes.coach.questionandanswere')->with('success','Video has been updated successfully.');
+        return response()->json(['success' => true, 'message' => 'Video has been updated successfully.']);
     }
 
     public function questionstoreVideo(Request $request){
@@ -495,6 +513,7 @@ class QuestionController extends Controller
         $id = UserAnswere::insertGetId($datauser);
 
         // ->route('admin.branch.list')
-        return redirect()->route('web.athletes.coach.questionandanswere')->with('success','Video has been added successfully.');
+        //return redirect()->route('web.athletes.coach.questionandanswere')->with('success','Video has been added successfully.');
+        return response()->json(['success' => true, 'message' => 'Video has been updated successfully.']);
     }
 }

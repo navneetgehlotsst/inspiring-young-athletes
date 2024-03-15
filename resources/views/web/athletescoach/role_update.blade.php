@@ -1,6 +1,12 @@
 @extends('web.layouts.app')
 @section('content')
-
+<style>
+    .alert-info {
+        color: #055160;
+        background-color: #cff4fc;
+        border-color: #b6effb;
+    }
+</style>
 <!-- Video Publisher Section Start-->
 <section class="publisher-section themeix-ptb-2">
     <div class="container">
@@ -9,8 +15,12 @@
                 <div class="from-box p-5">
                     <div class="pb-3 text-center">
                         <h2 class="fw-bold text-success mt-4">Update Roles</h2>
+
                     </div>
                         <div class="accordion-body">
+                            <div class="col-lg-12 col-12 h6 fw-bold text-center">
+                                If you change roles, previously uploaded videos will be deleted.
+                            </div>
                             <form  role="form" action="{{ route('web.athletes.coach.save.role') }}" method="post" id="coachAtheliticsRegister">
                                 @csrf
                                 <select class="form-control py-3 mb-4 form-select @error('role') is-invalid @enderror" name="role" id="role" aria-label="Default select example">

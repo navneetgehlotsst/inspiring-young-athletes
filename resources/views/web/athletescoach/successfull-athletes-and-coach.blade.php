@@ -29,6 +29,12 @@
         pointer-events: none;
         cursor: default;
     }
+    .close-btn-onclick-btn{
+        position: absolute;
+        right: 0;
+        font-size: 18px;
+        bottom:12px;
+    }
 </style>
 <!-- Video Publisher Section Start-->
 <section class="publisher-section themeix-ptb-2">
@@ -41,8 +47,8 @@
                         <h2 class="fw-bold text-success mt-4">Successful!</h2>
                                <p class="fw-bold pt-3 mb-2">Your Email Address has been successfully verified</p>
                     </div>
-                        <div class="accordion-body">
-                            <p class="fw-bold text-center">Please Add 30 second video giving introduction about your self like Your Name and Which Sport you played.</p>
+                        <div class="accordion-body position-relative">
+                            <p class="fw-bold text-center">Please add a 30 second introductory video of yourself stating your name, sport you play and accolades to date.</p>
                             <form id="imageUploadFormintro" class="d-flex justify-content-center" enctype="multipart/form-data">
                                 <div class="mb-4">
                                     <input type="hidden" name="questiontype" value="QA">
@@ -50,14 +56,15 @@
                                     <input class="choose-btn-iyg" name="video" id="formFileLgintro" accept="video/mp4,video/x-m4v,video/*" type="file" onchange="uploadIntroVideo('intro')" />
                                 </div>
                             </form>
-                            <button type="button" id="removevideobuttonintro" class="btn btn-danger d-none" onclick="removevideo('intro')">Remove</button>
                             <div id="uploadStatusintro"></div>
                             <div id="progress-bar-containerintro" style="display: none;">
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" id="progress-barintro" role="progressbar" value="0" max="100">0%</div>
+                                <div class="progress" >
+                                    <div class="progress-bar bg-success" id="progress-barintro" role="progressbar" value="0" max="100">0%</div>
+                                    <a class="text-danger close-btn-onclick-btn" id="removeprogrssbarintro" onclick="cancelUploade()" btn btn-primary><i class="fas fa-times-circle"></i></a>
                                 </div>
                             </div>
                         </div>
+
                     <a href="{{ route('web.athletes.coach.atheliticsCoachQuestion') }}" class="btn btn-primary py-3 w-100 fw-bold login-btn disabled" id="saveintro">Continue</a>
                 </div>
             </div>
@@ -72,4 +79,6 @@
 
 @endsection
 @section('script')
+
+
 @endsection

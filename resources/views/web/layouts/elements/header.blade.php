@@ -84,12 +84,12 @@
                         </ul>
                     </div>
                     @endif
-                </div>                
+                </div>
             </div>
         </div>
     </div>
     <!-- Navigation area starts -->
-    <div class="main-menu"> 
+    <div class="main-menu">
         <!-- Start Navigation -->
         <nav class="header-section pin-style">
             <div class="container">
@@ -109,10 +109,10 @@
                                     <ul class="nav themeix-nav">
                                         <li><a href="{{ route('web.athletes') }}">Athletes</a></li>
                                         <li><a href="{{ route('web.coach') }}">Coach</a></li>
-                                        <li><a href="{{ route('web.coming-soon') }}">Parent</a></li>
+                                        <li><a href="{{ route('web.parent') }}">Parent</a></li>
                                         <li class="mega-menu remove-border active"><a href="{{ route('web.categories') }}">Categories</a><span class="arrow"></span>
                                             <ul>
-                                                @php 
+                                                @php
                                                     $getcategory = DB::table('category')->get();
                                                 @endphp
                                                 @foreach ($getcategory as $category)

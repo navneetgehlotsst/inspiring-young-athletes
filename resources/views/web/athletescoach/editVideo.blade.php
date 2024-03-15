@@ -49,6 +49,12 @@
     background-color: rgb(238, 238, 238);
     padding: 0 3px;
     }
+    .close-btn-onclick-btn{
+        position: absolute;
+        right: 0;
+        font-size: 18px;
+        bottom:12px;
+    }
   </style>
 <div class="loading-overlay">
     <span class="fas fa-spinner fa-3x fa-spin"></span>
@@ -68,17 +74,19 @@
                 {{-- $videodetail['VideoDetail']->video --}}
                 <!-- Content Row -->
                 <div class="card shadow p-3">
-                    <form id="videoUpload" role="form" action="{{ route('web.Video.update') }}" method="post" enctype="multipart/form-data">
+                    {{-- <form id="videoUpload" role="form" action="{{ route('web.Video.update') }}" method="post" enctype="multipart/form-data"> --}}
+                    <form id="imageUploadFormeditvideo" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="videoid" value="{{$videodetail->video_id}}">
                         <input type="text" name="title" class="form-control py-3 mb-4" value="{!!$videodetail->video_title!!}" placeholder="Video Title">
+                        <div class="alert d-none" id="titlemessgae">Title Feild is required</div>
                         @if($videodetail->video_status == '2')
                             <input type="text" name="remark" class="form-control py-3 mb-4" value="{{$videorejectedcomment->comment}}" placeholder="Video Reject Comment" readonly>
                         @endif
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="mb-4 d-flex justify-content-center">
-                                    <video width="600" controls>
+                                    <video width="100%" controls>
                                         <source src="{{$videodetail->video}}">
                                     </video>
                                 </div>
@@ -87,17 +95,22 @@
                         <div class="row">
                             <div class="col-lg-8">
                                 <div class="mb-4">
-                                    <input class="choose-btn-iyg" name="video" id="formFileLg" accept="video/mp4,video/x-m4v,video/*" type="file">
+                                    <input class="choose-btn-iyg" name="video" id="formFileLgeditvideo" accept="video/mp4,video/x-m4v,video/*" type="file">
+                                    <div class="alert mt-2 d-none" id="formFileLgeditvideocheck">Video Feild is required</div>
                                 </div>
-                                @error('video')
-                                    <div class="alert">{{ $message }}</div>
-                                @enderror
                             </div>
                             <div class="col-lg-4">
-                                <button type="submit" class="btn btn-primary py-3 w-100 fw-bold login-btn" id="load-button">Save</button>
+                                <button type="button" onclick="uploadEditVideo('editvideo')" class="btn btn-primary py-3 w-100 fw-bold login-btn" id="load-button">Save</button>
                             </div>
                         </div>
                     </form>
+                    <div id="uploadStatuseditVideo"></div>
+                    <div id="progressbarcontainereditVideo" style="display: none;">
+                        <div class="progress" >
+                            <div class="progress-bar bg-success" id="progressbareditVideo" role="progressbar" value="0" max="100">0%</div>
+                            <a class="text-danger close-btn-onclick-btn" id="removeprogrssbareditVideo" onclick="cancelUploade()" btn btn-primary><i class="fas fa-times-circle"></i></a>
+                        </div>
+                    </div>
                 </div>
                 <div id="loader" class="loader"></div>
             </div>

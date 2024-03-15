@@ -47,6 +47,20 @@
         toastr.success('{{ session('success') }}');
     </script>
 @endif
+
+<style>
+    .close-btn-onclick-btn{
+        position: absolute;
+        right: 0;
+        font-size: 18px;
+        bottom:12px;
+    }
+    .alert-info {
+        color: #055160;
+        background-color: #cff4fc;
+        border-color: #b6effb;
+    }
+</style>
 <!-- video Publisher Section Start-->
 <section class="publisher-section themeix-ptb-2">
     <div class="container">
@@ -81,9 +95,8 @@
                         <!--Athletes Questions Start-->
                         <div class="from-box p-3 p-lg-5">
                             <div class="row">
-                                <div class="col-lg-8 col-8">
-                                    <p>You can change your Role here , After that you can't change Your Role <a href="{{ route('web.athletes.coach.update.role') }}">Click Here</a></p>
-                                    <p></p>
+                                <div class="col-lg-8 col-8 alert alert-info">
+                                    If you chose the wrong option and need to switch between athlete and coach, <a href="{{ route('web.athletes.coach.update.role') }}" class="fw-bold">Click Here</a>
                                 </div>
                                 <div class="col-lg-8 col-8">
                                     <h4 class="fw-bold">Questions for athletes:</h4>
@@ -112,7 +125,7 @@
                                                     </button>
                                                 </h2>
                                                 <div id="collapseQuestions{{$questionList->question_id}}" class="accordion-collapse collapse @if($i == 2) show @endif" aria-labelledby="headingQuestions{{$questionList->question_id}}" data-bs-parent="#accordionAthletesQuestions">
-                                                    <div class="accordion-body">
+                                                    <div class="accordion-body position-relative">
                                                         <form id="imageUploadForm{{$questionList->question_id}}" class="@if(in_array($questionList->question_id, $userAns)) d-none @endif" enctype="multipart/form-data">
                                                             <div class="mb-4">
                                                                 <input type="hidden" name="questiontype" value="{{$questionList->question_type}}">
@@ -127,6 +140,7 @@
                                                             {{-- <progress id="progress-bar{{$questionList->question_id}}" value="0" max="100"></progress> --}}
                                                             <div class="progress">
                                                                 <div class="progress-bar customprogressbar" id="progress-bar{{$questionList->question_id}}" role="progressbar" value="0" max="100">0%</div>
+                                                                <a class="text-danger close-btn-onclick-btn" onclick="cancelUploade()" btn btn-primary><i class="fas fa-times-circle"></i></a>
                                                             </div>
                                                             {{-- <div id="progress-text{{$questionList->question_id}}">0%</div> --}}
                                                         </div>
@@ -171,7 +185,7 @@
                                                     </button>
                                                 </h2>
                                                 <div id="collapseQuestions{{$questionList->question_id}}" class="accordion-collapse collapse @if($i == 2) show @endif" aria-labelledby="headingQuestions{{$questionList->question_id}}" data-bs-parent="#accordionAthletesQuestions">
-                                                    <div class="accordion-body">
+                                                    <div class="accordion-body position-relative">
                                                         <form id="imageUploadForm{{$questionList->question_id}}" class="@if(in_array($questionList->question_id, $userAns)) d-none @endif" enctype="multipart/form-data">
                                                             <div class="mb-4">
                                                                 <input type="hidden" name="questiontype" value="{{$questionList->question_type}}">
@@ -186,6 +200,7 @@
                                                             {{-- <progress id="progress-bar{{$questionList->question_id}}" value="0" max="100"></progress> --}}
                                                             <div class="progress">
                                                                 <div class="progress-bar customprogressbar" id="progress-bar{{$questionList->question_id}}" role="progressbar" value="0" max="100">0%</div>
+                                                                <a class="text-danger close-btn-onclick-btn" onclick="cancelUploade()" btn btn-primary><i class="fas fa-times-circle"></i></a>
                                                             </div>
                                                             {{-- <div id="progress-text{{$questionList->question_id}}">0%</div> --}}
                                                         </div>
@@ -228,7 +243,7 @@
                                                     </button>
                                                 </h2>
                                                 <div id="collapseQuestions{{$questionList->question_id}}" class="accordion-collapse collapse @if($i == 2) show @endif" aria-labelledby="headingQuestions{{$questionList->question_id}}" data-bs-parent="#accordionAthletesQuestions">
-                                                    <div class="accordion-body">
+                                                    <div class="accordion-body position-relative">
                                                         <form id="imageUploadForm{{$questionList->question_id}}" class="@if(in_array($questionList->question_id, $userAns)) d-none @endif" enctype="multipart/form-data">
                                                             <div class="mb-4">
                                                                 <input type="hidden" name="questiontype" value="{{$questionList->question_type}}">
@@ -243,6 +258,7 @@
                                                             {{-- <progress id="progress-bar{{$questionList->question_id}}" value="0" max="100"></progress> --}}
                                                             <div class="progress">
                                                                 <div class="progress-bar customprogressbar" id="progress-bar{{$questionList->question_id}}" role="progressbar" value="0" max="100">0%</div>
+                                                                <a class="text-danger close-btn-onclick-btn" onclick="cancelUploade()" btn btn-primary><i class="fas fa-times-circle"></i></a>
                                                             </div>
                                                             {{-- <div id="progress-text{{$questionList->question_id}}">0%</div> --}}
                                                         </div>
@@ -285,7 +301,7 @@
                                                     </button>
                                                 </h2>
                                                 <div id="collapseQuestions{{$questionList->question_id}}" class="accordion-collapse collapse @if($i == 2) show @endif" aria-labelledby="headingQuestions{{$questionList->question_id}}" data-bs-parent="#accordionAthletesQuestions">
-                                                    <div class="accordion-body">
+                                                    <div class="accordion-body position-relative">
                                                         <form id="imageUploadForm{{$questionList->question_id}}" class="@if(in_array($questionList->question_id, $userAns)) d-none @endif" enctype="multipart/form-data">
                                                             <div class="mb-4">
                                                                 <input type="hidden" name="questiontype" value="{{$questionList->question_type}}">
@@ -300,6 +316,7 @@
                                                             {{-- <progress id="progress-bar{{$questionList->question_id}}" value="0" max="100"></progress> --}}
                                                             <div class="progress">
                                                                 <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" id="progress-bar{{$questionList->question_id}}" role="progressbar" value="0" max="100">0%</div>
+                                                                <a class="text-danger close-btn-onclick-btn" onclick="cancelUploade()" btn btn-primary><i class="fas fa-times-circle"></i></a>
                                                             </div>
                                                             {{-- <div id="progress-text{{$questionList->question_id}}">0%</div> --}}
                                                         </div>
@@ -313,14 +330,14 @@
                         </div>
                         <!--Question for Friday Frenzy End-->
                     </div>
-                   
+
                 </div>
                 <div class="d-flex justify-content-between align-items-center mt-3">
                     <div>
                         <h4 class="fw-bold text-white"><span id="compltedquestioncount">@if($userAnswerCount == '0') 0  @elseif($userAnswerCount > 8) 8 @else {{$userAnswerCount}} @endif</span>/8 Questions Complete</h4>
                         <p class="text-white">Answer any 8 of our pre-determined questions as an athlete or coach to activate your account online</p>
                     </div>
-                    <a href="{{ route('web.athletes.coach.SaveAnswere') }}" class="btn iya-btn-white py-3 fw-bold @if($userAnswerCount < '1') disabled @else enable @endif" id="enabledisable">Go to Dashboard</a>
+                    <a href="javascript:void(0)" class="btn iya-btn-white py-3 fw-bold confrmationmsg @if($userAnswerCount < '1') disabled @else enable @endif" id="enabledisable">Go to Dashboard</a>
                     {{-- <a href="{{ route('web.athletes.coach.SaveAnswere') }}" class="btn iya-btn-white py-3 fw-bold enable" id="enabledisable">Go to Dashboard</a> --}}
                 </div>
             </div>

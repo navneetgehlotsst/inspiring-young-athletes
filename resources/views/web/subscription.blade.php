@@ -62,7 +62,7 @@
                     <form id="payment-form" action="{{ route('web.subscription.create') }}" method="POST">
                         @csrf
                         <input type="hidden" name="plan" id="plan" value="{{ $PlanId }}">
-  
+
                         <div class="row">
                             <div class="col-xl-12 col-lg-12">
                                 <div class="form-group">
@@ -71,7 +71,7 @@
                                 </div>
                             </div>
                         </div>
-  
+
                         <div class="row">
                             <div class="col-xl-12 col-lg-12 mt-2">
                                 <div class="form-group">
@@ -83,7 +83,7 @@
                                 <button type="submit" class="btn btn-primary py-3 w-100 fw-bold login-btn" id="card-button" data-secret="{{ $inttentId }}">Purchase</button>
                             </div>
                         </div>
-  
+
                     </form>
                 </div>
             </div>
@@ -92,10 +92,62 @@
 </section>
 <!-- Video Publisher Section End-->
 @include('web.layouts.elements.newsletter')
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    const stripe = Stripe('{{ env('STRIPE_KEY') }}')
 
+    const elements = stripe.elements()
+    const cardElement = elements.create('card')
 
-@endsection 
+    cardElement.mount('#card-element')
+
+    const form = document.getElementById('payment-form')
+    const cardBtn = document.getElementById('card-button')
+    const cardHolderName = document.getElementById('card-holder-name')
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault()
+
+        cardBtn.disabled = true
+        const { setupIntent, error } = await stripe.confirmCardSetup(
+            cardBtn.dataset.secret, {
+                payment_method: {
+                    card: cardElement,
+                    billing_details: {
+                        name: cardHolderName.value
+                    }
+                }
+            }
+        )
+
+        if(error) {
+            cardBtn.disable = false
+            $('#card-button').prop('disabled', false);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.message
+            })
+        } else {
+            let token = document.createElement('input')
+            token.setAttribute('type', 'hidden')
+            token.setAttribute('name', 'token')
+            token.setAttribute('value', setupIntent.payment_method)
+            form.appendChild(token)
+            form.submit();
+        }
+    })
+</script>
+<script>
+    let overlay = document.getElementsByClassName('loading-overlay')[0]
+
+    //overlay.addEventListener('click', e => overlay.classList.toggle('is-active'))
+
+    document.getElementById('load-button')
+    .addEventListener('click', e => overlay.classList.toggle('is-active'))
+</script>
+
+@endsection
 @section('script')
 
 @endsection
-    

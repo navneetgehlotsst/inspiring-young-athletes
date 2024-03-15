@@ -137,28 +137,28 @@
     <div class="row mb-3">
          <div class="col-lg-8">
                <div class="card">
-                  <h4 class="card-title mb-1 text-nowrap pt-3 ps-3">Income</h4>  
+                  <h4 class="card-title mb-1 text-nowrap pt-3 ps-3">Income</h4>
                   <div class="d-flex row">
                      <div class="col-3">
-                           <div class="card-body">                      
+                           <div class="card-body">
                               <h5 class="card-title text-primary mb-1">$ {{$subscriptionAmount}}</h5>
                               <p class="d-block mb-4 pb-1 text-muted">Total Subscription</p>
                            </div>
                      </div>
                      <div class="col-3">
-                           <div class="card-body">                      
+                           <div class="card-body">
                               <h5 class="card-title text-primary mb-1 @if($referralRevenue <= 0) text-danger @else text-primary @endif">$ {{$referralRevenue}}</h5>
                               <p class="d-block mb-4 pb-1 text-muted">Referral Given</p>
                            </div>
                      </div>
                      <div class="col-3">
-                        <div class="card-body">                      
+                        <div class="card-body">
                            <h5 class="card-title mb-1 @if($totalAthleteIncome <= 0) text-danger @else text-primary @endif">$ {{$totalAthleteIncome}}</h5>
-                           <p class="d-block mb-4 pb-1 text-muted">Video Revenue</p>
+                           <p class="d-block mb-4 pb-1 text-muted">Athlete Revenue</p>
                         </div>
                   </div>
                      <div class="col-3">
-                           <div class="card-body">                      
+                           <div class="card-body">
                               <h5 class="card-title text-primary mb-1 @if($adminIncome <= 0) text-danger @else text-primary @endif">$ {{$adminIncome}}</h5>
                               <p class="d-block mb-4 pb-1 text-muted">Total Income</p>
                            </div>
@@ -180,7 +180,7 @@
          </div>
          <div class="col-lg-4">
             <div class="card">
-               <h4 class="card-title mb-1 text-nowrap pt-3 ps-3">Users</h4>  
+               <h4 class="card-title mb-1 text-nowrap pt-3 ps-3">Users</h4>
                <div class="d-flex row">
                  <div class="col-6">
                   <div class="card-body">
@@ -194,7 +194,7 @@
                      </div>
                      <p class="mb-1">Total Users</p>
                   </div>
-                 </div>                               
+                 </div>
                  <div class="col-6">
                   <div class="card-body">
                      <div class="d-flex align-items-center mb-2 pb-1">
@@ -207,7 +207,7 @@
                      </div>
                      <p class="mb-1">Viewers</p>
                   </div>
-                 </div>                               
+                 </div>
                  <div class="col-6">
                   <div class="card-body">
                      <div class="d-flex align-items-center mb-2 pb-1">
@@ -220,7 +220,7 @@
                      </div>
                      <p class="mb-1">Athletes</p>
                   </div>
-                 </div>                               
+                 </div>
                  <div class="col-6">
                   <div class="card-body">
                      <div class="d-flex align-items-center mb-2 pb-1">
@@ -233,12 +233,12 @@
                      </div>
                      <p class="mb-1">Coaches</p>
                   </div>
-                 </div>                               
+                 </div>
                </div>
             </div>
 
             <div class="card mt-2">
-               <h4 class="card-title mb-1 text-nowrap pt-3 ps-3">Videos</h4>  
+               <h4 class="card-title mb-1 text-nowrap pt-3 ps-3">Videos</h4>
                <div class="d-flex row">
                  <div class="col-6">
                   <div class="card-body">
@@ -252,7 +252,7 @@
                      </div>
                      <p class="mb-1">Total Videos</p>
                   </div>
-                 </div>                               
+                 </div>
                  <div class="col-6">
                   <div class="card-body">
                      <div class="d-flex align-items-center mb-2 pb-1">
@@ -265,7 +265,7 @@
                      </div>
                      <p class="mb-1">Approved Videos</p>
                   </div>
-                 </div>                               
+                 </div>
                  <div class="col-6">
                   <div class="card-body">
                      <div class="d-flex align-items-center mb-2 pb-1">
@@ -278,7 +278,7 @@
                      </div>
                      <p class="mb-1">Rejected Videos</p>
                   </div>
-                 </div>                               
+                 </div>
                  <div class="col-6">
                   <div class="card-body">
                      <div class="d-flex align-items-center mb-2 pb-1">
@@ -291,11 +291,11 @@
                      </div>
                      <p class="mb-1">Pending Videos</p>
                   </div>
-                 </div>                               
+                 </div>
                </div>
             </div>
 
-            <div class="card mt-2">  
+            <div class="card mt-2">
                <div class="d-flex row">
                  <div class="col-6">
                   <div class="card-body">
@@ -309,7 +309,7 @@
                      </div>
                      <p class="mb-1">Paid Videos</p>
                   </div>
-                 </div>                               
+                 </div>
                  <div class="col-6">
                   <div class="card-body">
                      <div class="d-flex align-items-center mb-2 pb-1">
@@ -322,11 +322,10 @@
                      </div>
                      <p class="mb-1">Free Videos</p>
                   </div>
-                 </div>                               
+                 </div>
                </div>
             </div>
          </div>
     </div>
 </div>
 @endsection
-    

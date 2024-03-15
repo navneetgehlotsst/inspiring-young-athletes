@@ -12,12 +12,12 @@
                         @endif
                     </div>
                     <h5 class="text-white mt-3">{{ auth()->user()->name }}</h5>
-                    @php
-                        $catid = auth()->user()->category;
-                        $category = DB::table('category')->where('category_id',$catid)->first();
-                    @endphp
                     @if(auth()->user()->roles != "User")
-                    <p class="text-white">{{$category->category_name}}</p>
+                        @php
+                            $catid = auth()->user()->category;
+                            $category = DB::table('category')->where('category_id',$catid)->first();
+                        @endphp
+                        <p class="text-white">{{$category->category_name ?? ''}}</p>
                     @endif
                     <div> <a href="{{ route('web.athletes.coach.GetEditProfile') }}" class="btn btn-primary bg-white text-dark border-0 px-4">Edit Profile</a> </div>
                 </div>

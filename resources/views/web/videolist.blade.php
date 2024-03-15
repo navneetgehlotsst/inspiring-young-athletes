@@ -111,10 +111,18 @@
                 </div> --}}
                 <div class="col-lg-4 align-self-center text-lg-end">
                     <div class="mt-2">
-                        <a href="{{ $userdetail->facebook }}" class="my-2 my-lg-0 me-3 text-white btn btn-primary"><i class="fab fa-facebook text-white"></i></a>
-                        <a href="{{ $userdetail->instagram }}" class="my-2 my-lg-0 me-3 text-white btn btn-primary"><i class="fab fa-instagram text-white"></i></a>
-                        <a href="{{ $userdetail->tiktok }}" class="my-2 my-lg-0 me-3 text-white btn btn-primary"><img src="{{asset('web/assets/images/new-img/tiktok.svg')}}" alt="logo" width="16px"></a>
-                        <a href="{{ $userdetail->linkedin }}" class="my-2 my-lg-0 me-3 text-white btn btn-primary"><i class="fab fa-linkedin"></i></a>
+                        @if(!empty($userdetail->facebook))
+                            <a href="{{ $userdetail->facebook }}" target="_blank" class="my-2 my-lg-0 me-3 text-white btn btn-primary"><i class="fab fa-facebook text-white"></i></a>
+                        @endif
+                        @if (!empty($userdetail->instagram))
+                            <a href="{{ $userdetail->instagram }}" target="_blank" class="my-2 my-lg-0 me-3 text-white btn btn-primary"><i class="fab fa-instagram text-white"></i></a>
+                        @endif
+                        @if(!empty($userdetail->tiktok))
+                            <a href="{{ $userdetail->tiktok }}" target="_blank" class="my-2 my-lg-0 me-3 text-white btn btn-primary"><img src="{{asset('web/assets/images/new-img/tiktok.svg')}}" alt="logo" width="16px"></a>
+                        @endif
+                        @if(!empty($userdetail->linkedin))
+                            <a href="{{ $userdetail->linkedin }}" target="_blank" class="my-2 my-lg-0 me-3 text-white btn btn-primary"><i class="fab fa-linkedin"></i></a>
+                        @endif
                     </div>
                 </div>
                 <div class="col-lg-2 text-end d-none d-lg-block align-self-center">
@@ -162,7 +170,7 @@
 </section>
 <!-- Video Publisher Section End-->
 @php
-    $count = count($VideoList)
+    $count = count($videoList)
 @endphp
 <!-- All Video Carousel Start-->
 <section class="video-carousel-area themeix-ptb">
@@ -172,13 +180,13 @@
             @if(!empty($userdetail))
                 <h3>Videos</h3>
             @else
-                <h3>{{$pagetitel}}</h3>
+                <h3>{{$pagetitle}}</h3>
             @endif
         </div>
         <div class="row mt-5">
 
             @if($count != 0)
-                @foreach ($VideoList as $Video)
+                @foreach ($videoList as $Video)
                 @php
                     $uplaoddate = date_format($Video->created_at,"d/m/Y")
                 @endphp
@@ -281,7 +289,7 @@
             @endif
         </div>
         <div class="mt-3">
-            {{ $VideoList->links('pagination::bootstrap-5') }}
+            {{ $videoList->links('pagination::bootstrap-5') }}
         </div>
     </div>
 </section>

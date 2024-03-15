@@ -49,6 +49,12 @@
     background-color: rgb(238, 238, 238);
     padding: 0 3px;
     }
+    .close-btn-onclick-btn{
+        position: absolute;
+        right: 0;
+        font-size: 18px;
+        bottom:12px;
+    }
   </style>
 <div class="loading-overlay">
     <span class="fas fa-spinner fa-3x fa-spin"></span>
@@ -68,7 +74,8 @@
                 {{-- $videodetail['VideoDetail']->video --}}
                 <!-- Content Row -->
                 <div class="card shadow p-3">
-                    <form id="videoUpload" role="form" action="{{ route('web.athletes.coach.question.update') }}" method="post" enctype="multipart/form-data">
+                    {{-- <form id="videoUpload" role="form" action="{{ route('web.athletes.coach.question.update') }}" method="post" enctype="multipart/form-data"> --}}
+                    <form id="imageUploadFormeditquestiovideo" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="videoid" value="{{$videodetail['VideoDetail']->video_id}}">
                         <input type="hidden" name="title" class="form-control py-3 mb-4" value="{{$questiondetail->question}}" placeholder="Video Title" readonly>
@@ -80,7 +87,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="mb-4 d-flex justify-content-center">
-                                    <video width="600" controls>
+                                    <video width="100%" controls>
                                         <source src="{{$videodetail['VideoDetail']->video}}">
                                     </video>
                                 </div>
@@ -89,17 +96,22 @@
                         <div class="row">
                             <div class="col-lg-8">
                                 <div class="mb-4">
-                                    <input class="choose-btn-iyg" name="video" id="formFileLg" accept="video/mp4,video/x-m4v,video/*" type="file">
+                                    <input class="choose-btn-iyg" name="video" id="formFileLgeditquestionvideo" accept="video/mp4,video/x-m4v,video/*" type="file">
+                                    <div class="alert mt-2 d-none" id="formFileLgeditquestionvideocheck">Video Feild is required</div>
                                 </div>
-                                @error('video')
-                                    <div class="alert">{{ $message }}</div>
-                                @enderror
                             </div>
                             <div class="col-lg-4">
-                                <button type="submit" class="btn btn-primary py-3 w-100 fw-bold login-btn" id="load-button">Save</button>
+                                <button type="button" class="btn btn-primary py-3 w-100 fw-bold login-btn" onclick="uploadqueseditVideo('editquesVideo')" id="load-button">Save</button>
                             </div>
                         </div>
                     </form>
+                    <div id="uploadStatuseditquesVideo"></div>
+                    <div id="progressbarcontainereditquesVideo" style="display: none;">
+                        <div class="progress" >
+                            <div class="progress-bar bg-success" id="progressbareditquesVideo" role="progressbar" value="0" max="100">0%</div>
+                            <a class="text-danger close-btn-onclick-btn" id="removeprogrssbareditquesVideo" onclick="cancelUploade()" btn btn-primary><i class="fas fa-times-circle"></i></a>
+                        </div>
+                    </div>
                 </div>
                 <div id="loader" class="loader"></div>
             </div>

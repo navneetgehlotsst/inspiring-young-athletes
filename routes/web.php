@@ -59,6 +59,7 @@ Route::name('web.')->controller(HomeController::class)->group(function () {
     Route::get('/athletes', 'Allathletes')->name('athletes');
     Route::get('/coach', 'Allcoach')->name('coach');
     Route::get('/friday-frenzy', 'fridayFrenzy')->name('friday.frenzy');
+    Route::get('/parent', 'parent')->name('parent');
     Route::get('/question', 'Question')->name('question');
     Route::get('/question-video/{id}', 'QuestionVideo')->name('question.video');
     Route::get('/new-video', 'NewVideo')->name('new.video');
@@ -111,7 +112,7 @@ Route::group(['middleware' => 'auth'], function ()
         Route::post('/upload-Video', 'uploadVideo')->name('uploadVideo');
         Route::get('/remove-Video', 'removeVideo')->name('removeVideo');
         Route::get('/saveanswere', 'SaveAnswere')->name('SaveAnswere');
-        Route::get('/question-and-answere', 'questionandanswere')->name('questionandanswere');
+        Route::get('/question-and-answere/{new_video?}', 'questionandanswere')->name('questionandanswere');
         Route::post('/showvideo', 'showVideo')->name('show.video');
         Route::get('/addvideo/{questionid}', 'addQuestionVideo')->name('add.video');
         Route::get('/editvideo/{questionid}', 'editQuestionVideo')->name('edit.video');
@@ -125,7 +126,7 @@ Route::group(['middleware' => 'auth'], function ()
     });
 
     Route::name('web.Video.')->prefix('Video')->controller(VideoConttroller::class)->group(function () {
-        Route::get('/index', 'index')->name('index');
+        Route::get('/index/{new_video?}', 'index')->name('index');
         Route::get('/add', 'add')->name('add');
         Route::post('/store', 'store')->name('store');
         Route::get('/view-Video/{id}', 'viewVideo')->name('viewVideo');

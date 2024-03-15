@@ -43,11 +43,16 @@
     }
 
     .code {
-    font-family: monospace;
-    /*   font-size: .9em; */
-    color: #dd4a68;
-    background-color: rgb(238, 238, 238);
-    padding: 0 3px;
+        font-family: monospace;
+        color: #dd4a68;
+        background-color: rgb(238, 238, 238);
+        padding: 0 3px;
+    }
+    .close-btn-onclick-btn{
+        position: absolute;
+        right: 0;
+        font-size: 18px;
+        bottom:12px;
     }
   </style>
 <div class="loading-overlay">
@@ -65,26 +70,30 @@
                 </div>
                 <!-- Content Row -->
                 <div class="card shadow p-3">
-                    <form id="videoUpload" role="form" action="{{ route('web.Video.store') }}" method="post" enctype="multipart/form-data">
+                    {{-- <form id="videoUpload" role="form" action="{{ route('web.Video.store') }}" method="post" enctype="multipart/form-data"> --}}
+                    <form id="imageUploadFormaddvideo" enctype="multipart/form-data">
                         @csrf
-                        <input type="text" name="title" class="form-control py-3 mb-4" value="{{ old('title') }}" placeholder="Video Title">
-                        @error('title')
-                            <div class="alert">{{ $message }}</div>
-                        @enderror
+                        <input type="text" name="title" id="title" class="form-control py-3 mb-4" value="{{ old('title') }}" placeholder="Video Title">
+                        <div class="alert d-none" id="titlemessgae">Title Feild is required</div>
                         <div class="row">
                             <div class="col-lg-8">
                                 <div class="mb-4">
-                                    <input class="choose-btn-iyg" name="video" id="formFileLg" accept="video/mp4,video/x-m4v,video/*" type="file">
+                                    <input class="choose-btn-iyg" name="video" id="formFileLgaddvideo" accept="video/mp4,video/x-m4v,video/*" type="file">
+                                    <div class="alert mt-2 d-none" id="formFileLgaddvideocheck">Video Feild is required</div>
                                 </div>
-                                @error('video')
-                                    <div class="alert">{{ $message }}</div>
-                                @enderror
                             </div>
                             <div class="col-lg-4">
-                                <button type="submit" class="btn btn-primary py-3 w-100 fw-bold login-btn" id="load-button">Add Video</button>
+                                <button type="button" onclick="uploadAddVideo('addvideo')" class="btn btn-primary py-3 w-100 fw-bold login-btn" id="load-button">Save</button>
                             </div>
                         </div>
                     </form>
+                    <div id="uploadStatusaddVideo"></div>
+                    <div id="progressbarcontaineraddVideo" style="display: none;">
+                        <div class="progress" >
+                            <div class="progress-bar bg-success" id="progressbaraddVideo" role="progressbar" value="0" max="100">0%</div>
+                            <a class="text-danger close-btn-onclick-btn" id="removeprogrssbaraddVideo" onclick="cancelUploade()" btn btn-primary><i class="fas fa-times-circle"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -125,23 +125,43 @@ class HomeController extends Controller
 
 
     public function fridayFrenzy(){
-        $VideoList = UserAnswere::where('question_id','45')->where('video.video_status','1')->join('video', 'user_queston.answere_video', '=', 'video.video_id')->join('users', 'video.user_id', '=', 'users.id')->paginate(10);
-        $pagetitel = "Game Day perp";
-        if (Auth::check()){
-            $UserDetail = Auth::user();
-            $userID = $UserDetail->id;
-            $checkSubscriptions = Subscriptions::where('user_id',$userID)->first();
+        // Fetch video list with pagination
+        $videoList = UserAnswere::where('question_id', '45')
+        ->where('video.video_status', '1')
+        ->join('video', 'user_queston.answere_video', '=', 'video.video_id')
+        ->join('users', 'video.user_id', '=', 'users.id')
+        ->paginate(10);
 
-            if(!empty($checkSubscriptions)){
-                $is_subcribed = 1;
-            }else{
-                $is_subcribed = 0;
-            }
-        }else{
-            $checkSubscriptions = "";
-            $is_subcribed = 0;
+        $pagetitle = "Game Day Prep"; // Corrected typo
+
+        $isSubscribed = 0; // Default value
+
+        if (Auth::check()) {
+        $userID = Auth::id();
+        $isSubscribed = Subscriptions::where('user_id', $userID)->exists() ? 1 : 0;
         }
-        return view('web.videolist',compact('VideoList','pagetitel','is_subcribed'));
+
+        return view('web.videolist', compact('videoList', 'pagetitle', 'isSubscribed'));
+    }
+
+
+    public function parent(){
+        $videoList = UserAnswere::whereIn('question_id', [41, 42, 43])
+        ->where('video.video_status', '1')
+        ->join('video', 'user_queston.answere_video', '=', 'video.video_id')
+        ->join('users', 'video.user_id', '=', 'users.id')
+        ->paginate(10);
+
+        $pagetitle = "Parents";
+        $isSubscribed = 0;
+
+        if (Auth::check()) {
+            $userID = auth()->user()->id;
+            $checkSubscriptions = Subscriptions::where('user_id', $userID)->exists();
+            $isSubscribed = $checkSubscriptions ? 1 : 0;
+        }
+
+        return view('web.videolist', compact('videoList', 'pagetitle', 'isSubscribed'));
     }
 
     public function Question(){

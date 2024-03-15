@@ -147,18 +147,24 @@ class VideoConttroller extends Controller
         $veid = Video::insertGetId($dataVideo);
 
         // ->route('admin.branch.list')
-        return redirect()->route('web.Video.index')->with('success','Video has been added successfully.');
+        //return redirect()->route('web.Video.index')->with('success','Video has been added successfully.');
+        return response()->json(['success' => true, 'message' => 'video uploaded successfully']);
     }
 
-    public function index(){
+    public function index($new_video = null){
         if (Auth::check()){
             $UserDetail = Auth::user();
             $userID = $UserDetail->id;
             //$getVideo = Video::where('user_id',$userID)->where('Video_from','Video')->get();
             $getVideo = Video::where('user_id',$userID)->get();
             $Videocount = $getVideo->count();
-
-            return view('web.athletescoach.listvideo',compact('userID','getVideo','Videocount'));
+            if($new_video == "new_video"){
+                return redirect()->route('web.Video.index')->with('success','Video has been added successfully.');
+            }elseif($new_video == 'edit_video'){
+                return redirect()->route('web.Video.index')->with('success','Video has been updated successfully.');
+            }else{
+                return view('web.athletescoach.listvideo',compact('userID','getVideo','Videocount'));
+            }
         }else{
             return redirect('')->route('web.login');
         }
@@ -254,6 +260,7 @@ class VideoConttroller extends Controller
             'video_status' => '0'
         ];
         $veid = Video::where('video_id', $request->videoid)->update($dataVideo);
-        return redirect()->route('web.Video.index')->with('success','Video has been updated successfully.');
+        //return redirect()->route('web.Video.index')->with('success','Video has been updated successfully.');
+        return response()->json(['success' => true, 'message' => 'Video has been updated successfully.']);
     }
 }

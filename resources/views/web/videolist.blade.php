@@ -199,7 +199,7 @@
                                     </a>
                                 @else
                                     @auth
-                                        @if ($is_subcribed == 1)
+                                        @if ($isSubscribed == 1)
                                             <a href="{{ route('web.video',$Video->video_id) }}">
                                                 <img class="lazy" alt="Video" src="{{asset($Video->thumbnails)}}" style="" />
                                             </a>
@@ -222,7 +222,7 @@
                                     <h4><a class="video-title" href="{{ route('web.video',$Video->video_id) }}">{{$Video->video_title}}</a></h4>
                                 @else
                                     @auth
-                                        @if ($is_subcribed == 1)
+                                        @if ($isSubscribed == 1)
                                             <h4><a class="video-title" href="{{ route('web.video',$Video->video_id) }}">{{$Video->video_title}}</a></h4>
                                         @else
                                             <h4><a class="video-title" href="{{ route('web.athletes.coach.MySubcription') }}">{{$Video->video_title}}</a></h4>

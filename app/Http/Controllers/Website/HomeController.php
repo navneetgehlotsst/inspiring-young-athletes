@@ -176,23 +176,19 @@ class HomeController extends Controller
 
 
     public function QuestionVideo($id){
-        $VideoList = UserAnswere::where('question_id',$id)->where('video.video_status','1')->join('video', 'user_queston.answere_video', '=', 'video.video_id')->join('users', 'video.user_id', '=', 'users.id')->paginate(10);
-        $pagetitel = "Question Video";
-        if (Auth::check()){
-            $UserDetail = Auth::user();
-            $userID = $UserDetail->id;
-            $checkSubscriptions = Subscriptions::where('user_id',$userID)->first();
+        $videoList = UserAnswere::where('question_id', $id)
+            ->where('video.video_status', '1')
+            ->join('video', 'user_queston.answere_video', '=', 'video.video_id')
+            ->join('users', 'video.user_id', '=', 'users.id')
+            ->with('some_relation') // Eager loading example
+            ->paginate(10);
 
-            if(!empty($checkSubscriptions)){
-                $is_subcribed = 1;
-            }else{
-                $is_subcribed = 0;
-            }
-        }else{
-            $checkSubscriptions = "";
-            $is_subcribed = 0;
-        }
-        return view('web.videolist',compact('VideoList','pagetitel','is_subcribed'));
+        $pagetitle = "Question Video";
+
+        $isSubscribed = Auth::check() ? Subscriptions::where('user_id', Auth::id())->exists() : 0;
+
+        return view('web.videolist', compact('videoList', 'pagetitle', 'isSubscribed'));
+
     }
 
     // Video By Pubisher
@@ -234,46 +230,43 @@ class HomeController extends Controller
 
     // All Video List
     public function VideoPublisherAll(){
-        $VideoList = Video::where('video_status','1')->where('video_type','2')->join('users', 'video.user_id', '=', 'users.id')->paginate(10);
-        $pagetitel = "Free Video";
-        if (Auth::check()){
-            $UserDetail = Auth::user();
-            $userID = $UserDetail->id;
-            $checkSubscriptions = Subscriptions::where('user_id',$userID)->first();
+        $videoList = Video::where('video_status', '1')
+                    ->where('video_type', '2')
+                    ->join('users', 'video.user_id', '=', 'users.id')
+                    ->paginate(10);
 
-            if(!empty($checkSubscriptions)){
-                $is_subcribed = 1;
-            }else{
-                $is_subcribed = 0;
+        $pagetitle = "Free Video";
+        $isSubscribed = 0;
+
+        if (Auth::check()) {
+            $checkSubscriptions = Auth::user()->subscriptions()->first();
+
+            if ($checkSubscriptions) {
+                $isSubscribed = 1;
             }
-        }else{
-            $checkSubscriptions = "";
-            $is_subcribed = 0;
         }
-        return view('web.videolist',compact('VideoList','pagetitel','is_subcribed'));
+
+        return view('web.videolist', compact('videoList', 'pagetitle', 'isSubscribed'));
     }
 
     // All NewVideo
     public function NewVideo(){
         $lastFiveDays = Carbon::now()->subDays(5);
-        $VideoList = Video::whereDate('video.created_at', '>=', $lastFiveDays)->join('users', 'video.user_id', '=', 'users.id')->where('video_status','1')->paginate(10);
-        $pagetitel = "New Video";
-        if (Auth::check()){
-            $UserDetail = Auth::user();
-            $userID = $UserDetail->id;
-            $checkSubscriptions = Subscriptions::where('user_id',$userID)->first();
+        $videoList = Video::where('video.created_at', '>=', $lastFiveDays)
+            ->join('users', 'video.user_id', '=', 'users.id')
+            ->where('video_status', '1')
+            ->paginate(10);
 
-            if(!empty($checkSubscriptions)){
-                $is_subcribed = 1;
-            }else{
-                $is_subcribed = 0;
-            }
-        }else{
-            $checkSubscriptions = "";
-            $is_subcribed = 0;
+        $pagetitle = "New Video";
+        $isSubscribed = 0;
+
+        if (Auth::check()) {
+            $userID = Auth::id();
+            $checkSubscriptions = Subscriptions::where('user_id', $userID)->exists();
+            $isSubscribed = $checkSubscriptions ? 1 : 0;
         }
 
-        return view('web.videolist',compact('VideoList','pagetitel','is_subcribed'));
+        return view('web.videolist', compact('videoList', 'pagetitle', 'isSubscribed'));
     }
 
     // Video list

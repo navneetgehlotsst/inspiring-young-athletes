@@ -255,7 +255,7 @@ class AuthController extends Controller
 
 
                 // 7. user Count graph
-                $userCounts = User::select(DB::raw('MONTH(created_at) as month, roles, COUNT(*) as count'))
+                $userCounts = User::select(DB::raw('MONTHNAME(created_at) as month, roles, COUNT(*) as count'))
                 ->where('roles', '!=', 'Admin')
                 ->groupBy('month', 'roles')
                 ->orderBy('month', 'desc')
@@ -263,15 +263,10 @@ class AuthController extends Controller
                 ->get();
 
                 $userDataCount = [];
-                $month = 0;
-                /// $month_names = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+                $month_names = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
-                // foreach ($month_names as $month) {
-                //     $userDataCount[$month] = ['month' => $month, 'Athletes' => 0, 'Coach' => 0, 'User' => 0];
-                // }
-
-                for ($month = 0; $month < 12; $month++) {
-                    $userDataCount[$month] = ['month' => $month, 'Athletes' => 0, 'Coach' => 0, 'User' => 0];
+                foreach ($month_names as $month) {
+                    $userDataCount[$month] = ['month' => $month, 'Athlete' => 0, 'Coach' => 0, 'User' => 0];
                 }
 
                 foreach ($userCounts as $countsvalue) {
@@ -288,7 +283,7 @@ class AuthController extends Controller
 
                 foreach ($userDataCount as $graphresult) {
                     $month[] = $graphresult['month'];
-                    $Athletes[] = $graphresult['Athletes'];
+                    $Athletes[] = $graphresult['Athlete'];
                     $Coach[] = $graphresult['Coach'];
                     $User[] = $graphresult['User'];
                 }

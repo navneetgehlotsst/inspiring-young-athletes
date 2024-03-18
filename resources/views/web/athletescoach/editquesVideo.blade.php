@@ -87,7 +87,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="mb-4 d-flex justify-content-center">
-                                    <video width="100%" controls>
+                                    <video width="100%" height="500px" controls>
                                         <source src="{{$videodetail['VideoDetail']->video}}">
                                     </video>
                                 </div>

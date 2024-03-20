@@ -170,11 +170,127 @@
 </section>
 <!-- Video Publisher Section End-->
 @php
-    $count = count($videoList)
+    if($videoIntro !=""){
+        $countvideoIntro = count($videoIntro);
+    }
+    $count = count($videoList);
 @endphp
+
 <!-- All Video Carousel Start-->
+
 <section class="video-carousel-area themeix-ptb">
     <div class="container">
+        @if ($videoIntro !="")
+        <div class="themeix-section-h">
+            <span class="heading-icon"><i class="far fa-play-circle"></i></span>
+            <h3>Intro Videos</h3>
+        </div>
+        <div class="row mt-5">
+
+            @if($countvideoIntro != 0)
+                @foreach ($videoIntro as $videoIntros)
+                @php
+                    $uplaoddate = date_format($videoIntros->created_at,"d/m/Y")
+                @endphp
+                    <div class="col-lg-12">
+                        <div class="card single-video p-3">
+                            <div class="video-img">
+                                @if($videoIntros->video_type == '2')
+                                    <a href="{{ route('web.video',$videoIntros->video_id) }}">
+                                        <img class="lazy" alt="Video" src="{{asset($videoIntros->thumbnails)}}" style="" />
+                                    </a>
+                                @else
+                                    @auth
+                                        @if ($isSubscribed == 1)
+                                            <a href="{{ route('web.video',$videoIntros->video_id) }}">
+                                                <img class="lazy" alt="Video" src="{{asset($videoIntros->thumbnails)}}" style="" />
+                                            </a>
+                                        @else
+                                            <a href="{{ route('web.athletes.coach.MySubcription') }}">
+                                                <img class="lazy" alt="Video" src="{{asset($videoIntros->thumbnails)}}" style="" />
+                                            </a>
+                                        @endif
+                                    @else
+                                        <a href="{{ route('web.login') }}" >
+                                            <img class="lazy" alt="Video" src="{{asset($videoIntros->thumbnails)}}" style="" />
+                                        </a>
+                                    @endauth
+                                @endif
+
+                                {{-- <span class="video-duration">5.28</span> --}}
+                            </div>
+                            <div class="video-content">
+                                @if($videoIntros->video_type == '2')
+                                    <h4><a class="video-title" href="{{ route('web.video',$videoIntros->video_id) }}">{{$videoIntros->video_title}}</a></h4>
+                                @else
+                                    @auth
+                                        @if ($isSubscribed == 1)
+                                            <h4><a class="video-title" href="{{ route('web.video',$videoIntros->video_id) }}">{{$videoIntros->video_title}}</a></h4>
+                                        @else
+                                            <h4><a class="video-title" href="{{ route('web.athletes.coach.MySubcription') }}">{{$videoIntros->video_title}}</a></h4>
+                                        @endif
+                                    @else
+                                        <h4><a class="video-title" href="{{ route('web.login') }}">{{$videoIntros->video_title}}</a></h4>
+                                    @endauth
+                                @endif
+                                <div class="d-flex justify-content-between">
+                                    <p class="fw-bold">{{$uplaoddate}}</p>
+                                    @if (!empty($videoIntros->name))
+                                        <p><span class="fw-bold">Published By</span> :- {{$videoIntros->name}}</p>
+                                    @endif
+                                </div>
+                                <div class="video-counter">
+                                    <div class="video-viewers">
+                                        @php
+                                            if (Auth::check()){
+                                            $watch = Helper::userview($videoIntros->video_id,Auth::user()->id);
+
+                                            }
+                                        @endphp
+                                        <span class="fa fa-eye view-icon"></span>
+                                        <span>{{$videoIntros->video_veiw_count}}</span>
+                                    </div>
+
+                                    @if($videoIntros->video_type == '2')
+                                        <div class="video-feedback py-1">
+                                            <span class="free-video-tag">Free</span>
+                                            @if(!empty($watch))
+                                                <span class="watched-video-tag"><i class="fas fa-check-circle"></i> Watched</span>
+                                            @else
+
+                                            @endif
+                                        </div>
+                                    @else
+                                        <div class="video-feedback py-1">
+                                            <span class="paid-video-tag">Paid</span>
+                                            @if(!empty($watch))
+                                                <span class="watched-video-tag"><i class="fas fa-check-circle"></i> Watched</span>
+                                            @else
+
+                                            @endif
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            @else
+                <div class="col-lg-12">
+                    <div class="publisher-box p-3">
+                        <div class="text-center">
+                            <div class="">
+                                <img class="mb-2" width="200" src="{{asset('web/assets/images/new-img/empty_item.svg')}}" alt="">
+                            </div>
+                            <div class="publisher-details mt-2 ps-3">
+                                <h4>NO Video Found</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+        </div>
+        @endif
         <div class="themeix-section-h">
             <span class="heading-icon"><i class="far fa-play-circle"></i></span>
             @if(!empty($userdetail))

@@ -87,7 +87,7 @@ class QuestionController extends Controller
 
         if(!empty($userAnwereCheck)){
             $userAnwereCount = UserAnswere::where('user_id',$userID)->where('question_id','!=','0')->count();
-            return response()->json(['success' => true, 'message' => 'This question answere already given','count' => $userAnwereCount]);
+            return response()->json(['success' => true, 'message' => 'This question answer already given','count' => $userAnwereCount]);
         }
 
 
@@ -238,7 +238,7 @@ class QuestionController extends Controller
         $userID = $UserDetail->id;
         $userAnwereCount = UserAnswere::where('user_id',$userID)->count();
         if($userAnwereCount < 1){
-            return redirect()->back()->with('error', 'Please Give atleast answere of 1 Question.');
+            return redirect()->back()->with('error', 'Please Give atleast answer of 1 Question.');
         }
 
         if($UserDetail->roles == "Athletes"){
@@ -249,11 +249,11 @@ class QuestionController extends Controller
                 $userAns[] = $userAnwere;
             }
             // if(!in_array('for_athletes_coaches',$userAns)){
-            //     return redirect()->back()->with('error', 'Please Give answere coaches sections.');
+            //     return redirect()->back()->with('error', 'Please Give answer coaches sections.');
             // }
 
             // if(!in_array('for_friday_frenzy',$userAns)){
-            //     return redirect()->back()->with('error', 'Please Give answere Friday Frenzy sections.');
+            //     return redirect()->back()->with('error', 'Please Give answer Friday Frenzy sections.');
             // }
         }
 
@@ -320,9 +320,9 @@ class QuestionController extends Controller
                 $userAns[] = $userAnwere;
             }
             if($new_video == "add_question"){
-                return redirect()->route('web.athletes.coach.questionandanswere')->with('success','Video has been added successfully.');
+                return redirect()->route('web.athletes.coach.questionandanswer')->with('success','Video has been added successfully.');
             }elseif($new_video == 'update_question'){
-                return redirect()->route('web.athletes.coach.questionandanswere')->with('success','Video has been updated successfully.');
+                return redirect()->route('web.athletes.coach.questionandanswer')->with('success','Video has been updated successfully.');
             }else{
                 return view('web.athletescoach.questionandans',compact('questionathelitics','questioncoaches','UserDetail','userAns'));
             }

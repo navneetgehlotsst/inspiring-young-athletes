@@ -140,8 +140,8 @@ class HomeController extends Controller
         $userID = Auth::id();
         $isSubscribed = Subscriptions::where('user_id', $userID)->exists() ? 1 : 0;
         }
-
-        return view('web.videolist', compact('videoList', 'pagetitle', 'isSubscribed'));
+        $videoIntro = "";
+        return view('web.videolist', compact('videoList', 'pagetitle', 'isSubscribed','videoIntro'));
     }
 
 
@@ -160,8 +160,8 @@ class HomeController extends Controller
             $checkSubscriptions = Subscriptions::where('user_id', $userID)->exists();
             $isSubscribed = $checkSubscriptions ? 1 : 0;
         }
-
-        return view('web.videolist', compact('videoList', 'pagetitle', 'isSubscribed'));
+        $videoIntro = "";
+        return view('web.videolist', compact('videoList', 'pagetitle', 'isSubscribed','videoIntro'));
     }
 
     public function Question(){
@@ -176,18 +176,24 @@ class HomeController extends Controller
 
 
     public function QuestionVideo($id){
-        $videoList = UserAnswere::where('question_id', $id)
-            ->where('video.video_status', '1')
-            ->join('video', 'user_queston.answere_video', '=', 'video.video_id')
-            ->join('users', 'video.user_id', '=', 'users.id')
-            ->with('some_relation') // Eager loading example
-            ->paginate(10);
-
+        $videoList = UserAnswere::where('question_id',$id)->where('video.video_status','1')->join('video', 'user_queston.answere_video', '=', 'video.video_id')->join('users', 'video.user_id', '=', 'users.id')->paginate(10);
         $pagetitle = "Question Video";
+        if (Auth::check()){
+            $UserDetail = Auth::user();
+            $userID = $UserDetail->id;
+            $checkSubscriptions = Subscriptions::where('user_id',$userID)->first();
 
-        $isSubscribed = Auth::check() ? Subscriptions::where('user_id', Auth::id())->exists() : 0;
-
-        return view('web.videolist', compact('videoList', 'pagetitle', 'isSubscribed'));
+            if(!empty($checkSubscriptions)){
+                $isSubscribed = 1;
+            }else{
+                $isSubscribed = 0;
+            }
+        }else{
+            $checkSubscriptions = "";
+            $isSubscribed = 0;
+        }
+        $videoIntro = "";
+        return view('web.videolist', compact('videoList', 'pagetitle', 'isSubscribed','videoIntro'));
 
     }
 
@@ -224,8 +230,8 @@ class HomeController extends Controller
             $is_subcribed = 0;
         }
 
-
-        return view('web.videopublisher',compact('getcategory','categoryFirst','athleticCoaches','search','categorys','videoCount','trendingVideo','is_subcribed'));
+        $videoIntro = "";
+        return view('web.videopublisher',compact('getcategory','categoryFirst','athleticCoaches','search','categorys','videoCount','trendingVideo','is_subcribed','videoIntro'));
     }
 
     // All Video List
@@ -237,6 +243,7 @@ class HomeController extends Controller
 
         $pagetitle = "Free Video";
         $isSubscribed = 0;
+        $videoIntro = "";
 
         if (Auth::check()) {
             $checkSubscriptions = Auth::user()->subscriptions()->first();
@@ -246,7 +253,7 @@ class HomeController extends Controller
             }
         }
 
-        return view('web.videolist', compact('videoList', 'pagetitle', 'isSubscribed'));
+        return view('web.videolist', compact('videoList', 'pagetitle', 'isSubscribed','videoIntro'));
     }
 
     // All NewVideo
@@ -259,14 +266,13 @@ class HomeController extends Controller
 
         $pagetitle = "New Video";
         $isSubscribed = 0;
-
+        $videoIntro = "";
         if (Auth::check()) {
             $userID = Auth::id();
             $checkSubscriptions = Subscriptions::where('user_id', $userID)->exists();
             $isSubscribed = $checkSubscriptions ? 1 : 0;
         }
-
-        return view('web.videolist', compact('videoList', 'pagetitle', 'isSubscribed'));
+        return view('web.videolist', compact('videoList', 'pagetitle', 'isSubscribed','videoIntro'));
     }
 
     // Video list
@@ -280,7 +286,8 @@ class HomeController extends Controller
         ->whatsapp();
         $userdetail = User::where('id',$id)->withCount('videos')->first();
         $categoryFirst = Category::where('category_id',$userdetail->category)->first();
-        $VideoList = Video::where('user_id',$userdetail->id)->where('Video_status','1')->paginate(10);
+        $videoList = Video::where('user_id',$userdetail->id)->where('video_status','1')->where('video_title','!=','Intro Video')->paginate(10);
+        $videoIntro = Video::where('user_id',$userdetail->id)->where('video_status','1')->where('video_title','Intro Video')->get();
         if (Auth::check()){
             $UserDetail = Auth::user();
             $userID = $UserDetail->id;
@@ -296,7 +303,7 @@ class HomeController extends Controller
             $is_subcribed = 0;
         }
 
-        return view('web.videolist',compact('userdetail','categoryFirst','VideoList','shareComponent','url','is_subcribed'));
+        return view('web.videolist',compact('userdetail','categoryFirst','videoList','shareComponent','url','is_subcribed','videoIntro'));
     }
 
     // Video

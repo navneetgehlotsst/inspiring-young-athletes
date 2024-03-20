@@ -75,16 +75,16 @@
                 </div>
                 <ul class="nav nav-pills justify-content-center mb-3" id="pills-tab" role="tablist">
                     <li class="nav-item questions-answer-tap" role="presentation">
-                        <button class="btn tab-btn-white active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-athletes" type="button" role="tab" aria-controls="pills-athletes" aria-selected="true">Athletes</button>
+                        <a href="#pills-athletes" class="btn tab-btn-white active" id="pills-home-tab" data-toggle="tab" data-bs-toggle="pill" data-bs-target="#pills-athletes" type="button" role="tab" aria-controls="pills-athletes" aria-selected="true">Athletes</a>
                     </li>
                     <li class="nav-item questions-answer-tap" role="presentation">
-                        <button class="btn tab-btn-white" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-parents" type="button" role="tab" aria-controls="pills-parents" aria-selected="false">Parents</button>
+                        <a href="#pills-parents" class="btn tab-btn-white" id="pills-profile-tab" data-toggle="tab" data-bs-toggle="pill" data-bs-target="#pills-parents" type="button" role="tab" aria-controls="pills-parents" aria-selected="false">Parents</a>
                     </li>
                     <li class="nav-item questions-answer-tap" role="presentation">
-                        <button class="btn tab-btn-white" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-coaches" type="button" role="tab" aria-controls="pills-coaches" aria-selected="false">Coaches</button>
+                        <a href="#pills-coaches" class="btn tab-btn-white" id="pills-contact-tab" data-toggle="tab" data-bs-toggle="pill" data-bs-target="#pills-coaches" type="button" role="tab" aria-controls="pills-coaches" aria-selected="false">Coaches</a>
                     </li>
                     <li class="nav-item questions-answer-tap" role="presentation">
-                        <button class="btn tab-btn-white" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-frenzy" type="button" role="tab" aria-controls="pills-frenzy" aria-selected="false">Game Day Prep</button>
+                        <a href="#pills-frenzy" class="btn tab-btn-white" id="pills-contact-tab" data-toggle="tab" data-bs-toggle="pill" data-bs-target="#pills-frenzy" type="button" role="tab" aria-controls="pills-frenzy" aria-selected="false">Game Day Prep</a>
                     </li>
                     {{-- <li class="nav-item questions-answer-tap" role="presentation">
                         <button class="btn tab-btn-white" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-female" type="button" role="tab" aria-controls="pills-frenzy" aria-selected="false">Female Athletes</button>

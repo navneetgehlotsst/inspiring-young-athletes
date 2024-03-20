@@ -60,7 +60,7 @@
                             <div id="progress-bar-containerintro" style="display: none;">
                                 <div class="progress" >
                                     <div class="progress-bar bg-success" id="progress-barintro" role="progressbar" value="0" max="100">0%</div>
-                                    <a class="text-danger close-btn-onclick-btn" id="removeprogrssbarintro" onclick="cancelUploade()" btn btn-primary><i class="fas fa-times-circle"></i></a>
+                                    <a class="text-danger close-btn-onclick-btn" id="removeprogrssbarintro" onclick="cancelUploade()"><i class="fas fa-times-circle"></i></a>
                                 </div>
                             </div>
                         </div>

@@ -43,11 +43,13 @@
 /* Tablet Layout: 768px. */
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
-  
+
   ul.nav > li:hover > a {
- 
+
   border-color: transparent;
 }
+
+
 
 .video-counter {
   font-weight: 500;
@@ -111,7 +113,7 @@
 }
 .four-zero-page {
   padding:100px 0;
-} 
+}
 
 }
 /* Mobile Layout: 320px. */
@@ -204,7 +206,7 @@ ul.nav > li:hover > a {
   padding-top:60px;
 }
 
- 
+
 .popular-videos .single-video {
     margin-bottom: 30px;
     max-width: 275px;
@@ -215,7 +217,7 @@ ul.nav > li:hover > a {
   padding-top:0;
   float:none;
 }
- 
+
 .posts-prev p {
   display:none;
 }
@@ -233,7 +235,7 @@ ul.nav > li:hover > a {
 .tags-and-share {
   margin-bottom:10px;
 }
- 
+
 .page-title h1 {
   font-size:35px;
 }
@@ -258,7 +260,7 @@ ul.nav > li:hover > a {
   width:100%;
 }
 .single-review {
-     overflow: initial; 
+     overflow: initial;
     width: 48%;
     margin-bottom: 25px;
     display: inline-block;
@@ -293,6 +295,14 @@ ul.nav > li:hover > a {
     background-color:transparent;
 }
 
+.list-page-video-size .video-img >a >img {
+    max-width: 100%;
+    width: 100%;
+    min-height: 230px;
+    object-fit: cover;
+    height: 230px;
+}
+
 }
 
 @media only screen and (max-width:469px) {
@@ -304,7 +314,7 @@ ul.nav > li:hover > a {
 @media only screen and (max-width:479px){
 
   .single-review {
-     overflow: initial; 
+     overflow: initial;
     width: 100%;
     margin-bottom: 25px;
     margin-right: 15px;

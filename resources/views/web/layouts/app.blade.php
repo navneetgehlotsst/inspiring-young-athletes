@@ -182,7 +182,7 @@
                             // Swal.fire("Congratulations, you have activated your account, please go to the dashboard button below to add bank details for payments. There is nothing to tell you what to do next.!");
                             Swal.fire({
                                 title: "Congratulations",
-                                text: "you have activated your account, please go to the dashboard button below to add bank details for payments. There is nothing to tell you what to do next.!",
+                                text: "You have activated your account, please go to the dashboard button below to add bank details for payments. There is nothing to tell you what to do next.!",
                                 icon: "question"
                             });
                         }
@@ -344,61 +344,61 @@
         }
 
 
-        function uploadIntroVideo(id) {
-            let formData = new FormData(document.getElementById('imageUploadForm'+id));
-            document.getElementById('formFileLg'+id).disabled = true;
-            axios.post('{{ route("web.athletes.coach.uploadVideo") }}', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-                onUploadProgress: function (progressEvent) {
-                    var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                    document.getElementById('progress-bar-containerintro').style.display = 'block';
-                    document.getElementById('progress-barintro').style.width = percentCompleted + '%';
-                    document.getElementById('progress-barintro').innerText = percentCompleted + '%';
-                    // document.getElementById('progress-text'+id).innerText = percentCompleted + '%';
-                },
-            })
-                .then(function (response) {
-                    console.log(response.data.success);
-                    if(response.data.success == true){
-                        $("#saveintro").removeClass("disabled");
-                        console.log(response.data.message)
-                        document.getElementById('uploadStatusintro').innerHTML = response.data.message;
-                        $("#removeprogrssbarintro").addClass("d-none");
-                        $("#uploadStatusintro").addClass("Videosucces");
-                        $("#uploadStatusintro").removeClass("Videoerror");
-                        $("#imageUploadFormintro").addClass("d-none");
-                        $("#ansGiven"+id).removeClass("d-none");
-                        $("#progress-barintro").removeClass("bg-success");
-                        $("#progress-barintro").addClass("bg-info");
+        // function uploadIntroVideo(id) {
+        //     let formData = new FormData(document.getElementById('imageUploadForm'+id));
+        //     document.getElementById('formFileLg'+id).disabled = true;
+        //     axios.post('{{ route("web.athletes.coach.uploadVideo") }}', formData, {
+        //         headers: {
+        //             'Content-Type': 'multipart/form-data',
+        //         },
+        //         onUploadProgress: function (progressEvent) {
+        //             var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+        //             document.getElementById('progress-bar-containerintro').style.display = 'block';
+        //             document.getElementById('progress-barintro').style.width = percentCompleted + '%';
+        //             document.getElementById('progress-barintro').innerText = percentCompleted + '%';
+        //             // document.getElementById('progress-text'+id).innerText = percentCompleted + '%';
+        //         },
+        //     })
+        //         .then(function (response) {
+        //             console.log(response.data.success);
+        //             if(response.data.success == true){
+        //                 $("#saveintro").removeClass("disabled");
+        //                 console.log(response.data.message)
+        //                 document.getElementById('uploadStatusintro').innerHTML = response.data.message;
+        //                 $("#removeprogrssbarintro").addClass("d-none");
+        //                 $("#uploadStatusintro").addClass("Videosucces");
+        //                 $("#uploadStatusintro").removeClass("Videoerror");
+        //                 $("#imageUploadFormintro").addClass("d-none");
+        //                 $("#ansGiven"+id).removeClass("d-none");
+        //                 $("#progress-barintro").removeClass("bg-success");
+        //                 $("#progress-barintro").addClass("bg-info");
 
-                        // document.getElementById('progress-bar-containerintro').style.display = 'none';
-                        if(response.data.count == 0){
-                            $("#enabledisable").addClass("disabled");
-                        }else if(response.data.count < 1){
-                            $("#enabledisable").addClass("disabled");
-                        }else{
-                            $("#enabledisable").removeClass("disabled");
-                            $("#enabledisable").addClass("enable");
+        //                 // document.getElementById('progress-bar-containerintro').style.display = 'none';
+        //                 if(response.data.count == 0){
+        //                     $("#enabledisable").addClass("disabled");
+        //                 }else if(response.data.count < 1){
+        //                     $("#enabledisable").addClass("disabled");
+        //                 }else{
+        //                     $("#enabledisable").removeClass("disabled");
+        //                     $("#enabledisable").addClass("enable");
 
-                        }
-                    }else{
-                        document.getElementById('uploadStatusintro').innerHTML = response.data.message;
-                        $("#imageUploadFormintro").addClass("d-none");
-                        $("#uploadStatusintro").addClass("Videoerror");
-                        $("#uploadStatusintro").removeClass("Videosucces");
-                        if(error.response.data.count == 0){
-                            $("#enabledisable").addClass("disabled");
-                        }else if(error.response.data.count < 1){
-                            $("#enabledisable").addClass("disabled");
-                        }else{
-                            $("#enabledisable").removeClass("disabled");
-                            $("#enabledisable").addClass("enable");
-                        }
-                    }
-                })
-        }
+        //                 }
+        //             }else{
+        //                 document.getElementById('uploadStatusintro').innerHTML = response.data.message;
+        //                 $("#imageUploadFormintro").addClass("d-none");
+        //                 $("#uploadStatusintro").addClass("Videoerror");
+        //                 $("#uploadStatusintro").removeClass("Videosucces");
+        //                 if(error.response.data.count == 0){
+        //                     $("#enabledisable").addClass("disabled");
+        //                 }else if(error.response.data.count < 1){
+        //                     $("#enabledisable").addClass("disabled");
+        //                 }else{
+        //                     $("#enabledisable").removeClass("disabled");
+        //                     $("#enabledisable").addClass("enable");
+        //                 }
+        //             }
+        //         })
+        // }
 
 
         function uploadAddVideo(id) {
@@ -410,7 +410,7 @@
                 return false;
             }
 
-            if($("#formFileLgaddvideo").length == '0'){
+            if(formFileLgaddvideo == ""){
                 console.log(formFileLgaddvideo);
                 $("#formFileLgaddvideocheck").removeClass("d-none");
                 return false;
@@ -460,11 +460,11 @@
                 return false;
             }
 
-            if(formFileLgaddvideo.length == '0'){
-                console.log(formFileLgaddvideo);
-                $("#formFileLgeditvideocheck").removeClass("d-none");
-                return false;
-            }
+            // if(formFileLgaddvideo.length == '0'){
+            //     console.log(formFileLgaddvideo);
+            //     $("#formFileLgeditvideocheck").removeClass("d-none");
+            //     return false;
+            // }
             let formData = new FormData(document.getElementById('imageUploadFormeditvideo'));
             document.getElementById('formFileLg'+id).disabled = true;
             axios.post('{{ route("web.Video.update") }}', formData, {
@@ -704,29 +704,27 @@
         });
     </script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        // Get the active pill index from localStorage
+        var activePillIndex = localStorage.getItem('activePillIndex');
+
+        // If activePillIndex exists, activate the corresponding pill
+        if (activePillIndex !== null) {
+            $('#pills-tab a:eq(' + activePillIndex + ')').tab('show');
+        }
+
+        // Store the active pill index when a pill is clicked
+        $('#pills-tab a').on('shown.bs.tab', function (e) {
+            var index = $(e.target).parent().index();
+            localStorage.setItem('activePillIndex', index);
+        });
+        });
+    </script>
 
     <script>
         function cancelUploade() {
-            Swal.fire({
-                title: "Are you sure?",
-                text: "You won't to cancel!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes"
-            }).then((result) => {
-            if (result.isConfirmed) {
-                location.reload();
-                //$(".refreshableDiv").load(location.href + ".refreshableDiv");
-                // if (formData) {
-                //     formData.abort();
-                //     formData = null;
-                //     console.log("Canceled");
-                // }
-                // return false;
-            }
-            });
+            location.reload();
         }
     </script>
 </body>

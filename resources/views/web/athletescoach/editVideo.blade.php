@@ -96,7 +96,7 @@
                             <div class="col-lg-8">
                                 <div class="mb-4">
                                     <input class="choose-btn-iyg" name="video" id="formFileLgeditvideo" accept="video/mp4,video/x-m4v,video/*" type="file">
-                                    <div class="alert mt-2 d-none" id="formFileLgeditvideocheck">Video Feild is required</div>
+                                    <div class="alert mt-2 d-none" id="formFileLgeditvideocheck">Video Field is required</div>
                                 </div>
                             </div>
                             <div class="col-lg-4">

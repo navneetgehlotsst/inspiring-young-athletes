@@ -112,7 +112,7 @@ Route::group(['middleware' => 'auth'], function ()
         Route::post('/upload-Video', 'uploadVideo')->name('uploadVideo');
         Route::get('/remove-Video', 'removeVideo')->name('removeVideo');
         Route::get('/saveanswere', 'SaveAnswere')->name('SaveAnswere');
-        Route::get('/question-and-answere/{new_video?}', 'questionandanswere')->name('questionandanswere');
+        Route::any('/question-and-answere/{new_video?}', 'questionandanswere')->name('questionandanswere');
         Route::post('/showvideo', 'showVideo')->name('show.video');
         Route::get('/addvideo/{questionid}', 'addQuestionVideo')->name('add.video');
         Route::get('/editvideo/{questionid}', 'editQuestionVideo')->name('edit.video');
@@ -178,7 +178,10 @@ Route::name('admin.')->prefix('admin')->controller(AuthController::class)->group
         Route::get('logout','logout')->name('logout');
         Route::get('dashboard','dashboard')->name('dashboard');
         Route::get('profile','editProfile')->name('profile');
+        Route::get('change-password','changePassword')->name('change-password');
         Route::post('/profileupdate', 'profileupdate')->name('profileupdate');
+        Route::post('update-password', 'updatePassword')->name('update-password');
+
     });
 });
 

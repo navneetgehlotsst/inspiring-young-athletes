@@ -30,7 +30,7 @@
     <div class="container">
         <div class="row">
             @include('web.layouts.elements.leftsidebar')
-            <div class="col-lg-9 py-3">
+            <div class="col-lg-9 col-md-9 py-3">
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">

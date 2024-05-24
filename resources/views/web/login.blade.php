@@ -68,7 +68,7 @@
                 <div class="from-box p-5">
                     <div class="pb-3 text-center">
                         <h2 class="fw-bold">Login to your Account</h2>
-                        <p class="fw-bold pt-3">Enter to continue and explore within your grasp</p>
+                        <p class="fw-bold pt-3">Login or sign up here for just US$3.95 per month to see ALL videos</p>
                     </div>
                     <form role="form" action="{{ route('web.login.post') }}" method="post">
                         @csrf

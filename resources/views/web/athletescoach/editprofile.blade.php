@@ -75,6 +75,7 @@
                                             <div class="camera-img m-auto">
                                                 <img src="{{asset('web/assets/images/new-img/camera.png')}}" width="30px" class="camera-images">
                                             </div>
+                                            <span>For Optimal Display ,The ratio of profile image should be 1:1 i.e. width :- 150px and height :- 150px.</span>
                                         </div>
                                         <div class="mb-4">
                                             <input class="edit-btn-iyg py-2 profile-img-position" id="file-input" accept="image/png, image/gif, image/jpeg" name="profileimg" type="file">

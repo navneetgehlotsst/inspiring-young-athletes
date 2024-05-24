@@ -49,12 +49,12 @@
     background-color: rgb(238, 238, 238);
     padding: 0 3px;
     }
-    .close-btn-onclick-btn{
+    /* .close-btn-onclick-btn{
         position: absolute;
         right: 0;
         font-size: 18px;
         bottom:12px;
-    }
+    } */
   </style>
 <div class="loading-overlay">
     <span class="fas fa-spinner fa-3x fa-spin"></span>
@@ -107,11 +107,12 @@
                     </form>
                     <div id="uploadStatuseditquesVideo"></div>
                     <div id="progressbarcontainereditquesVideo" style="display: none;">
-                        <div class="progress" >
+                        <div style="position:relative;" class="progress">
                             <div class="progress-bar bg-success" id="progressbareditquesVideo" role="progressbar" value="0" max="100">0%</div>
-                            <a class="text-danger close-btn-onclick-btn" id="removeprogrssbareditquesVideo" onclick="cancelUploade()" btn btn-primary><i class="fas fa-times-circle"></i></a>
+                            <a class="text-danger close-btn-onclick-btn" style="" id="removeprogrssbareditquesVideo" onclick="cancelUploade()" btn btn-primary><i class=" fas fa-times-circle"></i></a>
                         </div>
                     </div>
+                    <p>If you want to change the video, please upload to video  and click on the save button.</p>
                 </div>
                 <div id="loader" class="loader"></div>
             </div>

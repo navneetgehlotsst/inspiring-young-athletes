@@ -299,7 +299,7 @@ class QuestionController extends Controller
                     $Video->delete();
                 }
 
-                return redirect()->route('web.athletes.coach.atheliticsCoachQuestion')->with('success', 'Your Role Has Been Chnaged.');
+                return redirect()->route('web.athletes.coach.atheliticsCoachQuestion')->with('success', 'Your Role Has Been changed.');
             }else{
                 return redirect()->route('web.login');
             }
@@ -320,9 +320,9 @@ class QuestionController extends Controller
                 $userAns[] = $userAnwere;
             }
             if($new_video == "add_question"){
-                return redirect()->route('web.athletes.coach.questionandanswer')->with('success','Video has been added successfully.');
+                return redirect()->route('web.athletes.coach.questionandanswere')->with('success','Video has been added successfully.');
             }elseif($new_video == 'update_question'){
-                return redirect()->route('web.athletes.coach.questionandanswer')->with('success','Video has been updated successfully.');
+                return redirect()->route('web.athletes.coach.questionandanswere')->with('success','Video has been updated successfully.');
             }else{
                 return view('web.athletescoach.questionandans',compact('questionathelitics','questioncoaches','UserDetail','userAns'));
             }

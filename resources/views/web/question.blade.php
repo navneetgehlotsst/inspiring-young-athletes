@@ -48,11 +48,11 @@
                             <div class="questions-answer-section">
                                     <nav>
                                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                            <button class="nav-link fw-bold active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#for_athletes" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Athletics</button>
-                                            <button class="nav-link fw-bold" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#for_parents" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Parents</button>
-                                            <button class="nav-link fw-bold" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#for_athletes_coaches" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Coaches</button>
-                                            <button class="nav-link fw-bold" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#for_friday_frenzy" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Game Day Prep</button>
-                                            {{-- <button class="nav-link fw-bold" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#for_female_athletes" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Female Athletes</button> --}}
+                                            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#for_athletes" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Athletes</button>
+                                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#for_parents" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Parents</button>
+                                            <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#for_athletes_coaches" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Coaches</button>
+                                            <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#for_friday_frenzy" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Game Day Prep</button>
+                                            {{-- <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#for_female_athletes" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Female Athletes</button> --}}
                                         </div>
                                     </nav>
                                     <div class="tab-content" id="nav-tabContent">

@@ -57,28 +57,62 @@ $(document).ready( function () {
 
 
     //show Video
+    
     $('#questionDataTable').on('click', '.showvideo', function() {
-    //$(".showvideo").click(function(){
         var $this = $(this);
         var id = $this.data("videoid");
         var url = $this.data("url");
         var token = $("meta[name='csrf-token']").attr("content");
-
+    
         $.post(url, { id: id, _token: token })
-        .done(function(response) {
-            console.log(response);
-            if (response.success) {
-            $('#modalVideo').modal('show');
-            $('#viewVideo').attr('src', response.data.video);
-            $('#VideoTitle').text(response.data.video_title);
-            } else {
-            Swal.fire("No Video Found", "", "info");
-            }
-        })
-        .fail(function() {
-            Swal.fire("Error", "Failed to retrieve video data", "error");
-        });
+            .done(function(response) {
+                console.log(response);
+                if (response.success) {
+                    $('#modalVideo').modal('show');
+                    $('#viewVideo').attr('src', response.data.video);
+                    $('#VideoTitle').text(response.data.video_title);
+                } else {
+                    Swal.fire("No Video Found", "", "info");
+                }
+            })
+            .fail(function(xhr, status, error) {
+                if (xhr.status == 0) {
+                    Swal.fire("Internet Disconnected", "Please check your internet connection and try again.", "error");
+                } else {
+                    // Handle other types of errors
+                    Swal.fire("An error occurred", "Please try again later.", "error");
+                }
+            });
     });
+    
+    
+    // $('#questionDataTable').on('click', '.showvideo', function() {
+    //     var $this = $(this);
+    //     var id = $this.data("videoid");
+    //     var url = $this.data("url");
+    //     var token = $("meta[name='csrf-token']").attr("content");
+
+    //     $.post(url, { id: id, _token: token })
+    //     .done(function(response) {
+    //         console.log(response);
+    //         if (response.success) {
+    //         $('#modalVideo').modal('show');
+    //         $('#viewVideo').attr('src', response.data.video);
+    //         $('#VideoTitle').text(response.data.video_title);
+    //         } else {
+    //         Swal.fire("No Video Found", "", "info");
+    //         }
+    //     })
+    //     .fail(function(xhr, status, error) {
+    //         if (xhr.status == 0) {
+    //             Swal.fire("Error", "An error occurred: " + error, "error");
+    //         } else {
+    //             // Handle other types of errors
+    //             alert("An error occurred: " + error);
+    //             Swal.fire("Error", "An error occurred: " + error, "error");
+    //         }
+    //     });
+    // });
 
 
     //show Video
@@ -103,6 +137,42 @@ $(document).ready( function () {
             .fail(function() {
                 Swal.fire("Error", "Failed to retrieve video data", "error");
             });
+    });
+
+    // Show Status Change Pop
+    $(".aproved").click(function(){
+        var id = $(this).data("videoid");
+        var url = $(this).data("url");
+        var token = $("meta[name='csrf-token']").attr("content");
+
+        $.ajax({
+            url: url ,
+            type: "POST",
+            data: {
+                id: id,
+                _token: token,
+            },
+            success: function (response) {
+                //location.reload();
+                console.log(response.data.video);
+                if(response.success == true){
+                    $('#changeStatus').modal('show');
+                    $('#videoId').val(response.data.video_id);
+                    $('#type').val(response.data.video_type);
+                    $('#status').val(response.data.video_status);
+                }else{
+                    Swal.fire("No Video Found", "", "info");
+                }
+
+            },
+        });
+    });
+
+    // Show Status Change Pop
+    $(".reject").click(function(){
+        var id = $(this).data("videoid");
+        $('#rejectmodel').modal('show');
+        $('#videoId').val(id);
     });
 
     // Show Status Change Pop
@@ -136,6 +206,43 @@ $(document).ready( function () {
 
     // Show Status Change Pop
     $('#questionDataTable').on('click', '.reject', function() {
+        var id = $(this).data("videoid");
+        $('#rejectmodel').modal('show');
+        $('#videoId').val(id);
+    });
+
+
+    // Show Status Change Pop
+    $('#videoDataTable').on('click', '.aproved', function() {
+        var id = $(this).data("videoid");
+        var url = $(this).data("url");
+        var token = $("meta[name='csrf-token']").attr("content");
+
+        $.ajax({
+            url: url ,
+            type: "POST",
+            data: {
+                id: id,
+                _token: token,
+            },
+            success: function (response) {
+                //location.reload();
+                console.log(response.data.video);
+                if(response.success == true){
+                    $('#changeStatus').modal('show');
+                    $('#videoId').val(response.data.video_id);
+                    $('#type').val(response.data.video_type);
+                    $('#status').val(response.data.video_status);
+                }else{
+                    Swal.fire("No Video Found", "", "info");
+                }
+
+            },
+        });
+    });
+
+    // Show Status Change Pop
+    $('#videoDataTable').on('click', '.reject', function() {
         var id = $(this).data("videoid");
         $('#rejectmodel').modal('show');
         $('#videoId').val(id);

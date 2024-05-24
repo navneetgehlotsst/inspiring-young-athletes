@@ -64,6 +64,13 @@ class AuthController extends Controller
     }
 
 
+
+   public function changePassword()
+    {
+        return view('admin.user.change-password');
+    }
+
+
     // Forgot Password page
     public function forgotpassword(){
         return view('admin.forgotPassword');
@@ -368,5 +375,28 @@ class AuthController extends Controller
         Auth::logout();
         return redirect()->route('admin.login');
     }
+
+        public function updatePassword(Request $request)
+    {
+        try{
+            $request->validate([
+                "old_password" => "required",
+                "new_password" => "required|confirmed",
+            ]);
+            #Match The Old Password
+            if (!Hash::check($request->old_password, auth()->user()->password)) {
+                return back()->with("error", "Old Password Doesn't match!");
+            }
+            #Update the new Password
+            User::whereId(auth()->user()->id)->update([
+                "password" => Hash::make($request->new_password),
+            ]);
+            return back()->with("success", "Password changed successfully!");
+        }
+        catch(Exception $e){
+            return back()->with("error",$e->getMessage());
+        }
+    }
+
 
 }

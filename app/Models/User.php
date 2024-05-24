@@ -71,7 +71,7 @@ class User extends Authenticatable
 
     public function TopVideoList()
     {
-        return $this->hasMany(Video::class, 'user_id')->where('video_status','1')->orderBy('Video_veiw_count', 'desc');
+        return $this->hasMany(Video::class, 'user_id')->where('video_status','1')->orderBy('video_veiw_count', 'desc');
     }
 
     public function videosTotalCount()

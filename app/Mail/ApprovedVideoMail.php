@@ -31,7 +31,7 @@ class ApprovedVideoMail extends Mailable
      */
     public function build()
     {
-        return $this->view('web.email.approvedVideo')->with([
+        return $this->subject('Video Approved')->view('web.email.approvedVideo')->with([
             'email' => $this->user['name'],
             'video_titel' => $this->videoData['video_title'],
         ]);

@@ -31,7 +31,7 @@ class RejectVideoMail extends Mailable
      */
     public function build()
     {
-        return $this->view('web.email.rejectVideo')->with([
+        return $this->subject('Video Rejected')->view('web.email.rejectVideo')->with([
             'email' => $this->user['name'],
             'video_titel' => $this->videoData['video_title'],
         ]);

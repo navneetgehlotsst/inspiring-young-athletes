@@ -83,10 +83,10 @@ class UserRegisterController extends Controller
                 if($currentTime < $userdata['futureDate']){
 
                     $datauser = [
-                        'name' => $userdata['name'],
-                        'email' => $userdata['email'],
-                        'password' => $userdata['password'],
-                        'phone' => $userdata['phone'],
+                        'name' => $userdata['name'] ?? NULL,
+                        'email' => $userdata['email'] ?? NULL,
+                        'password' => $userdata['password'] ?? NULL,
+                        'phone' => $userdata['phone'] ?? NULL,
                         'roles' => 'User',
                         'email_verified_at' => $date,
                     ];

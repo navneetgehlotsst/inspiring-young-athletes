@@ -172,18 +172,20 @@
                         if(response.data.count == '0'){
                             document.getElementById('compltedquestioncount').innerHTML = '';
                             document.getElementById('compltedquestioncount').innerHTML += '0';
-                        }else if(response.data.count > 1){
-                            document.getElementById('compltedquestioncount').innerHTML = '';
-                            document.getElementById('compltedquestioncount').innerHTML += '8';
-                            //Swal.fire("Congratulations, you have activated your account, please go to the dashboard button below to add bank details for payments. There is nothing to tell you what to do next.!");
-                        }else{
+                        }else if(response.data.count < 8){
+
                             document.getElementById('compltedquestioncount').innerHTML = '';
                             document.getElementById('compltedquestioncount').innerHTML += response.data.count;
+                         
+                            //Swal.fire("Congratulations, you have activated your account, please go to the dashboard button below to add bank details for payments. There is nothing to tell you what to do next.!");
+                        }else{
+                    document.getElementById('compltedquestioncount').innerHTML = '';
+                            document.getElementById('compltedquestioncount').innerHTML += '8';
                             // Swal.fire("Congratulations, you have activated your account, please go to the dashboard button below to add bank details for payments. There is nothing to tell you what to do next.!");
                             Swal.fire({
                                 title: "Congratulations",
-                                text: "You have activated your account, please go to the dashboard button below to add bank details for payments. There is nothing to tell you what to do next.!",
-                                icon: "question"
+                                text: "You have activated your account, please go to the dashboard button below to add bank details for payments.",
+                                icon: "success"
                             });
                         }
                         $("#imageUploadForm"+id).addClass("d-none");
@@ -192,7 +194,7 @@
                         document.getElementById('progress-bar-container'+ id).style.display = 'none';
                         if(response.data.count == 0){
                             $("#enabledisable").addClass("disabled");
-                        }else if(response.data.count < 1){
+                        }else if(response.data.count < 8){
                             $("#enabledisable").addClass("disabled");
                         }else{
                             $("#enabledisable").removeClass("disabled");
@@ -205,7 +207,7 @@
                         if(response.data.count == '0'){
                             document.getElementById('compltedquestioncount').innerHTML = '';
                            document.getElementById('compltedquestioncount').innerHTML += '0';
-                        }else if(response.data.count > 1){
+                        }else if(response.data.count > 8){
                             document.getElementById('compltedquestioncount').innerHTML = '';
                             document.getElementById('compltedquestioncount').innerHTML += '8';
                         }else{
@@ -217,7 +219,7 @@
                         document.getElementById('progress-bar-container'+ id).style.display = 'none';
                         if(error.response.data.count == 0){
                             $("#enabledisable").addClass("disabled");
-                        }else if(error.response.data.count < 1){
+                        }else if(error.response.data.count < 8){
                             $("#enabledisable").addClass("disabled");
                         }else{
                             $("#enabledisable").removeClass("disabled");
@@ -237,7 +239,7 @@
                     document.getElementById('progress-bar-container'+ id).style.display = 'none';
                     if(error.response.data.count == 0){
                         $("#enabledisable").addClass("disabled");
-                    }else if(error.response.data.count < 1){
+                    }else if(error.response.data.count < 8){
                         $("#enabledisable").addClass("disabled");
                     }else{
                         $("#enabledisable").removeClass("disabled");
@@ -289,7 +291,7 @@
                         document.getElementById('progress-bar-containerintro').style.display = 'none';
                         if(response.data.count == 0){
                             $("#enabledisable").addClass("disabled");
-                        }else if(response.data.count < 1){
+                        }else if(response.data.count < 8){
                             $("#enabledisable").addClass("disabled");
                         }else{
                             $("#enabledisable").removeClass("disabled");
@@ -303,7 +305,7 @@
                         if(response.data.count == '0'){
                             document.getElementById('compltedquestioncount').innerHTML = '';
                            document.getElementById('compltedquestioncount').innerHTML += '0';
-                        }else if(response.data.count > 1){
+                        }else if(response.data.count > 8){
                             document.getElementById('compltedquestioncount').innerHTML = '';
                             document.getElementById('compltedquestioncount').innerHTML += '8';
                         }else{
@@ -315,7 +317,7 @@
                         document.getElementById('progress-bar-container'+ id).style.display = 'none';
                         if(error.response.data.count == 0){
                             $("#enabledisable").addClass("disabled");
-                        }else if(error.response.data.count < 1){
+                        }else if(error.response.data.count < 8){
                             $("#enabledisable").addClass("disabled");
                         }else{
                             $("#enabledisable").removeClass("disabled");
@@ -644,18 +646,38 @@
 
         $(document).ready(function(){
             $(".confrmationmsg").click(function(){
-                swal.fire({
+
+                    swal.fire({
                     title: "Are you sure you want to proceed?",
-                    text: "In that case, you won't be able to change your role!",
-                    showCancelButton: true,
+                    text: "Just checking you have chosen the correct role as coach or athlete as this cannot be changed later",
+                    showCancelButton: false,
                     confirmButtonText: "Yes",
-                    cancelButtonText: "No",
-                }).then((result) => {
-                /* Read more about isConfirmed, isDenied below */
+                    showDenyButton: true,
+                    denyButtonText: "No! Want to change Role",
+                    focusConfirm: false,
+                    showCloseButton: true
+                    }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.replace("{{ route('web.athletes.coach.SaveAnswere') }}");
+                    window.location.replace("{{ route('web.athletes.coach.SaveAnswere') }}");
+                    } else if (result.isDenied) {
+                    window.location.replace("{{ route('web.athletes.coach.update.role') }}");
                     }
-                });
+                    else{
+                    }
+                    });
+
+                // swal.fire({
+                //     title: "Are you sure you want to proceed?",
+                //     text: "Just checking you have chosen the correct role as coach or athlete as this cannot be changed later",
+                //     showCancelButton: true,
+                //     confirmButtonText: "Yes",
+                //     cancelButtonText: "No! Want to change Role",
+                // }).then((result) => {
+                // /* Read more about isConfirmed, isDenied below */
+                //     if (result.isConfirmed) {
+                //         window.location.replace("{{ route('web.athletes.coach.SaveAnswere') }}");
+                //     }
+                // });
             });
         });
     </script>

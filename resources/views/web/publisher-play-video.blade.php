@@ -10,7 +10,7 @@
                 <div class="video-post-wrapper">
                     <div class="single-video full-video-view">
                         <div class="video-img feature-post-img">
-                           <video id="main-video" class="w-100" height="500" playsinline controls poster="{{asset($getVideo->thumbnails)}}">
+                           <video id="main-video" class="w-100" playsinline controls poster="{{asset($getVideo->thumbnails)}}">
                                 <!-- <source src="{{asset($getVideo->video)}}" type="video/mp4/mov/avi/wmv">
                                 <source src="{{asset($getVideo->video)}}" type="video/ogg"> -->
                                 <source src="{{asset($getVideo->video)}}">
@@ -23,11 +23,14 @@
                             <div class="d-flex">
                                 <span class="video-icons bg-white">
                                     <div class="publisher-img">
-                                        @if(!empty($userdetail))
-                                            @if($userdetail->profile == "")
+
+                                        
+
+                                        @if(!empty($userDetail))
+                                            @if($userDetail->profile == "")
                                                 <img class="img-fluid publisher-img-width" src="{{asset('web/assets/images/new-img/user.png')}}" alt="">
                                             @else
-                                                <img class="img-fluid publisher-img-width" src="{{asset($userdetail->profile)}}" alt="">
+                                                <img class="img-fluid publisher-img-width" src="{{asset($userDetail->profile)}}" alt="">
                                             @endif
                                         @else
                                             <img class="img-fluid publisher-img-width" src="{{asset('web/assets/images/new-img/user.png')}}" alt="">

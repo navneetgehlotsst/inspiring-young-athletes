@@ -57,12 +57,12 @@
                             @php
                                 $name = explode(" ", auth()->user()->name)
                             @endphp
-                        {{-- @if(auth()->user()->roles == "User")
-                            <a href="{{ route('web.index') }}" class="text-white"><i class="fa fa-lock"></i><em>Welcome, </em> {{ $name['0'] }}</a>
-                            <a href="{{ route('web.index') }}" class="text-white"><i class="fa fa-lock"></i>Edit Profile</a>
-                        @else --}}
+                        @if(auth()->user()->roles == "User")
+                            <a href="{{ route('web.athletes.coach.GetEditProfile') }}" class="text-white"><i class="fa fa-lock"></i><em>Welcome, </em> {{ $name['0'] }}</a>
+                            <!-- <a href="{{ route('web.athletes.coach.GetEditProfile') }}" class="text-white"><i class="fa fa-lock"></i>Edit Profile</a> -->
+                        @else
                             <a href="{{ route('web.dashboard') }}" class="text-white"><i class="fa fa-lock"></i><em>Welcome, </em> {{ $name['0'] }}</a>
-                        {{-- @endif --}}
+                        @endif
                     </div>
                     @else
                     <div class="user-info right">

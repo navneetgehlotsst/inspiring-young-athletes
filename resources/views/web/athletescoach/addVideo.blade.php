@@ -48,12 +48,12 @@
         background-color: rgb(238, 238, 238);
         padding: 0 3px;
     }
-    .close-btn-onclick-btn{
+    /* .close-btn-onclick-btn{
         position: absolute;
         right: 0;
         font-size: 18px;
         bottom:12px;
-    }
+    } */
   </style>
 <div class="loading-overlay">
     <span class="fas fa-spinner fa-3x fa-spin"></span>
@@ -74,12 +74,12 @@
                     <form id="imageUploadFormaddvideo" enctype="multipart/form-data">
                         @csrf
                         <input type="text" name="title" id="title" class="form-control py-3 mb-4" value="{{ old('title') }}" placeholder="Video Title">
-                        <div class="alert d-none" id="titlemessgae">Title Feild is required</div>
+                        <div class="alert d-none" id="titlemessgae">Title field is required</div>
                         <div class="row">
                             <div class="col-lg-8">
                                 <div class="mb-4">
                                     <input class="choose-btn-iyg" name="video" id="formFileLgaddvideo" accept="video/mp4,video/x-m4v,video/*" type="file">
-                                    <div class="alert mt-2 d-none" id="formFileLgaddvideocheck">Video Field is required</div>
+                                    <div class="alert mt-2 d-none" id="formFileLgaddvideocheck">Video field is required</div>
                                 </div>
                             </div>
                             <div class="col-lg-4">

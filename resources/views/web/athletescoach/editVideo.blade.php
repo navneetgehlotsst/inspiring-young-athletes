@@ -49,12 +49,12 @@
     background-color: rgb(238, 238, 238);
     padding: 0 3px;
     }
-    .close-btn-onclick-btn{
+    /* .close-btn-onclick-btn{
         position: absolute;
         right: 0;
         font-size: 18px;
         bottom:12px;
-    }
+    } */
   </style>
 <div class="loading-overlay">
     <span class="fas fa-spinner fa-3x fa-spin"></span>
@@ -79,7 +79,7 @@
                         @csrf
                         <input type="hidden" name="videoid" value="{{$videodetail->video_id}}">
                         <input type="text" name="title" class="form-control py-3 mb-4" value="{!!$videodetail->video_title!!}" placeholder="Video Title">
-                        <div class="alert d-none" id="titlemessgae">Title Feild is required</div>
+                        <div class="alert d-none" id="titlemessgae">Title Field is required</div>
                         @if($videodetail->video_status == '2')
                             <input type="text" name="remark" class="form-control py-3 mb-4" value="{{$videorejectedcomment->comment}}" placeholder="Video Reject Comment" readonly>
                         @endif
@@ -111,8 +111,11 @@
                             <a class="text-danger close-btn-onclick-btn" id="removeprogrssbareditVideo" onclick="cancelUploade()" btn btn-primary><i class="fas fa-times-circle"></i></a>
                         </div>
                     </div>
+                             <p>If you want to change the video, please upload to video  and click on the save button.</p>
                 </div>
                 <div id="loader" class="loader"></div>
+
+
             </div>
         </div>
     </div>

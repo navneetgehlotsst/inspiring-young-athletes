@@ -68,20 +68,18 @@
                     <form role="form" action="{{ route('web.athletes.coach.verifyotp') }}" method="post">
                         @csrf
                         <div class="row">
-                            <div class="col-lg-8 m-auto">
-                                <div class="row">
-                                    <div class="col-lg-3">
-                                        <input type="number" name="otp1" class="form-control py-3 mb-4 text-center otp-input" placeholder="" required>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <input type="number" name="otp2" class="form-control py-3 mb-4 text-center otp-input" placeholder="" required>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <input type="number" name="otp3" class="form-control py-3 mb-4 text-center otp-input" placeholder="" required>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <input type="number" name="otp4" class="form-control py-3 mb-4 text-center otp-input" placeholder="" required>
-                                    </div>
+                            <div class="col-lg-8 otp-log">
+                                <div class="otp-form">
+                                    <input type="number" name="otp1" class="form-control py-3 mb-4 text-center otp-input" placeholder="" required>
+                                </div>
+                                <div class="otp-form">
+                                    <input type="number" name="otp2" class="form-control py-3 mb-4 text-center otp-input" placeholder="" required>
+                                </div>
+                                <div class="otp-form">
+                                    <input type="number" name="otp3" class="form-control py-3 mb-4 text-center otp-input" placeholder="" required>
+                                </div>
+                                <div class="otp-form">
+                                    <input type="number" name="otp4" class="form-control py-3 mb-4 text-center otp-input" placeholder="" required>
                                 </div>
                             </div>
                         </div>

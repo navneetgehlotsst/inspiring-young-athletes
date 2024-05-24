@@ -29,12 +29,6 @@
         pointer-events: none;
         cursor: default;
     }
-    .close-btn-onclick-btn{
-        position: absolute;
-        right: 0;
-        font-size: 18px;
-        bottom:12px;
-    }
 </style>
 <!-- Video Publisher Section Start-->
 <section class="publisher-section themeix-ptb-2">
@@ -50,7 +44,7 @@
                         <div class="accordion-body position-relative">
                             <p class="fw-bold text-center">Please add a 30 second introductory video of yourself stating your name, sport you play and accolades to date.</p>
                             <form id="imageUploadFormintro" class="d-flex justify-content-center" enctype="multipart/form-data">
-                                <div class="mb-4">
+                                <div class="mb-4 align-set">
                                     <input type="hidden" name="questiontype" value="QA">
                                     <input type="hidden" name="questionid" value="0">
                                     <input class="choose-btn-iyg" name="video" id="formFileLgintro" accept="video/mp4,video/x-m4v,video/*" type="file" onchange="uploadIntroVideo('intro')" />

@@ -49,12 +49,12 @@
     background-color: rgb(238, 238, 238);
     padding: 0 3px;
     }
-    .close-btn-onclick-btn{
+    /* .close-btn-onclick-btn{
         position: absolute;
         right: 0;
         font-size: 18px;
         bottom:12px;
-    }
+    } */
   </style>
 <div class="loading-overlay">
     <span class="fas fa-spinner fa-3x fa-spin"></span>

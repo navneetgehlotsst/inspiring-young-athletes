@@ -53,7 +53,7 @@
             <div class="col-lg-6 align-self-center">
                 <div class="from-box text-center p-5">
                     <div class="pb-3">
-                        <h3 class="fw-bold">Enter to continue and explore within your grasp</h3>
+                        <h3 class="fw-bold">Sign Up here to give knowledge to the next generation of Athletes.</h3>
                     </div>
                     <form role="form" action="{{ route('web.athletes.coach.register.post') }}" method="post" id="coachAtheliticsRegister">
                         @csrf

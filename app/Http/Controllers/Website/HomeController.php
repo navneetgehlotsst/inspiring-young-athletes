@@ -39,17 +39,20 @@ class HomeController extends Controller
     public function Index(){
         $getcategory = Category::where('category_status','1')->take(12)->get();
         $faqs = Faq::get();
-        //count query pending show data in veiw
-        $athleticCoaches = User::where('roles', '!=', 'User')->where('roles', '!=', 'Admin')->withCount('videos')->take(9)->get();
-        if (Auth::check()){
+        
+        $athleticCoaches = User::where('roles', '!=', 'User')->where('roles', '!=', 'Admin')->where('quetion_status',"1")->withCount('videos')->orderBy('videos_count','DESC')->take(9)->get();
+        
+        if(Auth::check()){
             $UserDetail = Auth::user();
             $userID = $UserDetail->id;
             $checkSubscriptions = Subscriptions::where('user_id',$userID)->first();
         }else{
             $checkSubscriptions = "";
         }
+
         return view('web.home',compact('getcategory','athleticCoaches','checkSubscriptions','faqs'));
     }
+
     // About page
     public function About(){
         return view('web.about');
@@ -277,6 +280,8 @@ class HomeController extends Controller
 
     // Video list
     public function VideoPublisherList($id , Request $request){
+
+
         $url = URL::current();
         $shareComponent = \Share::page($url,'Your share text comes here',)
         ->facebook()
@@ -285,9 +290,10 @@ class HomeController extends Controller
         ->telegram()
         ->whatsapp();
         $userdetail = User::where('id',$id)->withCount('videos')->first();
-        $categoryFirst = Category::where('category_id',$userdetail->category)->first();
+        $categoryFirst = Category::where('category_id',$userdetail->category ?? '')->first();
         $videoList = Video::where('user_id',$userdetail->id)->where('video_status','1')->where('video_title','!=','Intro Video')->paginate(10);
         $videoIntro = Video::where('user_id',$userdetail->id)->where('video_status','1')->where('video_title','Intro Video')->get();
+        $is_subcribed=0;
         if (Auth::check()){
             $UserDetail = Auth::user();
             $userID = $UserDetail->id;
@@ -308,6 +314,7 @@ class HomeController extends Controller
 
     // Video
     public function Video($id){
+
         $getVideo = Video::where('Video_id', $id)->first();
 
         if (empty($getVideo)) {
@@ -355,7 +362,7 @@ class HomeController extends Controller
 
         $popularVideos = Video::where('Video_id', '!=', $id)
             ->where('user_id', $getVideo->user_id)
-            ->where('video_status', '2')
+            ->where('video_status', '1')
             ->orderBy('Video_veiw_count', 'DESC')
             ->take(2)
             ->get();
@@ -534,7 +541,7 @@ class HomeController extends Controller
                     $inttentId = $intent->client_secret;
                     return view('web.subscription',compact('PlanId','inttentId'));
                 }else{
-                    return redirect()->back()->with('error', 'Athletics And Coach Cant buy this subscription');
+                    return redirect()->back()->with('error', 'Athletes and Coaches cannot buy this subscription');
                 }
             }else{
                 return redirect()->route('web.login');
@@ -577,7 +584,7 @@ class HomeController extends Controller
                 return redirect()->route('web.login');
             }
         } catch (\Throwable $th) {
-            return back()->with('error',$th->getMessage());
+            return redirect()->route('web.joinnow')->with('error',$th->getMessage());
         }
 
     }

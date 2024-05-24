@@ -1,5 +1,5 @@
 <!-- Start Footer Area -->
-<footer>
+<footer class="pt-5">
     <div class="footer-area themeix-ptb">
         <div class="footer-wrapper">
             <div class="container">
@@ -64,7 +64,7 @@
         </div>
     </div>
     <!-- Start Footer Bottom Area -->
-    <div class="footer-bottom-area pb-80">
+    <div class="footer-bottom-area pt-3">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">

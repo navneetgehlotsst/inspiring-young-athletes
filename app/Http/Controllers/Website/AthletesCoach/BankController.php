@@ -71,6 +71,7 @@ class BankController extends Controller
                             $accountResponse = $stripe->accounts->create([
                                 'type' => 'express',
                                 'email' => $UserDetail->email,
+                                //'country' => "AU",
                                 'capabilities' => [
                                     'card_payments' => ['requested' => true],
                                     'transfers' => ['requested' => true],

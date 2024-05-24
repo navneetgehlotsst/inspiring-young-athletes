@@ -1,15 +1,15 @@
     <!-- Start Call To Action Area -->
-    <div class="call-to-action-area py-5 mt-0 mt-lg-5 ">
+    <div class="call-to-action-area mt-0 py-5">
         <div class="container">
-            <div class="row py-5">
+            <div class="row">
                 <div class="col-md-12">
-                    <div class="action-content text-center pb-5">
-                        <h2 class="text-dark fw-bold lh-base">Don't miss out on the latest updates, promotions, and exclusive content. Sign up for our newsletters by entering your email address below.</h2>
+                    <div class="action-content text-center pb-3">
+                        <h2 class="text-dark lh-base">Don't miss out on the latest updates, promotions, and exclusive content. <br>Sign up for our newsletters by entering your email address below.</h2>
                     </div>
                 </div>
                 <div class="col-md-6 m-auto">
                     <div class="subscribe-section">
-                        <form action="{{ route('web.newsletter.create') }}" method="post">
+                        <form class="d-flex" action="{{ route('web.newsletter.create') }}" method="post">
                             @csrf
                             <input type="email" name="email" placeholder="Enter your email">
                             <button type="submit" class="px-2 px-lg-5">Subscribe</button>

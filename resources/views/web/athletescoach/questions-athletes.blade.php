@@ -49,12 +49,6 @@
 @endif
 
 <style>
-    .close-btn-onclick-btn{
-        position: absolute;
-        right: 0;
-        font-size: 18px;
-        bottom:12px;
-    }
     .alert-info {
         color: #055160;
         background-color: #cff4fc;
@@ -68,10 +62,10 @@
             <div class="col-lg-10 m-auto">
                 <div class="text-center">
                     <h2 class="text-white fw-bold">Questions And Answer</h2>
-                    <p class="text-white">Answer any 8 of our pre-determined questions as an athlete or coach to activate your account online</p>
+                    <p class="text-white">You need to answer 8 questions in total, that could be 5 athlete questions, one of your parents answer one of the parent questions, one of your old coaches (preferably from your teenage years) answers the coach question and give us a game day prep 30 second video as long as 8 answers are uploaded in total.</p>
                 </div>
                 <div class="complete-box-position">
-                    <span class="complete-questions"><span class="h4 pt-3" id="showanswerecount">@if($userAnswerCount == '0') 0 @else {{$userAnswerCount}} @endif</span> Complete</span>
+                    <span class="complete-questions"><span class="h4" id="showanswerecount">@if($userAnswerCount == '0') 0 @else {{$userAnswerCount}} @endif</span> Complete</span>
                 </div>
                 <ul class="nav nav-pills justify-content-center mb-3" id="pills-tab" role="tablist">
                     <li class="nav-item questions-answer-tap" role="presentation">
@@ -96,15 +90,15 @@
                         <div class="from-box p-3 p-lg-5">
                             <div class="row">
                                 <div class="col-lg-8 col-8 alert alert-info">
-                                    If you chose the wrong option and need to switch between athlete and coach, <a href="{{ route('web.athletes.coach.update.role') }}" class="fw-bold">Click Here</a>
+                                    If you choose the wrong option and need to switch between athlete and coach, <a href="{{ route('web.athletes.coach.update.role') }}" class="fw-bold">Click Here</a>
                                 </div>
-                                <div class="col-lg-8 col-8">
+                                <div class="col-lg-9 col-9">
                                     <h4 class="fw-bold">Questions for athletes:</h4>
                                     <h5 class="">{{$questionforathletes}} Questions</h5>
-                                    <p>Answer any 8 of our pre-determined questions as an athlete or coach to activate your account online</p>
+                                    <p>You need to answer 8 questions in total, that could be 5 athlete questions, one of your parents answer one of the parent questions, one of your old coaches (preferably from your teenage years) answers the coach question and give us a game day prep 30 second video as long as 8 answers are uploaded in total.</p>
                                 </div>
                                 <div class="col-lg-4 col-4 text-end">
-                                    {{-- <span class="complete-questions"><span class="h4 pt-3" id="showanswerecount">@if($userAnswerCount == '0') 0 @else {{$userAnswerCount}} @endif</span> Complete</span> --}}
+                                    {{-- <span class="complete-questions"><span class="h4" id="showanswerecount">@if($userAnswerCount == '0') 0 @else {{$userAnswerCount}} @endif</span> Complete</span> --}}
                                 </div>
                             </div>
                             <div class="questions-answer-section">
@@ -118,7 +112,7 @@
                                                         <span class="questions-complete-img @if(in_array($questionList->question_id, $userAns)) @else d-none @endif" id="ansGiven{{$questionList->question_id}}">
                                                             <i class="text-success fas fa-check-circle"></i>
                                                         </span>
-                                                        <p class="h6 ps-3">
+                                                        <p class="h6">
                                                             <strong>{{$i++}}.</strong>
                                                             {!!$questionList->question!!}
                                                         </p>
@@ -164,7 +158,7 @@
                                     <p>Answer any 3 of our pre-determined questions as an athlete or coach to activate your account online</p>
                                 </div>
                                 <div class="col-lg-4 col-4 text-end">
-                                    {{-- <span class="complete-questions"><span class="h4 pt-3">0</span> Complete</span> --}}
+                                    {{-- <span class="complete-questions"><span class="h4">0</span> Complete</span> --}}
                                 </div>
                             </div>
                             <div class="questions-answer-section">
@@ -178,7 +172,7 @@
                                                         <span class="questions-complete-img @if(in_array($questionList->question_id, $userAns)) @else d-none @endif" id="ansGiven{{$questionList->question_id}}">
                                                             <i class="text-success fas fa-check-circle"></i>
                                                         </span>
-                                                        <p class="h6 ps-3">
+                                                        <p class="h6">
                                                             <strong>{{$i++}}.</strong>
                                                             {!!$questionList->question!!}
                                                         </p>
@@ -222,7 +216,7 @@
                                     <h4 class="fw-bold">Question from one of your coaches you had as a teenager</h4>
                                 </div>
                                 <div class="col-lg-4 col-4 text-end">
-                                    {{-- <span class="complete-questions"><span class="h4 pt-3">0</span> Complete</span> --}}
+                                    {{-- <span class="complete-questions"><span class="h4">0</span> Complete</span> --}}
                                 </div>
                             </div>
                             <div class="questions-answer-section">
@@ -236,7 +230,7 @@
                                                         <span class="questions-complete-img @if(in_array($questionList->question_id, $userAns)) @else d-none @endif" id="ansGiven{{$questionList->question_id}}">
                                                             <i class="text-success fas fa-check-circle"></i>
                                                         </span>
-                                                        <p class="h6 ps-3">
+                                                        <p class="h6">
                                                             <strong>{{$i++}}.</strong>
                                                             {!!$questionList->question!!}
                                                         </p>
@@ -280,7 +274,7 @@
                                     <h4 class="fw-bold">Question for Friday Frenzy</h4>
                                 </div>
                                 <div class="col-lg-4 col-4 text-end">
-                                    {{-- <span class="complete-questions"><span class="h4 pt-3">0</span> Complete</span> --}}
+                                    {{-- <span class="complete-questions"><span class="h4">0</span> Complete</span> --}}
                                 </div>
                             </div>
                             <div class="questions-answer-section">
@@ -294,7 +288,7 @@
                                                         <span class="questions-complete-img @if(in_array($questionList->question_id, $userAns)) @else d-none @endif" id="ansGiven{{$questionList->question_id}}">
                                                             <i class="text-success fas fa-check-circle"></i>
                                                         </span>
-                                                        <p class="h6 ps-3">
+                                                        <p class="h6">
                                                             <strong>{{$i++}}.</strong>
                                                             {!!$questionList->question!!}
                                                         </p>
@@ -334,10 +328,12 @@
                 </div>
                 <div class="d-flex justify-content-between align-items-center mt-3">
                     <div>
+
+   
                         <h4 class="fw-bold text-white"><span id="compltedquestioncount">@if($userAnswerCount == '0') 0  @elseif($userAnswerCount > 8) 8 @else {{$userAnswerCount}} @endif</span>/8 Questions Complete</h4>
-                        <p class="text-white">Answer any 8 of our pre-determined questions as an athlete or coach to activate your account online</p>
+                        <p class="text-white">You need to answer 8 questions in total, that could be 5 athlete questions, one of your parents answer one of the parent questions, one of your old coaches (preferably from your teenage years) answers the coach question and give us a game day prep 30 second video as long as 8 answers are uploaded in total.</p>
                     </div>
-                    <a href="javascript:void(0)" class="btn iya-btn-white py-3 fw-bold confrmationmsg @if($userAnswerCount < '1') disabled @else enable @endif" id="enabledisable">Go to Dashboard</a>
+                    <a href="javascript:void(0)" class="btn iya-btn-white py-3 fw-bold confrmationmsg @if($userAnswerCount < '8') disabled @else enable @endif" id="enabledisable">Go to Dashboard</a>
                     {{-- <a href="{{ route('web.athletes.coach.SaveAnswere') }}" class="btn iya-btn-white py-3 fw-bold enable" id="enabledisable">Go to Dashboard</a> --}}
                 </div>
             </div>

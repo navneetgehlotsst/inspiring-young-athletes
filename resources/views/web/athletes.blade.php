@@ -52,7 +52,7 @@
                 $year = $dateTimestring->format("Y");
                 $videoCount = $athleticCoachprofile->videos_count;
             @endphp
-            <div class="col-lg-4">
+            <div class="col-lg-6 col-md-6">
                 <div class="publisher-box p-3">
                     <div class="d-flex position-relative">
                         <div class="publisher-img">
